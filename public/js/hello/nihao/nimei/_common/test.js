@@ -1,0 +1,1 @@
+console.log('======= nimei/_common/test');
