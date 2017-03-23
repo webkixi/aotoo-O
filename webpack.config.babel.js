@@ -1,5 +1,7 @@
+import _ from 'lodash'
 import * as gulpcss from './build/gulpcss'
 import * as gulphtml from './build/gulphtml'
+import * as gulp3ds from './build/gulp3ds'
 
 const fs = require('fs')
       , path = require('path')
@@ -21,6 +23,7 @@ const DIST = path.join(__dirname, './dist/out', version, (env=='development' ? '
       , CSSSRC = './public/css'
       , JSSRC = './public/js'
       , HTMLSRC = './public/html'
+      , SRC3DS = './public/3ds'
 
 const adapter = {
   html: function(data){
@@ -111,16 +114,6 @@ let webpackConfig = {
   ]
 }
 
-// html
-let srcs = []
-let targets = []
-const _htmlEntry = getEntry(HTMLSRC, {type: 'html'})
-gulphtml.makeHtml(_htmlEntry, {
-  src: HTMLSRC,
-  dist: DIST+'/html'
-})
-
-
 // css
 const _cssEntry = getEntry(CSSSRC, {type: 'css'})
 gulpcss.makeCss(_cssEntry, {
@@ -129,10 +122,25 @@ gulpcss.makeCss(_cssEntry, {
 })
 
 
+
+// 第三方库
+gulp3ds.js(SRC3DS, DIST)
+gulp3ds.css(SRC3DS, DIST)
+
+
+
+// html
+const _htmlEntry = getEntry(HTMLSRC, {type: 'html'})
+gulphtml.makeHtml(_htmlEntry, {
+  src: HTMLSRC,
+  dist: DIST+'/html'
+})
+
+
+
 // js
 const _jsEntry = getEntry(JSSRC, {type: 'js'})
 webpackConfig.entry = _jsEntry
-
 
 module.exports = webpackConfig
 
