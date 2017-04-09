@@ -1,4 +1,8 @@
 var argv = process.argv.slice(2)
+
+// webpack -d 开发模式
+// webpack -p 生产模式
+
 var margv = require('minimist')(argv);
 if (argv.length) {
   if (margv.d) {
@@ -15,6 +19,7 @@ import _ from 'lodash'
 import * as gulpcss from './build/gulpcss'
 import * as gulphtml from './build/gulphtml'
 import * as gulp3ds from './build/gulp3ds'
+const del = require('del')
 
 const fs = require('fs')
       , path = require('path')
@@ -35,6 +40,8 @@ const DIST = path.join(__dirname, './dist/out', version, (env=='development' ? '
       , JSSRC = './public/js'
       , HTMLSRC = './public/html'
       , SRC3DS = './public/3ds'
+
+del.sync([ DIST ], { force: true })
 
 // css
 const _cssEntry = getEntry(CSSSRC, {type: 'css'})
@@ -62,36 +69,9 @@ gulphtml.makeHtml(_htmlEntry, {
 
 // js
 const _jsEntry = getEntry(JSSRC, {type: 'js'})
-let webpackConfig = require('./build/webpack.config')(DIST)
-webpackConfig.entry = _jsEntry
+let webpackConfig = require('./build/webpack.config')(_jsEntry, {
+  dist: DIST
+})
+// webpackConfig.entry = _jsEntry
 
 module.exports = webpackConfig
-
-
-
-
-// new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
-
-// 生产环境
-// plugins: [
-//   new webpack.optimize.OccurrenceOrderPlugin(),
-//   new webpack.optimize.AggressiveMergingPlugin(),
-//   new webpack.optimize.DedupePlugin(),
-//   new webpack.optimize.UglifyJsPlugin({
-//     compress: {
-//       unused: true,
-//       dead_code: true,
-//       warnings: false,
-//       screw_ie8: true
-//     }
-//   }),
-//   new webpack.NoErrorsPlugin(),
-//   new webpack.DefinePlugin({
-//     'process.env.NODE_ENV': JSON.stringify('production'),
-//     '__DEV__': false
-//   }),
-//   new webpack.optimize.CommonsChunkPlugin({
-//     minChunks: 2,
-//     name: 'vendor'
-//   })
-// ]
