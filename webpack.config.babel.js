@@ -69,9 +69,9 @@ gulphtml.makeHtml(_htmlEntry, {
 
 // js
 const _jsEntry = getEntry(JSSRC, {type: 'js'})
+console.log(_jsEntry)
 let webpackConfig = require('./build/webpack.config')(_jsEntry, {
   dist: DIST
 })
-// webpackConfig.entry = _jsEntry
 
 module.exports = webpackConfig
