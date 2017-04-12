@@ -1,19 +1,19 @@
-var argv = process.argv.slice(2)
-
-// webpack -d 开发模式
-// webpack -p 生产模式
-
-var margv = require('minimist')(argv);
-if (argv.length) {
-  if (margv.d) {
-    process.env.NODE_ENV = 'development'
-  }
-  if (margv.p) {
-    process.env.NODE_ENV = 'production'
-  }
-} else {
-  process.env.NODE_ENV = 'development'
-}
+// var argv = process.argv.slice(2)
+//
+// // webpack -d 开发模式
+// // webpack -p 生产模式
+//
+// var margv = require('minimist')(argv);
+// if (argv.length) {
+//   if (margv.d) {
+//     process.env.NODE_ENV = 'development'
+//   }
+//   if (margv.p) {
+//     process.env.NODE_ENV = 'production'
+//   }
+// } else {
+//   process.env.NODE_ENV = 'development'
+// }
 
 import _ from 'lodash'
 import * as gulpcss from './build/gulpcss'
@@ -27,7 +27,7 @@ const fs = require('fs')
       , glob = require('glob')
       , gulp = require('gulp')
       , $ = require('gulp-load-plugins')();
-      
+
 
 const configs = require('./configs/default')()
       , version = configs.version
@@ -51,7 +51,6 @@ gulpcss.makeCss(_cssEntry, {
 })
 
 
-
 // 第三方库
 gulp3ds.js(SRC3DS, DIST)
 gulp3ds.css(SRC3DS, DIST)
@@ -69,7 +68,6 @@ gulphtml.makeHtml(_htmlEntry, {
 
 // js
 const _jsEntry = getEntry(JSSRC, {type: 'js'})
-console.log(_jsEntry)
 let webpackConfig = require('./build/webpack.config')(_jsEntry, {
   dist: DIST
 })
