@@ -30,22 +30,28 @@ for (var item in entry) {
 var compiler = webpack(configs)
 
 new WebpackDevServer( compiler, {
-  path: configs.output.path,
-  publicPath: configs.output.publicPath,
-  hot: true,
-  historyApiFallback: true,
-  host: '0.0.0.0',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  },
+  historyApiFallback:{
+    index:'/dist/out/html/index.html'
+  },
   clientLogLevel: "info",
+  contentBase: configs.output.path,
+  hot: true,
+  inline: true,
+  host: '0.0.0.0',
+  port: 3000,
+  publicPath: '/',
   stats: { colors: true },
-  progress: true,
-  watch: true,
   watchOptions: {
     aggregateTimeout: 300,
     poll: 1000
   }
 }).listen(3000, 'localhost', function (err, result) {
-　　if (err) {
-      return console.log(err);
-　　}
-　　console.log('Listening at http://localhost:3000/');
+  if (err) {
+    return console.log(err);
+  }
+  console.log('Listening at http://localhost:3000/');
 });

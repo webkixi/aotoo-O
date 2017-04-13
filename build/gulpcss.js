@@ -20,7 +20,6 @@ export function makeCss(entry, env){
     let targetFileName = file+'.css'
     generateCss(srcFiles, targetFileName, env)
   }
-
 }
 
 function generateCss(src, target, env){
@@ -41,4 +40,9 @@ function generateCss(src, target, env){
 gulp.task('dev.css', function(){
   makeCss(G.entry, G.env)
 })
+
+// gulp.task('watch.css', function(){
+//   gulp.watch(G.entry, )
+//   makeCss(G.entry, G.env)
+// })
 

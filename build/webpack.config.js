@@ -26,11 +26,12 @@ function _webpackConfig(_entry, env){
     },
 
     module: {
+      // noParse: /node_modules\/(jquey|moment|chart\.js)/,
       rules: [
         {
           test: /\.js$/,
           use:[{
-            loader: "babel-loader",
+            loader: "babel-loader?cacheDirectory",
             options: { 
               presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
               plugins: [
@@ -59,8 +60,12 @@ function _webpackConfig(_entry, env){
         }
       ]
     },
+    performance: {
+      "hints": false
+    },
     resolve:{
       alias: alias,
+      // mainFields: ['jsnext:main','main'],
       extensions:[
         ".js", 
         ".jsx", 
