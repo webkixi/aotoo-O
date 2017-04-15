@@ -52,8 +52,9 @@ gulpcss.makeCss(_cssEntry, {
 
 
 // 第三方库
-gulp3ds.js(SRC3DS, DIST)
-gulp3ds.css(SRC3DS, DIST)
+const treedsEnv = {dist: DIST}
+gulp3ds.js(SRC3DS, treedsEnv)
+gulp3ds.css(SRC3DS, treedsEnv)
 
 
 

@@ -9,13 +9,18 @@ const G = {
   js: {
     src: {},
     dist: {}
-  }
+  },
+  production: false
 }
 
-export function css(src, dist){
+// 第三方CSS
+export function css(src, env){
+  G.css.env = env
   G.css.src = src+'/css/**/*'
-  G.css.dist = dist+'/css/t'
-  return _css()
+  G.css.dist = env.dist+'/css/t'
+  G.production = process.env.NODE_ENV == 'production'
+  _css()
+  watchCss()
 }
 
 function _css(){
@@ -31,13 +36,22 @@ gulp.task('3ds.css', function(){
   _css()
 })
 
+let cssWatching = false
+function watchCss(){
+  if (cssWatching || G.production) return
+  cssWatching = true
+  gulp.watch(G.css.src, ['3ds.css'])
+}
 
 
-
-export function js(src, dist){
+// 第三方JS
+export function js(src, env){
+  G.js.env = env
   G.js.src = src+'/js/**/*'
-  G.js.dist = dist+'/js/t'
-  return _js()
+  G.js.dist = env.dist+'/js/t'
+  G.production = process.env.NODE_ENV == 'production'
+  _js()
+  watchJs()
 }
 
 function _js(){
@@ -48,6 +62,13 @@ function _js(){
 gulp.task('3ds.js', function(){
   _js()
 })
+
+let jsWatching = false
+function watchJs(){
+  if (jsWatching || G.production) return 
+  jsWatching = true
+  gulp.watch(G.js.src, ['3ds.js'])
+}
 
 
 

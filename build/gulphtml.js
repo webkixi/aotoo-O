@@ -15,6 +15,7 @@ export function makeHtml(entry, env){
     srcs.push(entry[file])
   }
   generateHtml(srcs, env)
+  watchHtml()
 }
 
 function generateHtml(src, env){
@@ -23,6 +24,17 @@ function generateHtml(src, env){
   .pipe(gulp.dest(env.dist))
 }
 
-gulp.task('html', function(){
+gulp.task('html:dev', function(){
   makeHtml(G.entry, G.env)
 })
+
+let watching = false
+function watchHtml(){
+  if (watching||G.production) return
+  watching = true
+  let entries = []
+  for (let file in G.entry) {
+    entries = entries.concat(G.entry[file])
+  }
+  gulp.watch(entries, ['html:dev'])
+}

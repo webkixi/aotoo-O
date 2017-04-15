@@ -29,6 +29,17 @@ for (var item in entry) {
 
 var compiler = webpack(configs)
 
+// _webpackDevCompiler.run (err, stats) ->
+//   if err then throw new gutil.PluginError '[webpack]', err
+//   gutil.log '[webpack]', stats.toString { colors: true }
+//   _cb()
+
+// if (margv.p) {
+//   compiler.run( (err, stats) => {
+
+//   })
+// }
+
 new WebpackDevServer( compiler, {
   headers: {
     'Access-Control-Allow-Origin': '*',
