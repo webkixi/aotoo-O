@@ -21,6 +21,8 @@ function _webpackConfig(_entry, env){
       libraryTarget:'var'
     },
 
+    devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
+
     externals: {
       "react" : "React"
     },
@@ -32,7 +34,7 @@ function _webpackConfig(_entry, env){
           test: /\.js$/,
           use:[{
             loader: "babel-loader?cacheDirectory",
-            options: { 
+            options: {
               presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
               plugins: [
                 "transform-runtime",
@@ -50,7 +52,7 @@ function _webpackConfig(_entry, env){
             options: { variable: 'data'}
           }]
         },
-        { 
+        {
           test: /\.styl$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
@@ -67,15 +69,15 @@ function _webpackConfig(_entry, env){
       alias: alias,
       // mainFields: ['jsnext:main','main'],
       extensions:[
-        ".js", 
-        ".jsx", 
-        ".json", 
-        '.html', 
-        '.ejs', 
-        '.pug', 
-        ".css", 
-        '.styl', 
-        '.less', 
+        ".js",
+        ".jsx",
+        ".json",
+        '.html',
+        '.ejs',
+        '.pug',
+        ".css",
+        '.styl',
+        '.less',
         '.hbs'
       ]
     },
@@ -87,7 +89,7 @@ function configurationPlugins(cfg){
   const commPlugins = [
     new ExtractTextPlugin({
       filename:  (getPath) => {
-        return G.production 
+        return G.production
         ? getPath('css/[name]_dy_[hash:10].css').replace('css/js', 'css')
         : getPath('css/[name]_dy.css').replace('css/js', 'css');
       },
