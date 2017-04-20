@@ -2,6 +2,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
       , HtmlWebpackPlugin = require('html-webpack-plugin')
       , alias = require('./webpack.alias')
       , webpack = require('webpack')
+      , path = require('path')
+      , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 let G = {
   entry: '',
@@ -85,7 +87,32 @@ function _webpackConfig(_entry, env){
   }
 }
 
-function configurationPlugins(cfg){
+function BrowserSync(env){
+  const dist = {
+    dest: env.dist,
+    html: path.join(env.dist, 'html'),
+    css: path.join(env.dist, 'css')
+  }
+  
+  return new BrowserSyncPlugin(
+    {
+      server: {
+        baseDir: [ dist.html, dist.css],
+        index: ["index.html"]
+      },
+      files: [dist.dest+ '/**'],
+      logFileChanges: false,
+      notify: false,
+      injectChanges: true
+    },
+    { 
+      reload: true 
+    }
+  )
+}
+
+// 配置webpack插件
+function configurationPlugins(cfg, env){
   const commPlugins = [
     new ExtractTextPlugin({
       filename:  (getPath) => {
@@ -102,14 +129,17 @@ function configurationPlugins(cfg){
     })
   ]
 
+  // devlope envirement plugins
   const devPlugins = [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       '__DEV__': true
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    BrowserSync(env)
   ]
 
+  // production envirement plugins
   const proPlugins = [
     new webpack.optimize.UglifyJsPlugin({
       exclude: /\.min\.js$/,
@@ -130,6 +160,7 @@ function configurationPlugins(cfg){
   return cfg
 }
 
+// 输出webpack配置文件
 function webpackConfig(_entry, env){
   G.entry = _entry
   G.env = env
@@ -138,7 +169,7 @@ function webpackConfig(_entry, env){
     G.production = true
   }
   const _wpConfig = _webpackConfig(_entry, env)
-  return configurationPlugins(_wpConfig)
+  return configurationPlugins(_wpConfig, env)
 }
 
 

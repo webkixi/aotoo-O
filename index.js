@@ -16,6 +16,7 @@ if (argv.length) {
 var WebpackDevServer = require('webpack-dev-server')
 var webpack = require('webpack');
 var configs = require('./webpack.config.babel');
+var gutil = require('gulp-util')
 
 var entry = configs.entry
 var hotSverConfig = [
@@ -29,40 +30,37 @@ for (var item in entry) {
 
 var compiler = webpack(configs)
 
-// _webpackDevCompiler.run (err, stats) ->
-//   if err then throw new gutil.PluginError '[webpack]', err
-//   gutil.log '[webpack]', stats.toString { colors: true }
-//   _cb()
+if (margv.p) {
+  compiler.run( (err, stats) => {
+    if (err) throw new gutil.PluginError('[webpack]', err)
+    process.exit()
+  })
+} else {
+  new WebpackDevServer( compiler, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    },
+    historyApiFallback:{
+      index:'/dist/out/html/index.html'
+    },
+    clientLogLevel: "info",
+    contentBase: configs.output.path,
+    hot: true,
+    inline: true,
+    host: '0.0.0.0',
+    port: 3000,
+    publicPath: '/',
+    stats: { colors: true },
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000
+    }
+  }).listen(3000, 'localhost', function (err, result) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log('Listening at http://localhost:3000/');
+  });
+}
 
-// if (margv.p) {
-//   compiler.run( (err, stats) => {
-
-//   })
-// }
-
-new WebpackDevServer( compiler, {
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-  },
-  historyApiFallback:{
-    index:'/dist/out/html/index.html'
-  },
-  clientLogLevel: "info",
-  contentBase: configs.output.path,
-  hot: true,
-  inline: true,
-  host: '0.0.0.0',
-  port: 3000,
-  publicPath: '/',
-  stats: { colors: true },
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000
-  }
-}).listen(3000, 'localhost', function (err, result) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('Listening at http://localhost:3000/');
-});

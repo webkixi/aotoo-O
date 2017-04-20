@@ -1,7 +1,7 @@
-import hello from 'css/hello/index'
+// import hello from 'css/hello/index'
 
 const test = (
-  <div className={hello.indexroot}>
+  <div className={"hello.indexroot"}>
     hello world
   </div>
 )
