@@ -18,15 +18,15 @@ var webpack = require('webpack');
 var configs = require('./webpack.config.babel');
 var gutil = require('gulp-util')
 
-var entry = configs.entry
-var hotSverConfig = [
-  'webpack-dev-server/client?http://localhost:3000/',
-  'webpack/hot/only-dev-server',
-]
-for (var item in entry) {
-  var _tmp = hotSverConfig.concat(entry[item])
-  configs.entry[item] = _tmp
-}
+// var entry = configs.entry
+// var hotSverConfig = [
+//   'webpack-dev-server/client?http://localhost:3000/',
+//   'webpack/hot/only-dev-server',
+// ]
+// for (var item in entry) {
+//   var _tmp = hotSverConfig.concat(entry[item])
+//   configs.entry[item] = _tmp
+// }
 
 var compiler = webpack(configs)
 
@@ -63,4 +63,3 @@ if (margv.p) {
     console.log('Listening at http://localhost:3000/');
   });
 }
-

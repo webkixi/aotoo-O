@@ -1,20 +1,3 @@
-// var argv = process.argv.slice(2)
-//
-// // webpack -d 开发模式
-// // webpack -p 生产模式
-//
-// var margv = require('minimist')(argv);
-// if (argv.length) {
-//   if (margv.d) {
-//     process.env.NODE_ENV = 'development'
-//   }
-//   if (margv.p) {
-//     process.env.NODE_ENV = 'production'
-//   }
-// } else {
-//   process.env.NODE_ENV = 'development'
-// }
-
 import _ from 'lodash'
 import * as gulpcss from './build/gulpcss'
 import * as gulphtml from './build/gulphtml'
