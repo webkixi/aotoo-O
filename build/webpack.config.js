@@ -1,9 +1,12 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-      , HtmlWebpackPlugin = require('html-webpack-plugin')
-      , alias = require('./webpack.alias')
-      , webpack = require('webpack')
-      , path = require('path')
-      , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+    , HtmlWebpackPlugin = require('html-webpack-plugin')
+    , alias = require('./webpack.alias')
+    , webpack = require('webpack')
+    , path = require('path')
+    , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+    , WriteMemoryFilePlugin = require('./plugins/writememoryfile-webpack-plugin')
+    // , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
+
 
 let G = {
   entry: '',
@@ -15,6 +18,7 @@ function _webpackConfig(_entry, env){
   const _dist = env.dist
   return {
     entry: _entry,
+    // cache: true,
     output: {
       path: _dist,
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
@@ -48,7 +52,7 @@ function _webpackConfig(_entry, env){
           }]
         },
         {
-          test: /(\.ejs|\.html)$/,
+          test: /(\.ejs|\.html|\.hbs)$/,
           use:[{
             loader: "ejs-loader",
             options: { variable: 'data'}
@@ -106,10 +110,35 @@ function BrowserSync(env){
       injectChanges: true
     },
     { 
-      reload: true 
+      reload: true
     }
   )
 }
+
+// 配置COMMONCSS 和 COMMONJS
+function configurationCommonEntry(cfg){
+  // console.log(cfg)
+  const commcss = path.join(__dirname, '../public/common/css/index.js')
+  cfg['commoncss'] = [commcss]
+  return cfg
+}
+
+// 配置webpack-dev-server的hotload配置
+function configurationDevEntry(cfg){
+  if (!G.production) {
+    var entry = cfg.entry
+    var hotSverConfig = [
+      'webpack-dev-server/client?http://localhost:3000/',
+      'webpack/hot/only-dev-server',
+    ]
+    for (var item in entry) {
+      var _tmp = hotSverConfig.concat(entry[item])
+      cfg.entry[item] = _tmp
+    }
+  }
+  return cfg
+}
+
 
 // 配置webpack插件
 function configurationPlugins(cfg, env){
@@ -136,6 +165,7 @@ function configurationPlugins(cfg, env){
       '__DEV__': true
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new WriteMemoryFilePlugin(),
     BrowserSync(env)
   ]
 
@@ -169,7 +199,9 @@ function webpackConfig(_entry, env){
     G.production = true
   }
   const _wpConfig = _webpackConfig(_entry, env)
-  return configurationPlugins(_wpConfig, env)
+  const commonConfig = configurationCommonEntry(_wpConfig)
+  const wpConfig = configurationDevEntry(commonConfig)
+  return configurationPlugins(wpConfig, env)
 }
 
 
