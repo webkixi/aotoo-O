@@ -28,6 +28,7 @@ del.sync([ DIST ], { force: true })
 
 // css
 const _cssEntry = getEntry(CSSSRC, {type: 'css'})
+_cssEntry = _.merge(_cssEntry, {'css/common': path.join(__dirname, '../public/common/css/index.styl')})   // common.css
 gulpcss.makeCss(_cssEntry, {
   src: CSSSRC,
   dist: DIST

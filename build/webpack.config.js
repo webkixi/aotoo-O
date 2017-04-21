@@ -97,7 +97,7 @@ function BrowserSync(env){
     html: path.join(env.dist, 'html'),
     css: path.join(env.dist, 'css')
   }
-  
+
   return new BrowserSyncPlugin(
     {
       server: {
@@ -109,18 +109,10 @@ function BrowserSync(env){
       notify: false,
       injectChanges: true
     },
-    { 
+    {
       reload: true
     }
   )
-}
-
-// 配置COMMONCSS 和 COMMONJS
-function configurationCommonEntry(cfg){
-  // console.log(cfg)
-  const commcss = path.join(__dirname, '../public/common/css/index.js')
-  cfg['commoncss'] = [commcss]
-  return cfg
 }
 
 // 配置webpack-dev-server的hotload配置
@@ -199,8 +191,7 @@ function webpackConfig(_entry, env){
     G.production = true
   }
   const _wpConfig = _webpackConfig(_entry, env)
-  const commonConfig = configurationCommonEntry(_wpConfig)
-  const wpConfig = configurationDevEntry(commonConfig)
+  const wpConfig = configurationDevEntry(_wpConfig)
   return configurationPlugins(wpConfig, env)
 }
 
