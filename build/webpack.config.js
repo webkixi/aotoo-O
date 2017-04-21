@@ -21,8 +21,8 @@ function _webpackConfig(_entry, env){
     // cache: true,
     output: {
       path: _dist,
+      publicPath: '/js/',
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
-      publicPath: '/dist/out/js/',
       chunkFilename: G.production ? '[id]_[name]_[hash:10].js' : '[name]_[id].js',
       libraryTarget:'var'
     },
@@ -30,7 +30,7 @@ function _webpackConfig(_entry, env){
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
 
     externals: {
-      "react" : "React"
+      // "react" : "React"
     },
 
     module: {
@@ -38,6 +38,7 @@ function _webpackConfig(_entry, env){
       rules: [
         {
           test: /\.js$/,
+          exclude: /node_modules/,
           use:[{
             loader: "babel-loader?cacheDirectory",
             options: {
@@ -100,19 +101,29 @@ function BrowserSync(env){
 
   return new BrowserSyncPlugin(
     {
-      server: {
-        baseDir: [ dist.html, dist.css],
-        index: ["index.html"]
-      },
+      proxy: 'http://localhost:3000/',
       files: [dist.dest+ '/**'],
       logFileChanges: false,
-      notify: false,
+      notify: true,
       injectChanges: true
-    },
-    {
-      reload: true
     }
   )
+
+  // return new BrowserSyncPlugin(
+  //   {
+  //     server: {
+  //       baseDir: [ dist/html, dist/css, dist/js],
+  //       index: ["index.html"]
+  //     },
+  //     files: [dist.dest+ '/**'],
+  //     logFileChanges: false,
+  //     notify: false,
+  //     injectChanges: true
+  //   },
+  //   {
+  //     reload: true
+  //   }
+  // )
 }
 
 // 配置webpack-dev-server的hotload配置

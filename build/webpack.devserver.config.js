@@ -5,18 +5,20 @@ module.exports = function(configs){
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     },
     historyApiFallback:{
-      index:'/dist/out/html/index.html'
+      rewrites: [
+        { from: /^\/$/, to: '/html/index.html' },
+      ]
     },
     clientLogLevel: "info",
     contentBase: configs.output.path,
+    publicPath: '/js/',
     staticOptions: {
-      redirect: true
+      redirect: false
     },
     hot: true,
     inline: true,
     host: '0.0.0.0',
     port: 3000,
-    publicPath: '/',
     stats: { colors: true },
     watchOptions: {
       aggregateTimeout: 300,
