@@ -1,11 +1,12 @@
 isClient = ( function(){ return typeof window !== 'undefined' })()
 function noop(){}
-var React    = require('react')
-var ReactDom = require('react-dom')
-var SAX      = require('fkp-sax')
-var _        = require('lodash')
 
-var aotujs = {
+const React    = require('react')
+const ReactDom = require('react-dom')
+const SAX      = require('fkp-sax')
+const _        = require('lodash')
+
+const aotujs = {
   react: React,
   reactDom: ReactDom,
   sax: SAX,
@@ -14,9 +15,10 @@ var aotujs = {
 
 // fed 凹凸
 function fAotu(){
-  React.render = ReactDOM.render;
-  React.unmountComponentAtNode = ReactDOM.unmountComponentAtNode;
-  React.findDOMNode = ReactDOM.findDOMNode;
+  console.log(ReactDom)
+  React.render = ReactDom.render;
+  React.unmountComponentAtNode = ReactDom.unmountComponentAtNode;
+  React.findDOMNode = ReactDom.findDOMNode;
   aotujs.$ = require('jquery')
   window.$aot = aotujs
   return aotujs
@@ -29,8 +31,10 @@ function nAotu(){
   return aotujs
 }
 
-
-module.exports = function(){
-  if (typeof $aot !== 'undefined') return
-  return isClient ? fAotu() : nAotu()
+const contex = ( ()=> isClient ? window : global )()
+let $aot = contex.$aot
+if (!$aot) {
+  $aot = isClient ? fAotu() : nAotu()
 }
+
+module.exports = $aot

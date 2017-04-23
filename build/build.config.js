@@ -96,7 +96,7 @@ function prepareDll() {
     start()
   } else {
     // 先编译 precommon.js
-    webpack(dllconfig).run( (err, stats) => {
+    webpack(dllConfig).run( (err, stats) => {
       if (err) throw new gutil.PluginError('[webpack]', err)
       start()
     })
@@ -104,6 +104,5 @@ function prepareDll() {
 }
 
 module.exports = {
-  dllConfig: dllConfig,
   start: prepareDll
 }
