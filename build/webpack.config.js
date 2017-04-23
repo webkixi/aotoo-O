@@ -1,11 +1,12 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
     , HtmlWebpackPlugin = require('html-webpack-plugin')
     , alias = require('./webpack.alias')
+    , gutil = require('gulp-util')
     , webpack = require('webpack')
     , path = require('path')
     , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
     , WriteMemoryFilePlugin = require('./plugins/writememoryfile-webpack-plugin')
-    // , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
+    , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
 
 
 let G = {
@@ -14,6 +15,41 @@ let G = {
   production: false
 }
 
+// dll common.dll.js
+function dllConfig(env){
+  const _dist = env.dist
+  return {
+    entry: {
+      precommon: [path.join(__dirname, '../common/js/index.js')]
+    },
+    output: {
+      path: _dist,
+      filename: G.production ? "[name]__[hash:10].js" : "[name].js",
+      // libraryTarget: 'var',
+      library: '[name]_library'
+    },
+    plugins: [
+      new webpack.DllPlugin({
+        path: path.join(_dist, '[name]-manifest.json'),
+        name: '[name]_library'
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        exclude: /\.min\.js$/,
+        mangle:true,
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          unused: true,
+          dead_code: true,
+          warnings: false,
+          screw_ie8: true
+        }
+      })
+    ]
+  }
+}
+
+// webpack config
 function _webpackConfig(_entry, env){
   const _dist = env.dist
   return {
@@ -92,6 +128,7 @@ function _webpackConfig(_entry, env){
   }
 }
 
+// BrowserSync
 function BrowserSync(env){
   const dist = {
     dest: env.dist,
@@ -108,25 +145,9 @@ function BrowserSync(env){
       injectChanges: true
     }
   )
-
-  // return new BrowserSyncPlugin(
-  //   {
-  //     server: {
-  //       baseDir: [ dist/html, dist/css, dist/js],
-  //       index: ["index.html"]
-  //     },
-  //     files: [dist.dest+ '/**'],
-  //     logFileChanges: false,
-  //     notify: false,
-  //     injectChanges: true
-  //   },
-  //   {
-  //     reload: true
-  //   }
-  // )
 }
 
-// 配置webpack-dev-server的hotload配置
+// 配置webpack-dev-server的hotreload配置
 function configurationDevEntry(cfg){
   if (!G.production) {
     var entry = cfg.entry
@@ -142,9 +163,10 @@ function configurationDevEntry(cfg){
   return cfg
 }
 
-
-// 配置webpack插件
+// config webpack plugins
 function configurationPlugins(cfg, env){
+
+  // common plugins
   const commPlugins = [
     new ExtractTextPlugin({
       filename:  (getPath) => {
@@ -156,12 +178,16 @@ function configurationPlugins(cfg, env){
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      minChunks: 2,
-      name: 'js/common'
-    })
+      // name: 'js/common'
+      name: 'js/common',
+      filename: G.production ? "[name]__[hash:10].js" : "[name].js",
+      minChunks: 2, //Infinity
+    }),
+    new webpack.ProvidePlugin({ $aot: 'aotu' }),
+    new Attachment2commonPlugin( path.join(env.dlldist, '/precommon.js') )
   ]
 
-  // devlope envirement plugins
+  // devlope plugins
   const devPlugins = [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
@@ -172,7 +198,7 @@ function configurationPlugins(cfg, env){
     BrowserSync(env)
   ]
 
-  // production envirement plugins
+  // production plugins
   const proPlugins = [
     new webpack.optimize.UglifyJsPlugin({
       exclude: /\.min\.js$/,
@@ -201,10 +227,13 @@ function webpackConfig(_entry, env){
   if (process.env.NODE_ENV == 'production') {
     G.production = true
   }
+
   const _wpConfig = _webpackConfig(_entry, env)
   const wpConfig = configurationDevEntry(_wpConfig)
   return configurationPlugins(wpConfig, env)
 }
 
-
-module.exports = webpackConfig
+module.exports = {
+  dllConfig: dllConfig,
+  webpackConfig: webpackConfig
+}
