@@ -46,8 +46,7 @@
     "react-dom": "^15.4.2",
     "request": "^2.75.0",
     "socket.io": "^1.4.6",
-    "socket.io-client": "^1.4.6",
-    "webpack-dev-server": "^2.4.2"
+    "socket.io-client": "^1.4.6"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",
@@ -76,6 +75,7 @@
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
+    "gulp-browserify": "^0.5.1",
     "gulp-clean-css": "^3.0.4",
     "gulp-concat-css": "^2.3.0",
     "gulp-ejs": "^3.0.0",
@@ -101,7 +101,9 @@
     "stylus-loader": "^2.3.1",
     "through2": "^2.0.1",
     "url-loader": "^0.5.6",
-    "webpack": "^2.2.1"
+    "watchify": "^3.9.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.4"
   },
   "author": "yc <kixi@163.com>",
   "license": "MIT"

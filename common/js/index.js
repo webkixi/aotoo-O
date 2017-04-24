@@ -5,32 +5,37 @@ var ReactDom = require('react-dom')
 var SAX      = require('fkp-sax')
 var _        = require('lodash')
 
-var aotujs = {
+var aotoo = {
   react: React,
   reactDom: ReactDom,
   sax: SAX,
-  _: _,
+  _: _
 }
 
 // fed 凹凸
-function fAotu(){
+function fAotoo(){
   React.render = ReactDom.render;
   React.unmountComponentAtNode = ReactDom.unmountComponentAtNode;
   React.findDOMNode = ReactDom.findDOMNode;
-  aotujs.$ = require('jquery')
-  return aotujs
+  aotoo.$ = require('jquery')
+  aotoo.render = function(element, id){
+    React.render(element, document.getElementById(id))
+  }
+  return aotoo
 }
 
 // node 凹凸
-function nAotu(){
-  aotujs.$ = require('cheerio')
-  return aotujs
+function nAotoo(){
+  aotoo.$ = require('cheerio')
+  return aotoo
 }
 
 const that = (()=>isClient ? window: global)() || {}
-let $aot = that.$aot
-if (!$aot) {
-  $aot = that.$aot = ( () => isClient ? fAotu() : nAotu() )()
+let $aotoo = that.$aotoo
+if (!$aotoo) {
+  $aotoo = that.$aotoo = ( () => isClient ? fAotoo() : nAotoo() )()
+  that.React = $aotoo.react
+  that.ReactDom = $aotoo.reactDom
 }
 
-module.exports = $aot
+module.exports = $aotoo

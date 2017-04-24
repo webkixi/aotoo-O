@@ -4,7 +4,7 @@ module.exports = {
   css:  path.join(__dirname, '../public/css'),
   component: path.join(__dirname, '../component'),
   common: path.join(__dirname, '../common'),
-  aotu: path.join(__dirname, '../common/js/index.js'),
+  aotoo: path.join(__dirname, '../common/js/index.js'),
 }
 
 // module.exports =

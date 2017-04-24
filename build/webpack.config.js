@@ -22,6 +22,11 @@ function dllConfig(env){
     entry: {
       precommon: [path.join(__dirname, '../common/js/index.js')]
     },
+    watch: G.production ? false : true,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000
+    },
     output: {
       path: _dist,
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
@@ -183,7 +188,7 @@ function configurationPlugins(cfg, env){
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
       minChunks: 2, //Infinity
     }),
-    new webpack.ProvidePlugin({ $aot: 'aotu' }),
+    new webpack.ProvidePlugin({ $aotoo: 'aotoo' }),
     new Attachment2commonPlugin( path.join(env.dlldist, '/precommon.js') )
   ]
 
