@@ -14,23 +14,23 @@ var aotujs = {
 
 // fed 凹凸
 function fAotu(){
-  React.render = ReactDOM.render;
-  React.unmountComponentAtNode = ReactDOM.unmountComponentAtNode;
-  React.findDOMNode = ReactDOM.findDOMNode;
+  React.render = ReactDom.render;
+  React.unmountComponentAtNode = ReactDom.unmountComponentAtNode;
+  React.findDOMNode = ReactDom.findDOMNode;
   aotujs.$ = require('jquery')
-  window.$aot = aotujs
   return aotujs
 }
 
 // node 凹凸
 function nAotu(){
   aotujs.$ = require('cheerio')
-  global.$aot = aotujs
   return aotujs
 }
 
-
-module.exports = function(){
-  if (typeof $aot !== 'undefined') return
-  return isClient ? fAotu() : nAotu()
+const that = (()=>isClient ? window: global)() || {}
+let $aot = that.$aot
+if (!$aot) {
+  $aot = that.$aot = ( () => isClient ? fAotu() : nAotu() )()
 }
+
+module.exports = $aot
