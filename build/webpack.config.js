@@ -27,11 +27,50 @@ function dllConfig(env){
       aggregateTimeout: 300,
       poll: 1000
     },
+    devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
     output: {
       path: _dist,
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
       // libraryTarget: 'var',
       library: '[name]_library'
+    },
+    module: {
+      // noParse: /node_modules\/(jquey|moment|chart\.js)/,
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use:[{
+            loader: "babel-loader?cacheDirectory",
+            options: {
+              presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+              plugins: [
+                "transform-runtime",
+                "add-module-exports",
+                "transform-decorators-legacy",
+                "transform-react-display-name",
+                "typecheck"
+              ]
+            }
+          }]
+        },
+        {
+          test: /\.styl$/,
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            publicPath: '/css/',
+            use: ['css-loader?modules', 'stylus-loader']
+          })
+        }
+      ]
+    },
+    resolve:{
+      extensions:[
+        ".js",
+        ".json",
+        ".css",
+        '.styl',
+      ]
     },
     plugins: [
       new webpack.DllPlugin({
@@ -71,7 +110,8 @@ function _webpackConfig(_entry, env){
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
 
     externals: {
-      // "react" : "React"
+      // "react" : "React",
+      // "react-dom" : "ReactDom",
     },
 
     module: {
@@ -88,7 +128,8 @@ function _webpackConfig(_entry, env){
                 "transform-runtime",
                 "add-module-exports",
                 "transform-decorators-legacy",
-                "transform-react-display-name"
+                "transform-react-display-name",
+                "typecheck"
               ]
             }
           }]
@@ -188,7 +229,7 @@ function configurationPlugins(cfg, env){
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
       minChunks: 2, //Infinity
     }),
-    new webpack.ProvidePlugin({ $aotoo: 'aotoo' }),
+    new webpack.ProvidePlugin({ Aotoo: 'aotoo' }),
     new Attachment2commonPlugin( path.join(env.dlldist, '/precommon.js') )
   ]
 
