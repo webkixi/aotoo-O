@@ -88,7 +88,7 @@ function combineX(ComposedComponent, opts, cb){
       componentDidUpdate(){
         this.componentDidMount()
       }
-      
+
       componentDidMount() {
         let self = this
   			let that = findDOMNode(this);
@@ -195,7 +195,11 @@ function combineX(ComposedComponent, opts, cb){
     }
   }
 
-  return new Query()
+  if (opts.type == 'reactClass') {
+    return Temp
+  } else {
+    return new Query()
+  }
 }
 
 module.exports = combineX

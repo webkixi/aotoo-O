@@ -87,4 +87,4 @@ class fox extends React.Component {
 	}
 }
 
-module.exports = wrap(fox);
+module.exports = wrap(fox, {type: 'reactClass'});

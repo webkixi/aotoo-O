@@ -21,7 +21,9 @@ function fAotoo(){
     if (typeof id == 'object') {
       if (id.nodeName) React.render(element, id)
     }
-    if (typeof id == 'string') React.render(element, document.getElementById(id))
+    if (typeof id == 'string') {
+      return React.render(element, document.getElementById(id))
+    }
     return element
   }
   return aotoo

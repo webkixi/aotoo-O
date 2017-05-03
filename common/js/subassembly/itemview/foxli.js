@@ -85,4 +85,4 @@ class fox extends React.Component {
 		return <li {..._props} {...data_attr}>{fill}</li>
 	}
 }
-module.exports = wrap(fox);
+module.exports = wrap(fox, {type: 'reactClass'});

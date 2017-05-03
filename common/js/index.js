@@ -32,7 +32,6 @@ function reallyReturn(wrap, isreact){
   else if (wrap.render) {
     reactElement = isClient ? wrap : wrap.render()
   }
-
   if (reactElement) {
     return reactElement
   }
@@ -40,10 +39,7 @@ function reallyReturn(wrap, isreact){
 
 function $item(props, isreact){
   const Item = require('./subassembly/itemview/foxdiv')
-  console.log(Item);
-  const Component = <Item {...props} />
-  console.log(React.isValidElement(Component));
-  return reallyReturn(Component, isreact)
+  return <Item {...props} />
 }
 
 function $list(props, isreact){
