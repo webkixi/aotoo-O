@@ -37,9 +37,13 @@ function reallyReturn(wrap, isreact){
   }
 }
 
+let Item
 function $item(props, isreact){
-  const Item = require('./subassembly/itemview/foxdiv')
-  return <Item {...props} />
+  if (!Item) Item = require('./subassembly/itemview/foxdiv')
+  console.log(Item);
+  // cosnt _props = {data: props}
+  // console.log(_props);
+  // return <Item data={props} />
 }
 
 function $list(props, isreact){

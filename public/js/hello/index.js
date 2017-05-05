@@ -8,7 +8,7 @@ const testitem = Aotoo.item({
   url: 'http://www.163.com'
 })
 
-React.render(testitem, document.getElementById('test'))
+// React.render(testitem, document.getElementById('test'))
 
 // Aotoo.render(
 //   testitem,

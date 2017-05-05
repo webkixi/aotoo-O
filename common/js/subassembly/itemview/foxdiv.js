@@ -37,6 +37,7 @@ function getClass(resault){
 class fox extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {}
 		this.dealWithData = this::dealWithDataMethod
 	}
 
@@ -83,6 +84,9 @@ class fox extends React.Component {
 			, className: getClass.call(self, this.resault)
 			, key: _.uniqueId('fox_')
 		}
+
+		console.log('=========== 1111');
+		console.log(_props);
 		return <div {..._props} {...data_attr}>{fill}</div>
 	}
 }
