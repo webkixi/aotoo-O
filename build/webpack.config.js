@@ -22,11 +22,6 @@ function dllConfig(env){
     entry: {
       precommon: [path.join(__dirname, '../common/js/index.js')]
     },
-    watch: G.production ? false : true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    },
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
     output: {
       path: _dist,
@@ -110,7 +105,7 @@ function _webpackConfig(_entry, env){
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
 
     externals: {
-      // "react" : "React",
+      "react" : "React",
       // "react-dom" : "ReactDom",
     },
 

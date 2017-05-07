@@ -21,35 +21,40 @@
 // module.exports = Aotoo
 
 
+// function reallyReturn(wrap, isreact){
+//   let reactElement
+//   if (React.isValidElement(wrap)) reactElement = wrap
+//   else if (wrap.render) {
+//     reactElement = isClient ? wrap : wrap.render()
+//   }
+//   if (reactElement) {
+//     return reactElement
+//   }
+// }
+
+
 const isClient = ( function(){ return typeof window !== 'undefined' })()
 const aotoo = require('./lib/common')
+const transformTree = require('./lib/tree')
 const context = (()=>isClient ? window : global)() || {}
 let Aotoo = context.Aotoo
 
-function reallyReturn(wrap, isreact){
-  let reactElement
-  if (React.isValidElement(wrap)) reactElement = wrap
-  else if (wrap.render) {
-    reactElement = isClient ? wrap : wrap.render()
-  }
-  if (reactElement) {
-    return reactElement
-  }
-}
 
-let Item
 function $item(props, isreact){
-  if (!Item) Item = require('./subassembly/itemview/foxdiv')
-  console.log(Item);
-  // cosnt _props = {data: props}
-  // console.log(_props);
-  // return <Item data={props} />
+  const Item = require('./subassembly/itemview/foxdiv')
+  return <Item data={props} />
 }
 
 function $list(props, isreact){
-  let List = require('./subassembly/listview')
-  const Component = <List {...props} />
-  return reallyReturn(Component, isreact)
+  const List = require('./subassembly/listview')
+  return <List {...props} />
+}
+
+function $tree(props){
+  if ( Array.isArray(props.data) ) {
+    const data = transformTree(props.data)
+    return $list({data: data})
+  }
 }
 
 // 实例化 class
@@ -70,7 +75,7 @@ if (!Aotoo) {
 
   // 内嵌方法
   const _extend = _aotoo._.merge
-  const _tree = ''
+  const _tree = $tree
   const _item = $item
   const _list = $list
 
@@ -90,17 +95,11 @@ if (!Aotoo) {
     Aotoo[ele] = _aotoo[ele]
   }
 
-  // Aotoo.react = _aotoo.react
-  // Aotoo.reactDom = _aotoo.reactDom
-  // Aotoo.render = _aotoo.render
-  // Aotoo._ = _aotoo._
-  // Aotoo.$ = _aotoo.$
-  // Aotoo.SAX = _aotoo.sax
-
   Aotoo.fn = aotooBase.prototype
 
   Aotoo.extend = _extend
   Aotoo.combinex = _combinex
+  Aotoo.transformTree = transformTree
   Aotoo.tree = _tree
   Aotoo.list = _list
   Aotoo.item = _item

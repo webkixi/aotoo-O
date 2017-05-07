@@ -38,7 +38,8 @@ class fox extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
-		this.dealWithData = this::dealWithDataMethod
+		// this.dealWithData = this::dealWithDataMethod
+		this.dealWithData = dealWithDataMethod.bind(this)
 	}
 
 	_preRender(){

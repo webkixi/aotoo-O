@@ -79,7 +79,7 @@ class TmpApp extends React.Component {
 	}
 
 	_dealWithData(data){
-		const stateData = this.state.data.toJS()
+		const stateData = this.state.data
 		const items = stateData.map((item, ii) => this._dealWithItemView({i: ii, item: item}))
 		return items.length ? <ul className="hlist"> {items} </ul> : ''
 	}
