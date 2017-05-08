@@ -34,11 +34,13 @@
 // </li>
 
 // let idrecode = {}
+
+import filter from 'lodash.filter'
 let idrecode = []
 function subTree(item, dataAry, deep){
 	deep = deep||1
 	let nsons = []
-	let sons = _.filter(dataAry, o => o.parent == item.idf)
+	let sons = filter(dataAry, o => o.parent == item.idf)
 	sons.map( (son, ii) => {
 		son.itemClass = son.itemClass&&son.itemClass.indexOf('level'+deep)==-1 ? son.itemClass +' level'+deep : 'level'+deep
 		// son.itemClass = son.itemClass ? son.itemClass +' level'+deep : 'level'+deep
@@ -67,8 +69,9 @@ export default function(dataAry){
 	let menus = []
 	idrecode = []
 	dataAry.map( (item, ii)=>{
-		if (_.isString(item)) menus.push(item)
-		if (_.isPlainObject(item)) {
+		if (typeof item == 'string') menus.push(item)
+		if (typeof item == 'object' && !Array.isArray(item)) {
+		// if (_.isPlainObject(item)) {
 			if (item['attr']) {
 				if (!item['attr']['data-treeid']) item['attr']['data-treeid'] = ii
 			} else {
@@ -76,7 +79,6 @@ export default function(dataAry){
 			}
 			if (item.idf && idrecode.indexOf(item.idf) == -1) {
 				item.itemClass = item.itemClass && item.itemClass.indexOf('level0') == -1 ? item.itemClass +' level0' : 'level0'
-				// item.itemClass = item.itemClass ? item.itemClass +' level0' : 'level0'
 				item.ref = item.idf
 				menus.push(subTree(item, dataAry))
 			}

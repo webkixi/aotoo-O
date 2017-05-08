@@ -29,6 +29,12 @@ function dllConfig(env){
       // libraryTarget: 'var',
       library: '[name]_library'
     },
+    externals: {
+      // "react" : "React",
+      // "react-dom" : "ReactDom",
+      // "fkp-sax" : 'SAX',
+      // "lodash" : '_'
+    },
     module: {
       // noParse: /node_modules\/(jquey|moment|chart\.js)/,
       rules: [

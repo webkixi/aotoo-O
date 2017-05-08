@@ -32,8 +32,10 @@ del.sync([ DIST ], { force: true })
 // css
 let _cssEntry = getEntry(CSSSRC, {type: 'css'})
 
-// common.css
+// 加入 common.css
 _cssEntry = _.merge(_cssEntry, {'css/common': path.join(__dirname, '../common/css/index.styl')})
+
+// 生成 css
 gulpcss.makeCss(_cssEntry, {
   src: CSSSRC,
   dist: DIST

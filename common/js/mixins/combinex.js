@@ -3,17 +3,14 @@
  * ComposedComponent  {React-Element}   [被包围的子组件]
  */
 
-// import SAX from 'fkp-sax'
-// import React from 'react';
-// import { findDOMNode } from 'react-dom';
-// import uniqueId from 'lodash.uniqueid'
-// import merge from 'lodash.merge'
-
-const findDOMNode = React.findDOMNode
-const uniqueId = _.uniqueId
-const merge = _.merge
-
 const isClient = (() => typeof window !== 'undefined')()
+import SAX from 'fkp-sax'
+import React from 'react';
+const findDOMNode = ( isClient ? require('react-dom').findDOMNode : function(){} )
+import cloneDeep from 'lodash.clonedeep'
+import merge from 'lodash.merge'
+import uniqueId from 'lodash.uniqueid'
+
 const store = ( sax => {
   try {
     if (!sax) throw 'storehlc depend on SAX, SAX is fkp-sax, is a Global fun'
@@ -25,9 +22,9 @@ const store = ( sax => {
           this.globalName = id
           const queryer = sax(id)
           queryer.data.originalState
-          ? queryer.data.originalState[id] = _.cloneDeep(this.state)
+          ? queryer.data.originalState[id] = cloneDeep(this.state)
           : ( ()=>{
-            let temp = {}; temp[id] = _.cloneDeep(this.state)
+            let temp = {}; temp[id] = cloneDeep(this.state)
             queryer.data.originalState = temp
           })()
           sax.bind(id, this)
@@ -55,6 +52,7 @@ function combineX(ComposedComponent, opts, cb){
 
   const globalName = uniqueId('Combinex_')
   let queryer = SAX(globalName, opts||{})
+  // let queryer = SAX(globalName)
 
   /**
    * ComposedComponent 为 React element
@@ -113,7 +111,6 @@ function combineX(ComposedComponent, opts, cb){
       }
     }
   }
-
 
 
   /**
@@ -178,18 +175,19 @@ function combineX(ComposedComponent, opts, cb){
 		}
   }
 
-  let timer;
   class Query {
     constructor(config){
       this.element = store(globalName, Temp)
+      this.timer
       this.saxer = queryer
       this.setActions = queryer.setActions
+      this.on = queryer.on
       this.roll = queryer.roll
     }
 
     dispatch(key, props){
-      clearTimeout(timer)
-      timer = setTimeout(function() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(function() {
         if (ReactComponentMonuted) dispatcher(key, props)
       }, 0);
     }

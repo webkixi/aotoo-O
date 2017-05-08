@@ -1,28 +1,24 @@
+const isClient = ( function(){ return typeof window !== 'undefined' })()
 function noop(){}
-var React    = require('react')
-var ReactDom = require('react-dom')
-var SAX      = require('fkp-sax')
-var _        = require('lodash')
-
-var aotoo = {
-  react: React,
-  reactDom: ReactDom,
-  sax: SAX,
-  _: _
+let aotoo = {
+  react    : require('react'),
+  reactDom : (isClient ? require('react-dom') : require('react-dom/server')),
+  sax      : require('fkp-sax'),
+  _        : require('lodash')
 }
 
 // fed 凹凸
 function fAotoo(){
-  React.render = ReactDom.render;
-  React.unmountComponentAtNode = ReactDom.unmountComponentAtNode;
-  React.findDOMNode = ReactDom.findDOMNode;
+  aotoo.react.render = aotoo.reactDom.render;
+  aotoo.react.unmountComponentAtNode = aotoo.reactDom.unmountComponentAtNode;
+  aotoo.react.findDOMNode = aotoo.reactDom.findDOMNode;
   aotoo.$ = require('jquery')
   aotoo.render = function(element, id){
     if (typeof id == 'object') {
-      if (id.nodeName) React.render(element, id)
+      if (id.nodeName) aotoo.reactDom.render(element, id)
     }
     if (typeof id == 'string') {
-      return React.render(element, document.getElementById(id))
+      return aotoo.reactDom.render(element, document.getElementById(id))
     }
     return element
   }
@@ -32,6 +28,10 @@ function fAotoo(){
 // node 凹凸
 function nAotoo(){
   aotoo.$ = require('cheerio')
+  aotoo.render = function(element){
+    const reactDomServer = aotoo.reactDom
+    return reactDomServer.renderToString(reactElement)
+  }
   return aotoo
 }
 

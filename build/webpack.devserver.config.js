@@ -11,7 +11,7 @@ module.exports = function(configs){
     },
     clientLogLevel: "info",
     contentBase: configs.output.path,
-    publicPath: '/js/',
+    publicPath: '/',
     staticOptions: {
       redirect: false
     },
