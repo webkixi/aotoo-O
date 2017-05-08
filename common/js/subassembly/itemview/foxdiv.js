@@ -43,12 +43,6 @@ class fox extends React.Component {
 	}
 
 	_preRender(){
-		// let _props = _.clone(this.props)
-		// delete _props.operate
-		// this.resault = this.dealWithData(_props)
-		// this.idf = _props.idf
-		// this.parent = this.props.operate.parent
-
 		this.resault = this.dealWithData(this.props)
 		this.idf = this.props.idf
 		this.parent = ''

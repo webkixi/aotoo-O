@@ -51,7 +51,7 @@
 //     ]
 //   }
 // )
-
+//
 // Aotoo.render(
 //   testtree,
 //   'test'
@@ -62,19 +62,23 @@
 // wrap
 //
 // const Testwrap = Aotoo.wrap(
-//   <div className="btn">abc</div> 
+//   <div className="btn">abc</div>
 //   , function(dom){
 //     $(dom).click(()=>{
 //       alert('1234')
 //     })
 //   }
 // )
-
+//
 // Aotoo.render(
 //   <Testwrap />,
 //   'test'
 // )
 
+
+//
+// combinex
+//
 class Test extends React.Component {
   constructor(props) {
     super(props)

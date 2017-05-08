@@ -1,11 +1,19 @@
 const isClient = ( function(){ return typeof window !== 'undefined' })()
+const context = (()=>isClient ? window : global)() || {}
 function noop(){}
+
 let aotoo = {
   react    : require('react'),
   reactDom : (isClient ? require('react-dom') : require('react-dom/server')),
   sax      : require('fkp-sax'),
   _        : require('lodash')
 }
+
+// 全局
+context.React    = aotoo.react
+context.ReactDom = aotoo.reactDom
+context.SAX      = aotoo.sax
+context._        = aotoo._
 
 // fed 凹凸
 function fAotoo(){
@@ -22,6 +30,9 @@ function fAotoo(){
     }
     return element
   }
+
+  // 全局$
+  context.$ = aotoo.$
   return aotoo
 }
 
@@ -32,6 +43,9 @@ function nAotoo(){
     const reactDomServer = aotoo.reactDom
     return reactDomServer.renderToString(reactElement)
   }
+
+  // 全局$
+  context.$ = aotoo.$
   return aotoo
 }
 

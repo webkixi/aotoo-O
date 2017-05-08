@@ -37,7 +37,7 @@ const store = ( sax => {
 })(SAX)
 
 
-function combineX(ComposedComponent, opts, cb){
+export default function combineX(ComposedComponent, opts, cb){
   if (typeof opts == 'function') {
     cb = opts
     opts = undefined
@@ -199,5 +199,3 @@ function combineX(ComposedComponent, opts, cb){
     return new Query()
   }
 }
-
-module.exports = combineX

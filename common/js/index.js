@@ -13,26 +13,6 @@ const transTree = require('./lib/tree')
 const context = (()=>isClient ? window : global)() || {}
 let Aotoo = context.Aotoo
 
-
-function $item(props, isreact){
-  const Item = require('./subassembly/itemview/foxdiv')
-  if (!props) return Item
-  return <Item {...props} />
-}
-
-function $list(props, isreact){
-  const List = require('./subassembly/listview')
-  if (!props) return List
-  return <List {...props} />
-}
-
-function $tree(props){
-  if ( Array.isArray(props.data) ) {
-    const treeData = transTree(props.data)
-    return $list({data: treeData})
-  }
-}
-
 // 实例化 class
 function aotooBase(cfg){
   this.config = cfg
@@ -40,13 +20,6 @@ function aotooBase(cfg){
 
 if (!Aotoo) {
   const _aotoo = ( () => isClient ? aotoo.fAotoo() : aotoo.nAotoo() )()
-
-  // 全局化
-  context.React = _aotoo.react
-  context.ReactDom = _aotoo.reactDom
-  context.SAX = _aotoo.sax
-  context._ = _aotoo._
-  context.$ = _aotoo.$
 
   // 全局 Aotoo
   Aotoo = context.Aotoo = function(cfg){
@@ -67,6 +40,25 @@ if (!Aotoo) {
   Aotoo.combinex = require('./mixins/combinex')
   Aotoo.wrap = require('./lib/wrap')
   Aotoo.transTree = transTree
+}
+
+function $item(props, isreact){
+  const Item = require('./subassembly/itemview/foxdiv')
+  if (!props) return Item
+  return <Item {...props} />
+}
+
+function $list(props, isreact){
+  const List = require('./subassembly/listview')
+  if (!props) return List
+  return <List {...props} />
+}
+
+function $tree(props){
+  if ( Array.isArray(props.data) ) {
+    const treeData = transTree(props.data)
+    return $list({data: treeData})
+  }
 }
 
 module.exports = Aotoo
