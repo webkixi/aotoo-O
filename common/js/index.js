@@ -11,11 +11,16 @@ const isClient = ( function(){ return typeof window !== 'undefined' })()
 const aotoo = require('./lib/common')
 const transTree = require('./lib/tree')
 const context = (()=>isClient ? window : global)() || {}
+const combinex = require('./mixins/combinex')
+const combineClass = require('./class/combine')
+const wrap = require('./lib/wrap')
 let Aotoo = context.Aotoo
 
 // 实例化 class
-function aotooBase(cfg){
-  this.config = cfg
+function aotooBase(rctCls){
+  // this.config = cfg
+  this.reactClass = rctCls
+  
 }
 
 if (!Aotoo) {
@@ -37,8 +42,9 @@ if (!Aotoo) {
   Aotoo.list = $list
   Aotoo.tree = $tree
   Aotoo.extend = _aotoo._.merge
-  Aotoo.combinex = require('./mixins/combinex')
-  Aotoo.wrap = require('./lib/wrap')
+  Aotoo.combinex = combinex
+  Aotoo.CombineClass = combineClass
+  Aotoo.wrap = wrap
   Aotoo.transTree = transTree
 }
 

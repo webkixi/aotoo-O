@@ -112,7 +112,9 @@ function _webpackConfig(_entry, env){
 
     externals: {
       "react" : "React",
-      // "react-dom" : "ReactDom",
+      "react-dom" : "ReactDom",
+      "lodash" : "_",
+      "jquery" : "$"
     },
 
     module: {

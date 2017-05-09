@@ -90,20 +90,24 @@ export default function combineX(ComposedComponent, opts, cb){
       componentDidMount() {
         let self = this
   			let that = findDOMNode(this);
-        const ctx = {
+        const _ctx = {
           show: this.show,
           hide: this.hide
         }
 
-  			if( this.props.itemDefaultMethod ){
-  				if (this.props.itemMethod) this.props.itemMethod.call(ctx, that, self.intent)
-  				setTimeout(function(){
-  					if( typeof self.props.itemDefaultMethod === 'function' ) self.props.itemDefaultMethod.call(ctx, that, self.intent)
-  				}, 17)
-  			} else if (typeof cb == 'function' || this.props.itemMethod){
-          const imd = cb ||this.props.itemMethod
-  				imd.call(ctx, that, self.intent)
-  			}
+        if( typeof this.props.itemDefaultMethod == 'function' ){
+          self.props.itemDefaultMethod.call(_ctx, that, self.intent)
+        }
+
+        if (
+          typeof cb == 'function' ||
+          typeof this.props.rendered == 'function' ||
+          typeof this.props.itemMethod == 'function'
+        ) {
+          const imd = cb || this.props.rendered || this.props.itemMethod
+          imd.call(_ctx, that, self.intent)
+        }
+        
         super.componentDidMount ? super.componentDidMount() : ''
       }
       render(){
@@ -160,16 +164,19 @@ export default function combineX(ComposedComponent, opts, cb){
         refs: this.refs
       }
 
-			if( this.props.itemDefaultMethod ){
-				if (this.props.itemMethod) this.props.itemMethod.call(_ctx, that, self.intent)
-				setTimeout(function(){
-					if( typeof self.props.itemDefaultMethod === 'function' ) self.props.itemDefaultMethod.call(_ctx, that, self.intent)
-				}, 17)
+			if( typeof this.props.itemDefaultMethod == 'function' ){
+        self.props.itemDefaultMethod.call(_ctx, that, self.intent)
 			}
-      else if (typeof cb == 'function' || this.props.itemMethod){
-        const imd = cb ||this.props.itemMethod
+
+      if (
+        typeof cb == 'function' ||
+        typeof this.props.rendered == 'function' ||
+        typeof this.props.itemMethod == 'function'
+      ) {
+        const imd = cb || this.props.rendered || this.props.itemMethod
         imd.call(_ctx, that, self.intent)
-			}
+      }
+      
       super.componentDidMount ? super.componentDidMount() : ''
       ReactComponentMonuted = true
 		}
