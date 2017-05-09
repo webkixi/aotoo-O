@@ -195,3 +195,22 @@ Xxx.rendered = function(dom){
 }
 Xxx.render('test')
 
+
+class ATest extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      test: '1234'
+    }
+  }
+  render(){
+    return (
+      <div className='container'>
+        {this.state.test}
+        <button className="btn">试试看</button>
+      </div>
+    )
+  }
+}
+
+console.log(ATest);

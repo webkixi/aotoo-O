@@ -18,9 +18,7 @@ let Aotoo = context.Aotoo
 
 // 实例化 class
 function aotooBase(rctCls){
-  // this.config = cfg
   this.reactClass = rctCls
-  
 }
 
 if (!Aotoo) {
