@@ -153,7 +153,7 @@
 //     super(config)
 //     this.combinex(Test, Actions)
 //   }
-  
+
 //   content(message){
 //     this.dispatch('CONTENT', {content: message})
 //   }
@@ -174,7 +174,7 @@
 //
 // import a combineClass class
 //
-import abc from 'component/test'
+// import abc from 'component/test'
 // ========= 111 =========
 // const Xxx = abc()
 // const Yyy = Aotoo.wrap(
@@ -187,30 +187,17 @@ import abc from 'component/test'
 // Aotoo.render(<Yyy />, 'test')
 
 // ========= 222 ==========
-const Xxx = abc({props: {}})
-Xxx.rendered = function(dom){
+// const Xxx = abc({props: {}})
+// Xxx.rendered = function(dom){
+//   $(dom).find('button').click( e=>{
+//     Xxx.content('你好呀，世界')
+//   })
+// }
+// Xxx.render('test')
+
+import xxx from 'component/xxx'
+xxx.render('test', function(dom){
   $(dom).find('button').click( e=>{
-    Xxx.content('你好呀，世界')
+    xxx.content({content: '你好呀，世界'})
   })
-}
-Xxx.render('test')
-
-
-class ATest extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      test: '1234'
-    }
-  }
-  render(){
-    return (
-      <div className='container'>
-        {this.state.test}
-        <button className="btn">试试看</button>
-      </div>
-    )
-  }
-}
-
-console.log(ATest);
+})

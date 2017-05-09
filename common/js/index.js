@@ -17,16 +17,51 @@ const wrap = require('./lib/wrap')
 let Aotoo = context.Aotoo
 
 // 实例化 class
-function aotooBase(rctCls){
-  this.reactClass = rctCls
+function aotooBase(rctCls, acts){
+  const extend = require('lodash.merge')
+  
+  let keynames = Object.keys(acts)
+  const lowKeyNames = keynames.map( item => item.toLowerCase() )
+  const upKeyNames = keynames
+
+  class Temp extends combineClass {
+    constructor(config={}) {
+      super(config)
+      this.combinex(rctCls, acts)
+    }
+
+    setConfig(config){
+      this.config = config || {}
+      return this
+    }
+
+    setProps(props){
+      this.config.props = props
+      return this
+    }
+  }
+
+  Temp.prototype = ( proptype => {
+    for (let ii=0; ii<lowKeyNames.length; ii++) {
+      const actName = upKeyNames[ii]
+      proptype[lowKeyNames[ii]] = function(param){
+        this.dispatch(actName, param)
+        return this
+      }
+    }
+    return proptype
+  })(Temp.prototype)
+
+  return new Temp()
+
 }
 
 if (!Aotoo) {
   const _aotoo = ( () => isClient ? aotoo.fAotoo() : aotoo.nAotoo() )()
 
   // 全局 Aotoo
-  Aotoo = context.Aotoo = function(cfg){
-    return new aotooBase(cfg)
+  Aotoo = context.Aotoo = function(rctCls, acts){
+    return aotooBase(rctCls, acts)
   }
 
   for (let ele in _aotoo) {

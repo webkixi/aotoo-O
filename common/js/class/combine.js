@@ -44,37 +44,28 @@ export default class  {
   browserRender(id, X){
     if (typeof id == 'string') {
       return React.render(<X {...this.config.props}/>, document.getElementById(id))
-    } 
-    
+    }
+
     else if (typeof id == 'object' && id.nodeType) {
       return React.render(<X {...this.config.props}/>, id)
     }
-
-    else {
-      if (typeof this.config.container == 'string') {
-        return React.render(<X {...this.config.props}/>, document.getElementById(this.config.container))
-      }
-      return <X {...this.config.props}/>
-    }
   }
 
-  render(id){
+  render(id, cb){
+    id = id || this.config.container
     const X = this.x
-    if (this.config.props) {
-      if (
-        typeof this.config.rendered == 'function' || 
-        typeof this.rendered == 'function'
-      ) {
-        this.config.props['rendered'] = this.rendered || this.config.rendered
-      }
-      if (id) {
-        if (this.isClient) {
-          return this.browserRender(id, X)
-        }
-      }
-      return <X {...this.config.props}/>
-    } else {
-      return X
+
+    if (typeof id == 'function' || typeof cb == 'function') {
+      this.config.rendered = typeof id == 'function' ? id : cb
     }
+    if ( typeof this.config.rendered == 'function' || typeof this.rendered == 'function' ) {
+      this.config.props.rendered = (this.config.rendered || this.rendered )
+    }
+
+    if (typeof id == 'string' || typeof id == 'object') {
+      if (this.isClient) return this.browserRender(id, X)
+    }
+
+    return <X {...this.config.props}/>
   }
 }
