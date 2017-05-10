@@ -59,7 +59,12 @@ export default class  {
       this.config.rendered = typeof id == 'function' ? id : cb
     }
     if ( typeof this.config.rendered == 'function' || typeof this.rendered == 'function' ) {
-      this.config.props.rendered = (this.config.rendered || this.rendered )
+      if (this.config.props) this.config.props.rendered = (this.config.rendered || this.rendered )
+      else {
+        this.config.props = {
+          rendered: (this.config.rendered || this.rendered )
+        }
+      }
     }
 
     if (typeof id == 'string' || typeof id == 'object') {
