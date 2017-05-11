@@ -14,18 +14,32 @@ export default class  {
   }
 
   combinex(GridsBase, Actions={}){
+    const that = this
     const CombX = combineX(GridsBase, Actions)
     this.x = CombX.element
     this.dispatch = CombX.dispatch
+
     this.setActions = function(key, func){
       const _actions = {}
       _actions[key] = func
       CombX.saxer.setActions(_actions)
     }
+    this.on = this.setActions
+
     this.roll = function(key, data){
       CombX.saxer.roll(key, data)
     }
-    this.on = this.setActions
+    this.emit = this.roll
+
+    this.append = function(obj){
+      CombX.saxer.append(obj)
+      Object.keys(obj).map(function(item){
+        const lowCaseName = item.toLowerCase()
+        that[lowCaseName] = function(param){
+          that.dispatch(item, param)
+        }
+      })
+    }
   }
 
   inject(src){

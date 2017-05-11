@@ -44,7 +44,8 @@ function dllConfig(env){
           use:[{
             loader: "babel-loader?cacheDirectory",
             options: {
-              presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+              // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+              presets:["react", "es2015", "stage-0"],
               plugins: [
                 "transform-runtime",
                 "add-module-exports",
@@ -126,7 +127,8 @@ function _webpackConfig(_entry, env){
           use:[{
             loader: "babel-loader?cacheDirectory",
             options: {
-              presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+              // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+              presets:["react", "es2015", "stage-0"],
               plugins: [
                 "transform-runtime",
                 "add-module-exports",

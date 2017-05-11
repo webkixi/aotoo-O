@@ -7,26 +7,29 @@
  $: jquery2
  */
 
+import combinex, {CombineClass} from './mixins/combinex'
 const isClient = ( function(){ return typeof window !== 'undefined' })()
 const aotoo = require('./lib/common')
 const transTree = require('./lib/tree')
 const context = (()=>isClient ? window : global)() || {}
-const combinex = require('./mixins/combinex')
-const combineClass = require('./class/combine')
+// const combinex = require('./mixins/combinex')
+// const combineClass = require('./class/combine')
 const wrap = require('./lib/wrap')
 let Aotoo = context.Aotoo
 
 // 实例化 class
 function aotooBase(rctCls, acts){
   const extend = require('lodash.merge')
-  
+
   let keynames = Object.keys(acts)
   const lowKeyNames = keynames.map( item => item.toLowerCase() )
   const upKeyNames = keynames
 
-  class Temp extends combineClass {
+  class Temp extends CombineClass {
     constructor(config={}) {
       super(config)
+      this.rClass = rctCls
+      this.acts = acts
       this.combinex(rctCls, acts)
     }
 
@@ -69,14 +72,12 @@ if (!Aotoo) {
   }
 
   // 内嵌方法
-  aotooBase.prototype = {}
-  Aotoo.fn = aotooBase.prototype
   Aotoo.item = $item
   Aotoo.list = $list
   Aotoo.tree = $tree
   Aotoo.extend = _aotoo._.merge
   Aotoo.combinex = combinex
-  Aotoo.CombineClass = combineClass
+  Aotoo.CombineClass = CombineClass
   Aotoo.wrap = wrap
   Aotoo.transTree = transTree
 }

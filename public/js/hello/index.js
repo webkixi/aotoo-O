@@ -196,8 +196,21 @@
 // Xxx.render('test')
 
 import xxx from 'component/xxx'
+xxx.append({
+  YYY: function(state, param){
+    state.test = param.content
+    return state
+  }
+})
+
+// xxx.render('test', function(dom){
+//   $(dom).find('button').click( e=>{
+//     xxx.content({content: '你好呀，世界'})
+//   })
+// })
+
 xxx.render('test', function(dom){
   $(dom).find('button').click( e=>{
-    xxx.content({content: '你好呀，世界'})
+    xxx.yyy({content: '什么鬼啊'})
   })
 })
