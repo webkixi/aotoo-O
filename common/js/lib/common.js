@@ -50,6 +50,6 @@ function nAotoo(){
 }
 
 module.exports = {
-  fAotoo: fAotoo,
-  nAotoo: nAotoo
+  fed: fAotoo,
+  backed: nAotoo
 }

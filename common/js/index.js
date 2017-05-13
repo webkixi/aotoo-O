@@ -7,75 +7,33 @@
  $: jquery2
  */
 
-import combinex, {CombineClass} from './mixins/combinex'
+// import combinex, {CombineClass} from './mixins/combinex'
+import aotooBase, {combinex, CombineClass} from './aotoo'
 const isClient = ( function(){ return typeof window !== 'undefined' })()
-const aotoo = require('./lib/common')
+const context =  (()=>isClient ? window : global)() || {}
+const common = require('./lib/common')
 const transTree = require('./lib/tree')
-const context = (()=>isClient ? window : global)() || {}
-// const combinex = require('./mixins/combinex')
-// const combineClass = require('./class/combine')
 const wrap = require('./lib/wrap')
+
 let Aotoo = context.Aotoo
 
-// 实例化 class
-function aotooBase(rctCls, acts){
-  const extend = require('lodash.merge')
-
-  let keynames = Object.keys(acts)
-  const lowKeyNames = keynames.map( item => item.toLowerCase() )
-  const upKeyNames = keynames
-
-  class Temp extends CombineClass {
-    constructor(config={}) {
-      super(config)
-      this.rClass = rctCls
-      this.acts = acts
-      this.combinex(rctCls, acts)
-    }
-
-    setConfig(config){
-      this.config = config || {}
-      return this
-    }
-
-    setProps(props){
-      this.config.props = props
-      return this
-    }
-  }
-
-  Temp.prototype = ( proptype => {
-    for (let ii=0; ii<lowKeyNames.length; ii++) {
-      const actName = upKeyNames[ii]
-      proptype[lowKeyNames[ii]] = function(param){
-        this.dispatch(actName, param)
-        return this
-      }
-    }
-    return proptype
-  })(Temp.prototype)
-
-  return new Temp()
-
-}
-
 if (!Aotoo) {
-  const _aotoo = ( () => isClient ? aotoo.fAotoo() : aotoo.nAotoo() )()
+  const _common = ( () => isClient ? common.fed() : common.backed() )()
 
   // 全局 Aotoo
   Aotoo = context.Aotoo = function(rctCls, acts){
     return aotooBase(rctCls, acts)
   }
 
-  for (let ele in _aotoo) {
-    Aotoo[ele] = _aotoo[ele]
+  for (let ele in _common) {
+    Aotoo[ele] = _common[ele]
   }
 
   // 内嵌方法
   Aotoo.item = $item
   Aotoo.list = $list
   Aotoo.tree = $tree
-  Aotoo.extend = _aotoo._.merge
+  Aotoo.extend = _common._.merge
   Aotoo.combinex = combinex
   Aotoo.CombineClass = CombineClass
   Aotoo.wrap = wrap
