@@ -165,6 +165,12 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
+aotoo@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.1.tgz#93822dc0c8b69d84444a2c253b57061bf11e90d3"
+  dependencies:
+    react-combinex "^1.0.2"
+
 app-module-path@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/app-module-path/-/app-module-path-2.2.0.tgz#641aa55dfb7d6a6f0a8141c4b9c0aa50b6c24dd5"
@@ -6506,9 +6512,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-combinex@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.2.tgz#ecefb4906ef6f2bf41a72fa244e4f7818db087f1"
+react-combinex@^1.0.2, react-combinex@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.3.tgz#a150e01a6618c3229b8c74c83c4a70cc3d741c66"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"

@@ -1,6 +1,12 @@
 import combinex, {CombineClass} from 'react-combinex'
+// import combinex, {CombineClass} from './mixins/combinex'
 
-export {combinex, CombineClass}
+export {combinex, CombineClass, wrap}
+
+const wrap = combinex
+
+let extension = {plugins: {}}
+
 export default function aotoo(rctCls, acts){
   let keynames = Object.keys(acts)
   const lowKeyNames = keynames.map( item => item.toLowerCase() )
@@ -9,19 +15,15 @@ export default function aotoo(rctCls, acts){
   class Temp extends CombineClass {
     constructor(config={}) {
       super(config)
-      this.rClass = rctCls
-      this.acts = acts
+      let ext = {}
+      const plugins = extension.plugins
+      Object.keys(plugins).map( item => {
+        if (typeof plugins[item] == 'function') {
+          ext[item] = this::plugins[item]
+        }
+      })
+      this.extension.plugins = ext
       this.combinex(rctCls, acts)
-    }
-
-    setConfig(config){
-      this.config = config || {}
-      return this
-    }
-
-    setProps(props){
-      this.config.props = props
-      return this
     }
   }
 
@@ -37,4 +39,8 @@ export default function aotoo(rctCls, acts){
   })(Temp.prototype)
 
   return new Temp()
+}
+
+aotoo.plugins = function(key, fun){
+  extension.plugins[key] = fun
 }

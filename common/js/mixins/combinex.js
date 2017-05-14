@@ -14,15 +14,22 @@ const ReactDom    = ( C => C ? require('react-dom') : require('react-dom/server'
 const findDOMNode = ( C => C ? ReactDom.findDOMNode : function(){} )(isClient)
 const render      = ( C => C ? ReactDom.render : ReactDom.renderToString)(isClient)
 
+const componentMonuted = SAX('ReactComponentMonuted')
 const store = ( sax => {
   try {
     if (!sax) throw 'storehlc depend on SAX, SAX is fkp-sax, is a Global fun'
-    return (id, ComposedComponent) => {
+    return (id, ComposedComponent, extension) => {
       if (!id) throw 'storehlc id must be set'
       return class extends ComposedComponent {
         constructor(props) {
           super(props)
           this.globalName = id
+
+          // 初始化，组件没有渲染的状态
+          const unmounted = {}
+          unmounted[id] = false
+          componentMonuted.append(unmounted)
+
           const queryer = sax(id)
           queryer.data.originalState
           ? queryer.data.originalState[id] = cloneDeep(this.state)
@@ -31,6 +38,18 @@ const store = ( sax => {
             queryer.data.originalState = temp
           })()
           sax.bind(id, this)
+
+          if (typeof extension == 'object') {
+            if (typeof extension.plugins == 'object' && !Array.isArray(extension.plugins)) {
+              const plugins = extension.plugins
+              Object.keys(extension.plugins).map( item => {
+                if (typeof plugins[item] == 'function') {
+                  // plugins[item] = this::plugins[item]
+                  this[item] = plugins[item]
+                }
+              })
+            }
+          }
         }
       }
     }
@@ -39,88 +58,125 @@ const store = ( sax => {
   }
 })(SAX)
 
+const isFunction = function(target){
+  return typeof target == 'function'
+}
+
+
+/**
+ * [dealWithReactElement 处理传入为react element 的场景，一般用于wrap]
+ * @param  {react element} CComponent [description]
+ * @return {react class}            [description]
+ */
+function dealWithReactElement(CComponent){
+  return class extends React.Component {
+    constructor(props){
+      super(props)
+      this.intent = this.props.intent
+      this.state = { show: true }
+
+      this.show = this.show.bind(this)
+      this.hide = this.hide.bind(this)
+    }
+    componentWillMount() {
+      if (this.props.show == false) this.setState({ show: false })
+    }
+    show(){
+      this.setState({
+        show: true
+      })
+    }
+    hide(){
+      this.setState({
+        show: false
+      })
+    }
+
+    componentDidUpdate(){
+      this.componentDidMount()
+    }
+
+    componentDidMount() {
+      let self = this
+      let that = findDOMNode(this);
+      const _ctx = {
+        show: this.show,
+        hide: this.hide
+      }
+
+      if( typeof this.props.itemDefaultMethod == 'function' ){
+        self.props.itemDefaultMethod.call(_ctx, that, self.intent)
+      }
+
+      if (
+        typeof cb == 'function' ||
+        typeof this.props.rendered == 'function' ||
+        typeof this.props.itemMethod == 'function'
+      ) {
+        const imd = isFunction(cb) ? cb : this.props.rendered || this.props.itemMethod
+        imd.call(_ctx, that, self.intent)
+      }
+
+      super.componentDidMount ? super.componentDidMount() : ''
+    }
+    render(){
+      return this.state.show ? CComponent : <span/>
+    }
+  }
+}
+
+/**
+ * [combineX description]
+ * @param  {react class | react element}   ComposedComponent [description]
+ * @param  {object}   opts              [description]
+ * @param  {Function} cb                [description]
+ * @return {react class | object}       [description]
+ */
 
 export default function combineX(ComposedComponent, opts, cb){
+  if (!ComposedComponent) return
+
+  if ( typeof ComposedComponent == 'string' || Array.isArray(ComposedComponent) ) return
+
+  let extension = cb
+
   if (typeof opts == 'function') {
     cb = opts
     opts = undefined
   }
-  if (!ComposedComponent) {
-    console.log('请指定ComposedComponent');
-    return
-  }
-  if ( typeof ComposedComponent == 'string' ||
-    Array.isArray(ComposedComponent)
-  ) { return }
 
   const globalName = uniqueId('Combinex_')
+
   let queryer = SAX(globalName, opts||{})
-  // let queryer = SAX(globalName)
+
+  // will return React class for type 2
+  let returnReactClass = false
+  if (opts.type == 'reactClass') {
+    returnReactComponent = true
+    delete opts.type
+  }
+
+
+
+
 
   /**
+   * type 1
    * ComposedComponent 为 React element
    * @param  {[type]} React [description]
    * @return [type]         [description]
    */
   if (React.isValidElement(ComposedComponent)) {
-    return class extends React.Component {
-      constructor(props){
-        super(props)
-        this.intent = this.props.intent
-        this.state = { show: true }
-
-        this.show = this.show.bind(this)
-        this.hide = this.hide.bind(this)
-      }
-      componentWillMount() {
-        if (this.props.show == false) this.setState({ show: false })
-      }
-      show(){
-        this.setState({
-          show: true
-        })
-      }
-      hide(){
-        this.setState({
-          show: false
-        })
-      }
-
-      componentDidUpdate(){
-        this.componentDidMount()
-      }
-
-      componentDidMount() {
-        let self = this
-  			let that = findDOMNode(this);
-        const _ctx = {
-          show: this.show,
-          hide: this.hide
-        }
-
-        if( typeof this.props.itemDefaultMethod == 'function' ){
-          self.props.itemDefaultMethod.call(_ctx, that, self.intent)
-        }
-
-        if (
-          typeof cb == 'function' ||
-          typeof this.props.rendered == 'function' ||
-          typeof this.props.itemMethod == 'function'
-        ) {
-          const imd = cb || this.props.rendered || this.props.itemMethod
-          imd.call(_ctx, that, self.intent)
-        }
-
-        super.componentDidMount ? super.componentDidMount() : ''
-      }
-      render(){
-        return this.state.show ? ComposedComponent : <span/>
-      }
-    }
+    return dealWithReactElement(ComposedComponent)
   }
 
 
+
+
+
+
   /**
+   * type 2
    * ComposedComponent 为 React class
    * @type {[type]}
    */
@@ -154,6 +210,12 @@ export default function combineX(ComposedComponent, opts, cb){
 			this.intent = this.props.intent || [];
     }
 
+    componentWillUnmount(){
+      const gname = this.globalName
+      componentMonuted.data[gname] = false
+      // ReactComponentMonuted = false
+    }
+
     componentDidUpdate(){
       this.componentDidMount()
     }
@@ -176,69 +238,94 @@ export default function combineX(ComposedComponent, opts, cb){
         typeof this.props.rendered == 'function' ||
         typeof this.props.itemMethod == 'function'
       ) {
-        const imd = cb || this.props.rendered || this.props.itemMethod
+        const imd = isFunction(cb) ? cb : this.props.rendered || this.props.itemMethod
         imd.call(_ctx, that, self.intent)
       }
 
+      const gname = this.globalName
+      componentMonuted.data[gname] = true
       super.componentDidMount ? super.componentDidMount() : ''
-      ReactComponentMonuted = true
+      // ReactComponentMonuted = true
 		}
   }
 
   class Query {
     constructor(config){
-      this.element = store(globalName, Temp)
+      this.element = store(globalName, Temp, extension)
       this.timer
       this.globalName = globalName
       this.saxer = queryer
       this.setActions = queryer.setActions
       this.on = queryer.on
       this.roll = queryer.roll
+      this.hasMounted = this::this.hasMounted
+    }
+
+    hasMounted(){
+      const gname = this.globalName
+      return componentMonuted.data[gname]
     }
 
     dispatch(key, props){
+      const that = this
       clearTimeout(this.timer)
       this.timer = setTimeout(function() {
-        if (ReactComponentMonuted) dispatcher(key, props)
+        const hasMounted = that.hasMounted()
+        if (hasMounted) dispatcher(key, props)
       }, 0);
     }
   }
 
-  if (opts.type == 'reactClass') {
-    return Temp
+  if (returnReactClass) {
+    return store(globalName, Temp, extension)
   } else {
     return new Query()
   }
 }
 
 
-// BaseCombine
+// CombineClass
+
+function browserRender(id, X){
+  if (typeof id == 'string') {
+    return render(<X {...this.config.props}/>, document.getElementById(id))
+  }
+
+  else if (typeof id == 'object' && id.nodeType) {
+    return render(<X {...this.config.props}/>, id)
+  }
+}
+
 export class CombineClass{
   constructor(config){
     this.config = config
-    this.isClient = (() => typeof window !== 'undefined')()
+    this.isClient = isClient
+    this.extension = {}
     this.element
-    this.inject = this::this.inject
-    this.combinex = this::this.combinex
+    browserRender = this::browserRender
 
     this.inject()
   }
 
   combinex(GridsBase, Actions={}){
     const that = this
-    const CombX = combineX(GridsBase, Actions)
+    const CombX = combineX(GridsBase, Actions, this.extension)
     this.x = CombX.element
-    this.dispatch = CombX.dispatch
+    this.globalName = CombX.globalName
+    this.dispatch = CombX::CombX.dispatch
+    this.hasMounted = CombX::CombX.hasMounted
 
     this.setActions = function(key, func){
       const _actions = {}
       _actions[key] = func
       CombX.saxer.setActions(_actions)
+      return this
     }
     this.on = this.setActions
 
     this.roll = function(key, data){
       CombX.saxer.roll(key, data)
+      return this
     }
     this.emit = this.roll
 
@@ -250,6 +337,7 @@ export class CombineClass{
           that.dispatch(item, param)
         }
       })
+      return this
     }
   }
 
@@ -264,16 +352,17 @@ export class CombineClass{
       // }
       // return ij
     }
+    return this
   }
 
-  browserRender(id, X){
-    if (typeof id == 'string') {
-      return render(<X {...this.config.props}/>, document.getElementById(id))
-    }
+  setConfig(config){
+    this.config = config || {}
+    return this
+  }
 
-    else if (typeof id == 'object' && id.nodeType) {
-      return render(<X {...this.config.props}/>, id)
-    }
+  setProps(props){
+    this.config.props = props
+    return this
   }
 
   render(id, cb){
@@ -293,9 +382,10 @@ export class CombineClass{
     }
 
     if (typeof id == 'string' || typeof id == 'object') {
-      if (this.isClient) return this.browserRender(id, X)
+      if (this.isClient) return browserRender(id, X)
     }
 
-    return <X {...this.config.props}/>
+    const _props = this.config.props || {}
+    return <X {..._props}/>
   }
 }

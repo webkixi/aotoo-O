@@ -7,13 +7,12 @@
  $: jquery2
  */
 
-// import combinex, {CombineClass} from './mixins/combinex'
-import aotooBase, {combinex, CombineClass} from './aotoo'
+// import aotooBase, {combinex, CombineClass, wrap} from './aotoo'
+import aotooBase, {combinex, CombineClass, wrap} from 'aotoo'
 const isClient = ( function(){ return typeof window !== 'undefined' })()
 const context =  (()=>isClient ? window : global)() || {}
 const common = require('./lib/common')
 const transTree = require('./lib/tree')
-const wrap = require('./lib/wrap')
 
 let Aotoo = context.Aotoo
 
@@ -21,9 +20,7 @@ if (!Aotoo) {
   const _common = ( () => isClient ? common.fed() : common.backed() )()
 
   // 全局 Aotoo
-  Aotoo = context.Aotoo = function(rctCls, acts){
-    return aotooBase(rctCls, acts)
-  }
+  Aotoo = context.Aotoo = aotooBase
 
   for (let ele in _common) {
     Aotoo[ele] = _common[ele]
@@ -41,13 +38,13 @@ if (!Aotoo) {
 }
 
 function $item(props, isreact){
-  const Item = require('./subassembly/itemview/foxdiv')
+  const Item = require('./suba/itemview/foxdiv')
   if (!props) return Item
   return <Item {...props} />
 }
 
 function $list(props, isreact){
-  const List = require('./subassembly/listview')
+  const List = require('./suba/listview')
   if (!props) return List
   return <List {...props} />
 }
