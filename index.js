@@ -11,7 +11,5 @@ if (argv.length) {
   if (margv.p) process.env.NODE_ENV = 'production'
 }
 
-var fs = require('fs')
-var webpack = require('webpack');
 var buildConfig = require('./build/build.config')
 buildConfig.start()
