@@ -16,7 +16,8 @@ const fs   = require('fs')
 
 const configs  = require('../configs/default')()
     , version  = configs.version
-    , getEntry = require('./entry');
+    , getEntry = require('./entry')
+    , mapFile  = require('./mapfile')
 
 const DIST    = path.join( __dirname, '../dist/out', version, (env=='development' ? 'dev' : '') )
     , DLLDIST = path.join( __dirname, '../dist/out/', 'dll' )
@@ -85,18 +86,25 @@ function start(){
       process.exit()
     })
   } else {
-    // mapfile(DIST, _jsEntry, ()=>{
-    //   new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    //   .listen(3000, 'localhost', function (err, result) {
-    //     if (err) console.log(err);
-    //     console.log('Listening at http://localhost:3000/');
-    //   });
-    // })
-    new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    .listen(3000, 'localhost', function (err, result) {
-      if (err) console.log(err);
-      console.log('Listening at http://localhost:3000/');
-    });
+    const options = {
+      dist: DIST,
+      configs: configs,
+      entry: {
+        js: _jsEntry
+      }
+    }
+    mapFile(options, ()=>{
+      new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
+      .listen(3000, 'localhost', function (err, result) {
+        if (err) console.log(err);
+        console.log('Listening at http://localhost:3000/');
+      });
+    })
+    // new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
+    // .listen(3000, 'localhost', function (err, result) {
+    //   if (err) console.log(err);
+    //   console.log('Listening at http://localhost:3000/');
+    // });
   }
 }
 

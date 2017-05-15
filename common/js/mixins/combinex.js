@@ -152,7 +152,7 @@ export default function combineX(ComposedComponent, opts, cb){
   // will return React class for type 2
   let returnReactClass = false
   if (opts.type == 'reactClass') {
-    returnReactComponent = true
+    returnReactClass = true
     delete opts.type
   }
 

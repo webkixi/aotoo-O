@@ -17,7 +17,7 @@
 //     url: 'http://www.163.com'
 //   }
 // })
-//
+
 // Aotoo.render(
 //   testitem,
 //   'test'
@@ -34,7 +34,7 @@
 //     ]
 //   }
 // )
-//
+
 // Aotoo.render(
 //   testlist,
 //   'test'
@@ -43,19 +43,19 @@
 //
 // tree
 //
-const testtree = Aotoo.tree(
-  {
-    data: [
-      { title: '网易'},
-      { title: '太平洋'},
-    ]
-  }
-)
+// const testtree = Aotoo.tree(
+//   {
+//     data: [
+//       { title: '网易'},
+//       { title: '太平洋'},
+//     ]
+//   }
+// )
 
-Aotoo.render(
-  testtree,
-  'test'
-)
+// Aotoo.render(
+//   testtree,
+//   'test'
+// )
 
 //const data =  Aotoo.transTree([])
 
@@ -201,13 +201,13 @@ Aotoo.render(
 //
 //
 //
-// import xxx from 'component/xxx'
-// xxx.append({
-//   YYY: function(state, param){
-//     state.test = param.content
-//     return state
-//   }
-// })
+import xxx from 'component/xxx'
+xxx.append({
+  YYY: function(state, param){
+    state.test = param.content
+    return state
+  }
+})
 
 // // xxx.render('test', function(dom){
 // //   $(dom).find('button').click( e=>{
@@ -215,8 +215,8 @@ Aotoo.render(
 // //   })
 // // })
 
-// xxx.render('test', function(dom){
-//   $(dom).find('button').click( e=>{
-//     xxx.yyy({content: '什么鬼啊'})
-//   })
-// })
+xxx.render('test', function(dom){
+  $(dom).find('button').click( e=>{
+    xxx.yyy({content: '什么鬼啊'})
+  })
+})
