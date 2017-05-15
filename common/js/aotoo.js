@@ -1,9 +1,9 @@
 import combinex, {CombineClass} from 'react-combinex'
 // import combinex, {CombineClass} from './mixins/combinex'
+const wrap = combinex
 
 export {combinex, CombineClass, wrap}
 
-const wrap = combinex
 
 let extension = {plugins: {}}
 
