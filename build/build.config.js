@@ -74,45 +74,39 @@ const dllConfig = require('./webpack.config').dllConfig({
 
 // js build or start webpack dev server
 function start(){
+
+  // 产出映射文件
+  const mapOptions = {
+    dist: DIST,
+    configs: configs,
+    entry: {
+      js: _jsEntry
+    }
+  }
+
   webpackConfig.plugins.push(
     new webpack.DllReferencePlugin({
       manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
     })
   )
+
   var compiler = webpack(webpackConfig)
   if (env == 'production') {
     compiler.run( (err, stats) => {
       if (err) throw new gutil.PluginError('[webpack]', err)
-      process.exit()
+      mapFile(mapOptions, ()=>{
+        process.exit()
+      })
     })
-  } else {
-    const options = {
-      dist: DIST,
-      configs: configs,
-      entry: {
-        js: _jsEntry
-      }
-    }
-    mapFile(options)
+  }
+  // 开发模式
+  else {
+    mapFile(mapOptions)
     new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
     .listen(3000, 'localhost', function (err, result) {
       if (err) console.log(err);
       console.log('Listening at http://localhost:3000/');
     });
-
-    // mapFile(options, ()=>{
-    //   new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    //   .listen(3000, 'localhost', function (err, result) {
-    //     if (err) console.log(err);
-    //     console.log('Listening at http://localhost:3000/');
-    //   });
-    // })
-
-    // new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    // .listen(3000, 'localhost', function (err, result) {
-    //   if (err) console.log(err);
-    //   console.log('Listening at http://localhost:3000/');
-    // });
   }
 }
 

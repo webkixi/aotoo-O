@@ -15,6 +15,7 @@ module.exports = function(opts, cb){
   const cssdir = path.join(dir, 'css')
   const jsdir = path.join(dir, 'js')
   const htmldir = path.join(dir, 'html')
+  const mapdir = path.join(dir, 'map.json')
 
 
   // let colletion = {
@@ -37,7 +38,10 @@ module.exports = function(opts, cb){
   }
 
   function configCSSCollection(obj){
-    const _name = obj.name.replace(/-/g,'/')
+    let _name = obj.name.replace(/-/g,'/')
+    if (_name.indexOf('__')>-1) {
+      _name = _name.split('__')[0]
+    }
     if (obj.dir.indexOf('/css/t')>-1) {
       const relpath = obj.dir.substring(obj.dir.indexOf('/t')+1)
       colletion.css[relpath+path.sep+_name] = path.join(relpath, obj.base)
@@ -47,7 +51,10 @@ module.exports = function(opts, cb){
   }
 
   function configJSCollection(obj){
-    const _name = obj.name.replace(/-/g,'/')
+    let _name = obj.name.replace(/-/g,'/')
+    if (_name.indexOf('__')>-1) {
+      _name = _name.split('__')[0]
+    }
     if (obj.dir.indexOf('/js/t')>-1) {
       const relpath = obj.dir.substring(obj.dir.indexOf('/t')+1)
       colletion.js[relpath+path.sep+_name] = path.join(relpath, obj.base)
@@ -57,7 +64,10 @@ module.exports = function(opts, cb){
   }
 
   function configHTMLCollection(obj){
-    const _name = obj.name.replace(/-/g,'/')
+    let _name = obj.name.replace(/-/g,'/')
+    if (_name.indexOf('__')>-1) {
+      _name = _name.split('__')[0]
+    }
     let relpath = obj.dir.substring(obj.dir.indexOf('/html')+1)
     relpath = relpath.replace('html/', '')
     relpath = relpath.replace('html', '')
@@ -85,7 +95,8 @@ module.exports = function(opts, cb){
       configHTMLCollection(obj)
     })
 
-    console.log(colletion);
-  }, 6000)
+    fs.writeFileSync(mapdir, JSON.stringify(colletion))
+    if (typeof cb == 'function') cb()
+  }, 4000)
 
 }
