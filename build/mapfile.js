@@ -14,44 +14,58 @@ module.exports = function(opts, cb){
 
   const cssdir = path.join(dir, 'css')
   const jsdir = path.join(dir, 'js')
+  const htmldir = path.join(dir, 'html')
 
+
+  // let colletion = {
+  //   version: version,
+  //   dev: {
+  //     js: {},
+  //     css: {}
+  //   },
+  //   pro: {
+  //     js: {},
+  //     css: {}
+  //   }
+  // }
 
   let colletion = {
-    dev: {
-      js: {},
-      css: {}
-    },
-    pro: {
-      js: {},
-      css: {}
-    }
+    version: version,
+    js: {},
+    css: {},
+    html: {}
   }
 
   function configCSSCollection(obj){
+    const _name = obj.name.replace(/-/g,'/')
     if (obj.dir.indexOf('/css/t')>-1) {
-      if (production) {}
-      else {
-        colletion.dev.css['t/'+obj.name] = path.join('t', obj.base)
-      }
+      const relpath = obj.dir.substring(obj.dir.indexOf('/t')+1)
+      colletion.css[relpath+path.sep+_name] = path.join(relpath, obj.base)
     } else {
-      if (production) {}
-      else {
-        colletion.dev.css[obj.name] = obj.base
-      }
+      colletion.css[_name] = obj.base
     }
   }
 
   function configJSCollection(obj){
+    const _name = obj.name.replace(/-/g,'/')
     if (obj.dir.indexOf('/js/t')>-1) {
-      if (production) {}
-      else {
-        colletion.dev.js['t/'+obj.name] = path.join('t', obj.base)
-      }
+      const relpath = obj.dir.substring(obj.dir.indexOf('/t')+1)
+      colletion.js[relpath+path.sep+_name] = path.join(relpath, obj.base)
     } else {
-      if (production) {}
-      else {
-        colletion.dev.js[obj.name] = obj.base
-      }
+      colletion.js[_name] = obj.base
+    }
+  }
+
+  function configHTMLCollection(obj){
+    const _name = obj.name.replace(/-/g,'/')
+    let relpath = obj.dir.substring(obj.dir.indexOf('/html')+1)
+    relpath = relpath.replace('html/', '')
+    relpath = relpath.replace('html', '')
+
+    if (relpath) {
+      colletion.html[relpath+path.sep+_name] = path.join(relpath, obj.base)
+    } else {
+      colletion.html[_name] = obj.base
     }
   }
 
@@ -66,10 +80,12 @@ module.exports = function(opts, cb){
       configJSCollection(obj)
     })
 
-    console.log('========= 111');
-    console.log('========= 111');
-    console.log('========= 111');
+    glob.sync(htmldir+'/**/*.html').forEach(function(item){
+      const obj = path.parse(item)
+      configHTMLCollection(obj)
+    })
+
     console.log(colletion);
-  }, 3000)
+  }, 6000)
 
 }
