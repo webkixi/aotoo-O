@@ -112,10 +112,10 @@ function _webpackConfig(_entry, env){
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
 
     externals: {
-      "react" : "React",
-      "react-dom" : "ReactDom",
-      "lodash" : "_",
-      "jquery" : "$"
+      // "react" : "React",
+      // "react-dom" : "ReactDom",
+      // "lodash" : "_",
+      // "jquery" : "$"
     },
 
     module: {

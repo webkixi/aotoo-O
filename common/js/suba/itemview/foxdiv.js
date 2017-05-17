@@ -2,6 +2,7 @@
 itemView
 放回 div 结构, 一般可以直接调用
 */
+const React = (typeof React != 'undefined' ? React : require('react'))
 import wrap from 'react-combinex'
 import uniqueId from 'lodash.uniqueid'
 var dealWithDataMethod = require('./common/itemDealWithData')

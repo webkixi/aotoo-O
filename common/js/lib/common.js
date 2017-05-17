@@ -20,17 +20,7 @@ function fAotoo(){
   aotoo.react.render = aotoo.reactDom.render;
   aotoo.react.unmountComponentAtNode = aotoo.reactDom.unmountComponentAtNode;
   aotoo.react.findDOMNode = aotoo.reactDom.findDOMNode;
-  aotoo.$ = require('jquery')
-  aotoo.render = function(element, id){
-    if (typeof id == 'object') {
-      if (id.nodeName) aotoo.reactDom.render(element, id)
-    }
-    if (typeof id == 'string') {
-      return aotoo.reactDom.render(element, document.getElementById(id))
-    }
-    return element
-  }
-
+  const $ = require('jquery')
   // 全局$
   context.$ = aotoo.$
   return aotoo
@@ -38,14 +28,8 @@ function fAotoo(){
 
 // node 凹凸
 function nAotoo(){
-  aotoo.$ = require('cheerio')
-  aotoo.render = function(element){
-    const reactDomServer = aotoo.reactDom
-    return reactDomServer.renderToString(reactElement)
-  }
-
-  // 全局$
-  context.$ = aotoo.$
+  const $ = require('cheerio')
+  context.$ = $
   return aotoo
 }
 

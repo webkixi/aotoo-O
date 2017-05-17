@@ -1,3 +1,6 @@
+const $ = require('jquery')
+const React = require('react')
+const ReactDom = require('react-dom')
 
 //
 // 常规
@@ -80,95 +83,96 @@
 //
 // combinex
 //
-// class Test extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       test: '1234'
-//     }
-//   }
-//   render(){
-//     return (
-//       <div className='container'>
-//         {this.state.test}
-//         <button className="btn">试试看</button>
-//       </div>
-//     )
-//   }
-// }
+/*class Test extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      test: '1234'
+    }
+  }
+  render(){
+    return (
+      <div className='container'>
+        {this.state.test}
+        <button className="btn">试试看</button>
+      </div>
+    )
+  }
+}
 
-// const Actions = {
-//   CONTENT: function(state, props){
-//     state.test = props.content
-//     return state
-//   }
-// }
+const Actions = {
+  CONTENT: function(state, props){
+    state.test = props.content
+    return state
+  }
+}
 
-// const Abc = Aotoo.combinex(Test, Actions)
+const Abc = Aotoo.combinex(Test, Actions)
 
-// function itemFun(dom){
-//   $(dom).find('button').click(function(){
-//     Abc.dispatch('CONTENT', {content: '你好，你很棒啊'})
-//   })
-// }
+function itemFun(dom){
+  $(dom).find('button').click(function(){
+    Abc.dispatch('CONTENT', {content: '你好，你很棒啊'})
+  })
+}
 
-// Aotoo.render(<Abc.element itemMethod={itemFun}/>, 'test')
+Aotoo.render(<Abc.element itemMethod={itemFun}/>, 'test')*/
 
 
 //
 // combineClass
 //
-// class Test extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       test: '1234'
-//     }
-//   }
-//   render(){
-//     return (
-//       <div className='container'>
-//         {this.state.test}
-//         <button className="btn">试试看</button>
-//       </div>
-//     )
-//   }
-// }
+class Test extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      test: '1234'
+    }
+  }
+  render(){
+    console.log(this)
+    return (
+      <div className='container'>
+        {this.state.test}
+        <button className="btn">试试看</button>
+      </div>
+    )
+  }
+}
 
-// const Actions = {
-//   CONTENT: function(state, props){
-//     state.test = props.content
-//     return state
-//   }
-// }
+const Actions = {
+  CONTENT: function(state, props){
+    state.test = props.content
+    return state
+  }
+}
 
-// function itemFun(dom){
-//   $(dom).find('button').click(function(){
-//     Abc.dispatch('CONTENT', {content: '你好，你很棒啊'})
-//   })
-// }
+function itemFun(dom){
+  $(dom).find('button').click(function(){
+    Abc.dispatch('CONTENT', {content: '你好，你很棒啊'})
+  })
+}
 
-// class abc extends Aotoo.CombineClass {
-//   constructor(config){
-//     super(config)
-//     this.combinex(Test, Actions)
-//   }
+class abc extends Aotoo.CombineClass {
+  constructor(config){
+    super(config)
+    this.combinex(Test, Actions)
+  }
 
-//   content(message){
-//     this.dispatch('CONTENT', {content: message})
-//   }
-// }
+  content(message){
+    this.dispatch('CONTENT', {content: message})
+  }
+}
 
-// const Abc = new abc({
-//   props: {}
-// })
+const Abc = new abc({
+  props: {}
+})
 
-// Abc.rendered = function(dom){
-//   $(dom).find('button').click( e=>{
-//     Abc.content('你好呀，世界')
-//   })
-// }
-// Abc.render('test')
+Abc.rendered = function(dom){
+  $(dom).find('button').click( e=>{
+    Abc.content('你好呀，世界')
+  })
+}
+Abc.render('test')
 
 
 //
@@ -201,22 +205,22 @@
 //
 //
 //
-import xxx from 'component/xxx'
-xxx.append({
-  YYY: function(state, param){
-    state.test = param.content
-    return state
-  }
-})
+// import xxx from 'component/xxx'
+// xxx.append({
+//   YYY: function(state, param){
+//     state.test = param.content
+//     return state
+//   }
+// })
 
-// // xxx.render('test', function(dom){
-// //   $(dom).find('button').click( e=>{
-// //     xxx.content({content: '你好呀，世界'})
-// //   })
-// // })
+// xxx.render('test', function(dom){
+//   $(dom).find('button').click( e=>{
+//     xxx.content({content: '你好呀，世界'})
+//   })
+// })
 
-xxx.render('test', function(dom){
-  $(dom).find('button').click( e=>{
-    xxx.yyy({content: '什么鬼啊'})
-  })
-})
+// xxx.render('test', function(dom){
+//   $(dom).find('button').click( e=>{
+//     xxx.yyy({content: '什么鬼啊'})
+//   })
+// })

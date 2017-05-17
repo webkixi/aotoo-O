@@ -2,6 +2,10 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
+const isClient = typeof window !== 'undefined'
+const React = (typeof React != 'undefined' ? React : require('react'))
+const reactDom = ( C => typeof ReactDOM != 'undefined' ? ReactDOM : typeof ReactDom != 'undefined' ? ReactDom : C ? require('react-dom') : require('react-dom/server'))(isClient)
+
 var Fox = require('../itemview/foxli')
 
 class TmpApp extends React.Component {
@@ -11,7 +15,6 @@ class TmpApp extends React.Component {
 		if( pdata ){ if(!Array.isArray( pdata )){ pdata = [ pdata ] } }
 		this.selected = []
 		this.state = {
-			// data: im.fromJS(pdata||[])
 			data: pdata||[]
 		}
 
@@ -30,7 +33,7 @@ class TmpApp extends React.Component {
 	}
 
 	getListDom(){
-		return React.findDOMNode(this);
+		return reactDom.findDOMNode(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -47,7 +50,7 @@ class TmpApp extends React.Component {
 
 	listMethod(lmd){
 		if (lmd && typeof lmd == 'function') {
-			let that = React.findDOMNode(this);
+			let that = reactDom.findDOMNode(this);
 			lmd(that, this.props.store)
 		}
 	}

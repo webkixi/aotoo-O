@@ -1,11 +1,14 @@
+const isClient = typeof window !== 'undefined'
+const React    = (typeof React != 'undefined' ? React : require('react'))
+const reactDom = ( C => typeof ReactDOM != 'undefined' ? ReactDOM : typeof ReactDom != 'undefined' ? ReactDom : C ? require('react-dom') : require('react-dom/server'))(isClient)
+const render   = ( C => C ? reactDom.render : reactDom.renderToString)(isClient)
+
 import combinex, {CombineClass} from 'react-combinex'
-// import combinex, {CombineClass} from './mixins/combinex'
+const suba = require('./suba')
 const wrap = combinex
+let extension = {plugins: {}}
 
 export {combinex, CombineClass, wrap}
-
-
-let extension = {plugins: {}}
 
 export default function aotoo(rctCls, acts){
   let keynames = Object.keys(acts)
@@ -42,5 +45,29 @@ export default function aotoo(rctCls, acts){
 }
 
 aotoo.plugins = function(key, fun){
+  aotoo[key] = fun
   extension.plugins[key] = fun
 }
+
+function fedRender(element, id){
+  if (typeof id == 'object') {
+    if (id.nodeName) render(element, id)
+  }
+  if (typeof id == 'string') {
+    return render(element, document.getElementById(id))
+  }
+  return element
+}
+
+function nodeRender(element){
+  return render(reactElement)
+}
+
+aotoo.item = suba.item
+aotoo.list = suba.list
+aotoo.tree = suba.tree
+aotoo.transTree = suba.transTree
+aotoo.combinex = combinex
+aotoo.CombineClass = CombineClass
+aotoo.wrap = wrap
+aotoo.render = isClient ? fedRender : nodeRender
