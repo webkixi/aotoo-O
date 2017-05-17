@@ -2,7 +2,6 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-import im from 'immutable'
 var Fox = require('../itemview/foxli')
 
 class TmpApp extends React.Component {
