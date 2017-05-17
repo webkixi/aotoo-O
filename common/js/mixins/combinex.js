@@ -9,10 +9,11 @@ import SAX from 'fkp-sax'
 import cloneDeep from 'lodash.clonedeep'
 import merge from 'lodash.merge'
 import uniqueId from 'lodash.uniqueid'
-import React from 'react';
-const ReactDom    = ( C => C ? require('react-dom') : require('react-dom/server'))(isClient)
-const findDOMNode = ( C => C ? ReactDom.findDOMNode : function(){} )(isClient)
-const render      = ( C => C ? ReactDom.render : ReactDom.renderToString)(isClient)
+// import React from 'react';
+const React = (typeof React != 'undefined' ? React : require('react'))
+const reactDom    = ( C => (typeof ReactDOM != 'undefined' || typeof ReactDom != 'undefined') ? (ReactDOM||ReactDom) : C ? require('react-dom') : require('react-dom/server'))(isClient)
+const findDOMNode = ( C => C ? reactDom.findDOMNode : function(){} )(isClient)
+const render      = ( C => C ? reactDom.render : reactDom.renderToString)(isClient)
 
 const componentMonuted = SAX('ReactComponentMonuted')
 const store = ( sax => {
@@ -68,7 +69,7 @@ const isFunction = function(target){
  * @param  {react element} CComponent [description]
  * @return {react class}            [description]
  */
-function dealWithReactElement(CComponent){
+function dealWithReactElement(CComponent, opts, cb){
   return class extends React.Component {
     constructor(props){
       super(props)
@@ -151,7 +152,7 @@ export default function combineX(ComposedComponent, opts, cb){
 
   // will return React class for type 2
   let returnReactClass = false
-  if (opts.type == 'reactClass') {
+  if (typeof opts == 'object' && opts.type == 'reactClass') {
     returnReactClass = true
     delete opts.type
   }
@@ -167,7 +168,7 @@ export default function combineX(ComposedComponent, opts, cb){
    * @return [type]         [description]
    */
   if (React.isValidElement(ComposedComponent)) {
-    return dealWithReactElement(ComposedComponent)
+    return dealWithReactElement(ComposedComponent, opts, cb)
   }
 
 
@@ -251,6 +252,7 @@ export default function combineX(ComposedComponent, opts, cb){
 
   class Query {
     constructor(config){
+      this.config = config
       this.element = store(globalName, Temp, extension)
       this.timer
       this.globalName = globalName
@@ -258,21 +260,20 @@ export default function combineX(ComposedComponent, opts, cb){
       this.setActions = queryer.setActions
       this.on = queryer.on
       this.roll = queryer.roll
-      this.hasMounted = this::this.hasMounted
-    }
 
-    hasMounted(){
-      const gname = this.globalName
-      return componentMonuted.data[gname]
-    }
+      this.hasMounted = function(){
+        const gname = this.globalName
+        return componentMonuted.data[gname]
+      }
 
-    dispatch(key, props){
-      const that = this
-      clearTimeout(this.timer)
-      this.timer = setTimeout(function() {
-        const hasMounted = that.hasMounted()
-        if (hasMounted) dispatcher(key, props)
-      }, 0);
+      this.dispatch = function(key, props){
+        const that = this
+        clearTimeout(this.timer)
+        this.timer = setTimeout(function() {
+          const hasMounted = that.hasMounted()
+          if (hasMounted) dispatcher(key, props)
+        }, 0);
+      }
     }
   }
 
@@ -365,6 +366,10 @@ export class CombineClass{
     return this
   }
 
+  reRender(){
+    this.render()
+  }
+
   render(id, cb){
     id = id || this.config.container
     const X = this.x
@@ -382,7 +387,10 @@ export class CombineClass{
     }
 
     if (typeof id == 'string' || typeof id == 'object') {
-      if (this.isClient) return browserRender(id, X)
+      if (this.isClient) {
+        this.config.container = id
+        return browserRender(id, X)
+      }
     }
 
     const _props = this.config.props || {}
