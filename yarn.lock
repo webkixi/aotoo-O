@@ -6525,9 +6525,9 @@ react-combinex@^1.0.12:
     react-dom "^15.4.2"
     webpack "^2.2.1"
 
-react-combinex@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.9.tgz#c46cfc6c5a64a613f4d3279f7d340c0c20fb840b"
+react-combinex@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.13.tgz#b4026dca6ebee53490ebee1cdc3dd5df4cca472f"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"

@@ -71,6 +71,13 @@ const dllConfig = require('./webpack.config').dllConfig({
   dist: DLLDIST
 })
 
+const mapoptions = {
+  dist: DIST,
+  configs: configs,
+  entry: {
+    js: _jsEntry
+  }
+}
 
 // js build or start webpack dev server
 function start(){
@@ -79,40 +86,23 @@ function start(){
       manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
     })
   )
+  
   var compiler = webpack(webpackConfig)
   if (env == 'production') {
     compiler.run( (err, stats) => {
       if (err) throw new gutil.PluginError('[webpack]', err)
-      process.exit()
+      mapFile(mapoptions, ()=>{
+        process.exit()
+      })
     })
-  } else {
-    const options = {
-      dist: DIST,
-      configs: configs,
-      entry: {
-        js: _jsEntry
-      }
-    }
-    mapFile(options)
+  } 
+  else {
+    mapFile(mapoptions)
     new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
     .listen(3000, 'localhost', function (err, result) {
       if (err) console.log(err);
       console.log('Listening at http://localhost:3000/');
     });
-
-    // mapFile(options, ()=>{
-    //   new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    //   .listen(3000, 'localhost', function (err, result) {
-    //     if (err) console.log(err);
-    //     console.log('Listening at http://localhost:3000/');
-    //   });
-    // })
-
-    // new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    // .listen(3000, 'localhost', function (err, result) {
-    //   if (err) console.log(err);
-    //   console.log('Listening at http://localhost:3000/');
-    // });
   }
 }
 
