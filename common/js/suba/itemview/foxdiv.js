@@ -1,9 +1,9 @@
 /**
-
 itemView
 放回 div 结构, 一般可以直接调用
 */
-import wrap from '../../mixins/combinex'
+import wrap from 'react-combinex'
+import uniqueId from 'lodash.uniqueid'
 var dealWithDataMethod = require('./common/itemDealWithData')
 
 function getClass(resault){
@@ -77,7 +77,7 @@ class fox extends React.Component {
 			, id: k1
 			, style: sty
 			, className: getClass.call(self, this.resault)
-			, key: _.uniqueId('fox_')
+			, key: uniqueId('fox_')
 		}
 
 		console.log('=========== 1111');

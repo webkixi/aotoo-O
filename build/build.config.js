@@ -71,37 +71,33 @@ const dllConfig = require('./webpack.config').dllConfig({
   dist: DLLDIST
 })
 
+const mapoptions = {
+  dist: DIST,
+  configs: configs,
+  entry: {
+    js: _jsEntry
+  }
+}
 
 // js build or start webpack dev server
 function start(){
-
-  // 产出映射文件
-  const mapOptions = {
-    dist: DIST,
-    configs: configs,
-    entry: {
-      js: _jsEntry
-    }
-  }
-
   webpackConfig.plugins.push(
     new webpack.DllReferencePlugin({
       manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
     })
   )
-
+  
   var compiler = webpack(webpackConfig)
   if (env == 'production') {
     compiler.run( (err, stats) => {
       if (err) throw new gutil.PluginError('[webpack]', err)
-      mapFile(mapOptions, ()=>{
+      mapFile(mapoptions, ()=>{
         process.exit()
       })
     })
-  }
-  // 开发模式
+  } 
   else {
-    mapFile(mapOptions)
+    mapFile(mapoptions)
     new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
     .listen(3000, 'localhost', function (err, result) {
       if (err) console.log(err);

@@ -2,7 +2,8 @@
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
-import wrap from '../../mixins/combinex'
+import wrap from 'react-combinex'
+import uniqueId from 'lodash.uniqueid'
 var dealWithDataMethod = require('./common/itemDealWithData')
 
 function getClass(resault){
@@ -80,7 +81,7 @@ class fox extends React.Component {
 			, id: k1
 			, style: sty
 			, className: getClass.call(self, this.resault)
-			, key: _.uniqueId('fox_')
+			, key: uniqueId('fox_')
 		}
 		return <li {..._props} {...data_attr}>{fill}</li>
 	}

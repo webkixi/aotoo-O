@@ -15,20 +15,8 @@ module.exports = function(opts, cb){
   const cssdir = path.join(dir, 'css')
   const jsdir = path.join(dir, 'js')
   const htmldir = path.join(dir, 'html')
-  const mapdir = path.join(dir, 'map.json')
+  const mapdir = path.join(dir, 'mapfile.json')
 
-
-  // let colletion = {
-  //   version: version,
-  //   dev: {
-  //     js: {},
-  //     css: {}
-  //   },
-  //   pro: {
-  //     js: {},
-  //     css: {}
-  //   }
-  // }
 
   let colletion = {
     version: version,
@@ -96,7 +84,9 @@ module.exports = function(opts, cb){
     })
 
     fs.writeFileSync(mapdir, JSON.stringify(colletion))
+
     if (typeof cb == 'function') cb()
+
   }, 4000)
 
 }

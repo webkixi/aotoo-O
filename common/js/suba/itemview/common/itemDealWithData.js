@@ -1,3 +1,19 @@
+import cloneDeep from 'lodash.clonedeep'
+import merge from 'lodash.merge'
+import uniqueId from 'lodash.uniqueid'
+
+var mapKeys = function(obj, cb){
+  const keys = Object.keys(obj)
+  return keys.map(function(item, ii){
+    cb(obj[item], item)
+  })
+}
+
+var isPlainObject = function(obj){
+  if (typeof obj == 'object') {
+    return !Array.isArray(obj)
+  }
+}
 
 const itemrootCkb = <input type='checkbox' className='itemrootCkb'/>
 
@@ -33,7 +49,7 @@ function lazyimg(img, idf){
 // 处理li的相关数据
 function normalItem(obj){
   if (typeof obj === 'string' || typeof obj === 'number' || React.isValidElement(obj)) return obj
-  else if (_.isArray(obj)){
+  else if (Array.isArray(obj)){
     return dealWithLi(obj)
   } else {
     if (obj.title){
@@ -67,14 +83,14 @@ function dealWithLi(prop_li, liClassName){
     prop_li.map(function(li_item, li_i){
       var _item = normalItem(li_item);
       var _liItem;
-      var _props = { "key": _.uniqueId('li-') }
+      var _props = { "key": uniqueId('li-') }
       if (Array.isArray(li_item)){
          _props.className = "nextLevel2";
          _liItem = React.createElement('li', _props, _item)
       } else {
-        if (_.isPlainObject(li_item.attr)){
+        if (isPlainObject(li_item.attr)){
           let data_attr = {};
-          _.mapKeys(li_item.attr, function(value, key) {
+          mapKeys(li_item.attr, function(value, key) {
             if (key.indexOf('data-')>-1) data_attr[key] = value;
             else {
               switch (key) {
@@ -89,7 +105,7 @@ function dealWithLi(prop_li, liClassName){
               }
             }
           });
-          _props = _.assign(_props, data_attr);
+          _props = merge(_props, data_attr);
         }
         if (li_item.li) {   // itemroot
           _props.className = li_item.itemClass ? li_item.itemClass+' itemroot' : 'itemroot'
@@ -187,12 +203,12 @@ function dealWithData(state){
            if(typeof item==='string'|| typeof item==='number'){
              bodys.push(<div data-pid={i} key={'body_'+i}>{item}</div>)
            }
-           if(_.isPlainObject(item)){
+           if(isPlainObject(item)){
              var cls = item.caption?'hb-item caption':'hb-item';
              if(!React.isValidElement(item)){
                var title = item.title||item.caption||item.text;
                if (React.isValidElement(title)) {
-                 let props = _.cloneDeep(title.props)
+                 let props = cloneDeep(title.props)
                  props.key = 'body_'+i
                  title = React.createElement(title.type, props)
                }
@@ -213,7 +229,7 @@ function dealWithData(state){
                })()
                bodys.push(ppp)
              }else{
-               let props = _.extend({}, item.props)
+               let props = merge({}, item.props)
                props.key = 'bodyitem_'+i
                bodys.push(React.createElement(item.type, props))
              }
@@ -229,12 +245,12 @@ function dealWithData(state){
              if(typeof item==='string'|| typeof item==='number'){
                footers.push(<div data-pid={i} key={'footer'+i}>{item}</div>)
              }
-             if(_.isPlainObject(item)){
+             if(isPlainObject(item)){
                  var cls = item.caption?'hf-item caption':'hf-item';
                  if(!React.isValidElement(item)){
                    var title = item.title||item.caption||item.text;
                    if (React.isValidElement(title)) {
-                     let props = _.cloneDeep(title.props)
+                     let props = cloneDeep(title.props)
                      props.key = 'footer_'+i
                      title = React.createElement(title.type, props)
                    }
@@ -256,7 +272,7 @@ function dealWithData(state){
                    })()
                    footers.push(ppp)
                  }else{
-                   let props = _.extend({}, item.props)
+                   let props = merge({}, item.props)
                    props.key = 'footer_'+i
                    footers.push(React.createElement(item.type, props))
                  }
@@ -272,10 +288,10 @@ function dealWithData(state){
                if(typeof item==='string'|| typeof item==='number'){
                  dots.push(<div key={'dot-'+i} data-did={i} key={'dot'+i} className={'dot'}>{item}</div>)
                }
-               if(_.isPlainObject(item)){
+               if(isPlainObject(item)){
                  if(React.isValidElement(item)){
                    var it = item;
-                   var props = _.cloneDeep(it.props)
+                   var props = cloneDeep(it.props)
                    var styl = props.style;
                    delete props.style;
                    var tmp = React.createElement(it.type, props, it.props.children)
