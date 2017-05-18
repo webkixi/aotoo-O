@@ -14,6 +14,6 @@ function custom(){
     React.unmountComponentAtNode = ReactDom.unmountComponentAtNode;
     React.findDOMNode = ReactDom.findDOMNode;
   }
+  return {}
 }
-custom()
-module.exports = {}
+module.exports = custom()

@@ -1,7 +1,6 @@
 const merge = require('lodash').merge
 const path = require('path');
 const fs = require('fs');
-const static_dir = '../public'
 const version = require('../package.json').version
 
 const ROOT = path.join(__dirname, '../')
@@ -16,7 +15,7 @@ const config = {
     * dev开发 / pro生产模式时，默认打开的页面
     * 具体指定页面位置为 /public/src/pc/html 下
     */
-  root: 'hello',
+  root: 'index',
 
   /*
     * nodejs 服务端端口
@@ -38,16 +37,6 @@ const config = {
   editorUploader: false,
 
   /*
-    * 微信端配置文件
-    */
-  weixin: {
-    token: 'weixin token name',
-    appid: 'your weixin appid',
-    appsecret: 'your weixin appsecret',
-    encodingAESKey: ''
-  },
-
-  /*
     * api
     * 为了简化api的写法，统一管理 api 接口，返回json数组列表
     * 前端/node 端通用同一套api列表
@@ -66,18 +55,20 @@ const config = {
     */
   static: {
     dft:  path.join(DISTOUT, version+'/'),
+    root:  path.join(DISTOUT, version+'/'),
     html: path.join(DISTOUT, version+'/html'),
     js:   path.join(DISTOUT, version+'/js'),
     css:  path.join(DISTOUT, version+'/css'),
     img:  path.join(DISTOUT, 'images'),
-    doc:  path.join(ROOT, 'fdocs'),
+    doc:  path.join(static_dir,'../fdocs'),
       dev: {
+        dft:  path.join(DISTOUT, version+'/dev'),
+        root:  path.join(DISTOUT, version+'/dev'),
         html: path.join(DISTOUT, version+'/dev/html'),
         js:   path.join(DISTOUT, version+'/dev/js'),
-        dft:  path.join(DISTOUT, version+'/dev'),
         css:  path.join(DISTOUT, version+'/dev/css'),
         img:  path.join(DISTOUT, 'images'),
-        doc:  path.join(ROOT, 'fdocs'),
+        doc:  path.join(static_dir,'../fdocs'),
       }
   },
 
