@@ -151,7 +151,8 @@ function _webpackConfig(_entry, env){
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
             publicPath: '/css/',
-            use: ['css-loader?modules', 'stylus-loader']
+            use: ['css-loader', 'stylus-loader']
+            // use: ['css-loader?modules', 'stylus-loader']
           })
         }
       ]

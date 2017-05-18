@@ -7,6 +7,7 @@ module.exports = function(configs){
     historyApiFallback:{
       rewrites: [
         { from: /^\/$/, to: '/html/index.html' },
+        { from: /^\/hello$/, to: '/html/hello.html' },
       ]
     },
     clientLogLevel: "info",

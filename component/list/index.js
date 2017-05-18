@@ -1,11 +1,15 @@
-import React from 'react'
+require('./css/index.styl')
 
-const listStyle = require('./css/index.styl')
+const listData = [
+  'abbdskdfsl',
+  'fdsfsdwerwer',
+  'ggfdfhdgfdsg'
+]
 
 export default function list(){
-  return <div className={'list '+listStyle.xyz+' '+listStyle.xxx}>1234</div>
-}
-
-export function pure(){
-  return list()
+  return (
+    Aotoo.list({
+      data: listData
+    })
+  )
 }
