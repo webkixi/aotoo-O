@@ -60,7 +60,7 @@ const config = {
     js:   path.join(DISTOUT, version+'/js'),
     css:  path.join(DISTOUT, version+'/css'),
     img:  path.join(DISTOUT, 'images'),
-    doc:  path.join(static_dir,'../fdocs'),
+    doc:  path.join(SRC,'../fdocs'),
       dev: {
         dft:  path.join(DISTOUT, version+'/dev'),
         root:  path.join(DISTOUT, version+'/dev'),
@@ -68,7 +68,7 @@ const config = {
         js:   path.join(DISTOUT, version+'/dev/js'),
         css:  path.join(DISTOUT, version+'/dev/css'),
         img:  path.join(DISTOUT, 'images'),
-        doc:  path.join(static_dir,'../fdocs'),
+        doc:  path.join(SRC,'../fdocs'),
       }
   },
 

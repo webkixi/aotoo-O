@@ -14,15 +14,14 @@ import cache from './common/cache';   global.Cache = cache
 import localDB from './db/diskdb';    global.LocalStore = localDB
 
 // import fkp from './fkp'
-import socketio from './common/wsocket'   global.Sio = socketio.sio
-import statics from './common/static'
+import socketio from './common/wsocket';   global.Sio = socketio.sio
+import statics from './common/static';
 // import render from './modules/render'
 
 
 const app = new Koa()
 
 export default async function init() {
-  console.log(aotoo)
   app.use( ctx => {
     ctx.body = "你好啊，你妹"
   })

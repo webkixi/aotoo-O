@@ -3346,9 +3346,9 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.10.tgz#0c5c84448a7b808e38ca43f2a0f5335034100d0d"
+fkp-sax@^1.5.10, fkp-sax@^1.5.15:
+  version "1.5.15"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.15.tgz#6d6079026da556b18a7aebab3770de6ebc9d5174"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -6633,8 +6633,21 @@ rc@^1.0.1, rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 react-combinex@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.15.tgz#80fe296688eb363e34211d63e12931f46dd564e7"
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.18.tgz#11261de1b4f918bc31087930b8c2f629f8c2fba5"
+  dependencies:
+    babel-preset-stage-0 "^6.24.1"
+    fkp-sax "^1.5.10"
+    lodash.clonedeep "^4.5.0"
+    lodash.merge "^4.6.0"
+    lodash.uniqueid "^4.0.1"
+    react "^15.4.2"
+    react-dom "^15.4.2"
+    webpack "^2.2.1"
+
+react-combinex@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.19.tgz#27b1911367d300d5e482a05fd30ec3699f8f1729"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"

@@ -1,6 +1,7 @@
 var http = require('http'),
   socket_config = {},
   io,
+  sio,
   Server = require('socket.io');
 
 function of(path){
@@ -33,7 +34,7 @@ function websocket(app){
 
   }
 
-  const sio = {
+  sio = {
     on: wson,
     of: of,
     emit: wspush,
@@ -79,5 +80,5 @@ module.exports = {
   init: websocket,
   of: of,
   run: run,
-  sio
+  sio: sio
 }
