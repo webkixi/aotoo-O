@@ -19,8 +19,12 @@ export function makeHtml(entry, env){
 }
 
 function generateHtml(src, env){
-  gulp.src(src, { base: env.src }) 
-  .pipe($.ejs()) 
+  gulp.src(src, { base: env.src })
+  .pipe($.fileInclude({
+    prefix: '@@',
+    basepath: '@file'
+  }))
+  // .pipe($.ejs())
   .pipe(gulp.dest(env.dist))
 }
 
