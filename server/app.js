@@ -21,11 +21,6 @@ import render from './common/render'
 const app = new Koa()
 
 export default async function init() {
-  // app.use( ctx => {
-  //   ctx.body = "你好啊，你妹"
-  // })
-  // return app
-
   app.keys = ['agzgz gogogo']
 
   //get
@@ -38,16 +33,6 @@ export default async function init() {
 
 	// 渲染
 	app.use(render())
-
-
-	// app.use(session({
-	// 	key: 'agzgz-',
-	//   // store: redisStore(),
-  //   store: new ddbStore(),
-  //   cookie: {
-  //     maxage: 24*3600*1000
-  //   }
-	// }))
 
 	app.use(session({
 		key: 'agzgz-',

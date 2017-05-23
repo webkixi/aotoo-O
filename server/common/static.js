@@ -15,28 +15,28 @@ function setStatic(app){
     console.log('-');
     console.log('-');
 
-    app.use(convert(statics(CONFIG.upload.root, {
-        dynamic: true,
-        prefix: '/uploader'
-    })))
+    app.use(statics(CONFIG.upload.root, {
+      dynamic: true,
+      prefix: '/uploader'
+    }))
 
-    app.use(convert(statics(CONFIG.static.doc, {
-        dynamic: true,
-        prefix: '/docs'
-    })))
+    app.use(statics(CONFIG.static.doc, {
+      dynamic: true,
+      prefix: '/docs'
+    }))
 
     if(mode && mode==='dev'){
-        app.use(convert(statics(CONFIG.static.dev.dft,{
-            dynamic: true,
-            buffer: false,
-            gzip: true
-        })))
+        app.use(statics(CONFIG.static.dev.dft,{
+          dynamic: true,
+          buffer: false,
+          gzip: true
+        }))
     }else{
-        app.use( convert(statics(CONFIG.static.dft,{
-            dynamic: true,
-            buffer: true,
-            gzip: true
-        })))
+        app.use( statics(CONFIG.static.dft,{
+          dynamic: true,
+          buffer: true,
+          gzip: true
+        }))
     }
 }
 
