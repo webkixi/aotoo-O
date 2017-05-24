@@ -12,7 +12,7 @@ import aotoo from 'aotoo';            global.Aotoo = aotoo   // global.{React|Re
 import cache from './common/cache';   global.Cache = cache
 import localDB from './db/diskdb';    global.LocalStore = localDB
 
-// import fkp from './fkp'
+import fkp from './fkp'
 import socketio from './common/wsocket';   global.Sio = socketio.sio
 import statics from './common/static';
 import render from './common/render'
