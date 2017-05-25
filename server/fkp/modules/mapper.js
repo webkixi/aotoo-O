@@ -7,7 +7,8 @@ const getMapJson = () => {
     mapFilePath = CONFIG.mapJson
   }
   if (fs.existsSync(mapFilePath)){
-    return JSON.parse(fs.readFileSync(mapFilePath, 'utf-8'))
+    return require(mapFilePath)
+    // return JSON.parse(fs.readFileSync(mapFilePath, 'utf-8'))
   }
 }
 

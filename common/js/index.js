@@ -7,14 +7,16 @@
  $: jquery2
  */
 
-const isClient = typeof window !== 'undefined'
-const context  = (()=>isClient ? window : global)() || {}
-require('./lib/common')
-import aotooBase, {combinex, CombineClass, wrap} from 'aotoo'
+// const isClient = typeof window !== 'undefined'
+// const context  = (()=>isClient ? window : global)() || {}
+// require('./lib/common')
+// import aotooBase, {combinex, CombineClass, wrap} from 'aotoo'
 
-let Aotoo = context.Aotoo
-if (!Aotoo) {
-  Aotoo = context.Aotoo = aotooBase
-}
+// let Aotoo = context.Aotoo
+// if (!Aotoo) {
+//   Aotoo = context.Aotoo = aotooBase
+// }
 
-module.exports = Aotoo
+// module.exports = Aotoo
+
+module.exports = require('aotoo-common')

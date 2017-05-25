@@ -1,6 +1,4 @@
 import Koa from 'koa'
-import mount from 'koa-mount'
-import convert from 'koa-convert'
 import Bodyparser from 'koa-bodyparser'
 import session from 'koa-session-minimal'
 import logger from 'koa-logger'
@@ -8,7 +6,8 @@ import cors from 'kcors'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 
-import aotoo from 'common/js/index.js'   // global.Aotoo
+// import aotoo from 'common/js/index.js'   // global.Aotoo
+import aotoo from 'aotoo-common'   // global.Aotoo
 import cache from './common/cache';   global.Cache = cache
 import localDB from './db/diskdb';    global.LocalStore = localDB
 

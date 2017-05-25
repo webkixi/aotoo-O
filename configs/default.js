@@ -93,8 +93,8 @@ const config = {
     * 将打包的js/css文件自动存储为JSON，node端render的时候
     * 会将静态文件匹配给同名html文件
     */
-  mapJson:   path.join('./dist/'+version+'/map.json'),
-  mapDevJson:   path.join('./dist/'+version+'/dev/map.json'),
+  mapJson:   path.join(__dirname, '../dist/out', version, '/mapfile.json'),
+  mapDevJson:   path.join(__dirname, '../dist/out', version, '/dev/mapfile.json'),
 
 
   /*

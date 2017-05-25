@@ -1,11 +1,12 @@
 import fs from 'fs'
 import Path from 'path'
 import request from 'request'
+// import mapper from './modules/mapper'
 import router from './router'
-let mapper = require('./modules/mapper')
 let fetch = require('./modules/fetch');     global.Fetch = fetch
 
 export default async function(app) {
+  const mapper = require('./modules/mapper')
   let innerData = {
     route: {
       prefix: []

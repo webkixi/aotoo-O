@@ -165,7 +165,18 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-aotoo@^1.0.15:
+aotoo-common@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.1.tgz#e97945e3898ebf09494465308403a6f5e6bbe017"
+  dependencies:
+    aotoo "^1.0.0"
+    fkp-sax "^1.5.10"
+    jquery "^2.2.4"
+    lodash "^4.0.0"
+    react "^15.4.2"
+    react-dom "^15.4.2"
+
+aotoo@^1.0.0:
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.15.tgz#0cf8685ac82e3b99bf3226a3d0e48b32a7e9197f"
   dependencies:
@@ -3346,9 +3357,9 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10, fkp-sax@^1.5.15:
-  version "1.5.15"
-  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.15.tgz#6d6079026da556b18a7aebab3770de6ebc9d5174"
+fkp-sax@^1.5.10, fkp-sax@^1.5.16:
+  version "1.5.16"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.16.tgz#10ca90b2b8bd01254b4f3832b2277f3e552bc13d"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -4718,10 +4729,6 @@ koa-bodyparser@^3.2.0:
   dependencies:
     co-body "^4.2.0"
 
-koa-compose@^2.2.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/koa-compose/-/koa-compose-2.5.1.tgz#726cfb17694de5cb9fbf03c0adf172303f83f156"
-
 koa-compose@^3.0.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/koa-compose/-/koa-compose-3.2.1.tgz#a85ccb40b7d986d8e5a345b3a1ace8eabcf54de7"
@@ -4758,13 +4765,6 @@ koa-logger@^2.0.0:
     chalk "^1.1.3"
     humanize-number "0.0.2"
     passthrough-counter "^1.0.0"
-
-koa-mount@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/koa-mount/-/koa-mount-1.3.0.tgz#de6ab775ec4b71ba6e67f2925a3d40dd5fab3ed0"
-  dependencies:
-    debug "*"
-    koa-compose "^2.2.0"
 
 koa-redis@^2.1.3:
   version "2.1.3"
@@ -4803,9 +4803,9 @@ koa-session-minimal@^3.0.2:
     deep-equal "^1.0.1"
     uid-safe "^2.1.2"
 
-koa-static-cache@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/koa-static-cache/-/koa-static-cache-5.0.1.tgz#3d3ef5b857ac8391c0f1cd294f4a91c6082615ab"
+koa-static-cache@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/koa-static-cache/-/koa-static-cache-4.0.0.tgz#8e8cf3d1029f7e22313fd4b73468a11362f50755"
   dependencies:
     compressible "~2.0.6"
     debug "*"
@@ -6632,9 +6632,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-combinex@^1.0.15, react-combinex@^1.0.19:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.19.tgz#27b1911367d300d5e482a05fd30ec3699f8f1729"
+react-combinex@^1.0.15, react-combinex@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.22.tgz#d450c9cf9efb3a09ebae794aed403e3d4f5e8b3e"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"

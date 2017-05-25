@@ -8,7 +8,7 @@ import convert from 'koa-convert'
 // to the handlebars template engine
 
 function setStatic(app){
-    let mode = process.env.whichMode
+    let mode = process.env.NODE_ENV
     console.log('静态资源配置');
     console.log('==============='+__filename+' setStatic');
     console.log('-');
@@ -16,26 +16,26 @@ function setStatic(app){
     console.log('-');
 
     app.use(convert(statics(CONFIG.upload.root, {
-        dynamic: true,
-        prefix: '/uploader'
+      dynamic: true,
+      prefix: '/uploader'
     })))
 
     app.use(convert(statics(CONFIG.static.doc, {
-        dynamic: true,
-        prefix: '/docs'
+      dynamic: true,
+      prefix: '/docs'
     })))
 
-    if(mode && mode==='dev'){
+    if(mode && mode==='development'){
         app.use(convert(statics(CONFIG.static.dev.dft,{
-            dynamic: true,
-            buffer: false,
-            gzip: true
+          dynamic: true,
+          buffer: false,
+          gzip: true
         })))
     }else{
         app.use( convert(statics(CONFIG.static.dft,{
-            dynamic: true,
-            buffer: true,
-            gzip: true
+          dynamic: true,
+          buffer: true,
+          gzip: true
         })))
     }
 }

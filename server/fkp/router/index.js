@@ -63,97 +63,6 @@ function controlPages() {
   )
 }
 
-/**
- * 路由分配
- * {param1} koa implement
- * {param2} map of static file
- * return rende pages
-**/
-async function init(app, prefix='', options) {
-  let _controlPages = await controlPages()
-  const router = prefix ? new Router({prefix: prefix}) : new Router()
-  const routeParam = [
-    '/',
-    '/:cat',
-    '/:cat/:title',
-    '/:cat/:title/:id'
-  ]
-  if (options && _.isPlainObject(options)) {
-    let customControl = false
-    if (options.customControl) {
-      customControl = options.customControl
-    }
-    _.map(options, (item, key) => {
-      if (_.includes(['get', 'post', 'put', 'del'], key)) {
-        if (typeof item == 'string') item = [item]
-        if (!Array.isArray(item)) return
-        item.map((rt)=>{
-          if (key!='get' && rt.indexOf('p1')==-1) {
-            router[key](rt, router::(customControl||forBetter))
-          } else {
-            router[key](rt, router::(customControl||forBetter))
-          }
-        })
-      } else {
-        routeParam.map((_path)=>{
-          router.get(_path, router::(customControl||forBetter))
-          router.post(_path, router::(customControl||forBetter))
-        })
-      }
-    })
-  } else {
-    routeParam.map((item)=>{
-      router.get(item, router::forBetter)
-      if (item!='/') {
-        router.post(item, router::forBetter)
-      }
-    })
-  }
-
-  app.use(router.routes())
-  app.use(router.allowedMethods())
-
-  async function forBetter(ctx, next) {
-    try {
-      let ignoreStacic = ['css', 'js', 'images', 'img']
-      if (ignoreStacic.indexOf(ctx.params.cat)>-1) return
-      return await this::dealwithRoute(ctx, ctx.fkp.staticMapper, _controlPages)
-    } catch (e) {
-      debug('forBetter: '+e.message)
-      console.log(e.stack)
-    }
-  }
-}
-
-init.makeRoute = makeRoute
-init.getRoute = makeRoute
-init.staticMapper = staticMapper
-init.renderPage = renderPage
-
-/**
- * 路由配置
- * {param1} koa implement
- * {param2} map of static file
- * return rende pages
-**/
-async function dealwithRoute(ctx, _mapper, ctrlPages){
-  debug('start dealwithRoute');
-  try {
-    let isRender = filterRendeFile(ctx.params, ctx.url)
-    let route = isRender ? makeRoute(ctx) : false
-    if (!isRender || !route) throw 'route配置不正确'
-    ctx.fkproute = route
-    let routerPrefix = this.opts.prefix
-    let pageData = staticMapper(ctx, _mapper, route, routerPrefix)
-    if (!_mapper || !pageData) throw 'mapper数据不正确'
-    return ctx::distribute(route, pageData, ctrlPages, this)
-  } catch (e) {
-    debug('dealwithRoute: '+ e)
-    console.log(e);
-    // return ctx.redirect('404')
-  }
-}
-
 function makeRoute(ctx, prefix){
   let params = ctx.params
   let _url = ctx.url
@@ -232,8 +141,95 @@ function staticMapper(ctx, mapper, route, routerPrefix){
   return pageData
 }
 
+/**
+ * 路由分配
+ * {param1} koa implement
+ * {param2} map of static file
+ * return rende pages
+**/
+async function init(app, prefix='', options) {
+  let _controlPages = await controlPages()
+  const router = prefix ? new Router({prefix: prefix}) : new Router()
+  const routeParam = [
+    '/',
+    '/:cat',
+    '/:cat/:title',
+    '/:cat/:title/:id'
+  ]
+  if (options && _.isPlainObject(options)) {
+    let customControl = false
+    if (options.customControl) {
+      customControl = options.customControl
+    }
+    _.map(options, (item, key) => {
+      if (_.includes(['get', 'post', 'put', 'del'], key)) {
+        if (typeof item == 'string') item = [item]
+        if (!Array.isArray(item)) return
+        item.map((rt)=>{
+          if (key!='get' && rt.indexOf('p1')==-1) {
+            router[key](rt, router::(customControl||forBetter))
+          } else {
+            router[key](rt, router::(customControl||forBetter))
+          }
+        })
+      } else {
+        routeParam.map((_path)=>{
+          router.get(_path, router::(customControl||forBetter))
+          router.post(_path, router::(customControl||forBetter))
+        })
+      }
+    })
+  } else {
+    routeParam.map((item)=>{
+      router.get(item, router::forBetter)
+      if (item!='/') {
+        router.post(item, router::forBetter)
+      }
+    })
+  }
+
+  app.use(router.routes())
+  app.use(router.allowedMethods())
+
+  async function forBetter(ctx, next) {
+    try {
+      let ignoreStacic = ['css', 'js', 'images', 'img']
+      if (ignoreStacic.indexOf(ctx.params.cat)>-1) return
+      return await this::dealwithRoute(ctx, ctx.fkp.staticMapper, _controlPages)
+    } catch (e) {
+      console.log(e.stack)
+    }
+  }
+}
+
+init.makeRoute = makeRoute
+init.getRoute = makeRoute
+init.staticMapper = staticMapper
+init.renderPage = renderPage
+
+/**
+ * 路由配置
+ * {param1} koa implement
+ * {param2} map of static file
+ * return rende pages
+**/
+async function dealwithRoute(ctx, _mapper, ctrlPages){
+  try {
+    let isRender = filterRendeFile(ctx.params, ctx.url)
+    let route = isRender ? makeRoute(ctx) : false
+    if (!isRender || !route) throw 'route配置不正确'
+    ctx.fkproute = route
+    let routerPrefix = this.opts.prefix
+    let pageData = staticMapper(ctx, _mapper, route, routerPrefix)
+    if (!_mapper || !pageData) throw 'mapper数据不正确'
+    return ctx::distribute(route, pageData, ctrlPages, this)
+  } catch (e) {
+    console.log(e);
+    // return ctx.redirect('404')
+  }
+}
+
 async function distribute(route, pageData, ctrlPages, routerInstance){
-  debug('start distribute');
   let [pdata, rt] = await controler(this, route, pageData, ctrlPages, routerInstance)
   return await renderPage(this, rt, pdata)
 }
@@ -246,7 +242,7 @@ async function getctrlData(_path, route, ctx, _pageData, ctrl){
   if (Array.isArray(_path)) {
     for (let _filename of _path) {
       _filename = Path.resolve(__dirname, _filename+'.js')
-      let _stat = await ctx.fkp.fileexist(_filename)
+      let _stat = await fs.exists(_filename)
       if (_stat && _stat.isFile()) _names.push(_filename)
     }
   }
@@ -260,7 +256,6 @@ async function getctrlData(_path, route, ctx, _pageData, ctrl){
 }
 
 async function controler(ctx, route, pageData, ctrlPages, routerInstance){
-  debug('start controler');
   let routerPrefix = routerInstance.opts.prefix
   if (_.isString(routerPrefix) && routerPrefix.indexOf('/')==0) routerPrefix = routerPrefix.replace('/','')
 
@@ -286,15 +281,16 @@ async function controler(ctx, route, pageData, ctrlPages, routerInstance){
       }
       // pages根目录+三层路由
       else {
-        let paramsCatFile =  Path.join('../../pages', ctx.params.cat)
-        const xRoute = ctx.params.cat
-        xData = await getctrlData([paramsCatFile], xRoute, ctx, pageData, ctrl)
+        if (ctx.params.cat) {
+          let paramsCatFile =  Path.join('../../pages', ctx.params.cat)
+          const xRoute = ctx.params.cat
+          xData = await getctrlData([paramsCatFile], xRoute, ctx, pageData, ctrl)
+        }
       }
       // 根据 Fetch.apilist 匹配到api接口，从远程借口拿去数据
       if (!xData) {
-        debug('pages/'+route+' 配置文件不存在')
         let apilist = Fetch.apilist
-        if( apilist.list[route] || apilist.weixin[route] || route === 'redirect' ){
+        if( apilist.list[route] || route === 'redirect' ){
           passAccess = true
           xData = await getctrlData(['./passaccesscontrol'], route, ctx, pageData, ctrl)
         } else {
@@ -303,18 +299,14 @@ async function controler(ctx, route, pageData, ctrlPages, routerInstance){
       }
       if (passAccess) pageData = xData
     }
-    let hookdata = Hook('pageData').trigger(pageData)
-    pageData = _.extend(pageData, hookdata)
     return [pageData, route]
   } catch (e) {
     console.log(e.stack);
-    debug(e.stack)
   }
 }
 
 // dealwith the data from controlPage
 async function renderPage(ctx, route, data, isAjax){
-  debug('start renderPage -- render');
   try {
     switch (ctx.method) {
       case 'GET':
@@ -326,7 +318,6 @@ async function renderPage(ctx, route, data, isAjax){
         return ctx.body = data
     }
   } catch (e) {
-    debug('renderPage: '+e)
     return await ctx.render('404')
   }
 }
