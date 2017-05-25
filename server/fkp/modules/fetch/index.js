@@ -1,8 +1,26 @@
 import path from 'path'
 import request from 'request'
 import {stringify} from 'querystring'
-import {inherits} from 'util'
 import getapis from 'apis/apilist'
+
+function inherits( Super, protos, staticProtos ) {
+  var child;
+  if ( typeof protos === 'function' ) {
+    child = protos;
+    protos = null;
+  } else if ( protos && protos.hasOwnProperty('constructor') ) {
+    child = protos.constructor;
+  } else {
+    child = function() {
+      return Super.apply( this, arguments );
+    }
+  }
+  _.merge( child, Super, staticProtos || {} )
+  child.__super__ = Super.prototype
+  child.prototype = Super.prototype
+  protos && _.merge( child.prototype, protos )
+  return child;
+}
 
 let _request = function(){}
 _request.prototype = {
@@ -83,7 +101,9 @@ let __request = inherits(_request, {
 })
 
 let pullapi = inherits(__request, require('./pullapi')())
-let mocks = inherits(pullapi, require('./mockapi')())
-let requ = inherits(mocks, {})
+let requ = inherits(pullapi, {})
+// let pullapi = inherits(__request, require('./pullapi')())
+// let mocks = inherits(pullapi, require('./mockapi')())
+// let requ = inherits(mocks, {})
 
 module.exports = new requ()

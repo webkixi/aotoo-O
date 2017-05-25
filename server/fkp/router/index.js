@@ -5,10 +5,12 @@ const fs = require('fs');
 const Path = require('path')
 const Url = require('url')
 const Router = require('koa-router')
-const libs = require('libs')
 const md5 = require('blueimp-md5')
 import control from './control'
-let debug = Debug('modules:route')
+
+function getObjType(object){
+  return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1].toLowerCase();
+};
 /**
  * 过滤渲染文件
  * {param1} {json}   this.params
@@ -35,7 +37,11 @@ function filterRendeFile(pms, url){
 
 
 function controlPages() {
-  const controlPagePath = Path.join('server/pages/')
+  const businessPages = Path.join(__dirname, '../../pages')
+  if (!fs.existsSync(businessPages)) {
+    fs.mkdirSync(businessPages, '0777')
+  }
+  const controlPagePath = businessPages
   const _id = controlPagePath
   let ctrlFiles = []
   return Cache.ifid( _id, ()=> new Promise((res,rej)=>{
@@ -164,7 +170,7 @@ function makeRoute(ctx, prefix){
   let rjson = Path.parse(_url)
   let route = false
   let cat = params.cat||'', title = params.title||'', id = params.id||'';
-  let gtpy = libs.objtypeof;
+  let gtpy = getObjType;
 
   if(id){
     gtpy(id)==='number'

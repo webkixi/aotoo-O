@@ -1,9 +1,9 @@
 import fs from 'fs'
-import router from '../../route'
+import router from '../../router'
 import path from 'path'
 import asyncBusboy from 'async-busboy';
 import request from 'request'
-import {getNewSignBody} from '../../modules/api/apicontrol'
+import {getNewSignBody} from '../api/apicontrol'
 let src = CONFIG.apis.apiip + CONFIG.apis.port;
 
 // const httpProxy = require('http-proxy');

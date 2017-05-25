@@ -1,10 +1,6 @@
-/**
-* Module dependencies.
-*/
-var fs = require('fs')
-
+import fs from 'fs'
 // 从map.json拿取获取静态资源 hash 名称
-let getMapJson = () => {
+const getMapJson = () => {
   let mode = process.env.NODE_ENV
   let mapFilePath = CONFIG.mapDevJson
   if (mode === 'production'){
@@ -28,11 +24,6 @@ let getMapper = () => {
     _mapper.pageJs = _mapper.js
     _mapper.pageCss = _mapper.css
     _mapper.length = Object.keys(_mapper).length
-    // _mapper.commonJs = _mapper.commonDependencies.js
-    // _mapper.commonCss = _mapper.commonDependencies.css
-    // _mapper.pageJs = _mapper.dependencies.js
-    // _mapper.pageCss = _mapper.dependencies.css
-    // _mapper.length = Object.keys(_mapper).length
   }
   CONFIG.mapper = _mapper
   return _mapper

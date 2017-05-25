@@ -1,6 +1,5 @@
 import path from 'path'
 import mocklist from 'apis/mocklist'
-let debug = Debug('modules:fetch:mockapi')
 
 module.exports = function(){
   return {

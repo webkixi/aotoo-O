@@ -8,7 +8,7 @@ import cors from 'kcors'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 
-import aotoo from 'aotoo';            global.Aotoo = aotoo   // global.{React|ReactDom|$|_}
+import aotoo from 'common/js/index.js'   // global.Aotoo
 import cache from './common/cache';   global.Cache = cache
 import localDB from './db/diskdb';    global.LocalStore = localDB
 

@@ -1,10 +1,9 @@
+import fs from 'fs'
 import Path from 'path'
 import request from 'request'
 import router from './router'
-
 let mapper = require('./modules/mapper')
 let fetch = require('./modules/fetch');     global.Fetch = fetch
-
 
 export default async function(app) {
   let innerData = {
@@ -17,9 +16,9 @@ export default async function(app) {
   function _fkp(ctx, opts){
     this.ctx = ctx
     this.opts = opts
-    this.database = async (folder) => {
-      return await require('../db').default(this.ctx, folder)
-    }
+    // this.database = async (folder) => {
+    //   return await require('../db').default(this.ctx, folder)
+    // }
 
     this.isAjax = function() {
       return header('X-Requested-With') === 'XMLHttpRequest';
@@ -126,8 +125,9 @@ export default async function(app) {
   // =========== 注册fkp中间件 =============
   app.fkp = fkp
   app.use(async (ctx, next)=>{
+    await router(app)
     ctx.fkp = fkp(ctx)
-    // Fetch.init(ctx)
+    Fetch.init(ctx)
     await next()
   })
 }

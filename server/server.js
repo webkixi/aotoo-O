@@ -1,10 +1,10 @@
 var request = require('request')
-var app = require('./app').default
 var path = require('path')
-require('app-module-path').addPath(path.join(__dirname, '../'))
+require('app-module-path').addPath(path.join(__dirname, '../'))   // 强插root路径到require中，
 
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
 const configs = require('../configs/default')(/*配置名字符串*/);  global.CONFIG = configs
+var app = require('./app').default
 
 async function startServer(){
   try {

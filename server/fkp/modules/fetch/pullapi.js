@@ -1,8 +1,5 @@
 import path from 'path'
-import request from 'request'
 import {stringify} from 'querystring'
-import { inherits, objtypeof } from 'libs'
-let debug = Debug('modules:fetch:pulldata')
 
 module.exports = function(){
   return {
@@ -11,7 +8,7 @@ module.exports = function(){
       this.fetchRemote = false
       // if(objtypeof(param)!=='object') return [null, { message: 'pullApiData === 请指定正确的参数'}]
       if(!api) return [null, { message: 'pullApiData === 请指定正确的参数'}]
-      if(objtypeof(param)!=='object') param = {}
+      if(typeof param !== 'object') param = {}
 
       /**
        前端通过api.requ('http://www.xxx.com/api')获取外部远程数据
@@ -34,66 +31,15 @@ module.exports = function(){
         if (len.length===0) param = {}
       }
 
-      /*** db api *****
-      /****************
-      else if (api.indexOf('$')===0){
-        // method = 'post'
-        // url = 'http://localhost:8070/'+api;
-        var _param = {
-          fromnode: true
-        }
-        if (api.indexOf('/')>-1) {
-          var tmp = api.split('/')
-          if (tmp.length===1){
-            _param.cat = api;
-          }
-          else
-          if (tmp.length===2){
-            _param.cat = tmp[0]
-            _param.title = tmp[1]
-          }
-          else
-          if (tmp.length===3){
-            _param.cat = tmp[0]
-            _param.title = tmp[1]
-            _param.id = tmp[2]
-          }
-        }
-        else {
-          _param.cat = api;
-        }
-        _param.body = param
-        let db = require('server/db/mongo/index')
-        let tmp_method = this.method
-        this.omethod = this.method
-        this.method = 'NODE'
-
-        let ctrl = control(this, _param)
-        let tmp_data = yield db.init.call(this, _param, ctrl)
-
-        this.method = tmp_method;
-        this.omethod = false;
-        return tmp_data;
-      }
-      */
-
       else if (api.indexOf('http')===0) {
         this.fetchRemote = true
         method = 'get'
         url = api
-        // if (param && param.method) {
-        //   method = param.method
-        //   delete param.method
-        // }
       }
 
       else {
         url = this.apilist.list[api]
         if( !url ) return [null, null]
-        // if (param && param.method){
-        //   method = param.method
-        //   delete param.method
-        // }
       }
 
       let query=undefined

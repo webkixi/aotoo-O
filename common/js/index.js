@@ -8,7 +8,7 @@
  */
 
 const isClient = typeof window !== 'undefined'
-const context =  (()=>isClient ? window : global)() || {}
+const context  = (()=>isClient ? window : global)() || {}
 require('./lib/common')
 import aotooBase, {combinex, CombineClass, wrap} from 'aotoo'
 

@@ -1,4 +1,4 @@
-import router from '../../route'
+import router from '../../router'
 
 export default async function(ctx, next){
   let route = router.makeRoute(ctx)

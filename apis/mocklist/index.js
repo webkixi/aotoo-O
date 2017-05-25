@@ -57,8 +57,6 @@ function templateData(size){
 }
 
 
-// libs.strLen
-// libs.grabString
 function getApiPath(ctx, api, param) {
   let fkp = ctx.fkp
   if (fs.existsSync( path.resolve(__dirname, './datas/'+api+'.js') )) {
