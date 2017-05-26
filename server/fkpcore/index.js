@@ -1,9 +1,10 @@
 import fs from 'fs'
 import Path from 'path'
 import request from 'request'
-import mapper from './modules/mapper'
+import _mapper from './modules/mapper'
 import router from './router'
 let fetch = require('./modules/fetch');     global.Fetch = fetch
+let mapper = _mapper()
 
 export default async function(app) {
   let innerData = {
