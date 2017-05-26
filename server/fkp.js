@@ -9,21 +9,46 @@ import etag from 'koa-etag'
 // import aotoo from 'common/js/index.js'   // global.Aotoo
 import aotoo from 'aotoo-common'   // global.Aotoo
 import cache from './common/cache';   global.Cache = cache
-import localDB from './db/diskdb';    global.LocalStore = localDB
+// import localDB from './common/diskdb';    global.LocalStore = localDB
 
-import fkp from './fkp'
+import fkp from './fkpcore'
 import socketio from './common/wsocket';   global.Sio = socketio.sio
 import statics from './common/static';
 import render from './common/render'
 
-
+let extend = []
 const app = new Koa()
 
-export default async function init() {
+function use(fun){
+  extend.push(fun)
+  return use
+}
+
+export default class aotooServer {
+  constructor(){
+    this.middlewares = []
+  }
+
+  async use(mdw){
+    this.middlewares.push(mdw)
+  }
+
+  async init(){
+    if (this.middlewares.length) {
+      this.middlewares.forEach( item => {
+        if (item) app.use(item())
+      })
+    }
+    return await init()
+  }
+}
+
+async function _init() {
   app.keys = ['agzgz gogogo']
 
   //get
   app.use(conditional())
+
   // add etags
   app.use(etag())
 
@@ -49,7 +74,6 @@ export default async function init() {
   // 设置跨域
   app.use(cors())
 
-
   // fkp/router模块
   let server = socketio.init(app)  //global SIO = {on, emit, use}
   await fkp(app)
@@ -57,7 +81,6 @@ export default async function init() {
 
 	app.on('error', async (err, ctx) => {
 		logger.error('server error', err, ctx)
-    debug(err.stack)
 	})
 
   return server

@@ -96,7 +96,7 @@ class _localDB {
   }
 }
 
-export default function localDB(collections) {
+function localStore(fkp, collections) {
   let databasePath = dbpath
   const oldCollections = collections
   if (typeof collections == 'string') {
@@ -122,4 +122,8 @@ export default function localDB(collections) {
       }
     })
   }
+}
+
+export default function(fkp){
+  return localStore
 }

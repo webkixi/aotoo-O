@@ -202,11 +202,6 @@ async function init(app, prefix='', options) {
   }
 }
 
-init.makeRoute = makeRoute
-init.getRoute = makeRoute
-init.staticMapper = staticMapper
-init.renderPage = renderPage
-
 /**
  * 路由配置
  * {param1} koa implement
@@ -237,22 +232,28 @@ async function distribute(route, pageData, ctrlPages, routerInstance){
 
 // match的control文件，并返回数据
 async function getctrlData(_path, route, ctx, _pageData, ctrl){
-  let _names = []
-  ctrl.set('route', route)
-  if (Array.isArray(_path)) {
-    for (let _filename of _path) {
-      _filename = Path.resolve(__dirname, _filename+'.js')
-      let _stat = await fs.exists(_filename)
-      if (_stat && _stat.isFile()) _names.push(_filename)
+  try {
+    let _names = []
+    ctrl.set('route', route)
+    if (Array.isArray(_path)) {
+      for (let _filename of _path) {
+        _filename = Path.resolve(__dirname, _filename+'.js')
+        if (fs.existsSync(_filename)) {
+          let _stat = fs.statSync(_filename)
+          if (_stat && _stat.isFile()) _names.push(_filename)
+        }
+      }
     }
+    if (_names.length) {
+      let controlConfig = require(_names[0]).getData.call(ctx, _pageData)
+      _pageData = await ctrl.run(ctx, controlConfig)
+    } else {
+      _pageData = false
+    }
+    return _pageData
+  } catch (e) {
+    return {nomatch: true}
   }
-  if (_names.length) {
-    let controlConfig = require(_names[0]).getData.call(ctx, _pageData)
-    _pageData = await ctrl.run(ctx, controlConfig)
-  } else {
-    _pageData = false
-  }
-  return _pageData
 }
 
 async function controler(ctx, route, pageData, ctrlPages, routerInstance){
@@ -269,7 +270,8 @@ async function controler(ctx, route, pageData, ctrlPages, routerInstance){
 
       let xData = false
       // 根据route匹配到control文件+三层路由
-      if (ctrlPages.indexOf(route+'.js')>-1){
+      const controlFile = Path.sep+route+'.js'
+      if (ctrlPages.indexOf(controlFile)>-1){
         xData = await getctrlData(['../../pages/'+route], route, ctx, pageData, ctrl)
       }
       // 根据prefix匹配到control文件+三层路由
@@ -318,8 +320,20 @@ async function renderPage(ctx, route, data, isAjax){
         return ctx.body = data
     }
   } catch (e) {
-    return await ctx.render('404')
+    if (isAjax) {
+      ctx.body = {
+        error: '找不到相关信息'
+      }
+    } else {
+      ctx.body = "<div>找不到页面，呃！</div>"
+    }
+    // return await ctx.render('404')
   }
 }
+
+init.makeRoute = makeRoute
+init.getRoute = makeRoute
+init.staticMapper = staticMapper
+init.renderPage = renderPage
 
 module.exports = init

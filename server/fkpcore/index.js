@@ -1,12 +1,11 @@
 import fs from 'fs'
 import Path from 'path'
 import request from 'request'
-// import mapper from './modules/mapper'
+import mapper from './modules/mapper'
 import router from './router'
 let fetch = require('./modules/fetch');     global.Fetch = fetch
 
 export default async function(app) {
-  const mapper = require('./modules/mapper')
   let innerData = {
     route: {
       prefix: []
@@ -17,9 +16,6 @@ export default async function(app) {
   function _fkp(ctx, opts){
     this.ctx = ctx
     this.opts = opts
-    // this.database = async (folder) => {
-    //   return await require('../db').default(this.ctx, folder)
-    // }
 
     this.isAjax = function() {
       return header('X-Requested-With') === 'XMLHttpRequest';
@@ -47,8 +43,7 @@ export default async function(app) {
   // manual set static property or fun or some resource
   fkp.env = process.env.NODE_ENV
   fkp.staticMapper = mapper
-  fkp.config = CONFIG
-  fkp.root = Path.join(__dirname, '../../')
+  fkp.router = router
 
   // Register utile function
   fkp.utileHand = function(name, fn){
@@ -99,22 +94,24 @@ export default async function(app) {
 
   try {
     // register utile
-    let _utilesFiles = fs.readdirSync(Path.resolve(__dirname, './base'))
+    const baseRoot = './base'
+    let _utilesFiles = fs.readdirSync(Path.resolve(__dirname, baseRoot))
     if (_utilesFiles && _utilesFiles.length) {
       for (let utileFile of _utilesFiles) {
         if (utileFile.indexOf('_')!=0) {
-          let utileFun = require('./base/'+utileFile).default()
+          let utileFun = require( './base/'+utileFile ).default()
           fkp.utileHand(Path.parse(utileFile).name, utileFun)
         }
       }
     }
 
     // register plugins
-    let _pluginFiles = fs.readdirSync(Path.resolve(__dirname, './plugins'))
+    const pluginRoot = '../plugins'
+    let _pluginFiles = fs.readdirSync(Path.resolve(__dirname, pluginRoot))
     if (_pluginFiles && _pluginFiles.length) {
       for (let pluginFile of _pluginFiles) {
         if (pluginFile.indexOf('_')!=0) {
-          let plugin = require('./plugins/'+pluginFile).default(fkp)
+          let plugin = require( Path.join(pluginRoot, pluginFile) ).default(fkp)
           fkp.plugins(Path.parse(pluginFile).name, plugin)
         }
       }

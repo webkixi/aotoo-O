@@ -1,9 +1,7 @@
 import fs from 'fs'
-import router from '../../router'
 import path from 'path'
 import asyncBusboy from 'async-busboy';
 import request from 'request'
-import {getNewSignBody} from '../api/apicontrol'
 let src = CONFIG.apis.apiip + CONFIG.apis.port;
 
 // const httpProxy = require('http-proxy');
@@ -21,11 +19,11 @@ function checkFiles(fields){
   }
 }
 
-async function javaUploader(ctx, next){
-  if (!ctx.request.is('multipart/*')) return next()
-  const bodys = await getNewSignBody('uploader', {method: ' /fastdfs/upload.do'})
-  ctx.body = await ctx.req.pipe( request.post( src+'fastdfs/upload.do', bodys) )
-}
+// async function javaUploader(ctx, next){
+//   if (!ctx.request.is('multipart/*')) return next()
+//   const bodys = await getNewSignBody('uploader', {method: ' /fastdfs/upload.do'})
+//   ctx.body = await ctx.req.pipe( request.post( src+'fastdfs/upload.do', bodys) )
+// }
 
 // node 本地上传
 async function uploader(ctx, next){
@@ -61,9 +59,6 @@ async function uploader(ctx, next){
 
 export default function(fkp){
   fkp.routepreset('/upup', {
-    customControl: javaUploader
-  })
-  fkp.routepreset('/fastdfs/upload.do', {
-    customControl: javaUploader
+    customControl: uploader
   })
 }

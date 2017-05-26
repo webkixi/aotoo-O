@@ -1,9 +1,8 @@
-import router from '../../router'
-
 export default async function(ctx, next){
-  let route = router.makeRoute(ctx)
   const fkp = ctx.fkp
+  const router = fkp.router
   const isAjax = fkp.isAjax()
+  let route = router.makeRoute(ctx)
   route = route.replace('api/', '')
 
   if (ctx.method == 'GET') {
