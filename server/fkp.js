@@ -29,8 +29,8 @@ export default class aotooServer {
     this.middlewares = []
   }
 
-  async use(mdw){
-    this.middlewares.push(mdw)
+  async use(midw){
+    this.middlewares.push(midw)
   }
 
   async init(){
