@@ -16,13 +16,7 @@ import socketio from './common/wsocket';   global.Sio = socketio.sio
 import statics from './common/static';
 import render from './common/render'
 
-let extend = []
 const app = new Koa()
-
-function use(fun){
-  extend.push(fun)
-  return use
-}
 
 export default class aotooServer {
   constructor(){
@@ -30,16 +24,11 @@ export default class aotooServer {
   }
 
   async use(midw){
-    this.middlewares.push(midw)
+    app.use(midw)
   }
 
   async init(){
-    if (this.middlewares.length) {
-      this.middlewares.forEach( item => {
-        if (item) app.use(item())
-      })
-    }
-    return await init()
+    return await _init()
   }
 }
 

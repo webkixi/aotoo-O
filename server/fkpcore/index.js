@@ -4,7 +4,7 @@ import request from 'request'
 import _mapper from './modules/mapper'
 import router from './router'
 let fetch = require('./modules/fetch');     global.Fetch = fetch
-let mapper = _mapper()
+let mapper = _mapper
 
 export default async function(app) {
   let innerData = {
@@ -108,12 +108,14 @@ export default async function(app) {
 
     // register plugins
     const pluginRoot = '../plugins'
-    let _pluginFiles = fs.readdirSync(Path.resolve(__dirname, pluginRoot))
-    if (_pluginFiles && _pluginFiles.length) {
-      for (let pluginFile of _pluginFiles) {
-        if (pluginFile.indexOf('_')!=0) {
-          let plugin = require( Path.join(pluginRoot, pluginFile) ).default(fkp)
-          fkp.plugins(Path.parse(pluginFile).name, plugin)
+    if ( fs.existsSync(Path.resolve(__dirname, pluginRoot)) ) {
+      let _pluginFiles = fs.readdirSync(Path.resolve(__dirname, pluginRoot))
+      if (_pluginFiles && _pluginFiles.length) {
+        for (let pluginFile of _pluginFiles) {
+          if (pluginFile.indexOf('_')!=0) {
+            let plugin = require( Path.join(pluginRoot, pluginFile) ).default(fkp)
+            fkp.plugins(Path.parse(pluginFile).name, plugin)
+          }
         }
       }
     }

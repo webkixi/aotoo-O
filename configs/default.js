@@ -139,11 +139,13 @@ const config = {
   }
 }
 
-function _config(target){
-  if (typeof target == 'string' && fs.existsSync('./'+target+'.js')) {
-    return merge(config, require('./configs/'+target+'.js'))
-  }
-  return config;
-}
+module.exports = config
 
-module.exports = _config
+// function _config(target){
+//   if (typeof target == 'string' && fs.existsSync('./'+target+'.js')) {
+//     return merge(config, require('./configs/'+target+'.js'))
+//   }
+//   return config;
+// }
+
+// module.exports = _config

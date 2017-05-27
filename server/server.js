@@ -1,12 +1,11 @@
 const request = require('request')
 const path = require('path')
-const configs = require('../configs/default')(/*配置名字符串*/);  global.CONFIG = configs
+const configs = require('../configs')(/*配置名字符串*/);  global.CONFIG = configs
 require('app-module-path').addPath(path.join(__dirname, '../'))   // 强插root路径到require中，
 
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
-import _app from './fkp'
-const app = new _app()
-// var app = require('./fkp').default
+const fkp = require('./fkp').default
+const app = new fkp()
 
 async function startServer(){
   try {

@@ -7,6 +7,8 @@ const Url = require('url')
 const Router = require('koa-router')
 const md5 = require('blueimp-md5')
 import control from './control'
+const businessPagesPath = '../../pages'
+
 
 function getObjType(object){
   return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1].toLowerCase();
@@ -35,9 +37,9 @@ function filterRendeFile(pms, url){
     return rtn;
 }
 
-
+// 预读取pages目录下的所有文件路径，并保存
 function controlPages() {
-  const businessPages = Path.join(__dirname, '../../pages')
+  const businessPages = Path.join(__dirname, businessPagesPath)
   if (!fs.existsSync(businessPages)) {
     fs.mkdirSync(businessPages, '0777')
   }
@@ -224,6 +226,7 @@ async function dealwithRoute(ctx, _mapper, ctrlPages){
   }
 }
 
+// 分发路由
 async function distribute(route, pageData, ctrlPages, routerInstance){
   let [pdata, rt] = await controler(this, route, pageData, ctrlPages, routerInstance)
   return await renderPage(this, rt, pdata)
@@ -272,19 +275,19 @@ async function controler(ctx, route, pageData, ctrlPages, routerInstance){
       // 根据route匹配到control文件+三层路由
       const controlFile = Path.sep+route+'.js'
       if (ctrlPages.indexOf(controlFile)>-1){
-        xData = await getctrlData(['../../pages/'+route], route, ctx, pageData, ctrl)
+        xData = await getctrlData([businessPagesPath+'/'+route], route, ctx, pageData, ctrl)
       }
       // 根据prefix匹配到control文件+三层路由
       else if (routerPrefix) {
         route = routerPrefix
-        let prefixIndexFile =  Path.join('../../pages', routerPrefix, '/index')
-        let prefixCatFile =  Path.join('../../pages', routerPrefix, ctx.params.cat||'')
+        let prefixIndexFile =  Path.join(businessPagesPath, routerPrefix, '/index')
+        let prefixCatFile =  Path.join(businessPagesPath, routerPrefix, ctx.params.cat||'')
         xData = await getctrlData([prefixIndexFile,prefixCatFile], route, ctx, pageData, ctrl)
       }
       // pages根目录+三层路由
       else {
         if (ctx.params.cat) {
-          let paramsCatFile =  Path.join('../../pages', ctx.params.cat)
+          let paramsCatFile =  Path.join(businessPagesPath, ctx.params.cat)
           const xRoute = ctx.params.cat
           xData = await getctrlData([paramsCatFile], xRoute, ctx, pageData, ctrl)
         }

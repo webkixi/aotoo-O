@@ -1,7 +1,3 @@
-var libs = require('libs')
-let debug = Debug('modules:route:passacess')
-
-
 function passaccess(oridata) {
   return {
     get: async function(ctx){
