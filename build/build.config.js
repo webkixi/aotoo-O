@@ -3,6 +3,8 @@ import * as gulpcss from './gulpcss'
 import * as gulphtml from './gulphtml'
 import * as gulp3ds from './gulp3ds'
 const env = (process.env.NODE_ENV).toLowerCase();  // 'development' production
+const browserSync = require('browser-sync').create()
+const reload  = browserSync.reload
 
 const fs   = require('fs')
     , path = require('path')
@@ -14,7 +16,7 @@ const fs   = require('fs')
     , $    = require('gulp-load-plugins')()
     , del  = require('del')
 
-const configs  = require('../configs/default')()
+const configs  = require('../configs')()
     , version  = configs.version
     , getEntry = require('./entry')
     , mapFile  = require('./mapfile')
@@ -80,7 +82,7 @@ const mapoptions = {
 }
 
 // js build or start webpack dev server
-function start(){
+function start(cb){
   webpackConfig.plugins.push(
     new webpack.DllReferencePlugin({
       manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
@@ -98,22 +100,34 @@ function start(){
   } 
   else {
     mapFile(mapoptions)
-    new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
-    .listen(3000, 'localhost', function (err, result) {
+    const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
+    devServer.listen(8300, 'localhost', function (err, result) {
       if (err) console.log(err);
-      console.log('Listening at http://localhost:3000/');
+      setTimeout(function() {
+        cb()
+        setTimeout(function() {
+          browserSync.init({
+            proxy: 'http://localhost:8300/',
+            files: [DIST+ '/**'],
+            logFileChanges: false,
+            notify: true,
+            injectChanges: true
+          })
+        }, 3000);
+      }, 6000);
+      console.log('Listening at http://localhost:8300/');
     });
   }
 }
 
-function prepareDll() {
+function prepareDll(cb) {
   if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
-    start()
+    start(cb)
   } else {
     // 先编译 precommon.js
     webpack(dllConfig).run( (err, stats) => {
       if (err) throw new gutil.PluginError('[webpack]', err)
-      start()
+      start(cb)
     })
   }
 }

@@ -1,12 +1,17 @@
 import fs from 'fs'
 import Path from 'path'
 import request from 'request'
-import _mapper from './modules/mapper'
-import router from './router'
-let fetch = require('./modules/fetch');     global.Fetch = fetch
-let mapper = _mapper
 
-export default async function(app) {
+let socketio = require('./modules/wsocket'); global.Sio = socketio.sio
+let cache = require('./modules/cache');      global.Cache = cache
+let _fetch = require('./modules/fetch');
+let mapper = require('./modules/mapper')
+let router = require('./router')
+
+export default async function(app, options) {
+  let server = socketio.init(app)  // 初始化socket.io
+  const fetch = _fetch(options);     global.Fetch = fetch
+
   let innerData = {
     route: {
       prefix: []
@@ -42,7 +47,7 @@ export default async function(app) {
   }
 
   // manual set static property or fun or some resource
-  fkp.env = process.env.NODE_ENV
+  fkp.env = process.env.NODE_ENV == 'development' ? 'dev' : 'pro'
   fkp.staticMapper = mapper
   fkp.router = router
 
@@ -127,8 +132,15 @@ export default async function(app) {
   app.fkp = fkp
   app.use(async (ctx, next)=>{
     await router(app)
+    fkp.getRouter = function(){
+      return router.getRoute(ctx)
+    }
     ctx.fkp = fkp(ctx)
     Fetch.init(ctx)
     await next()
   })
+
+
+  socketio.run()
+  return server
 }

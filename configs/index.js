@@ -1,11 +1,20 @@
 import fs from 'fs'
 import defaultConfig from './default'
+const merge = require('lodash').merge
 
-function config(target){
-  if (typeof target == 'string' && fs.existsSync('./'+target+'.js')) {
-    return merge(defaultConfig, require('./configs/'+target+'.js'))
-  }
-  return defaultConfig;
+function setGlobalConfig(cfg){
+  global.CONFIG = cfg
 }
 
-module.exports = config
+function setConfig(target){
+  let _configs = defaultConfig
+  if (typeof target == 'string' && fs.existsSync('./'+target+'.js')) {
+    _configs =  merge(_configs, require('./'+target+'.js'))
+  }
+  if (typeof window == 'undefined') {
+    setGlobalConfig(_configs)
+  }
+  return _configs;
+}
+
+module.exports = setConfig

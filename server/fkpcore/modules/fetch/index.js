@@ -1,7 +1,6 @@
 import path from 'path'
 import request from 'request'
 import {stringify} from 'querystring'
-import getapis from 'apis/apilist'
 
 function inherits( Super, protos, staticProtos ) {
   var child;
@@ -22,7 +21,9 @@ function inherits( Super, protos, staticProtos ) {
   return child;
 }
 
-let _request = function(){}
+let _request = function(opts){
+  this.opts = opts
+}
 _request.prototype = {
   init: function(ctx){
     this.ctx = ctx || {}
@@ -32,7 +33,8 @@ _request.prototype = {
 
 let __request = inherits(_request, {
   getApiList: function(){
-    this.apilist = getapis()
+    // this.apilist = getapis()
+    this.apilist = this.opts.apis
     this.fetchRemote = false
   },
 
@@ -106,4 +108,6 @@ let requ = inherits(pullapi, {})
 // let mocks = inherits(pullapi, require('./mockapi')())
 // let requ = inherits(mocks, {})
 
-module.exports = new requ()
+module.exports = function(opts){
+  return new requ(opts)
+}

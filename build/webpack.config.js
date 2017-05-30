@@ -190,7 +190,7 @@ function BrowserSync(env){
 
   return new BrowserSyncPlugin(
     {
-      proxy: 'http://localhost:3000/',
+      proxy: 'http://localhost:8300/',
       files: [dist.dest+ '/**'],
       logFileChanges: false,
       notify: true,
@@ -247,7 +247,7 @@ function configurationPlugins(cfg, env){
     }),
     new webpack.HotModuleReplacementPlugin(),
     new WriteMemoryFilePlugin(),
-    BrowserSync(env)
+    // BrowserSync(env)
   ]
 
   // production plugins

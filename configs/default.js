@@ -1,4 +1,3 @@
-const merge = require('lodash').merge
 const path = require('path');
 const fs = require('fs');
 const version = require('../package.json').version

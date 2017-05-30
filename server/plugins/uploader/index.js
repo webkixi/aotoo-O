@@ -2,12 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import asyncBusboy from 'async-busboy';
 import request from 'request'
-let src = CONFIG.apis.apiip + CONFIG.apis.port;
-
-// const httpProxy = require('http-proxy');
-// var proxy = new httpProxy.createProxyServer({
-//   target: 'http://10.10.10.115:8090'
-// });
 
 function checkFiles(fields){
   let filterPicture = ['.jpg','.jpeg','.png','.gif']

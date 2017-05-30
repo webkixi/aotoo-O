@@ -30,16 +30,11 @@ function websocket(app){
     if (io) return io.use(cb)
   }
 
-  function robot(data){
-
-  }
-
   sio = {
     on: wson,
     of: of,
     emit: wspush,
     use: wsuse,
-    robot: robot
   }
 
   return srv;
