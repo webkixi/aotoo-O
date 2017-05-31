@@ -45,5 +45,5 @@ function activationServer(){
   }
 }
 
-var buildConfig = require('./build/build.config')
+var buildConfig = require('./build')
 buildConfig.start(activationServer)

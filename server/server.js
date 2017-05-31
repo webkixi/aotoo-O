@@ -52,6 +52,7 @@ async function startServer(){
       if (NODEENV) {
         request(refreshUrl, function (error, response, body) {
           if (error) console.log('server will be start');
+          console.log('server restart');
         })
       }
     })

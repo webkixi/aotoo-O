@@ -10,7 +10,8 @@ let router = require('./router')
 
 export default async function(app, options) {
   let server = socketio.init(app)  // 初始化socket.io
-  const fetch = _fetch(options);     global.Fetch = fetch
+  const fetch = _fetch(options);     // 传入apis
+  global.Fetch = fetch
 
   let innerData = {
     route: {
