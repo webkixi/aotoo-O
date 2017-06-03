@@ -114,7 +114,7 @@ function start(cb){
             injectChanges: true
           })
         }, 3000);
-      }, 6000);
+      }, 7000);
       console.log('Listening at http://localhost:8300/');
     });
   }

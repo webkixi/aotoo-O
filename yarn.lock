@@ -1433,8 +1433,7 @@ browser-sync-ui@0.6.3:
     stream-throttle "^0.1.3"
     weinre "^2.0.0-pre-I0Z7U9OV"
 
-"browser-sync-webpack-plugin @^1.1.3":
-  name browser-sync-webpack-plugin
+browser-sync-webpack-plugin@^1.1.3:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/browser-sync-webpack-plugin/-/browser-sync-webpack-plugin-1.1.4.tgz#ad3c0f7a3bd2d3e7f87cdc378ee93e7be2026d89"
   dependencies:
@@ -3357,9 +3356,13 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10, fkp-sax@^1.5.16:
+fkp-sax@^1.5.10:
   version "1.5.16"
   resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.16.tgz#10ca90b2b8bd01254b4f3832b2277f3e552bc13d"
+
+fkp-sax@^1.5.17:
+  version "1.5.17"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.17.tgz#d50cee843bfa13fa9938b501333c822abffbe82b"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -6632,9 +6635,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-combinex@^1.0.15, react-combinex@^1.0.22:
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.22.tgz#d450c9cf9efb3a09ebae794aed403e3d4f5e8b3e"
+react-combinex@^1.0.15, react-combinex@^1.0.24:
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.24.tgz#1501ba48a0e3625a595a449a6758bc698e936f2b"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"
