@@ -115,7 +115,7 @@ const reload  = browserSync.reload
               injectChanges: true
             })
           }, 3000);
-        }, 10000);
+        }, 8000);
         console.log('Listening at http://localhost:8300/');
       })
     }

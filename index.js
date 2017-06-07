@@ -38,14 +38,17 @@ function activationServer(buildc){
         "server/*"
       ],
     });
+
     nodemon.on('start', function () {
       console.log('App has started');
-      setTimeout(function() {
-        if (serverStart && buildc) buildc(nodemon)
-      }, 15000);
-    }).on('quit', function () {
+      if (serverStart && buildc) buildc(nodemon)
+    })
+    
+    .on('quit', function () {
       console.log('App has quit');
-    }).on('restart', function (files) {
+    })
+    
+    .on('restart', function (files) {
       serverStart = false
       console.log('App restarted due to: ', files);
     });
