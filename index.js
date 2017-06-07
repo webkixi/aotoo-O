@@ -16,7 +16,9 @@ if (argv.length) {
   if (margv.p) process.env.NODE_ENV = 'production'
 }
 
-function activationServer(){
+var buildConfig = require('./build')
+var serverStart = true
+function activationServer(buildc){
   if (process.env.NODE_ENV == 'development') {
     var nodemon = require('nodemon');
     nodemon({
@@ -28,7 +30,8 @@ function activationServer(){
         "public/*",
         "dist/*",
         ".git/*",
-        "node_modules/*"
+        "node_modules/*",
+        "*.db"
       ],
       "watch": [
         "apis/*",
@@ -37,13 +40,17 @@ function activationServer(){
     });
     nodemon.on('start', function () {
       console.log('App has started');
+      setTimeout(function() {
+        if (serverStart && buildc) buildc(nodemon)
+      }, 15000);
     }).on('quit', function () {
       console.log('App has quit');
     }).on('restart', function (files) {
+      serverStart = false
       console.log('App restarted due to: ', files);
     });
   }
 }
 
-var buildConfig = require('./build')
-buildConfig.start(activationServer)
+// activationServer()
+activationServer(buildConfig)
