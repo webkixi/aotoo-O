@@ -4,7 +4,7 @@ function index(oridata) {
   return {
     get: async function(ctx){
       oridata.fkp = 'FKP2'
-      // console.log(oridata);
+      console.log(oridata);
       return oridata;
     },
 
