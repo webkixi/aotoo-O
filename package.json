@@ -4,7 +4,9 @@
   "description": "re fed fragment",
   "main": "index.js",
   "dependencies": {
+    "aotoo": "^1.0.19",
     "aotoo-common": "^1.0.1",
+    "aotoo-inject": "^1.0.0",
     "app-module-path": "^2.1.0",
     "assert": "^1.3.0",
     "async-busboy": "^0.3.3",
