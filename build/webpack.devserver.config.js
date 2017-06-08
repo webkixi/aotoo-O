@@ -1,4 +1,16 @@
+const path = require('path')
 const ejs = require('ejs')
+function queryParams(uri){
+  let [cat, title, id, ...other] = uri.substring(1).split('/')
+  return {cat, title, id, other}
+}
+
+function valideExt(filename){
+  const exts = ['.html']
+  const ext = path.extname( filename)
+  console.log(ext);
+  return exts.indexOf(ext)>-1
+}
 // server
 function wpServer(configs){
   return {
@@ -28,9 +40,13 @@ function wpServer(configs){
       app.set("view engine", "html");
       app.set('views', configs.output.path+'/html/')
       app.get(/.*/, function(req, res) {
-        // console.log(req._parsedUrl);
-        console.log(req.query);
-        console.log(req.params);
+        let url = queryParams(req._parsedUrl._raw)
+        if (url.cat) {
+          console.log( valideExt(url.cat) )
+        }
+
+        // console.log(req.query);
+        // console.log(req.params);
         res.render('index', {pagejs: 'abc123', commoncss: '', commonjs: ''})
       });
     },
