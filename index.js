@@ -14,8 +14,9 @@ var platform = os.platform()
 
 process.env.NODE_ENV = 'development'
 if (argv.length) {
-  if (margv.d) process.env.NODE_ENV = 'development'
-  if (margv.n) process.env.NODE_ENV = 'development'
+  if (margv.f) process.env.NODE_ENV = 'development'   // only FED precompilation with watch FED file, webpack-dev-server provides the service
+  if (margv.d) process.env.NODE_ENV = 'development'   // FED precompilation and start node service with watch FED and node file
+  if (margv.n) process.env.NODE_ENV = 'development'   // after the FED precompilation is complete, just start the node service with watch node file
   
   if (margv.p) process.env.NODE_ENV = 'production'
 }
@@ -23,6 +24,13 @@ if (argv.length) {
 var buildConfig = require('./build')
 var firstBuild = true
 function activationServer(buildc){
+  if (margv.f) {
+    buildc(false, {
+      serviceType: margv
+    })
+    return 
+  }
+
   if (process.env.NODE_ENV == 'development') {
     var nodemon = require('nodemon');
     nodemon({
@@ -48,7 +56,9 @@ function activationServer(buildc){
       if (firstBuild && buildc) {
         if (margv.n) {}
         else {
-          buildc(nodemon)
+          buildc(nodemon, {
+            serviceType: margv
+          })
         }
       }
     })

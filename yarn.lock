@@ -156,7 +156,7 @@ aotoo-common@^1.0.1:
 
 aotoo-inject@^1.0.0:
   version "1.0.0"
-  resolved "http://r.cnpmjs.org/aotoo-inject/download/aotoo-inject-1.0.0.tgz#f7b1c5089b2d0e44d8f05a1022177045cc47153c"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.0.tgz#f7b1c5089b2d0e44d8f05a1022177045cc47153c"
   dependencies:
     fkp-sax "^1.5.17"
 

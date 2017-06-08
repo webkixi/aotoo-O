@@ -16,7 +16,7 @@ const reload  = browserSync.reload
       , $    = require('gulp-load-plugins')()
       , del  = require('del')
 
-function buildStart(opts){
+function buildStart(nm, opts){
 
   const configs  = require('../configs')()
       , version  = configs.version
@@ -85,7 +85,7 @@ function buildStart(opts){
 
 
   // js build or start webpack dev server
-  function start(nm){
+  function start(nm, opts){
     webpackConfig.plugins.push(
       new webpack.DllReferencePlugin({
         manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
@@ -103,11 +103,21 @@ function buildStart(opts){
     } 
     else {
       mapFile(mapoptions)
-      const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig))
+      const Delay = {
+        dev: [15000, 5000],
+        fed: [1000, 3000]
+      }
+
+      // opts.serviceType 用于启动webpack-dev-server的服务模式或者代理模式
+      const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig, opts))
       devServer.listen(8300, 'localhost', function (err, result) {
         if (err) console.log(err);
+        let delay = Delay.fed
+        if (nm && nm.emit) {
+          delay = Delay.dev
+        }
         setTimeout(function() {
-          nm.emit('restart')
+          if (nm && nm.emit) nm.emit('restart')
           setTimeout(function() {
             browserSync.init({
               proxy: 'http://localhost:8300/',
@@ -116,28 +126,33 @@ function buildStart(opts){
               notify: true,
               injectChanges: true
             })
-          }, 5000);
-        }, 15000);
+          }, delay[1]);
+        }, delay[0]);
         console.log('Listening at http://localhost:8300/');
       })
     }
   }
 
 
-  function prepareDll(nm) {
-    if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
-      start(nm)
-    } else {
-      // 先编译 precommon.js
-      webpack(dllConfig).run( (err, stats) => {
-        if (err) throw new gutil.PluginError('[webpack]', err)
-        start(nm)
-      })
-    }
+  function prepareDll(nm, opts) {
+    webpack(dllConfig).run( (err, stats) => {
+      if (err) throw new gutil.PluginError('[webpack]', err)
+      start(nm, opts)
+    })
+
+    // if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
+    //   start(nm)
+    // } else {
+    //   // 先编译 precommon.js
+    //   webpack(dllConfig).run( (err, stats) => {
+    //     if (err) throw new gutil.PluginError('[webpack]', err)
+    //     start(nm)
+    //   })
+    // }
   }
 
 
   // ready go go go
-  prepareDll(opts)
+  prepareDll(nm, opts)
 }
 module.exports = buildStart
