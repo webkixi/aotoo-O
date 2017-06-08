@@ -3,6 +3,8 @@ require("babel-polyfill")
 
 // webpack -d 开发模式
 // webpack -p 生产模式
+// webpack -n 只启动开发node端
+
 var argv = process.argv.slice(2)
 var margv = require('minimist')(argv);
 var path = require('path')
@@ -13,11 +15,13 @@ var platform = os.platform()
 process.env.NODE_ENV = 'development'
 if (argv.length) {
   if (margv.d) process.env.NODE_ENV = 'development'
+  if (margv.n) process.env.NODE_ENV = 'development'
+  
   if (margv.p) process.env.NODE_ENV = 'production'
 }
 
 var buildConfig = require('./build')
-var serverStart = true
+var firstBuild = true
 function activationServer(buildc){
   if (process.env.NODE_ENV == 'development') {
     var nodemon = require('nodemon');
@@ -41,7 +45,12 @@ function activationServer(buildc){
 
     nodemon.on('start', function () {
       console.log('App has started');
-      if (serverStart && buildc) buildc(nodemon)
+      if (firstBuild && buildc) {
+        if (margv.n) {}
+        else {
+          buildc(nodemon)
+        }
+      }
     })
     
     .on('quit', function () {
@@ -49,7 +58,7 @@ function activationServer(buildc){
     })
     
     .on('restart', function (files) {
-      serverStart = false
+      firstBuild = false
       console.log('App restarted due to: ', files);
     });
   }

@@ -16,6 +16,8 @@ const reload  = browserSync.reload
       , $    = require('gulp-load-plugins')()
       , del  = require('del')
 
+function buildStart(opts){
+
   const configs  = require('../configs')()
       , version  = configs.version
       , getEntry = require('./entry')
@@ -114,14 +116,13 @@ const reload  = browserSync.reload
               notify: true,
               injectChanges: true
             })
-          }, 3000);
-        }, 8000);
+          }, 5000);
+        }, 15000);
         console.log('Listening at http://localhost:8300/');
       })
     }
   }
 
-function buildStart(opts){
 
   function prepareDll(nm) {
     if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
