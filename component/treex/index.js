@@ -44,7 +44,7 @@ class Tree extends React.Component {
     super(props)
     this.preRender = this::this.preRender
     this.state = {
-      data: this.props.data,
+      data: this.props.data||[],
       pulldown: false,
       loading: false,
       trigger: false,
@@ -108,6 +108,7 @@ const Actions = {
       return curState
     }
   },
+
   MERGE: function(state, props={}){
     let curState = this.curState
     let group = curState.group
@@ -127,6 +128,8 @@ const Actions = {
     }
   },
 
+  // ========== 状态控制 ===========
+
   LOADING: function(state, opts={}){
     let curState = this.curState
     if (!curState.over) {
@@ -137,24 +140,39 @@ const Actions = {
 
   LOADED: function(ostate, opts={}){
     let state = this.curState
-    if (state.over && state.loading) {
+    if (!state.over) {
       state.loading = false
       state.pulldown = false
-      state.trigger = false
     }
+    return state
+  },
 
+  OVER: function(ostate, opts={}){
+    let state = this.curState
+    state.loading = false
+    state.pulldown = false
+    state.trigger = false
+    state.over = opts.over || true
+    return state
+  },
 
+  PULLDOWN: function(ostate, opts={}){
+    let state = this.curState
+    state.loading = false
+    state.over = false
+    state.pulldown = opts.pulldown || true
+    return state
+  },
+
+  TRIGGER: function(ostate, opts={}){
     if (!this||!this.state) return
-    if (!this.state.over && this.state.loading) {
-      _.delay(()=>{
-        this.setState({
-          loading: false,
-          pulldown: false,
-          trigger: false
-        })
-      }, 1000)
-    }
-  }
+    let state = this.curState
+    state.loading = false
+    state.pulldown = false
+    state.over = false
+    state.trigger = opts.trigger || true
+    return state
+  },
 }
 
 let idrecode = []
