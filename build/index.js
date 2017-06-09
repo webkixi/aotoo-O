@@ -104,7 +104,7 @@ function buildStart(nm, opts){
     else {
       mapFile(mapoptions)
       const Delay = {
-        dev: [15000, 5000],
+        dev: [8000, 5000],
         fed: [1000, 3000]
       }
 

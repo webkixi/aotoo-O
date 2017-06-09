@@ -1,5 +1,7 @@
 require('babel-core/register')
 require("babel-polyfill")
+var nodemon = require('nodemon');
+
 
 // webpack -d 开发模式
 // webpack -p 生产模式
@@ -32,7 +34,6 @@ function activationServer(buildc){
   }
 
   if (process.env.NODE_ENV == 'development') {
-    var nodemon = require('nodemon');
     nodemon({
       "script": './server/index.js',
       "ext": 'js jsx css html',

@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
+const appConfigs = require('../configs/index')()
+
 function queryParams(uri){
   let [cat, title, id, ...other] = uri.substring(1).split('/')
   return {cat, title, id, other}
@@ -73,19 +75,20 @@ function wpServer(configs){
       })
       app.get(/.*/, function(req, res) {
         let url = queryParams(req._parsedUrl._raw)
-        let router = 'index'
+        let router = appConfigs.root
         if (url.cat) {
           if (valideExt(url.cat)) router = url.cat
         }
         if (url.title){
-          if (valideExt(url.title)) router += '-'+url.title
+          if (valideExt(url.title)) router += '/'+url.title
         }
 
-        const Pagecss = `<link rel="stylesheet" href="/css/${router}.css" />`
-        const Pagejs = `<script type="text/javascript" src="/js/${router}.js" ></script>`
+        const staticfile = router.replace(/\//g, '-')
+        const Pagecss = `<link rel="stylesheet" href="/css/${staticfile}.css" />`
+        const Pagejs = `<script type="text/javascript" src="/js/${staticfile}.js" ></script>`
         const Commoncss = `<link rel="stylesheet" href="/css/common.css" />`
         const Commonjs = `<script type="text/javascript" src="/js/common.js" ></script>`
-        res.render('index', {pagejs: Pagejs, pagecss: Pagecss, commoncss: Commoncss, commonjs: Commonjs})
+        res.render(router, {pagejs: Pagejs, pagecss: Pagecss, commoncss: Commoncss, commonjs: Commonjs})
       });
     },
     hot: true,

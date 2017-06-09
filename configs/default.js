@@ -14,20 +14,12 @@ const config = {
     * dev开发 / pro生产模式时，默认打开的页面
     * 具体指定页面位置为 /public/src/pc/html 下
     */
-  root: 'index',
+  root: 'hello',
 
   /*
     * nodejs 服务端端口
     */
   port: 8070,
-
-
-  /*
-    * 本地上传路径
-    */
-  upload: {
-    root: '../dist/uploads',
-  },
 
   /*
     * 允许editor编辑器上传图片
@@ -60,6 +52,7 @@ const config = {
     css:  path.join(DISTOUT, version+'/css'),
     img:  path.join(DISTOUT, 'images'),
     doc:  path.join(SRC,'../fdocs'),
+    uploads:  path.join(SRC,'../uploads'),
       dev: {
         dft:  path.join(DISTOUT, version+'/dev'),
         root:  path.join(DISTOUT, version+'/dev'),
@@ -68,6 +61,7 @@ const config = {
         css:  path.join(DISTOUT, version+'/dev/css'),
         img:  path.join(DISTOUT, 'images'),
         doc:  path.join(SRC,'../fdocs'),
+        uploads:  path.join(SRC,'../uploads'),
       }
   },
 

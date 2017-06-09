@@ -23,15 +23,19 @@ app.use(session({
     maxage: 24*3600*1000
   }
 }))
+
 app.views(HTMLDIST)
-app.statics(configs.upload.root, {
+
+app.statics(configs.static.uploads, {
   dynamic: true,
   prefix: '/uploader'
 })
-app.statics(configs.upload.doc, {
+
+app.statics(configs.static.doc, {
   dynamic: true,
   prefix: '/docs'
 })
+
 app.statics(STATICSROOT, {
   dynamic: true,
   buffer: false,

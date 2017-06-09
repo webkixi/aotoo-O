@@ -7,43 +7,49 @@ const injecter = inject()
 const List = Aotoo.list
 const transTree = Aotoo.transTree
 
-// Aotoo.CombineClass.prototype.inject = function(){
-//   if (this.isClient) {
-//     if (this.config.theme && this.config.autoinject) {
-//       inject.css(this.config.theme)  //注入样式
-//     }
-//     if (typeof src == 'function') {
-//       src(inject)
-//     }
-//     return inject
-//   }
-// }
+const bars = {
+   trigger:  <div className="treex-bar"><div className="trigger-bar">加载更多内容</div></div>
+  ,pulldown: <div className="treex-bar"><div className="pull-bar">刷新页面</div></div>
+  ,loading:  <div className="treex-bar"><div className="loading">Loading...</div></div>
+  ,over:     <div className="treex-bar"><div className="over-bar">没有更多内容了</div></div>
+}
+const trigger  =
+const pulldown =
+const loading  = <div className="treex-bar"><div className="loading">Loading...</div></div>
+const over     =
 
-
-
-class Orgnization extends React.Component {
+class Tree extends React.Component {
   constructor(props){
     super(props)
     this.preRender = this::this.preRender
     this.state = {
-      data: this.props.data,
+      data: this.props.data
     }
   }
 
   preRender(){
-    const orgnizationData = transTree(this.state.data)
-    return <List
-      data = {orgnizationData}
-      listClass = {this.props.listClass}
+    const header = this.props.header ? this.props.header : ''
+    const footer = this.props.footer ? this.props.footer : ''
+    const list_part = <List
+      data={transTree(this.state.data)}
+      listClass={this.props.listClass}
     />
+
+    const list_box = if (header || footer) {
+      return (
+        <div className="list-container">
+          {header}
+          {list_part}
+          {footer}
+        </div>
+      )
+    } else {
+      return list_part
+    }
   }
 
   render(){
-    return (
-      <div className={'orgnizationClass'}>
-        {this.preRender()}
-      </div>
-    )
+    return list_box
   }
 }
 
@@ -90,7 +96,7 @@ let idrecode = []
 let indexcode = []
 function getGroups(dataAry, idf){
   let nsons = []
-  
+
   let sons = _.filter(dataAry, (o, jj) => {
     if (o.parent == idf) {
       indexcode.push(jj)
@@ -111,10 +117,17 @@ function getGroups(dataAry, idf){
 
 let myParentsIndex = []
 let myParents = []
+
+/**
+ * [查找特定idf的数据，]
+ * @param  {[type]} dataAry [description]
+ * @param  {[type]} idf     [description]
+ * @return {[type]}         [description]
+ */
 function findParents(dataAry, idf){
   let _parentIndex
   const item = _.find(dataAry, (o,ii)=>o.idf==idf)
-    
+
   if (item && item.parent) {
     const p = _.find(dataAry, (o, ii)=>{
       _parentIndex = ii
@@ -127,29 +140,33 @@ function findParents(dataAry, idf){
   }
 }
 
-class App extends baseX {
-  constructor(config){
-    super(config)
-    this.combinex(Orgnization, Actions)
-  }
-  getGroups(data, idf, son){
-    idrecode = []
-    indexcode = []
-    const index = _.findIndex(data, o=>o.idf==idf)
-    indexcode.push(index)
-    let groups = getGroups(data||[], idf)
-    if (son) return groups
-    return indexcode
-  }
-  getParents(data, idf){
-    myParents = []
-    findParents(data, idf)
-    return myParents
-  }
-  update(props){
-    this.dispatch('UPDATE', props)
-  }
+function App(opts){
+  const treeX = Aotoo(Tree, Actions, opts)
+
+  treeX.extend({
+    getGroups: function(data, idf, son){
+      idrecode = []
+      indexcode = []
+      const index = _.findIndex(data, o=>o.idf==idf)
+      indexcode.push(index)
+      let groups = getGroups(data||[], idf)
+      if (son) return groups
+      return indexcode
+    },
+
+    getParents: function(data, idf){
+      myParents = []
+      findParents(data, idf)
+      return myParents
+    },
+
+    update: function(props){
+      this.dispatch('UPDATE', props)
+    }
+  })
 }
+
+
 
 /*
  [ {title: '', idf: 'aaa', index: 0},
@@ -163,20 +180,20 @@ class App extends baseX {
   {title: 'xxxdsehh', parent: 'bbb', index: 5}, ]
 */
 
-export default function orgnization(opts){
+export default function tree(opts){
   var noop = false
     , dft = {
         data: [],
         props: false,
         theme: 'tree/permission',
         autoinject: true,
-        autoOrgnization: true,
+        autoTree: true,
         container: false,
         header: '',
         footer: '',
         itemClass: '',
         listClass: 'permission-ul',
-        orgnizationClass: '',
+        treeClass: '',
         itemMethod: '',
         listMethod: '',
         rendered: '',
@@ -184,9 +201,9 @@ export default function orgnization(opts){
       };
 
   dft = _.merge(dft, opts)
-  return new App(dft)
+  return App(dft)
 }
 
 export function pure(props){
-  return orgnization(props)
+  return tree(props)
 }
