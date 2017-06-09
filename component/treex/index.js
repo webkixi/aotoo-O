@@ -8,22 +8,47 @@ const List = Aotoo.list
 const transTree = Aotoo.transTree
 
 const bars = {
-   trigger:  <div className="treex-bar"><div className="trigger-bar">加载更多内容</div></div>
-  ,pulldown: <div className="treex-bar"><div className="pull-bar">刷新页面</div></div>
-  ,loading:  <div className="treex-bar"><div className="loading">Loading...</div></div>
-  ,over:     <div className="treex-bar"><div className="over-bar">没有更多内容了</div></div>
+    trigger:  <div className="treex-bar"><div className="trigger-bar">加载更多内容</div></div>
+  , pulldown: <div className="treex-bar"><div className="pull-bar">刷新页面</div></div>
+  , loading:  <div className="treex-bar"><div className="loading">Loading...</div></div>
+  , over:     <div className="treex-bar"><div className="over-bar">没有更多内容了</div></div>
 }
-const trigger  =
-const pulldown =
-const loading  = <div className="treex-bar"><div className="loading">Loading...</div></div>
-const over     =
+
+function getBehaviorBar(type, val){
+  switch (type) {
+    case 'pulldown':
+      if (val) {
+        return typeof val == 'boolean' ? bars.pulldown : val
+      }
+      break;
+    case 'loading':
+      if (val) {
+        return typeof val == 'boolean' ? bars.loading : val
+      }
+      break;
+    case 'over':
+      if (val) {
+        return typeof val == 'boolean' ? bars.over : val
+      }
+      break;
+    case 'trigger':
+      if (val) {
+        return typeof val == 'boolean' ? bars.trigger : val
+      }
+      break;
+  }
+}
 
 class Tree extends React.Component {
   constructor(props){
     super(props)
     this.preRender = this::this.preRender
     this.state = {
-      data: this.props.data
+      data: this.props.data,
+      pulldown: false,
+      loading: false,
+      trigger: false,
+      over: false
     }
   }
 
@@ -35,12 +60,23 @@ class Tree extends React.Component {
       listClass={this.props.listClass}
     />
 
-    const list_box = if (header || footer) {
+    if (
+      header ||
+      footer ||
+      this.state.trigger ||
+      this.state.pulldown ||
+      this.state.loading ||
+      this.state.over
+    ) {
       return (
         <div className="list-container">
+          {getBehaviorBar('pulldown', this.state.pulldown)}
           {header}
           {list_part}
           {footer}
+          {getBehaviorBar('trigger', this.state.trigger)}
+          {getBehaviorBar('over', this.state.over)}
+          {getBehaviorBar('loading', this.state.loading)}
         </div>
       )
     } else {
@@ -49,7 +85,7 @@ class Tree extends React.Component {
   }
 
   render(){
-    return list_box
+    return preRender()
   }
 }
 
@@ -88,6 +124,35 @@ const Actions = {
       let oriData = data[index]
       oriData = _.merge(oriData, props.data)
       return curState
+    }
+  },
+
+  LOADING: function(state, opts={}){
+    let curState = this.curState
+    if (!curState.over) {
+      curState.loading = opts.loading || true
+    }
+    return curState
+  },
+
+  LOADED: function(ostate, opts={}){
+    let state = this.curState
+    if (state.over && state.loading) {
+      state.loading = false
+      state.pulldown = false
+      state.trigger = false
+    }
+
+
+    if (!this||!this.state) return
+    if (!this.state.over && this.state.loading) {
+      _.delay(()=>{
+        this.setState({
+          loading: false,
+          pulldown: false,
+          trigger: false
+        })
+      }, 1000)
     }
   }
 }
