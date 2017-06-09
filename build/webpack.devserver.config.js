@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
 function queryParams(uri){
@@ -7,9 +8,13 @@ function queryParams(uri){
 
 function valideExt(filename){
   const exts = ['.html']
+  let accessExt = false
   const ext = path.extname( filename)
-  console.log(ext);
-  return exts.indexOf(ext)>-1
+  if (exts.indexOf(ext)>-1) {
+    accessExt = true
+  }
+  if (!ext) accessExt = true
+  return accessExt
 }
 // server
 function wpServer(configs){
@@ -31,23 +36,56 @@ function wpServer(configs){
       redirect: false
     },
     setup: function(app){
-      // setTimeout(function() {
-      //   const mapper = require(configs.output.path+'/mapfile.json')
-      //   console.log(mapper);
-      // }, 20000);
-      
       app.engine('html', ejs.renderFile);
       app.set("view engine", "html");
       app.set('views', configs.output.path+'/html/')
+      app.get(/\.css$/, function(req, res){
+        const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
+        if (fs.existsSync(staticPath)) {
+          res.sendFile(staticPath);
+        } else {
+          res.status(404).send('Sorry! file is not exist.');
+        }
+      })
+      app.get(/\.js$/, function(req, res){
+        const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
+        if (fs.existsSync(staticPath)) {
+          res.sendFile(staticPath);
+        } else {
+          res.status(404).send('Sorry! file is not exist.');
+        }
+      })
+      app.get(/\.(ico|jpg|jpeg|png|gif)$/, function(req, res){
+        const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
+        if (fs.existsSync(staticPath)) {
+          res.sendFile(staticPath);
+        } else {
+          res.status(404).send('Sorry! file is not exist.');
+        }
+      })
+      app.get('/mapper', function(req, res){
+        const staticPath = path.join(configs.output.path, 'mapfile.json')
+        if (fs.existsSync(staticPath)) {
+          res.sendFile(staticPath);
+        } else {
+          res.status(404).send('Sorry! file is not exist.');
+        }
+      })
       app.get(/.*/, function(req, res) {
         let url = queryParams(req._parsedUrl._raw)
+        let router = 'index'
         if (url.cat) {
-          console.log( valideExt(url.cat) )
+          if (valideExt(url.cat)) router = url.cat
+        }
+        if (url.title){
+          if (valideExt(url.title)) router += '-'+url.title
         }
 
-        // console.log(req.query);
-        // console.log(req.params);
-        res.render('index', {pagejs: 'abc123', commoncss: '', commonjs: ''})
+        const Pagecss = `<link rel="stylesheet" href="/css/${router}.css" />`
+        const Pagejs = `<script type="text/javascript" src="/js/${router}.js" ></script>`
+        const Commoncss = `<link rel="stylesheet" href="/css/common.css" />`
+        const Commonjs = `<script type="text/javascript" src="/js/common.js" ></script>`
+        res.render('index', {pagejs: Pagejs, pagecss: Pagecss, commoncss: Commoncss, commonjs: Commonjs})
       });
     },
     hot: true,

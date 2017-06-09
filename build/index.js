@@ -135,20 +135,20 @@ function buildStart(nm, opts){
 
 
   function prepareDll(nm, opts) {
-    webpack(dllConfig).run( (err, stats) => {
-      if (err) throw new gutil.PluginError('[webpack]', err)
-      start(nm, opts)
-    })
+    // webpack(dllConfig).run( (err, stats) => {
+    //   if (err) throw new gutil.PluginError('[webpack]', err)
+    //   start(nm, opts)
+    // })
 
-    // if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
-    //   start(nm)
-    // } else {
-    //   // 先编译 precommon.js
-    //   webpack(dllConfig).run( (err, stats) => {
-    //     if (err) throw new gutil.PluginError('[webpack]', err)
-    //     start(nm)
-    //   })
-    // }
+    if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
+      start(nm, opts)
+    } else {
+      // 先编译 precommon.js
+      webpack(dllConfig).run( (err, stats) => {
+        if (err) throw new gutil.PluginError('[webpack]', err)
+        start(nm, opts)
+      })
+    }
   }
 
 
