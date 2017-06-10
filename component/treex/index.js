@@ -1,11 +1,14 @@
 // import List from 'component/widgets/listView'
 // import baseX from 'component/class/basex'
 // import transTree from 'component/util/tree'
-import inject from 'aotoo-inject'
-const injecter = inject()
-
 const List = Aotoo.list
 const transTree = Aotoo.transTree
+
+const find = _.find
+const findIndex = _.findIndex
+const merge = _.merge
+const isArray = _.isArray
+const filter = _.filter
 
 const bars = {
     trigger:  <div className="treex-bar"><div className="trigger-bar">加载更多内容</div></div>
@@ -58,6 +61,8 @@ class Tree extends React.Component {
     const list_part = <List
       data={transTree(this.state.data)}
       listClass={this.props.listClass}
+      itemClass={this.props.itemClass}
+      itemMethod={this.props.itemMethod}
     />
 
     if (
@@ -90,42 +95,73 @@ class Tree extends React.Component {
 }
 
 const Actions = {
-  UPDATE: function(state, props={}){
-    let curState = state
-    let group = curState.group
-    let groupItem = curState.groupItem
-    let data = curState.data
-
-    const index = props.index
+  UPDATE: function(ostate, opts={}){
+    let state = this.curState
+    let data = state.data
+    
+    const index = opts.index
     if (!index && index!=0) {
-      if ( _.isArray(props.data) ) {
-        curState.data = props.data
-        return curState
+      if ( isArray(opts.data) ) {
+        state.data = opts.data
+        return state
       }
     } else {
+      if (opts.query) {
+        
+      }
+
       let oriData = data[index]
-      oriData = _.merge(oriData, props.data)
-      return curState
+      oriData = merge(oriData, opts.data)
+      return state
     }
   },
 
-  MERGE: function(state, props={}){
-    let curState = this.curState
-    let group = curState.group
-    let groupItem = curState.groupItem
+  APPEND: function(ostate, opts={}){
+    let state = this.curState
     let data = curState.data
-
-    const index = props.index
-    if (!index && index!=0) {
-      if ( _.isArray(props.data) ) {
-        curState.data = props.data
-        return curState
-      }
+    
+    if (isArray(opts.data)) {
+      data = data.concat(opts.data)
     } else {
-      let oriData = data[index]
-      oriData = _.merge(oriData, props.data)
-      return curState
+      data.push(opts.data)
     }
+
+    return state
+  },
+
+  PREPEND: function(ostate, opts={}){
+    let state = this.curState
+    let data = curState.data
+    
+    if (isArray(opts.data)) {
+      data = opts.data.concat(data)
+    } else {
+      data.unshift(opts.data)
+    }
+
+    return state
+  },
+
+  /*
+    opts:{
+      index: {number}
+      query: {Json}
+    }
+  */
+  DELETE: function(ostate, opts={}){
+    let state = this.curState
+    let data = curState.data
+    
+    if (opts.index) {
+      data.splice(opts.index, 1);
+    } 
+    else if(opts.query) {
+      const index = findIndex(data, query)
+      if (index) {
+        data.splice(index, 1)
+      }
+    }
+    return state
   },
 
   // ========== 状态控制 ===========
@@ -134,6 +170,7 @@ const Actions = {
     let curState = this.curState
     if (!curState.over) {
       curState.loading = opts.loading || true
+      curState.pulldown = false
     }
     return curState
   },
@@ -177,10 +214,10 @@ const Actions = {
 
 let idrecode = []
 let indexcode = []
-function getGroups(dataAry, idf){
+function _getGroups(dataAry, idf){
   let nsons = []
 
-  let sons = _.filter(dataAry, (o, jj) => {
+  let sons = filter(dataAry, (o, jj) => {
     if (o.parent == idf) {
       indexcode.push(jj)
       return o.parent == idf
@@ -190,7 +227,7 @@ function getGroups(dataAry, idf){
   sons.forEach( (son, ii) => {
     if (son.idf && idrecode.indexOf(son.idf) == -1) {
       idrecode.push(son.idf)
-      nsons = nsons.concat(getGroups(dataAry, son.idf))
+      nsons = nsons.concat(_getGroups(dataAry, son.idf))
     } else {
       nsons = nsons.concat(son)
     }
@@ -209,10 +246,10 @@ let myParents = []
  */
 function findParents(dataAry, idf){
   let _parentIndex
-  const item = _.find(dataAry, (o,ii)=>o.idf==idf)
+  const item = find(dataAry, (o,ii)=>o.idf==idf)
 
   if (item && item.parent) {
-    const p = _.find(dataAry, (o, ii)=>{
+    const p = find(dataAry, (o, ii)=>{
       _parentIndex = ii
       return o.idf==item.parent
     })
@@ -228,23 +265,34 @@ function App(opts){
 
   treeX.extend({
     getGroups: function(data, idf, son){
+      data = data||this.data||[]
       idrecode = []
       indexcode = []
-      const index = _.findIndex(data, o=>o.idf==idf)
+      const index = findIndex(data, o=>o.idf==idf)
       indexcode.push(index)
-      let groups = getGroups(data||[], idf)
+      let groups = _getGroups(data||[], idf)
       if (son) return groups
       return indexcode
     },
 
     getParents: function(data, idf){
+      data = data||this.data||[]
       myParents = []
       findParents(data, idf)
       return myParents
-    },
+    }, 
 
-    update: function(props){
-      this.dispatch('UPDATE', props)
+    findAndUpdate: function(query, target){
+      const data = this.data||[]
+      if (query) {
+        const index = findIndex(data, query)
+        if (index) {
+          this.dispach('UPDATE', {
+            index: index,
+            data: target
+          })
+        }
+      }
     }
   })
 }
@@ -263,30 +311,41 @@ function App(opts){
   {title: 'xxxdsehh', parent: 'bbb', index: 5}, ]
 */
 
-export default function tree(opts){
-  var noop = false
-    , dft = {
-        data: [],
-        props: false,
-        theme: 'tree/permission',
-        autoinject: true,
-        autoTree: true,
-        container: false,
-        header: '',
-        footer: '',
-        itemClass: '',
-        listClass: 'permission-ul',
-        treeClass: '',
-        itemMethod: '',
-        listMethod: '',
-        rendered: '',
-        fold: false
-      };
 
-  dft = _.merge(dft, opts)
+/*
+  props: {
+    data: {Array},
+    loading: {Boolean || JSX }
+    header: {JSX},
+    footer: {JSX},
+    itemClass: {String},
+    listClass: {String},
+    itemMethod: {Function}   componentDidMount 后列表项响应事件
+  }
+  theme: {String}  注入样式
+  autoinject: {Boolean} 是否自动注入
+  rendered: {Function} 渲染完成后的动作，在原生react 的 componentDidMount 后
+*/
+
+export default function tree(opts){
+  const dft = {
+    props: {
+      data: [],
+      loading: false,
+      header: '',
+      footer: '',
+      itemClass: '',
+      listClass: '',
+      itemMethod: ''
+    },
+    theme: 'tree/permission',
+    autoinject: true,
+    rendered: ''
+  }
+  dft = merge(dft, opts)
   return App(dft)
 }
 
-export function pure(props){
-  return tree(props)
+export function pure(opts){
+  return tree(opts)
 }
