@@ -19,7 +19,8 @@ function valideExt(filename){
   return accessExt
 }
 // server
-function wpServer(configs){
+function wpServer(configs, opts){
+  const staticsPath = opts.env == 'development' ? appConfigs.static.dev : appConfigs.static
   return {
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -41,7 +42,7 @@ function wpServer(configs){
       app.engine('html', ejs.renderFile);
       app.set("view engine", "html");
       app.set('views', configs.output.path+'/html/')
-      app.get(/\.css$/, function(req, res){
+      app.get(/\/css\/(.*)\.css$/, function(req, res){
         const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
         if (fs.existsSync(staticPath)) {
           res.sendFile(staticPath);
@@ -49,7 +50,8 @@ function wpServer(configs){
           res.status(404).send('Sorry! file is not exist.');
         }
       })
-      app.get(/\.js$/, function(req, res){
+
+      app.get(/\/js\/(.*)\.(js|json)$/, function(req, res){
         const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
         if (fs.existsSync(staticPath)) {
           res.sendFile(staticPath);
@@ -57,14 +59,16 @@ function wpServer(configs){
           res.status(404).send('Sorry! file is not exist.');
         }
       })
-      app.get(/\.(ico|jpg|jpeg|png|gif)$/, function(req, res){
-        const staticPath = path.join(configs.output.path, req._parsedUrl._raw)
+      
+      app.get(/\/img\/(.*)\.(ico|jpg|jpeg|png|gif)$/, function(req, res){
+        const staticPath = path.join(staticsPath.root, req._parsedUrl._raw)
         if (fs.existsSync(staticPath)) {
           res.sendFile(staticPath);
         } else {
           res.status(404).send('Sorry! file is not exist.');
         }
       })
+
       app.get('/mapper', function(req, res){
         const staticPath = path.join(configs.output.path, 'mapfile.json')
         if (fs.existsSync(staticPath)) {
@@ -73,6 +77,7 @@ function wpServer(configs){
           res.status(404).send('Sorry! file is not exist.');
         }
       })
+
       app.get(/.*/, function(req, res) {
         let url = queryParams(req._parsedUrl._raw)
         let router = appConfigs.root
@@ -136,7 +141,7 @@ module.exports = function(cfgs, opts){
   if (opts && opts.serviceType) {
     const stype = opts.serviceType
     if (stype.f) {
-      return wpServer(cfgs)
+      return wpServer(cfgs, opts)
     } else {
       return wpProxy(cfgs)
     }

@@ -45,8 +45,8 @@ const config = {
     * node 端渲染时，模板引擎匹配的静态资源路径
     */
   static: {
+    root: DISTOUT,
     dft:  path.join(DISTOUT, version+'/'),
-    root:  path.join(DISTOUT, version+'/'),
     html: path.join(DISTOUT, version+'/html'),
     js:   path.join(DISTOUT, version+'/js'),
     css:  path.join(DISTOUT, version+'/css'),
@@ -55,7 +55,6 @@ const config = {
     uploads:  path.join(SRC,'../uploads'),
       dev: {
         dft:  path.join(DISTOUT, version+'/dev'),
-        root:  path.join(DISTOUT, version+'/dev'),
         html: path.join(DISTOUT, version+'/dev/html'),
         js:   path.join(DISTOUT, version+'/dev/js'),
         css:  path.join(DISTOUT, version+'/dev/css'),

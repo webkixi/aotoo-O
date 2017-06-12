@@ -109,6 +109,8 @@ function buildStart(nm, opts){
       }
 
       // opts.serviceType 用于启动webpack-dev-server的服务模式或者代理模式
+      // opts.statics 静态文件存放的绝对路径
+      opts.env = env
       const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig, opts))
       devServer.listen(8300, 'localhost', function (err, result) {
         if (err) console.log(err);

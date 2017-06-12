@@ -6167,20 +6167,7 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-combinex@^1.0.15:
-  version "1.0.30"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.30.tgz#d4605cc897e8ba14667fe71bcac57ad7783724ab"
-  dependencies:
-    babel-preset-stage-0 "^6.24.1"
-    fkp-sax "^1.5.10"
-    lodash.clonedeep "^4.5.0"
-    lodash.merge "^4.6.0"
-    lodash.uniqueid "^4.0.1"
-    react "^15.4.2"
-    react-dom "^15.4.2"
-    webpack "^2.2.1"
-
-react-combinex@^1.0.33:
+react-combinex@^1.0.15, react-combinex@^1.0.33:
   version "1.0.33"
   resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.33.tgz#eef8e6b38441f745fa6abe9e51aa440acb6f9171"
   dependencies:
