@@ -14,7 +14,7 @@ const config = {
     * dev开发 / pro生产模式时，默认打开的页面
     * 具体指定页面位置为 /public/src/pc/html 下
     */
-  root: 'hello',
+  root: 'index',
 
   /*
     * nodejs 服务端端口

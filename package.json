@@ -4,7 +4,7 @@
   "description": "re fed fragment",
   "main": "index.js",
   "dependencies": {
-    "aotoo": "^1.0.20",
+    "aotoo": "^1.0.24",
     "aotoo-common": "^1.0.1",
     "aotoo-inject": "^1.0.0",
     "app-module-path": "^2.1.0",
@@ -48,7 +48,7 @@
     "minimist": "^1.2.0",
     "mongoose": "^4.8.1",
     "react": "^15.4.2",
-    "react-combinex": "^1.0.30",
+    "react-combinex": "^1.0.33",
     "react-dom": "^15.4.2",
     "request": "^2.75.0",
     "socket.io": "^1.4.6",

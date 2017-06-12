@@ -90,7 +90,7 @@ class Tree extends React.Component {
   }
 
   render(){
-    return preRender()
+    return this.preRender()
   }
 }
 
@@ -98,7 +98,7 @@ const Actions = {
   UPDATE: function(ostate, opts={}){
     let state = this.curState
     let data = state.data
-    
+
     const index = opts.index
     if (!index && index!=0) {
       if ( isArray(opts.data) ) {
@@ -107,7 +107,7 @@ const Actions = {
       }
     } else {
       if (opts.query) {
-        
+
       }
 
       let oriData = data[index]
@@ -118,8 +118,8 @@ const Actions = {
 
   APPEND: function(ostate, opts={}){
     let state = this.curState
-    let data = curState.data
-    
+    let data = state.data
+
     if (isArray(opts.data)) {
       data = data.concat(opts.data)
     } else {
@@ -131,8 +131,8 @@ const Actions = {
 
   PREPEND: function(ostate, opts={}){
     let state = this.curState
-    let data = curState.data
-    
+    let data = state.data
+
     if (isArray(opts.data)) {
       data = opts.data.concat(data)
     } else {
@@ -150,14 +150,14 @@ const Actions = {
   */
   DELETE: function(ostate, opts={}){
     let state = this.curState
-    let data = curState.data
-    
+    let data = state.data
+
     if (opts.index) {
       data.splice(opts.index, 1);
-    } 
+    }
     else if(opts.query) {
-      const index = findIndex(data, query)
-      if (index) {
+      const index = findIndex(data, opts.query)
+      if (index>-1) {
         data.splice(index, 1)
       }
     }
@@ -166,13 +166,13 @@ const Actions = {
 
   // ========== 状态控制 ===========
 
-  LOADING: function(state, opts={}){
-    let curState = this.curState
-    if (!curState.over) {
-      curState.loading = opts.loading || true
-      curState.pulldown = false
+  LOADING: function(ostate, opts={}){
+    let state = this.curState
+    if (!state.over) {
+      state.loading = opts.loading || true
+      state.pulldown = false
     }
-    return curState
+    return state
   },
 
   LOADED: function(ostate, opts={}){
@@ -262,7 +262,6 @@ function findParents(dataAry, idf){
 
 function App(opts){
   const treeX = Aotoo(Tree, Actions, opts)
-
   treeX.extend({
     getGroups: function(data, idf, son){
       data = data||this.data||[]
@@ -280,7 +279,7 @@ function App(opts){
       myParents = []
       findParents(data, idf)
       return myParents
-    }, 
+    },
 
     findAndUpdate: function(query, target){
       const data = this.data||[]
@@ -295,6 +294,7 @@ function App(opts){
       }
     }
   })
+  return treeX
 }
 
 
@@ -328,7 +328,7 @@ function App(opts){
 */
 
 export default function tree(opts){
-  const dft = {
+  let dft = {
     props: {
       data: [],
       loading: false,
@@ -338,7 +338,7 @@ export default function tree(opts){
       listClass: '',
       itemMethod: ''
     },
-    theme: 'tree/permission',
+    theme: '',
     autoinject: true,
     rendered: ''
   }
