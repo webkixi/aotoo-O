@@ -1,7 +1,13 @@
 const isClient = typeof window !== 'undefined'
+const context = isClient ? window : global
 const React    = (typeof React != 'undefined' ? React : require('react'))
 const reactDom = ( C => typeof ReactDOM != 'undefined' ? ReactDOM : typeof ReactDom != 'undefined' ? ReactDom : C ? require('react-dom') : require('react-dom/server'))(isClient)
 const render   = ( C => C ? reactDom.render : reactDom.renderToString)(isClient)
+
+if (!context.React) {
+  context.React = React
+  context.ReactDom = reactDom
+}
 
 import combinex, {CombineClass} from '../react-combinex'
 const suba = require('./suba')

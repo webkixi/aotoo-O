@@ -2,8 +2,8 @@
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
-const React = (typeof React != 'undefined' ? React : require('react'))
-import wrap from 'react-combinex'
+// const React = (typeof React != 'undefined' ? React : require('react'))
+import {wrap} from 'react-combinex'
 import uniqueId from 'lodash.uniqueid'
 var dealWithDataMethod = require('./common/itemDealWithData')
 

@@ -3,9 +3,9 @@
 * 返回 div > (ul > li)*n
 */
 import cloneDeep from 'lodash.clonedeep'
-const isClient = typeof window !== 'undefined'
-const React = (typeof React != 'undefined' ? React : require('react'))
-const reactDom = ( C => typeof ReactDOM != 'undefined' ? ReactDOM : typeof ReactDom != 'undefined' ? ReactDom : C ? require('react-dom') : require('react-dom/server'))(isClient)
+// const isClient = typeof window !== 'undefined'
+// const React = (typeof React != 'undefined' ? React : require('react'))
+// const reactDom = ( C => typeof ReactDOM != 'undefined' ? ReactDOM : typeof ReactDom != 'undefined' ? ReactDom : C ? require('react-dom') : require('react-dom/server'))(isClient)
 
 var Fox = require('../itemview/foxli')
 

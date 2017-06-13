@@ -1,4 +1,4 @@
-const React = (typeof React != 'undefined' ? React : require('react'))
+// const React = (typeof React != 'undefined' ? React : require('react'))
 import cloneDeep from 'lodash.clonedeep'
 import merge from 'lodash.merge'
 import uniqueId from 'lodash.uniqueid'

@@ -1,4 +1,4 @@
-const React = (typeof React != 'undefined' ? React : require('react'))
+// const React = (typeof React != 'undefined' ? React : require('react'))
 const transTree = require('./lib/tree')
 
 function $item(props, isreact){
