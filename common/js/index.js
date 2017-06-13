@@ -8,7 +8,7 @@
  */
 const isClient = typeof window !== 'undefined'
 const context  = (()=>isClient ? window : global)() || {}
-const aotoo_enveriment = require('./temp/aotoo-common')
+const aotoo_enveriment = require('aotoo-common')
 const libs = require('./libs')
 context.ajax = libs.ajax
 context.inject = libs.inject

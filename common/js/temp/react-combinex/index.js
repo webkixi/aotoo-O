@@ -290,7 +290,7 @@ export default function combineX(ComposedComponent, opts, cb){
   }
 }
 
-combineX.wrap = function(ComposedComponent, opts, cb){
+export function wrap(ComposedComponent, opts, cb){
   if (!opts) opts = {type: 'reactClass'}
 
   if (typeof opts == 'function') {

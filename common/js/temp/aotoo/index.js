@@ -9,9 +9,8 @@ if (!context.React) {
   context.ReactDom = reactDom
 }
 
-import combinex, {CombineClass} from '../react-combinex'
+import combinex, {CombineClass, wrap} from 'react-combinex'
 const suba = require('./suba')
-const wrap = combinex.wrap
 let extension = {plugins: {}}
 
 export {combinex, CombineClass, wrap}

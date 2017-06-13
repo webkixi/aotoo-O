@@ -145,7 +145,7 @@ anymatch@^1.3.0:
 
 aotoo-common@^1.0.1:
   version "1.0.1"
-  resolved "http://r.cnpmjs.org/aotoo-common/download/aotoo-common-1.0.1.tgz#e97945e3898ebf09494465308403a6f5e6bbe017"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.1.tgz#e97945e3898ebf09494465308403a6f5e6bbe017"
   dependencies:
     aotoo "^1.0.0"
     fkp-sax "^1.5.10"
@@ -160,11 +160,11 @@ aotoo-inject@^1.0.0:
   dependencies:
     fkp-sax "^1.5.17"
 
-aotoo@^1.0.0, aotoo@^1.0.24:
-  version "1.0.24"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.24.tgz#424258b5d0e59c72bc750c81b4991e13825051cd"
+aotoo@^1.0.0:
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.25.tgz#db9997851bc51647f2afd4e1530c598a7fa3b988"
   dependencies:
-    react-combinex "^1.0.15"
+    react-combinex "^1.0.34"
 
 app-module-path@^2.1.0:
   version "2.2.0"
@@ -6167,9 +6167,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-combinex@^1.0.15, react-combinex@^1.0.33:
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.33.tgz#eef8e6b38441f745fa6abe9e51aa440acb6f9171"
+react-combinex@^1.0.34:
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.34.tgz#328d199b7235f21021c2d85a923d618ba3de44a0"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"
