@@ -161,9 +161,13 @@ aotoo-inject@^1.0.0:
     fkp-sax "^1.5.17"
 
 aotoo@^1.0.0:
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.25.tgz#db9997851bc51647f2afd4e1530c598a7fa3b988"
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.26.tgz#df281227b16d3e3950ac493beba438cc91149e32"
   dependencies:
+    lodash.clonedeep "^4.5.0"
+    lodash.filter "^4.6.0"
+    lodash.merge "^4.6.0"
+    lodash.uniqueid "^4.0.1"
     react-combinex "^1.0.34"
 
 app-module-path@^2.1.0:
@@ -2969,6 +2973,10 @@ first-chunk-stream@^1.0.0:
 fkp-sax@^1.5.10, fkp-sax@^1.5.17:
   version "1.5.17"
   resolved "http://r.cnpmjs.org/fkp-sax/download/fkp-sax-1.5.17.tgz#d50cee843bfa13fa9938b501333c822abffbe82b"
+
+fkp-sax@^1.5.18:
+  version "1.5.18"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.18.tgz#ed6feccee5390c5766e8f6baa24a8db6e9c0ac47"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -6168,8 +6176,8 @@ rc@^1.0.1, rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 react-combinex@^1.0.34:
-  version "1.0.34"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.34.tgz#328d199b7235f21021c2d85a923d618ba3de44a0"
+  version "1.0.35"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.35.tgz#c7c33cde4af31d21340cd81e760ef9bb655e50e5"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"
