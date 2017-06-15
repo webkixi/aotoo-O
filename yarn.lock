@@ -161,8 +161,8 @@ aotoo-inject@^1.0.0:
     fkp-sax "^1.5.17"
 
 aotoo@^1.0.0:
-  version "1.0.26"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.0.26.tgz#df281227b16d3e3950ac493beba438cc91149e32"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.0.tgz#67abe0a956d0483e979cc90470ea379f7f079165"
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.filter "^4.6.0"
@@ -2970,11 +2970,7 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10, fkp-sax@^1.5.17:
-  version "1.5.17"
-  resolved "http://r.cnpmjs.org/fkp-sax/download/fkp-sax-1.5.17.tgz#d50cee843bfa13fa9938b501333c822abffbe82b"
-
-fkp-sax@^1.5.18:
+fkp-sax@^1.5.10, fkp-sax@^1.5.17, fkp-sax@^1.5.18:
   version "1.5.18"
   resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.18.tgz#ed6feccee5390c5766e8f6baa24a8db6e9c0ac47"
 

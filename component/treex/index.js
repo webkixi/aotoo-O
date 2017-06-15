@@ -11,10 +11,10 @@ const isArray = _.isArray
 const filter = _.filter
 
 const bars = {
-    trigger:  <div className="treex-bar"><div className="trigger-bar">加载更多内容</div></div>
-  , pulldown: <div className="treex-bar"><div className="pull-bar">刷新页面</div></div>
-  , loading:  <div className="treex-bar"><div className="loading">Loading...</div></div>
-  , over:     <div className="treex-bar"><div className="over-bar">没有更多内容了</div></div>
+    trigger:  <div className="treex-bar"><div className="treex-trigger-bar">加载更多内容</div></div>
+  , pulldown: <div className="treex-bar"><div className="treex-pull-bar">刷新页面</div></div>
+  , loading:  <div className="treex-bar"><div className="treex-loading">Loading...</div></div>
+  , over:     <div className="treex-bar"><div className="treex-over-bar">没有更多内容了</div></div>
 }
 
 function getBehaviorBar(type, val){
