@@ -1,14 +1,13 @@
-// import List from 'component/widgets/listView'
-// import baseX from 'component/class/basex'
-// import transTree from 'component/util/tree'
-const List = Aotoo.list
-const transTree = Aotoo.transTree
 
-const find = _.find
-const findIndex = _.findIndex
-const merge = _.merge
-const isArray = _.isArray
-const filter = _.filter
+const {
+  list, 
+  transTree,
+  find,
+  findIndex,
+  merge,
+  isArray,
+  filter
+} = Aotoo
 
 const bars = {
     trigger:  <div className="treex-bar"><div className="treex-trigger-bar">加载更多内容</div></div>
@@ -58,12 +57,13 @@ class Tree extends React.Component {
   preRender(){
     const header = this.props.header ? this.props.header : ''
     const footer = this.props.footer ? this.props.footer : ''
-    const list_part = <List
-      data={transTree(this.state.data)}
-      listClass={this.props.listClass}
-      itemClass={this.props.itemClass}
-      itemMethod={this.props.itemMethod}
-    />
+
+    const list_part = list({
+      data: transTree(this.state.data),
+      listClass: this.props.listClass,
+      itemClass: this.props.itemClass,
+      itemMethod: this.props.itemMethod
+    })
 
     if (
       header ||

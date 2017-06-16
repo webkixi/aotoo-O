@@ -175,72 +175,74 @@
 
 
 
+// 
+/// treex
+////
+import treex from 'component/treex'
+const treeTest = treex({
+  props: {
+    data: [
+      {title: '1111'},
+      {title: '2222'},
+      {title: '3333'}
+    ]
+  }
+})
 
-// import treex from 'component/treex'
-// const treeTest = treex({
-//   props: {
-//     data: [
-//       {title: '1111'},
-//       {title: '2222'},
-//       {title: '3333'}
-//     ]
-//   }
-// })
+const testlist = Aotoo.list(
+  {
+    data: [
+      { title: '网易'},
+      { title: '太平洋'},
+    ]
+  }
+)
 
-// const testlist = Aotoo.list(
-//   {
-//     data: [
-//       { title: '网易'},
-//       { title: '太平洋'},
-//     ]
-//   }
-// )
-
-// const btns = Aotoo.list({
-//   data: [
-//     <button id="update" className="btn">update</button>,
-//     <button id="append" className="btn">append</button>,
-//     <button id="prepend" className="btn">prepend</button>,
-//     <button id="delete" className="btn">delete</button>
-//   ]
-// })
-
-
-// const Box = Aotoo.wrap(
-//   <div>
-//     {treeTest.render()}
-//     {btns}
-//   </div>
-//   , function(dom){
-//     $('#update').click(function(){
-//       treeTest.$update({
-//         data: [
-//           {title: 'aaaaaa'},
-//           {title: 'bbbbbb'},
-//           {title: 'cccccc'}
-//         ]
-//       })
-//     })
-//     $('#append').click(function(){
-//       treeTest.$append({
-//         data: {title: '1111'}
-//       })
-//     })
-//     $('#prepend').click(function(){
-//       treeTest.$prepend({
-//         data: {title: '1111'}
-//       })
-//     })
-//     $('#delete').click(function(){
-//       treeTest.$delete({
-//         query: {title: '1111'}
-//       })
-//     })
-//   }
-// )
+const btns = Aotoo.list({
+  data: [
+    <button id="update" className="btn">update</button>,
+    <button id="append" className="btn">append</button>,
+    <button id="prepend" className="btn">prepend</button>,
+    <button id="delete" className="btn">delete</button>
+  ]
+})
 
 
-// Aotoo.render(<Box />, 'test')
+const Box = Aotoo.wrap(
+  <div>
+    {treeTest.render()}
+    {btns}
+  </div>
+  , function(dom){
+    $('#update').click(function(){
+      treeTest.$update({
+        data: [
+          {title: 'aaaaaa'},
+          {title: 'bbbbbb'},
+          {title: 'cccccc'}
+        ]
+      })
+    })
+    $('#append').click(function(){
+      treeTest.$append({
+        data: {title: '1111'}
+      })
+    })
+    $('#prepend').click(function(){
+      treeTest.$prepend({
+        data: {title: '1111'}
+      })
+    })
+    $('#delete').click(function(){
+      treeTest.$delete({
+        query: {title: '1111'}
+      })
+    })
+  }
+)
+
+
+Aotoo.render(<Box />, 'test')
 
 
 
@@ -254,73 +256,73 @@
 //
 ///   Aotoo plugins
 ////
-class Test extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      test: '1234'
-    }
-  }
-  render(){
-    return (
-      <div className='container'>
-        {this.state.test}
-        <button className="btn">试试看</button>
-      </div>
-    )
-  }
-}
+// class Test extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       test: '1234'
+//     }
+//   }
+//   render(){
+//     return (
+//       <div className='container'>
+//         {this.state.test}
+//         <button className="btn">试试看</button>
+//       </div>
+//     )
+//   }
+// }
 
-const Actions = {
-  CONTENT: function(state, props){
-    state.test = props.content
-    return state
-  }
-}
+// const Actions = {
+//   CONTENT: function(state, props){
+//     state.test = props.content
+//     return state
+//   }
+// }
 
-function xxx(){
-  const axxx = Aotoo(Test, Actions)
-  return axxx.render(function(dom){
-    $(dom).find('button').click(function(){
-      axxx.$content({
-        content: '哈哈哈'
-      })
-    })
-  })
-}
+// function xxx(){
+//   const axxx = Aotoo(Test, Actions)
+//   return axxx.render(function(dom){
+//     $(dom).find('button').click(function(){
+//       axxx.$content({
+//         content: '哈哈哈'
+//       })
+//     })
+//   })
+// }
 
-Aotoo.plugins('xxx', xxx)
+// Aotoo.plugins('xxx', xxx)
 
-class ATest extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      test: 'a12111111'
-    }
-  }
-  render(){
+// class ATest extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       test: 'a12111111'
+//     }
+//   }
+//   render(){
 
-    return (
-      <div className='container'>
-        {this.xxx()}
-        <hr />
-        {this.state.test}
-        <button className="btn abtn">啊哈哈哈</button>
-      </div>
-    )
-  }
-}
+//     return (
+//       <div className='container'>
+//         {this.xxx()}
+//         <hr />
+//         {this.state.test}
+//         <button className="btn abtn">啊哈哈哈</button>
+//       </div>
+//     )
+//   }
+// }
 
-const AActions = {
-  CONTENT: function(state, props){
-    state.test = props
-    return state
-  }
-}
+// const AActions = {
+//   CONTENT: function(state, props){
+//     state.test = props
+//     return state
+//   }
+// }
 
-const yyy = Aotoo(ATest, AActions)
-yyy.render('test', function(dom){
-  $(dom).find('.abtn').click(function(){
-    yyy.$content('什么鬼')
-  })
-})
+// const yyy = Aotoo(ATest, AActions)
+// yyy.render('test', function(dom){
+//   $(dom).find('.abtn').click(function(){
+//     yyy.$content('什么鬼')
+//   })
+// })

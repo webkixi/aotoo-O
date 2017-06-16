@@ -161,11 +161,15 @@ aotoo-inject@^1.0.0:
     fkp-sax "^1.5.17"
 
 aotoo@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.0.tgz#67abe0a956d0483e979cc90470ea379f7f079165"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.1.tgz#ee50cac161571155f51e244d5f4c80502bd388aa"
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.filter "^4.6.0"
+    lodash.find "^4.6.0"
+    lodash.findindex "^4.6.0"
+    lodash.isarray "^4.0.0"
+    lodash.isplainobject "^4.0.6"
     lodash.merge "^4.6.0"
     lodash.uniqueid "^4.0.1"
     react-combinex "^1.0.34"
@@ -4714,6 +4718,14 @@ lodash.filter@^4.4.0, lodash.filter@^4.6.0:
   version "4.6.0"
   resolved "http://r.cnpmjs.org/lodash.filter/download/lodash.filter-4.6.0.tgz#668b1d4981603ae1cc5a6fa760143e480b4c4ace"
 
+lodash.find@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.find/-/lodash.find-4.6.0.tgz#cb0704d47ab71789ffa0de8b97dd926fb88b13b1"
+
+lodash.findindex@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.findindex/-/lodash.findindex-4.6.0.tgz#a3245dee61fb9b6e0624b535125624bb69c11106"
+
 lodash.flatten@^4.2.0:
   version "4.4.0"
   resolved "http://r.cnpmjs.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
@@ -4730,6 +4742,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "http://r.cnpmjs.org/lodash.isarray/download/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isarray@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
+
 lodash.isempty@^4.2.1:
   version "4.4.0"
   resolved "http://r.cnpmjs.org/lodash.isempty/download/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
@@ -4744,7 +4760,7 @@ lodash.isobject@~2.4.1:
   dependencies:
     lodash._objecttypes "~2.4.1"
 
-lodash.isplainobject@^4.0.4:
+lodash.isplainobject@^4.0.4, lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "http://r.cnpmjs.org/lodash.isplainobject/download/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
 
@@ -6172,8 +6188,8 @@ rc@^1.0.1, rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 react-combinex@^1.0.34:
-  version "1.0.35"
-  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.35.tgz#c7c33cde4af31d21340cd81e760ef9bb655e50e5"
+  version "1.0.36"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.0.36.tgz#7c572291fb0fb87aea3320cf6c66171499e3c270"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"
