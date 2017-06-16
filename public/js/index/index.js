@@ -178,25 +178,84 @@
 // 
 /// treex
 ////
-import treex from 'component/treex'
-const treeTest = treex({
-  props: {
+// import treex from 'component/treex'
+// const treeTest = treex({
+//   props: {
+//     data: [
+//       {title: '1111'},
+//       {title: '2222'},
+//       {title: '3333'}
+//     ]
+//   }
+// })
+
+// const testlist = Aotoo.list(
+//   {
+//     data: [
+//       { title: '网易'},
+//       { title: '太平洋'},
+//     ]
+//   }
+// )
+
+// const btns = Aotoo.list({
+//   data: [
+//     <button id="update" className="btn">update</button>,
+//     <button id="append" className="btn">append</button>,
+//     <button id="prepend" className="btn">prepend</button>,
+//     <button id="delete" className="btn">delete</button>
+//   ]
+// })
+
+
+// const Box = Aotoo.wrap(
+//   <div>
+//     {treeTest.render()}
+//     {btns}
+//   </div>
+//   , function(dom){
+//     $('#update').click(function(){
+//       treeTest.$update({
+//         data: [
+//           {title: 'aaaaaa'},
+//           {title: 'bbbbbb'},
+//           {title: 'cccccc'}
+//         ]
+//       })
+//     })
+//     $('#append').click(function(){
+//       treeTest.$append({
+//         data: {title: '1111'}
+//       })
+//     })
+//     $('#prepend').click(function(){
+//       treeTest.$prepend({
+//         data: {title: '1111'}
+//       })
+//     })
+//     $('#delete').click(function(){
+//       treeTest.$delete({
+//         query: {title: '1111'}
+//       })
+//     })
+//   }
+// )
+
+
+// Aotoo.render(<Box />, 'test')
+
+
+import treex from 'aotoo-react-treex'
+
+const treeTest = pure({
+  props: { 
     data: [
       {title: '1111'},
       {title: '2222'},
-      {title: '3333'}
+      {title: '3333'} 
     ]
   }
 })
-
-const testlist = Aotoo.list(
-  {
-    data: [
-      { title: '网易'},
-      { title: '太平洋'},
-    ]
-  }
-)
 
 const btns = Aotoo.list({
   data: [
@@ -243,9 +302,6 @@ const Box = Aotoo.wrap(
 
 
 Aotoo.render(<Box />, 'test')
-
-
-
 
 
 
