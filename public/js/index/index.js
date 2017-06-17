@@ -247,7 +247,7 @@
 
 import treex from 'aotoo-react-treex'
 
-const treeTest = pure({
+const treeTest = treex({
   props: { 
     data: [
       {title: '1111'},
