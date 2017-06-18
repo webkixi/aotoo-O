@@ -13,6 +13,8 @@ const libs = require('./libs')
 context.ajax = libs.ajax
 context.inject = libs.inject
 
+inject.mapper = ''
+
 Aotoo.CombineClass.prototype.inject = function(){
   if (this.isClient) {
     if (this.config.theme && this.config.autoinject) {

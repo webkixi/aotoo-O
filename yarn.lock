@@ -154,25 +154,25 @@ aotoo-common@^1.0.1:
     react "^15.4.2"
     react-dom "^15.4.2"
 
-aotoo-inject@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.0.tgz#f7b1c5089b2d0e44d8f05a1022177045cc47153c"
+aotoo-inject@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.5.tgz#b9d008cb29597d1b006af5d358640f601c5b89f8"
   dependencies:
-    fkp-sax "^1.5.17"
+    blueimp-md5 "^2.7.0"
+    fkp-sax "^1.5.19"
 
-aotoo-react-treex@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.3.tgz#4c1de973b74e85bb0ab9ed9a660562ee47abf3a3"
+aotoo-react-treex@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
 
 aotoo@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.1.tgz#ee50cac161571155f51e244d5f4c80502bd388aa"
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.2.tgz#a9cd193a00865b7e0d3cc7cddfb51c5029ed9bfb"
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.filter "^4.6.0"
     lodash.find "^4.6.0"
     lodash.findindex "^4.6.0"
-    lodash.isarray "^4.0.0"
     lodash.isplainobject "^4.0.6"
     lodash.merge "^4.6.0"
     lodash.uniqueid "^4.0.1"
@@ -1160,7 +1160,7 @@ bluebird@^3.1.1, bluebird@^3.4.6, bluebird@^3.4.7:
   version "3.5.0"
   resolved "http://r.cnpmjs.org/bluebird/download/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
-blueimp-md5@^2.4.0:
+blueimp-md5@^2.4.0, blueimp-md5@^2.7.0:
   version "2.7.0"
   resolved "http://r.cnpmjs.org/blueimp-md5/download/blueimp-md5-2.7.0.tgz#7f518e0dd70467fefe28ecba398916092f2a02a9"
 
@@ -2978,9 +2978,13 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10, fkp-sax@^1.5.17, fkp-sax@^1.5.18:
+fkp-sax@^1.5.10, fkp-sax@^1.5.18:
   version "1.5.18"
   resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.18.tgz#ed6feccee5390c5766e8f6baa24a8db6e9c0ac47"
+
+fkp-sax@^1.5.19:
+  version "1.5.19"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.19.tgz#7e911b778eeea0618190f74d21ff4711ab40dcfe"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -4745,10 +4749,6 @@ lodash.isarguments@^3.0.0:
 lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "http://r.cnpmjs.org/lodash.isarray/download/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
-
-lodash.isarray@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
 
 lodash.isempty@^4.2.1:
   version "4.4.0"
