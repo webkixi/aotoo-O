@@ -161,6 +161,13 @@ aotoo-inject@^1.0.5:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
 
+aotoo-inject@^1.0.7:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.8.tgz#a55c9fd45647fafabdd291860898318d35602e0b"
+  dependencies:
+    blueimp-md5 "^2.7.0"
+    fkp-sax "^1.5.19"
+
 aotoo-react-treex@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
@@ -169,6 +176,20 @@ aotoo@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.2.tgz#a9cd193a00865b7e0d3cc7cddfb51c5029ed9bfb"
   dependencies:
+    lodash.clonedeep "^4.5.0"
+    lodash.filter "^4.6.0"
+    lodash.find "^4.6.0"
+    lodash.findindex "^4.6.0"
+    lodash.isplainobject "^4.0.6"
+    lodash.merge "^4.6.0"
+    lodash.uniqueid "^4.0.1"
+    react-combinex "^1.0.34"
+
+aotoo@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.2.9.tgz#a7e376a97616861bf38460f2abc577aa39958ebc"
+  dependencies:
+    aotoo-inject "^1.0.7"
     lodash.clonedeep "^4.5.0"
     lodash.filter "^4.6.0"
     lodash.find "^4.6.0"

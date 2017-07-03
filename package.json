@@ -4,6 +4,7 @@
   "description": "re fed fragment",
   "main": "index.js",
   "dependencies": {
+    "aotoo": "^1.2.9",
     "aotoo-common": "^1.0.1",
     "aotoo-inject": "^1.0.5",
     "aotoo-react-treex": "^1.0.4",
