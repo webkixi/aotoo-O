@@ -9,7 +9,7 @@ let router = require('./router')
 
 export default async function(app, options) {
   let dfts = {
-    apis: options.apis,
+    apis: options.apis||{list: {}},
     pages: options.pages,
     mapper: options.mapper,
     pluginsFolder: options.pluginsFolder

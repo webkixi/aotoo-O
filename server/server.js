@@ -8,8 +8,10 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
 
+global.debug = require('debug')
+
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
-const configs = require('../configs')(/*配置名字符串*/);
+const configs = require('../configs')(/*配置名字符串, 全局变量 CONFIG*/);
 
 const NODEDEV = process.env.NODE_ENV == 'development'
 const HTMLDIST = NODEDEV ? configs.static.dev.html : configs.static.html;

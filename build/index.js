@@ -122,7 +122,10 @@ function buildStart(nm, opts){
           if (nm && nm.emit) nm.emit('restart')
           setTimeout(function() {
             browserSync.init({
-              proxy: 'http://localhost:8300/',
+              proxy: {
+                target: 'http://localhost:8300/',
+                ws: true
+              },
               files: [DIST+ '/**'],
               logFileChanges: false,
               notify: true,

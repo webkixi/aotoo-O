@@ -204,8 +204,9 @@ function configurationDevEntry(cfg){
   if (!G.production) {
     var entry = cfg.entry
     var hotSverConfig = [
+      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000/',
-      'webpack/hot/only-dev-server',
+      // 'webpack/hot/only-dev-server',
     ]
     for (var item in entry) {
       var _tmp = hotSverConfig.concat(entry[item])
