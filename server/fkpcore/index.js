@@ -5,21 +5,34 @@ import request from 'request'
 let socketio = require('./modules/wsocket'); global.Sio = socketio.sio
 let cache = require('./modules/cache');      global.Cache = cache
 let _fetch = require('./modules/fetch');
-let mapper = require('./modules/mapper')
 let router = require('./router')
 
 export default async function(app, options) {
-  let server = socketio.init(app)  // 初始化socket.io
-  const fetch = _fetch(options);     // 传入apis
+  let dfts = {
+    apis: options.apis,
+    pages: options.pages,
+    mapper: options.mapper,
+    pluginsFolder: options.pluginsFolder
+  }
+
+  // 初始化controls目录
+  router.pages(dfts.pages) 
+
+  // 初始化socket.io
+  let server = socketio.init(app)  
+
+  // 传入apis
+  const fetch = _fetch({apis: dfts.apis});     
   global.Fetch = fetch
 
+  // 内部变量
   let innerData = {
     route: {
       prefix: []
     }
   }
 
-  // 实例
+  // 实例, fkp中间件
   function _fkp(ctx, opts){
     this.ctx = ctx
     this.opts = opts
@@ -49,8 +62,9 @@ export default async function(app, options) {
 
   // manual set static property or fun or some resource
   fkp.env = process.env.NODE_ENV == 'development' ? 'dev' : 'pro'
-  fkp.staticMapper = mapper
+  fkp.staticMapper = dfts.mapper
   fkp.router = router
+  fkp.apilist = dfts.apis
 
   // Register utile function
   fkp.utileHand = function(name, fn){
@@ -113,9 +127,10 @@ export default async function(app, options) {
     }
 
     // register plugins
-    const pluginRoot = '../plugins'
-    if ( fs.existsSync(Path.resolve(__dirname, pluginRoot)) ) {
-      let _pluginFiles = fs.readdirSync(Path.resolve(__dirname, pluginRoot))
+    const pluginRoot = dfts.pluginsFolder
+    // if ( fs.existsSync(Path.resolve(__dirname, pluginRoot)) ) {
+    if ( pluginRoot && fs.existsSync(pluginRoot) ) {
+      let _pluginFiles = fs.readdirSync(pluginRoot)
       if (_pluginFiles && _pluginFiles.length) {
         for (let pluginFile of _pluginFiles) {
           if (pluginFile.indexOf('_')!=0) {
@@ -131,17 +146,29 @@ export default async function(app, options) {
 
   // =========== 注册fkp中间件 =============
   app.fkp = fkp
-  app.use(async (ctx, next)=>{
+
+  // 封装koa中间件
+  app.use(async (ctx, next) => {
+
+    // 初始化路由
     await router(app)
+
+    // 获取当前的路由信息
     fkp.getRouter = function(){
       return router.getRoute(ctx)
     }
+
+    // controle层使用的fkp都是实例化的fkp
     ctx.fkp = fkp(ctx)
+
+    // 定义Fetch的上下文环境
     Fetch.init(ctx)
+
     await next()
   })
 
 
+  // socketio运行时
   socketio.run()
   return server
 }

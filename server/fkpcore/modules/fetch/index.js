@@ -23,20 +23,16 @@ function inherits( Super, protos, staticProtos ) {
 
 let _request = function(opts){
   this.opts = opts
+  this.apilist = this.opts.apis
+  this.fetchRemote = false
 }
 _request.prototype = {
   init: function(ctx){
     this.ctx = ctx || {}
-    this.getApiList(ctx)
   }
 }
 
 let __request = inherits(_request, {
-  getApiList: function(){
-    // this.apilist = getapis()
-    this.apilist = this.opts.apis
-    this.fetchRemote = false
-  },
 
   setOpts: function(api, options, method){
     let opts = {

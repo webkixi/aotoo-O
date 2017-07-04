@@ -1,4 +1,3 @@
-let co = require('co')
 let path = require('path')
 let bluebird = require('bluebird')
 let fs = bluebird.promisifyAll(require('fs'))

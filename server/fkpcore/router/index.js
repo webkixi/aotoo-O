@@ -7,7 +7,8 @@ const Url = require('url')
 const Router = require('koa-router')
 const md5 = require('blueimp-md5')
 import control from './control'
-const businessPagesPath = '../../pages'
+// const businessPagesPath = '../../pages'
+let businessPagesPath = ''
 
 
 function getObjType(object){
@@ -39,7 +40,8 @@ function filterRendeFile(pms, url){
 
 // 预读取pages目录下的所有文件路径，并保存
 function controlPages() {
-  const businessPages = Path.join(__dirname, businessPagesPath)
+  // const businessPages = Path.join(__dirname, businessPagesPath)
+  const businessPages = businessPagesPath
   if (!fs.existsSync(businessPages)) {
     fs.mkdirSync(businessPages, '0777')
   }
@@ -338,5 +340,8 @@ init.makeRoute = makeRoute
 init.getRoute = makeRoute
 init.staticMapper = staticMapper
 init.renderPage = renderPage
+init.pages = function(_path){
+  businessPagesPath = _path
+}
 
 module.exports = init

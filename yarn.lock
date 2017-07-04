@@ -81,11 +81,24 @@ ajv-keywords@^1.0.0, ajv-keywords@^1.1.1:
   version "1.5.1"
   resolved "http://r.cnpmjs.org/ajv-keywords/download/ajv-keywords-1.5.1.tgz#314dd0a4b3368fad3dfcdc54ede6171b886daf3c"
 
+ajv-keywords@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.0.tgz#a296e17f7bfae7c1ce4f7e0de53d29cb32162df0"
+
 ajv@^4.11.2, ajv@^4.7.0, ajv@^4.9.1:
   version "4.11.8"
   resolved "http://r.cnpmjs.org/ajv/download/ajv-4.11.8.tgz#82ffb02b29e662ae53bdc20af15947706739c536"
   dependencies:
     co "^4.6.0"
+    json-stable-stringify "^1.0.1"
+
+ajv@^5.1.5:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.2.0.tgz#c1735024c5da2ef75cc190713073d44f098bf486"
+  dependencies:
+    co "^4.6.0"
+    fast-deep-equal "^0.1.0"
+    json-schema-traverse "^0.3.0"
     json-stable-stringify "^1.0.1"
 
 align-text@^0.1.1, align-text@^0.1.3:
@@ -172,20 +185,7 @@ aotoo-react-treex@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
 
-aotoo@^1.0.0:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.1.2.tgz#a9cd193a00865b7e0d3cc7cddfb51c5029ed9bfb"
-  dependencies:
-    lodash.clonedeep "^4.5.0"
-    lodash.filter "^4.6.0"
-    lodash.find "^4.6.0"
-    lodash.findindex "^4.6.0"
-    lodash.isplainobject "^4.0.6"
-    lodash.merge "^4.6.0"
-    lodash.uniqueid "^4.0.1"
-    react-combinex "^1.0.34"
-
-aotoo@^1.2.9:
+aotoo@^1.0.0, aotoo@^1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.2.9.tgz#a7e376a97616861bf38460f2abc577aa39958ebc"
   dependencies:
@@ -2867,6 +2867,10 @@ fancy-log@^1.1.0, fancy-log@^1.2.0:
     chalk "^1.1.1"
     time-stamp "^1.0.0"
 
+fast-deep-equal@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-0.1.0.tgz#5c6f4599aba6b333ee3342e2ed978672f1001f8d"
+
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "http://r.cnpmjs.org/fast-levenshtein/download/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
@@ -4224,6 +4228,10 @@ json-loader@^0.5.3, json-loader@^0.5.4:
   version "0.5.4"
   resolved "http://r.cnpmjs.org/json-loader/download/json-loader-0.5.4.tgz#8baa1365a632f58a3c46d20175fc6002c96e37de"
 
+json-schema-traverse@^0.3.0:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
+
 json-schema@0.2.3:
   version "0.2.3"
   resolved "http://r.cnpmjs.org/json-schema/download/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
@@ -4398,15 +4406,15 @@ koa-session-minimal@^3.0.2:
     deep-equal "^1.0.1"
     uid-safe "^2.1.2"
 
-koa-static-cache@^4.0.0:
-  version "4.1.0"
-  resolved "http://r.cnpmjs.org/koa-static-cache/download/koa-static-cache-4.1.0.tgz#1fadfb3605c175c205ac30358b5565b6dfd98157"
+koa-static-cache@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/koa-static-cache/-/koa-static-cache-5.1.1.tgz#d73dc79183fd052f86a47a0b64080d8670de8a38"
   dependencies:
     compressible "~2.0.6"
     debug "*"
     fs-readdir-recursive "~1.0.0"
     mime-types "~2.1.8"
-    mz "~2.4.0"
+    mz "~2.6.0"
 
 koa-views@^5.0.2:
   version "5.2.1"
@@ -5234,17 +5242,9 @@ mute-stream@0.0.5:
   version "0.0.5"
   resolved "http://r.cnpmjs.org/mute-stream/download/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
 
-mz@^2.1.0, mz@^2.3.1, mz@^2.4.0:
+mz@^2.1.0, mz@^2.3.1, mz@^2.4.0, mz@~2.6.0:
   version "2.6.0"
   resolved "http://r.cnpmjs.org/mz/download/mz-2.6.0.tgz#c8b8521d958df0a4f2768025db69c719ee4ef1ce"
-  dependencies:
-    any-promise "^1.0.0"
-    object-assign "^4.0.1"
-    thenify-all "^1.0.0"
-
-mz@~2.4.0:
-  version "2.4.0"
-  resolved "http://r.cnpmjs.org/mz/download/mz-2.4.0.tgz#987ba9624d89395388c37cb4741e2caf4dd13b1a"
   dependencies:
     any-promise "^1.0.0"
     object-assign "^4.0.1"
@@ -7000,6 +7000,10 @@ source-list-map@^1.1.1:
   version "1.1.2"
   resolved "http://r.cnpmjs.org/source-list-map/download/source-list-map-1.1.2.tgz#9889019d1024cce55cdc069498337ef6186a11a1"
 
+source-list-map@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
+
 source-map-resolve@^0.3.0:
   version "0.3.1"
   resolved "http://r.cnpmjs.org/source-map-resolve/download/source-map-resolve-0.3.1.tgz#610f6122a445b8dd51535a2a71b783dfc1248761"
@@ -7534,9 +7538,26 @@ uglify-js@^2.6, uglify-js@^2.7.0, uglify-js@^2.8.27:
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
 
+uglify-js@^2.8.29:
+  version "2.8.29"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
+  dependencies:
+    source-map "~0.5.1"
+    yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
+
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "http://r.cnpmjs.org/uglify-to-browserify/download/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+uglifyjs-webpack-plugin@^0.4.4:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/uglifyjs-webpack-plugin/-/uglifyjs-webpack-plugin-0.4.6.tgz#b951f4abb6bd617e66f63eb891498e391763e309"
+  dependencies:
+    source-map "^0.5.6"
+    uglify-js "^2.8.29"
+    webpack-sources "^1.0.1"
 
 uid-number@^0.0.6:
   version "0.0.6"
@@ -7840,6 +7861,13 @@ webpack-sources@^0.2.3:
     source-list-map "^1.1.1"
     source-map "~0.5.3"
 
+webpack-sources@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.0.1.tgz#c7356436a4d13123be2e2426a05d1dad9cbe65cf"
+  dependencies:
+    source-list-map "^2.0.0"
+    source-map "~0.5.3"
+
 webpack@^2.2.1:
   version "2.6.1"
   resolved "http://r.cnpmjs.org/webpack/download/webpack-2.6.1.tgz#2e0457f0abb1ac5df3ab106c69c672f236785f07"
@@ -7864,6 +7892,33 @@ webpack@^2.2.1:
     uglify-js "^2.8.27"
     watchpack "^1.3.1"
     webpack-sources "^0.2.3"
+    yargs "^6.0.0"
+
+webpack@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.0.0.tgz#ee9bcebf21247f7153cb410168cab45e3a59d4d7"
+  dependencies:
+    acorn "^5.0.0"
+    acorn-dynamic-import "^2.0.0"
+    ajv "^5.1.5"
+    ajv-keywords "^2.0.0"
+    async "^2.1.2"
+    enhanced-resolve "^3.0.0"
+    escope "^3.6.0"
+    interpret "^1.0.0"
+    json-loader "^0.5.4"
+    json5 "^0.5.1"
+    loader-runner "^2.3.0"
+    loader-utils "^1.1.0"
+    memory-fs "~0.4.1"
+    mkdirp "~0.5.0"
+    node-libs-browser "^2.0.0"
+    source-map "^0.5.3"
+    supports-color "^3.1.0"
+    tapable "~0.2.5"
+    uglifyjs-webpack-plugin "^0.4.4"
+    watchpack "^1.3.1"
+    webpack-sources "^1.0.1"
     yargs "^6.0.0"
 
 websocket-driver@>=0.5.1:

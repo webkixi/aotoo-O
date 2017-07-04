@@ -8,7 +8,6 @@ const getMapJson = () => {
   }
   if (fs.existsSync(mapFilePath)){
     return require(mapFilePath)
-    // return JSON.parse(fs.readFileSync(mapFilePath, 'utf-8'))
   }
 }
 
@@ -16,10 +15,7 @@ const getMapJson = () => {
 //设置全局变脸_mapper
 let getMapper = () => {
 	let _mapper = getMapJson();
-	if(!_mapper){
-    // throw new Error('静态映射文件不存在')
-  }
-  else {
+  if (_mapper) {
     _mapper.commonJs = _mapper.js.common
     _mapper.commonCss = _mapper.css.common
     _mapper.pageJs = _mapper.js

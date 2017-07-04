@@ -2,16 +2,20 @@ import Koa from 'koa'
 import aotoo from 'aotoo-common'   // global.Aotoo
 import views from 'koa-views'
 import statics from 'koa-static-cache'
-import convert from 'koa-convert'
 import fkp from './fkpcore'
 
 const app = new Koa()
 
 class aotooServer {
-  constructor(){
+  constructor(opts){
     this.middlewares = []
-    this.keys = ['agzgz gogogo']
-    this._apis = {list: {}}
+    this.configs = {
+      keys: opts.keys||['agzgz gogogo'],
+      pages: opts.pages,
+      apis: opts.apis||{},
+      mapper: opts.mapper||{},
+      pluginsFolder: opts.pluginsFolder
+    }
   }
 
   async use(midw){
@@ -28,12 +32,12 @@ class aotooServer {
       dft = _.merge(dft, opts)
     }
 
-    app.use( convert(statics(dist, dft, files) ) )
+    app.use( statics(dist, dft, files) )
   }
 
-  async apis(obj){
+  async apis(obj={}){
     if (typeof obj == 'object') {
-      this._apis = obj
+      this.configs.apis = obj
     }
   }
 
@@ -59,11 +63,8 @@ class aotooServer {
 
 
 async function _init() {
-  app.keys = this.keys
-  const options = {
-    apis: this._apis
-  }
-  const server = await fkp(app, options)
+  app.keys = this.configs.keys
+  const server = await fkp(app, this.configs)
 	app.on('error', async (err, ctx) => {
 		logger.error('server error', err, ctx)
 	})
@@ -71,4 +72,11 @@ async function _init() {
   return server
 }
 
-module.exports = aotooServer
+module.exports = function(opts){
+  try {
+    if (!opts.pages) throw '必须指定 pages 目录选项, pages目录放置control层文件'
+    return new aotooServer(opts)
+  } catch (e) {
+    console.error(e);
+  } 
+}
