@@ -188,15 +188,19 @@ function BrowserSync(env){
     css: path.join(env.dist, 'css')
   }
 
-  return new BrowserSyncPlugin(
-    {
-      proxy: 'http://localhost:8300/',
-      files: [dist.dest+ '/**'],
-      logFileChanges: false,
-      notify: true,
-      injectChanges: true
-    }
-  )
+  return new BrowserSyncPlugin({
+    reloadDelay: 1000,
+    proxy: {
+      target: 'http://localhost:8300/',
+      ws: true
+    },
+    files: [dist.dest+ '/**'],
+    logFileChanges: false,
+    notify: true,
+    injectChanges: true,
+    host: 'localhost',
+    port: 3000
+  })
 }
 
 // 配置webpack-dev-server的hotreload配置
@@ -248,7 +252,7 @@ function configurationPlugins(cfg, env){
     }),
     new webpack.HotModuleReplacementPlugin(),
     new WriteMemoryFilePlugin(),
-    // BrowserSync(env)
+    BrowserSync(env)
   ]
 
   // production plugins

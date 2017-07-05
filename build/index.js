@@ -104,7 +104,7 @@ function buildStart(nm, opts){
     else {
       mapFile(mapoptions)
       const Delay = {
-        dev: [8000, 5000],
+        dev: [6000, 8000],
         fed: [1000, 3000]
       }
 
@@ -120,18 +120,18 @@ function buildStart(nm, opts){
         }
         setTimeout(function() {
           if (nm && nm.emit) nm.emit('restart')
-          setTimeout(function() {
-            browserSync.init({
-              proxy: {
-                target: 'http://localhost:8300/',
-                ws: true
-              },
-              files: [DIST+ '/**'],
-              logFileChanges: false,
-              notify: true,
-              injectChanges: true
-            })
-          }, delay[1]);
+          // setTimeout(function() {
+          //   browserSync.init({
+          //     proxy: {
+          //       target: 'http://localhost:8300/',
+          //       ws: true
+          //     },
+          //     files: [DIST+ '/**'],
+          //     logFileChanges: false,
+          //     notify: true,
+          //     injectChanges: true
+          //   })
+          // }, delay[1]);
         }, delay[0]);
         console.log('Listening at http://localhost:8300/');
       })
