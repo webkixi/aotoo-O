@@ -2,8 +2,10 @@ import Koa from 'koa'
 import aotoo from 'aotoo-common'   // global.Aotoo
 import views from 'koa-views'
 import statics from 'koa-static-cache'
-import fkp from './fkpcore'
+import bodyparser from 'koa-bodyparser'
 
+global.debug = require('debug')
+const fkp = require('./fkpcore').default
 const app = new Koa()
 
 class aotooServer {
@@ -57,6 +59,10 @@ class aotooServer {
     app.use( views(dist, dft) )
   }
 
+  async bodyparser(opts){
+    app.use(bodyparser(opts))
+  }
+
   async init(){
     return await _init.call(this)
   }
@@ -76,7 +82,8 @@ async function _init() {
 module.exports = function(opts){
   try {
     if (!opts.pages) throw '必须指定 pages 目录选项, pages目录放置control层文件'
-    return new aotooServer(opts)
+    const aserver = new aotooServer(opts)
+    return aserver
   } catch (e) {
     console.error(e);
   } 

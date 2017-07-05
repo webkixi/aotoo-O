@@ -3,12 +3,10 @@ import Path from 'path'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import session from 'koa-session-minimal'
-import bodyparser from 'koa-bodyparser'
+// import bodyparser from 'koa-bodyparser'
 import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
-
-global.debug = require('debug')
 
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
 const configs = require('../configs')(/*配置名字符串, 全局变量 CONFIG*/);
@@ -44,8 +42,10 @@ function getMapJson(){
 async function startServer(){
   
   const app = require('./fkp')({
+  // const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
+    index: CONFIG.root,
     pages: Path.join(__dirname, './pages'),
     mapper: getMapJson(),
     pluginsFolder: Path.resolve(__dirname, './plugins')
@@ -81,7 +81,7 @@ async function startServer(){
   app.use(etag())
   app.use(logger())  
   app.use(cors()) // 设置跨域
-  app.use(bodyparser())
+  // app.use(bodyparser())
 
   try {
     const server = await app.init()
