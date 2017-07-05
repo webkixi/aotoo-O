@@ -10,7 +10,8 @@ let router = require('./router')
 export default async function(app, options) {
   let dfts = {
     apis: options.apis||{list: {}},
-    pages: options.pages,
+    pages: options.pages,      
+    index: options.index||'index',
     mapper: options.mapper,
     pluginsFolder: options.pluginsFolder
   }
@@ -65,6 +66,7 @@ export default async function(app, options) {
   fkp.staticMapper = dfts.mapper
   fkp.router = router
   fkp.apilist = dfts.apis
+  fkp.index = dfts.index
 
   // Register utile function
   fkp.utileHand = function(name, fn){

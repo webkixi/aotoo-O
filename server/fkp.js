@@ -11,6 +11,7 @@ class aotooServer {
     this.middlewares = []
     this.configs = {
       keys: opts.keys||['agzgz gogogo'],
+      index: opts.index||'index',
       pages: opts.pages,
       apis: opts.apis||{},
       mapper: opts.mapper||{},

@@ -71,6 +71,7 @@ function makeRoute(ctx, prefix){
   let params = ctx.params
   let _url = ctx.url
   ctx.local = Url.parse(ctx.url, true)
+  const index = ctx.fkp.index
 
 
   let _ext = Path.extname(ctx.url)
@@ -100,11 +101,11 @@ function makeRoute(ctx, prefix){
 
   else if(cat){
     cat = cat.replace(rjson.ext,'');
-    route = gtpy(cat)==='number' ? CONFIG.root||'index' : cat
+    route = gtpy(cat)==='number' ? index||'index' : cat
   }
 
   else{
-    route = CONFIG.root||'index'
+    route = index||'index'
   }
   if (ctxurl && route !== ctxurl) route = ctxurl
   if (prefix) route = prefix.indexOf('/')==0 ? prefix.substring(1) : prefix
