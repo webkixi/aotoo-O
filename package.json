@@ -3,9 +3,14 @@
   "version": "1.0.1",
   "description": "re fed fragment",
   "main": "index.js",
+  "scripts": {
+    "fed": "node index.js -f",
+    "dev": "node index.js",
+    "build": "node index.js -p",
+    "server": "node index.js -n"
+  },
   "dependencies": {
     "aotoo-common": "^1.0.1",
-    "aotoo-inject": "^1.0.5",
     "aotoo-koa-server": "^1.0.4",
     "aotoo-react-treex": "^1.0.4",
     "app-module-path": "^2.1.0",

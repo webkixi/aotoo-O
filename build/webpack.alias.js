@@ -2,6 +2,7 @@ const path = require('path')
 module.exports = {
   root: path.join(__dirname, '../'),
   css:  path.join(__dirname, '../public/css'),
+  libs: path.join(__dirname, '../libs'),
   component: path.join(__dirname, '../component'),
   common: path.join(__dirname, '../common'),
   aotoo: path.join(__dirname, '../common/js/index.js'),

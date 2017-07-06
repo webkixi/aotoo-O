@@ -3,7 +3,6 @@ import Path from 'path'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import session from 'koa-session-minimal'
-// import bodyparser from 'koa-bodyparser'
 import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
@@ -80,7 +79,6 @@ async function startServer(){
   app.use(etag())
   app.use(logger())  
   app.use(cors()) // 设置跨域
-  // app.use(bodyparser())
 
   try {
     const server = await app.init()
