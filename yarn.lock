@@ -181,15 +181,16 @@ aotoo-inject@^1.0.7:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
 
-aotoo-koa-server@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.2.tgz#72c62dbc0ef1367aa48e5b860d91c1a4549220ed"
+aotoo-koa-server@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.4.tgz#21bd1007ef8b0a6dc69a87e056044ad3a45b0ad5"
   dependencies:
     aotoo-common "^1.0.1"
     blueimp-md5 "^2.7.0"
     debug "^2.6.8"
     diskdb "^0.1.17"
     koa "^2.3.0"
+    koa-bodyparser "^4.2.0"
     koa-router "^7.2.1"
     koa-static-cache "^5.1.1"
     koa-views "^6.0.2"
@@ -1701,6 +1702,15 @@ co-body@^4.2.0:
     raw-body "~2.1.2"
     type-is "~1.6.6"
 
+co-body@^5.1.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/co-body/-/co-body-5.1.1.tgz#d97781d1e3344ba4a820fd1806bddf8341505236"
+  dependencies:
+    inflation "^2.0.0"
+    qs "^6.4.0"
+    raw-body "^2.2.0"
+    type-is "^1.6.14"
+
 co-redis@~2.1.1:
   version "2.1.1"
   resolved "http://r.cnpmjs.org/co-redis/download/co-redis-2.1.1.tgz#8bc3717977c9ee5bfb6b28f39ae01bcf724d2dde"
@@ -1937,6 +1947,10 @@ cookies@~0.7.0:
   dependencies:
     depd "~1.1.0"
     keygrip "~1.0.1"
+
+copy-to@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/copy-to/-/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
 
 core-js@^1.0.0:
   version "1.2.7"
@@ -3899,6 +3913,10 @@ iconv-lite@0.4.13, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
   version "0.4.13"
   resolved "http://r.cnpmjs.org/iconv-lite/download/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
+iconv-lite@0.4.15:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
+
 icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "http://r.cnpmjs.org/icss-replace-symbols/download/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -3953,7 +3971,7 @@ infinity-agent@^2.0.0:
   version "2.0.3"
   resolved "http://r.cnpmjs.org/infinity-agent/download/infinity-agent-2.0.3.tgz#45e0e2ff7a9eb030b27d62b74b3744b7a7ac4216"
 
-inflation@~2.0.0:
+inflation@^2.0.0, inflation@~2.0.0:
   version "2.0.0"
   resolved "http://r.cnpmjs.org/inflation/download/inflation-2.0.0.tgz#8b417e47c28f925a45133d914ca1fd389107f30f"
 
@@ -4414,6 +4432,13 @@ koa-bodyparser@^3.2.0:
   resolved "http://r.cnpmjs.org/koa-bodyparser/download/koa-bodyparser-3.2.0.tgz#b916de17e2039fe82650481973d7c294f10b5719"
   dependencies:
     co-body "^4.2.0"
+
+koa-bodyparser@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/koa-bodyparser/-/koa-bodyparser-4.2.0.tgz#bce6e08bc65f8709b6d1faa9411c7f0d8938aa54"
+  dependencies:
+    co-body "^5.1.0"
+    copy-to "^2.0.1"
 
 koa-compose@^3.0.0:
   version "3.2.1"
@@ -6296,7 +6321,7 @@ qs@6.2.1:
   version "6.2.1"
   resolved "http://r.cnpmjs.org/qs/download/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-qs@6.4.0, "qs@>= 0.4.0", qs@~6.4.0:
+qs@6.4.0, "qs@>= 0.4.0", qs@^6.4.0, qs@~6.4.0:
   version "6.4.0"
   resolved "http://r.cnpmjs.org/qs/download/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
@@ -6351,6 +6376,14 @@ randombytes@^2.0.0, randombytes@^2.0.1:
 range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "http://r.cnpmjs.org/range-parser/download/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
+
+raw-body@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.2.0.tgz#994976cf6a5096a41162840492f0bdc5d6e7fb96"
+  dependencies:
+    bytes "2.4.0"
+    iconv-lite "0.4.15"
+    unpipe "1.0.0"
 
 raw-body@~2.1.2:
   version "2.1.7"
@@ -7741,7 +7774,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-type-is@^1.5.5, type-is@~1.6.15, type-is@~1.6.6:
+type-is@^1.5.5, type-is@^1.6.14, type-is@~1.6.15, type-is@~1.6.6:
   version "1.6.15"
   resolved "http://r.cnpmjs.org/type-is/download/type-is-1.6.15.tgz#cab10fb4909e441c82842eafe1ad646c81804410"
   dependencies:

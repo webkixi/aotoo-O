@@ -41,8 +41,7 @@ function getMapJson(){
 
 async function startServer(){
   
-  const app = require('./fkp')({
-  // const app = require('aotoo-koa-server')({
+  const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
     index: CONFIG.root,
