@@ -3083,13 +3083,13 @@ first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/first-chunk-stream/download/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
 
-fkp-sax@^1.5.10, fkp-sax@^1.5.18:
-  version "1.5.18"
-  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.18.tgz#ed6feccee5390c5766e8f6baa24a8db6e9c0ac47"
-
-fkp-sax@^1.5.19:
+fkp-sax@^1.5.10, fkp-sax@^1.5.19:
   version "1.5.19"
   resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.19.tgz#7e911b778eeea0618190f74d21ff4711ab40dcfe"
+
+fkp-sax@^1.5.18:
+  version "1.5.18"
+  resolved "https://registry.yarnpkg.com/fkp-sax/-/fkp-sax-1.5.18.tgz#ed6feccee5390c5766e8f6baa24a8db6e9c0ac47"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -3909,11 +3909,11 @@ humanize-number@0.0.2:
   version "0.0.2"
   resolved "http://r.cnpmjs.org/humanize-number/download/humanize-number-0.0.2.tgz#11c0af6a471643633588588048f1799541489c18"
 
-iconv-lite@0.4.13, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
+iconv-lite@0.4.13, iconv-lite@^0.4.5:
   version "0.4.13"
   resolved "http://r.cnpmjs.org/iconv-lite/download/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@0.4.15:
+iconv-lite@0.4.15, iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
