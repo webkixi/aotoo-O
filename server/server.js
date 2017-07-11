@@ -39,7 +39,6 @@ function getMapJson(){
 }
 
 async function startServer(){
-  
   const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },

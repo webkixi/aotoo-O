@@ -90,11 +90,11 @@ function getConfig(md_raw, cvariable){
     }
     md_raw = md_raw.replace(rev,'');
   }
-  return [md_raw, cvariable]
+  return [ md_raw, cvariable ]
 }
 
 function mkmd(raw, opts){   // out
-  const dft = {
+  let dft = {
     renderer: renderer,
     gfm: true,
     tables: true,
@@ -113,11 +113,11 @@ function mkmd(raw, opts){   // out
   let [ md_raw, cvariable ] = getConfig(raw, {})
 
   marked.setOptions(dft)
-  tokens = marked.lexer(md_raw)
+  const tokens = marked.lexer(md_raw)
   tokens.forEach(function(item, ii){
     switch (item.type) {
       case 'heading':
-        item.depth == 1 ? props.title = item.text : ''
+        item.depth == 1 ? props.title = item.text : '还没有想好标题'
         break;
       case 'blockquote_start':
         const nextItem = tokens[ii+1]
@@ -125,31 +125,39 @@ function mkmd(raw, opts){   // out
         break;
     }
   })
-  props.title = props.title || '还没有想好标题'
+  let mdcnt = {
+    title: '',
+    descript: '',
+    content: '',
+    imgs: [],
+    img: '',
+    menu: '',
+    params: ''
+  }
   mdcnt.title = props.title.replace(/ \{(.*)\}/g, '');
-  mdcnt.desc = props.desc
+  mdcnt.descript = props.desc
   cvariable.desc = cvariable.desc || props.desc
 
   try {
-    let data = marked.parser(tokens)
+    let content = marked.parser(tokens)
 
     // 插入div
     const regDiv = /<p>&lt;&gt;(.*)? *(?:\n+|$)/ig
-    data = data.replace( regDiv, ($0, $1) => { return creatDiv($1+'\n') } )
+    content = content.replace( regDiv, ($0, $1) => { return creatDiv($1+'\n') } )
 
     // 首图、图集
     const regImg = /<img *src= *['"](.*?)['"] *\/>/ig
-    const imgs = data.match(regImg)
+    const imgs = content.match(regImg)
     if (imgs) {
-      mdcnt.img = imgs[0]
       mdcnt.imgs = imgs
+      mdcnt.img  = imgs[0]
     }
 
     // 菜单
     let mdMenus = ['<ul class="mdmenu>']
     const regMenu = /<(h[2]) *(?:id=['"]?(.*?)['"]?) *>(.*?)<\/\1>/ig
     const regMenu1 = /id=['"]?([^>]*)['"] *>(.*)</i
-    const menus = data.match(regMenu)
+    const menus = content.match(regMenu)
     if (menus) {
       menus.map( item => {
         const cap = regMenu1.exec(item)
@@ -159,11 +167,11 @@ function mkmd(raw, opts){   // out
         }
       })
       mdMenus.push('</ul>')
-      mdcnt.mdmenu = mdMenus.join('\n')
+      mdcnt.menu = mdMenus.join('\n')
     }
 
-    mdcnt.params = cvariable;
-    mdcnt.cnt = data
+    mdcnt.params  = cvariable;
+    mdcnt.content = content
     return mdcnt
 
   } catch (e) {
