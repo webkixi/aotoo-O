@@ -195,6 +195,15 @@ function docs(ctx, next){
           fileInfo = mdIns.file(docurl)
         }
       }
+
+      if (fileInfo && folderInfo) {
+
+      }
+
+      if (folderInfo && !fileInfo) {
+        const tree = folderInfo.tree
+        const home = folderInfo.home
+      }
     }
   }
 }
