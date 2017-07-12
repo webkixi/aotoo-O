@@ -141,23 +141,28 @@ const mdIns = new MarkdownDocs({
 
 function docs(ctx, next){
   const params = ctx.params
+  let routePrefix = this.opts.prefix
+
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
     const covers = mdIns.covers(defaultDocsPath)
     
     const homes = []
     covers.forEach( cov => {
+      let leaf;
       if (!cov.home.exist) {
         for (let ii=0; ii<cov.tree.length; ii++) {
-          const leaf = cov.tree[ii]
+          leaf = cov.tree[ii]
           if (!leaf.idf) {
-            homes.push(leaf)
             break;
           }
         }
       } else {
-        homes.push(cov.home)
+        leaf = cov.home
       }
+      delete leaf.parent
+      console.log(leaf);
+      homes.push(leaf)
     })
 
     const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
@@ -167,6 +172,18 @@ function docs(ctx, next){
       </div>
     )
     const homesStr = Aotoo.render(homesCover)
+    const renderData = {
+      title: 'abc',
+      commoncss: '1111',
+      commonjs: '2222',
+      pagejs: 'xxxx',
+      covers: homesStr
+    }
+
+    const tempPath = path.join(__dirname, './views/cover.html')
+    const temp = fs.readFileSync(tempPath, 'utf-8')
+    const compiled = _.template(temp)
+    ctx.body = compiled(renderData)
   } else {
     const {p3, p2, p1, id, title, cat} = params
     let docurl = path.join(__dirname, 'docs')
