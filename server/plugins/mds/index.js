@@ -160,7 +160,8 @@ function docs(ctx, next){
       } else {
         leaf = cov.home
       }
-      delete leaf.parent
+      // delete leaf.parent
+      leaf.url = routePrefix
       console.log(leaf);
       homes.push(leaf)
     })
