@@ -5,29 +5,42 @@ const glob = require('glob')
 const md = require('./markdown')
 const path = require('path')
 
+
+function getHomeStruct(){
+  return {
+    title: '',
+    descript: '',
+    path: '',
+    url: '',
+    img: '',
+    config: '',
+    exist: false
+  }
+}
+
 class MarkdownDocs {
   constructor(opts={}){
     this.opts = opts
   }
 
   folderInfo(_dir){
-    let tree = []
-    let home = {
-      title: '',
-      descript: '',
-      path: '',
-      url: '',
-      img: '',
-      config: '',
-      exist: false
-    }
-
     const opts = this.opts
     const that = this
+    let tree = []
 
-    function loopDir($dir, parent){
-      const dir = $dir+'/*'
-      glob.sync(dir).forEach( item => {
+    const rootobj = path.parse(_dir)
+    let rootFeather = {
+      title: rootobj.name,
+      path: _dir,
+      url: rootobj.name,
+      idf: 'root'
+    }
+    tree.push(rootFeather)
+
+    function loopDir($dir, parent, parentObj){
+      $dir = $dir+'/*'
+      let home = getHomeStruct()
+      glob.sync($dir).forEach( item => {
         const stat = fs.statSync(item) 
         const obj = path.parse(item)
         if (stat.isFile()) {
@@ -57,6 +70,10 @@ class MarkdownDocs {
               home.img = home.img ? home.img : mdInfo.img
               home.imgs = mdInfo.imgs
               home.exist = true
+
+              if (parent) {
+                parentObj.home = home
+              }
             } else {
               let feather = {
                 title: mdInfo.title,
@@ -86,13 +103,14 @@ class MarkdownDocs {
             dirFeather.parent = parent
           }
           tree.push(dirFeather)
-          loopDir(item, parentId)
+          loopDir(item, parentId, dirFeather)
         }
       })
     }
 
-    loopDir(_dir)
-    return { home, tree }
+    loopDir(_dir, 'root', rootFeather)
+    return {tree}
+    // return { home, tree }
   }
 
   file(filename){
@@ -126,7 +144,10 @@ class MarkdownDocs {
       glob.sync(dir).forEach( item => {
         const stat = fs.statSync(item) 
         if (stat.isDirectory()) {
-          covers.push(this.folder(item))
+          const covs = this.folder(item).tree
+          covs.forEach( $cov=>{
+            if ($cov.parent == 'root' && $cov.idf) covers.push($cov)
+          }) 
         }
       })
     }
@@ -138,41 +159,47 @@ const mdIns = new MarkdownDocs({
 
 })
 
+// function renderView(url, data){
+//   const fkp = this.fkp
+//   const tempPath = path.join(__dirname, `./views/${url}.html`)
+//   const temp = fs.readFileSync(tempPath, 'utf-8')
+//   this.body = 'fkp.template(temp, data)'
+// }
+
+function _renderView(ctx){
+  return function(url,data){
+    const fkp = ctx.fkp
+    console.log(fkp.staticMapper);
+    const tempPath = path.join(__dirname, `./views/${url}.html`)
+    const temp = fs.readFileSync(tempPath, 'utf-8')
+    ctx.body = fkp.template(temp, data)
+  }
+}
 
 function docs(ctx, next){
+  const renderView = _renderView(ctx)
   const params = ctx.params
+  const fkp = ctx.fkp
   let routePrefix = this.opts.prefix
 
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
     const covers = mdIns.covers(defaultDocsPath)
-    
     const homes = []
-    covers.forEach( cov => {
-      let leaf;
-      if (!cov.home.exist) {
-        for (let ii=0; ii<cov.tree.length; ii++) {
-          leaf = cov.tree[ii]
-          if (!leaf.idf) {
-            break;
-          }
-        }
-      } else {
-        leaf = cov.home
-      }
-      // delete leaf.parent
-      leaf.url = routePrefix
-      console.log(leaf);
-      homes.push(leaf)
-    })
 
+    covers.forEach( cov => {
+      const imgurl = cov.home&&cov.home.img||'/'
+      homes.push({
+        title: <img src={imgurl}/>,
+        url: path.join(routePrefix, cov.url),
+        body: [
+          <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{cov.title}</a></div>,
+          <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
+        ]
+      })
+    })
     const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
-    const homesCover = (
-      <div className="covers">
-        {homesJsx}
-      </div>
-    )
-    const homesStr = Aotoo.render(homesCover)
+    const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
     const renderData = {
       title: 'abc',
       commoncss: '1111',
@@ -180,12 +207,9 @@ function docs(ctx, next){
       pagejs: 'xxxx',
       covers: homesStr
     }
-
-    const tempPath = path.join(__dirname, './views/cover.html')
-    const temp = fs.readFileSync(tempPath, 'utf-8')
-    const compiled = _.template(temp)
-    ctx.body = compiled(renderData)
-  } else {
+    renderView('cover', renderData)
+  } 
+  else {
     const {p3, p2, p1, id, title, cat} = params
     let docurl = path.join(__dirname, 'docs')
     if (cat) docurl = path.join(docurl, cat)
