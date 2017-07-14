@@ -113,6 +113,10 @@ class MarkdownDocs {
     // return { home, tree }
   }
 
+  parse(raw, opts){
+    return md(raw, opts)
+  }
+
   file(filename){
     const opts = this.opts
     if (fs.existsSync(filename)) {
@@ -199,11 +203,19 @@ function docs(ctx, next){
     })
     const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
     const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
+
+    const inject = Aotoo.inject.css('common').js('common')
+    
+    const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+    const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+    const cssStr = cssAry.join('\n')
+    const jsStr = jsAry.join('\n')
+
     const renderData = {
       title: 'abc',
-      commoncss: '1111',
-      commonjs: '2222',
-      pagejs: 'xxxx',
+      mycss: cssStr,
+      myjs: jsStr,
       covers: homesStr
     }
     renderView('cover', renderData)
