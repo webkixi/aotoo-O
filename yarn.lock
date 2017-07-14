@@ -190,9 +190,9 @@ aotoo-common@^1.0.1, aotoo-common@^1.0.2:
     react "^15.4.2"
     react-dom "^15.4.2"
 
-aotoo-inject@^1.0.7:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.10.tgz#3c5c9ca46e4a30399f5db1e77300d394c4cf9fb1"
+aotoo-inject@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.14.tgz#a6a2dc882e97a5a10cdbe8b08705abdb835ccf38"
   dependencies:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
@@ -4004,11 +4004,11 @@ humanize-number@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/humanize-number/-/humanize-number-0.0.2.tgz#11c0af6a471643633588588048f1799541489c18"
 
-iconv-lite@0.4.13, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
+iconv-lite@0.4.13, iconv-lite@^0.4.5:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@0.4.15:
+iconv-lite@0.4.15, iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 

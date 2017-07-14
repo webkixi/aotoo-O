@@ -39,14 +39,17 @@ function getMapJson(){
 }
 
 async function startServer(){
+  const mapperJson = getMapJson()
   const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
     index: CONFIG.root,
     pages: Path.join(__dirname, './pages'),
-    mapper: getMapJson(),
+    mapper: mapperJson,
     pluginsFolder: Path.resolve(__dirname, './plugins')
   })
+
+  Aotoo.inject.mapper = mapperJson
 
   app.use(session({
     key: 'agzgz-',
