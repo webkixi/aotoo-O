@@ -36,14 +36,14 @@ function activationServer(buildc){
   if (process.env.NODE_ENV == 'development') {
     nodemon({
       "script": './server/index.js',
-      "ext": 'js jsx css html',
+      "ext": 'js json jsx css html',
       "restartable": "rs",
       "verbose": true,
       "ignore": [
         "public/*",
         "dist/*",
         ".git/*",
-        "node_modules/*",
+        // "node_modules/*",
         "*.db"
       ],
       "watch": [

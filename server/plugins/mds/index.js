@@ -159,16 +159,7 @@ class MarkdownDocs {
   }
 }
 
-const mdIns = new MarkdownDocs({
-
-})
-
-// function renderView(url, data){
-//   const fkp = this.fkp
-//   const tempPath = path.join(__dirname, `./views/${url}.html`)
-//   const temp = fs.readFileSync(tempPath, 'utf-8')
-//   this.body = 'fkp.template(temp, data)'
-// }
+const mdIns = new MarkdownDocs({})
 
 function _renderView(ctx){
   return function(url,data){
@@ -176,6 +167,50 @@ function _renderView(ctx){
     const tempPath = path.join(__dirname, `./views/${url}.html`)
     const temp = fs.readFileSync(tempPath, 'utf-8')
     ctx.body = fkp.template(temp, data)
+  }
+}
+
+// 封面页结构
+function coversHome(covs){
+  const routePrefix = this.opts.prefix
+  const homes = covs.map( cov => {
+    const imgurl = cov.home&&cov.home.img||'/'
+    return {
+      title: <img src={imgurl}/>,
+      url: path.join(routePrefix, cov.url),
+      body: [
+        <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{cov.title}</a></div>,
+        <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
+      ]
+    }
+  })
+  const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
+  const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
+
+  return homesStr
+}
+
+// 封面页的静态文件
+function coversStatic(){
+  const myScript = `
+    console.log('======1111')
+    console.log('======1111')
+    setTimeout(function(){
+      console.log(jQuery)
+    }, 1000)
+  `
+  const inject = Aotoo.inject
+  .css(['common'])
+  .js(['common', myScript])
+  const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+  const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+  const cssStr = cssAry.join('\n')
+  const jsStr = jsAry.join('\n')
+
+  return {
+    css: cssStr,
+    js: jsStr
   }
 }
 
@@ -187,35 +222,12 @@ function docs(ctx, next){
 
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
-    const covers = mdIns.covers(defaultDocsPath)
-    const homes = []
-
-    covers.forEach( cov => {
-      const imgurl = cov.home&&cov.home.img||'/'
-      homes.push({
-        title: <img src={imgurl}/>,
-        url: path.join(routePrefix, cov.url),
-        body: [
-          <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{cov.title}</a></div>,
-          <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
-        ]
-      })
-    })
-    const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
-    const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
-
-    const inject = Aotoo.inject.css('common').js('common')
-    
-    const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
-    const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
-
-    const cssStr = cssAry.join('\n')
-    const jsStr = jsAry.join('\n')
-
+    const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
+    const statics = coversStatic()  // js css 静态资源
     const renderData = {
       title: 'abc',
-      mycss: cssStr,
-      myjs: jsStr,
+      mycss: statics.css,
+      myjs: statics.js,
       covers: homesStr
     }
     renderView('cover', renderData)

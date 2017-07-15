@@ -179,7 +179,7 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-aotoo-common@^1.0.1:
+aotoo-common@^1.0.1, aotoo-common@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.2.tgz#9b1054dcb267c5c8e7848f4ade9b9ab004b5dd87"
   dependencies:
@@ -190,20 +190,9 @@ aotoo-common@^1.0.1:
     react "^15.4.2"
     react-dom "^15.4.2"
 
-aotoo-common@^1.0.2:
-  version "1.0.2"
-  resolved "http://r.cnpmjs.org/aotoo-common/download/aotoo-common-1.0.2.tgz#9b1054dcb267c5c8e7848f4ade9b9ab004b5dd87"
-  dependencies:
-    aotoo "^1.2.12"
-    fkp-sax "^1.5.10"
-    jquery "^2.2.4"
-    lodash "^4.0.0"
-    react "^15.4.2"
-    react-dom "^15.4.2"
-
 aotoo-inject@^1.0.7:
-  version "1.0.14"
-  resolved "http://r.cnpmjs.org/aotoo-inject/download/aotoo-inject-1.0.14.tgz#a6a2dc882e97a5a10cdbe8b08705abdb835ccf38"
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.15.tgz#a5819228ab647546bc86ed8bd056fd5cdb3f34a0"
   dependencies:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
@@ -230,8 +219,8 @@ aotoo-react-treex@^1.0.4:
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
 
 aotoo@^1.2.12:
-  version "1.2.12"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.2.12.tgz#a0c3ac66bef4d3251e1947a581bf8a60d2070c61"
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.2.13.tgz#aa49c5efc8af008526828268d6110a7c2e94bb8c"
   dependencies:
     aotoo-inject "^1.0.7"
     lodash.clonedeep "^4.5.0"
