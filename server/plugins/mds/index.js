@@ -195,9 +195,7 @@ function coversStatic(){
   const myScript = `
     console.log('======1111')
     console.log('======1111')
-    setTimeout(function(){
-      console.log(jQuery)
-    }, 1000)
+    console.log($)
   `
   const inject = Aotoo.inject
   .css(['common'])
