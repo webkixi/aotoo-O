@@ -79,7 +79,7 @@ class MarkdownDocs {
                 title: mdInfo.title,
                 descript: mdInfo.descript,
                 path: item,
-                url: obj.name,
+                url: obj.name+obj.ext,
                 img: mdInfo.img,
                 imgs: mdInfo.imgs
               }
@@ -162,7 +162,7 @@ class MarkdownDocs {
 const mdIns = new MarkdownDocs({})
 
 function _renderView(ctx){
-  return function(url,data){
+  return function(url, data){
     const fkp = ctx.fkp
     const tempPath = path.join(__dirname, `./views/${url}.html`)
     const temp = fs.readFileSync(tempPath, 'utf-8')
@@ -190,25 +190,86 @@ function coversHome(covs){
   return homesStr
 }
 
-// 封面页的静态文件
-function coversStatic(){
-  const myScript = `
-    console.log('======1111')
-    console.log('======1111')
-    console.log($)
-  `
-  const inject = Aotoo.inject
-  .css(['common'])
-  .js(['common', myScript])
-  const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
-  const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+const asset = {
+  covers: function(){
+    const cssContent = fs.readFileSync( path.join(__dirname, './statics/covers/index.css'), 'utf-8' )
+    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/covers/index.js'), 'utf-8' )
 
-  const cssStr = cssAry.join('\n')
-  const jsStr = jsAry.join('\n')
+    const inject = Aotoo.inject
+    .css(['common', cssContent])
+    .js(['common', jsContent])
 
-  return {
-    css: cssStr,
-    js: jsStr
+    const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+    const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+    const cssStr = cssAry.join('\n')
+    const jsStr = jsAry.join('\n')
+
+    return {
+      css: cssStr,
+      js: jsStr
+    }
+  },
+
+  category: function(){
+    const cssContent = fs.readFileSync( path.join(__dirname, './statics/category/index.css'), 'utf-8' )
+    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/category/index.js'), 'utf-8' )
+
+    const inject = Aotoo.inject
+    .css(['common', cssContent])
+    .js(['common', jsContent])
+
+
+    const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+    const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+    const cssStr = cssAry.join('\n')
+    const jsStr = jsAry.join('\n')
+
+    return {
+      css: cssStr,
+      js: jsStr
+    }
+
+
+    // const myScript = `
+    //   console.log('======1111')
+    //   console.log('======1111')
+    // `
+    // const inject = Aotoo.inject
+    // .css(['common'])
+    // .js(['common', myScript])
+    // const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+    // const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+    // const cssStr = cssAry.join('\n')
+    // const jsStr = jsAry.join('\n')
+
+    // return {
+    //   css: cssStr,
+    //   js: jsStr
+    // }
+
+  },
+
+  detail: function(){
+    const myScript = `
+      console.log('======1111')
+      console.log('======1111')
+    `
+    const inject = Aotoo.inject
+    .css(['common'])
+    .js(['common', myScript])
+    const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
+    const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
+
+    const cssStr = cssAry.join('\n')
+    const jsStr = jsAry.join('\n')
+
+    return {
+      css: cssStr,
+      js: jsStr
+    }
   }
 }
 
@@ -218,10 +279,14 @@ function docs(ctx, next){
   const fkp = ctx.fkp
   let routePrefix = this.opts.prefix
 
+  // 封面页
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
     const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
-    const statics = coversStatic()  // js css 静态资源
+    // const statics = coversStatic()  // js css 静态资源
+    const statics = asset.covers()  // js css 静态资源
+    console.log('====== 111');
+    console.log('====== 111');
     const renderData = {
       title: 'abc',
       mycss: statics.css,
@@ -232,13 +297,15 @@ function docs(ctx, next){
   } 
   else {
     const {p3, p2, p1, id, title, cat} = params
-    let docurl = path.join(__dirname, 'docs')
-    if (cat) docurl = path.join(docurl, cat)
-    if (title) docurl = path.join(docurl, title)
-    if (id) docurl = path.join(docurl, id)
-    if (p1) docurl = path.join(docurl, p1)
-    if (p2) docurl = path.join(docurl, p2)
-    if (p3) docurl = path.join(docurl, p3)
+    let _docurl = '/docs'
+    let docurl
+    if (cat) _docurl = path.join(_docurl, cat)
+    if (title) _docurl = path.join(_docurl, title)
+    if (id) _docurl = path.join(_docurl, id)
+    if (p1) _docurl = path.join(_docurl, p1)
+    if (p2) _docurl = path.join(_docurl, p2)
+    if (p3) _docurl = path.join(_docurl, p3)
+    docurl = path.join(__dirname, _docurl)
 
     if (fs.existsSync(docurl)) {
       const obj = path.parse(docurl)
@@ -260,15 +327,70 @@ function docs(ctx, next){
       }
 
       if (fileInfo && folderInfo) {
-
+        detail(fileInfo, folderInfo, _docurl, renderView)
       }
 
       if (folderInfo && !fileInfo) {
-        const tree = folderInfo.tree
-        const home = folderInfo.home
+        category(folderInfo, _docurl, renderView)
       }
     }
   }
+}
+
+// 分类目录
+function category(folderInfo, _docurl, renderView){
+  let home
+  const tree = folderInfo.tree
+  for (let ii=0;ii<tree.length;ii++) {
+    const item = tree[ii]
+    if (item.idf == 'root') {
+      if (item.home) home = item.home
+    } else {
+      item.url = path.join(_docurl, item.url)
+    }
+  }
+  if (!home) home = '该分类没有信息'
+  const treeJsx = Aotoo.tree({ data: tree })
+  const treeStr = Aotoo.render(treeJsx)
+  const statics = asset.category()  // js css 静态资源
+  const renderData = {
+    title: '分类页',
+    mycss: statics.css,
+    myjs: statics.js,
+    menu: treeStr,
+    home: home
+  }
+  renderView('category', renderData)
+}
+
+function detail(fileInfo, folderInfo, _docurl, renderView){
+  /**
+   * fileInfo
+   * {
+   *  title: '',
+   *  descript: '',
+   *  content: <>,
+   *  imgs: [],
+   *  img: '',
+   *  menu: <>,
+   *  params: {desc: ''}
+   * }
+   */
+  const tree = folderInfo.tree
+  const treeJsx = Aotoo.tree({ data: tree })
+  const treeStr = Aotoo.render(treeJsx)
+  // const statics = detailStatic()  // js css 静态资源
+  const statics = asset.detail()  // js css 静态资源
+  const renderData = {
+    title: fileInfo.title,
+    descript: fileInfo.descript||'',
+    mycss: statics.css,
+    myjs: statics.js,
+    tree: treeStr,
+    menu: fileInfo.menu,
+    content: fileInfo.content
+  }
+  renderView('detail', renderData)
 }
 
 function pluginDocs(ctx, opts={}){

@@ -1,6 +1,6 @@
 
 async function mapper(ctx, next){
-  let [pageCss, pageJs] = [ctx.fkp.staticMapper.pageCss, ctx.fkp.staticMapper.pageJs]
+  let [pageCss, pageJs] = [ctx.fkp.staticMapper.css, ctx.fkp.staticMapper.js]
   ctx.body = {css: pageCss, js: pageJs}
 }
 
