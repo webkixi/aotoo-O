@@ -110,7 +110,6 @@ class MarkdownDocs {
 
     loopDir(_dir, 'root', rootFeather)
     return {tree}
-    // return { home, tree }
   }
 
   parse(raw, opts){
@@ -132,13 +131,7 @@ class MarkdownDocs {
 
   folder(dir){
     if (dir && fs.existsSync(dir)) {
-      const did = md5(dir)
-      return Cache.ifid(did, ()=>{
-        const dirObj = path.parse(dir)
-        const info = this.folderInfo(dir)
-        Cache.set(did, info, 1000*1*60*60)
-        return info
-      })
+      return this.folderInfo(dir)
     }
   }
 
@@ -174,7 +167,7 @@ function _renderView(ctx){
 function coversHome(covs){
   const routePrefix = this.opts.prefix
   const homes = covs.map( cov => {
-    const imgurl = cov.home&&cov.home.img||'/'
+    const imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
     return {
       title: <img src={imgurl}/>,
       url: path.join(routePrefix, cov.url),
@@ -196,6 +189,7 @@ const asset = {
     const jsContent = fs.readFileSync(  path.join(__dirname, './statics/covers/index.js'), 'utf-8' )
 
     const inject = Aotoo.inject
+    .init()
     .css(['common', cssContent])
     .js(['common', jsContent])
 
@@ -216,6 +210,7 @@ const asset = {
     const jsContent = fs.readFileSync(  path.join(__dirname, './statics/category/index.js'), 'utf-8' )
 
     const inject = Aotoo.inject
+    .init()
     .css(['common', cssContent])
     .js(['common', jsContent])
 
@@ -253,13 +248,14 @@ const asset = {
   },
 
   detail: function(){
-    const myScript = `
-      console.log('======1111')
-      console.log('======1111')
-    `
+    const cssContent = fs.readFileSync( path.join(__dirname, './statics/detail/index.css'), 'utf-8' )
+    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/detail/index.js'), 'utf-8' )
+
     const inject = Aotoo.inject
-    .css(['common'])
-    .js(['common', myScript])
+    .init()
+    .css(['common', cssContent])
+    .js(['common', jsContent])
+
     const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
     const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
 
@@ -282,17 +278,20 @@ function docs(ctx, next){
   // 封面页
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
-    const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
-    // const statics = coversStatic()  // js css 静态资源
-    const statics = asset.covers()  // js css 静态资源
-    console.log('====== 111');
-    console.log('====== 111');
-    const renderData = {
-      title: 'abc',
-      mycss: statics.css,
-      myjs: statics.js,
-      covers: homesStr
-    }
+    const did = md5(defaultDocsPath)
+    const renderData = Cache.ifid(did, ()=>{
+      const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
+      // const statics = coversStatic()  // js css 静态资源
+      const statics = asset.covers()  // js css 静态资源
+      const _renderData = {
+        title: '封面页',
+        mycss: statics.css,
+        myjs: statics.js,
+        covers: homesStr
+      }
+      Cache.set(did, _renderData, 1000*1*60*60)
+      return _renderData
+    })
     renderView('cover', renderData)
   } 
   else {
@@ -339,57 +338,69 @@ function docs(ctx, next){
 
 // 分类目录
 function category(folderInfo, _docurl, renderView){
-  let home
-  const tree = folderInfo.tree
-  for (let ii=0;ii<tree.length;ii++) {
-    const item = tree[ii]
-    if (item.idf == 'root') {
-      if (item.home) home = item.home
-    } else {
-      item.url = path.join(_docurl, item.url)
+  const did = md5(_docurl)
+  const renderData = Cache.ifid(did, ()=>{
+    let home
+    const tree = folderInfo.tree
+    for (let ii=0;ii<tree.length;ii++) {
+      const item = tree[ii]
+      if (item.idf == 'root') {
+        if (item.home) home = item.home
+      } else {
+        item.url = path.join(_docurl, item.url)
+      }
     }
-  }
-  if (!home) home = '该分类没有信息'
-  const treeJsx = Aotoo.tree({ data: tree })
-  const treeStr = Aotoo.render(treeJsx)
-  const statics = asset.category()  // js css 静态资源
-  const renderData = {
-    title: '分类页',
-    mycss: statics.css,
-    myjs: statics.js,
-    menu: treeStr,
-    home: home
-  }
+    if (!home) home = '该分类没有信息'
+    const treeJsx = Aotoo.tree({ data: tree })
+    const treeStr = Aotoo.render(treeJsx)
+    const statics = asset.category()  // js css 静态资源
+    const _renderData = {
+      title: '分类页',
+      mycss: statics.css,
+      myjs: statics.js,
+      menu: treeStr,
+      home: home
+    }
+
+    Cache.set(did, _renderData, 1000*1*60*60)
+    return _renderData
+  })
   renderView('category', renderData)
 }
 
 function detail(fileInfo, folderInfo, _docurl, renderView){
-  /**
-   * fileInfo
-   * {
-   *  title: '',
-   *  descript: '',
-   *  content: <>,
-   *  imgs: [],
-   *  img: '',
-   *  menu: <>,
-   *  params: {desc: ''}
-   * }
-   */
-  const tree = folderInfo.tree
-  const treeJsx = Aotoo.tree({ data: tree })
-  const treeStr = Aotoo.render(treeJsx)
-  // const statics = detailStatic()  // js css 静态资源
-  const statics = asset.detail()  // js css 静态资源
-  const renderData = {
-    title: fileInfo.title,
-    descript: fileInfo.descript||'',
-    mycss: statics.css,
-    myjs: statics.js,
-    tree: treeStr,
-    menu: fileInfo.menu,
-    content: fileInfo.content
-  }
+  const did = md5(_docurl)
+  const renderData = Cache.ifid(did, ()=>{
+    /**
+     * fileInfo
+     * {
+     *  title: '',
+     *  descript: '',
+     *  content: <>,
+     *  imgs: [],
+     *  img: '',
+     *  menu: <>,
+     *  params: {desc: ''}
+     * }
+     */
+    const tree = folderInfo.tree
+    const treeJsx = Aotoo.tree({ data: tree })
+    const treeStr = Aotoo.render(treeJsx)
+    // const statics = detailStatic()  // js css 静态资源
+    const statics = asset.detail()  // js css 静态资源
+    const _renderData = {
+      title: fileInfo.title,
+      descript: fileInfo.descript||'',
+      mycss: statics.css,
+      myjs: statics.js,
+      tree: treeStr,
+      menu: fileInfo.menu,
+      content: fileInfo.content
+    }
+
+    Cache.set(did, _renderData, 1000*1*60*60)
+    return _renderData
+  })
   renderView('detail', renderData)
 }
 
