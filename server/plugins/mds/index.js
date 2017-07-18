@@ -53,9 +53,8 @@ class MarkdownDocs {
           }
 
           // 目录配置文件
-          if (obj.name == 'config') {
-            // home.config = item
-            home.config = require(item)
+          if (obj.name == 'config' && parent) {
+            parentObj.config = require(item)
           }
 
           if (obj.ext == '.md') {
@@ -168,11 +167,23 @@ function coversHome(covs){
   const routePrefix = this.opts.prefix
   const homes = covs.map( cov => {
     const imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
+    let title = cov.title
+
+    // 根据配置文件输出 
+    if (cov.config) {
+
+      // 输出title
+      // 由于不支持中文目录，我们需要在配置文件中映射英文目录的中文描述
+      if (cov.config.names) {
+        const names = cov.config.names
+        title = names[cov.title] ? names[cov.title] : title
+      }
+    }
     return {
       title: <img src={imgurl}/>,
       url: path.join(routePrefix, cov.url),
       body: [
-        <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{cov.title}</a></div>,
+        <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{title}</a></div>,
         <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
       ]
     }
@@ -225,26 +236,6 @@ const asset = {
       css: cssStr,
       js: jsStr
     }
-
-
-    // const myScript = `
-    //   console.log('======1111')
-    //   console.log('======1111')
-    // `
-    // const inject = Aotoo.inject
-    // .css(['common'])
-    // .js(['common', myScript])
-    // const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
-    // const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
-
-    // const cssStr = cssAry.join('\n')
-    // const jsStr = jsAry.join('\n')
-
-    // return {
-    //   css: cssStr,
-    //   js: jsStr
-    // }
-
   },
 
   detail: function(){
@@ -275,13 +266,12 @@ function docs(ctx, next){
   const fkp = ctx.fkp
   let routePrefix = this.opts.prefix
 
-  // 封面页
+  // 封面页 covers
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
     const did = md5(defaultDocsPath)
     const renderData = Cache.ifid(did, ()=>{
       const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
-      // const statics = coversStatic()  // js css 静态资源
       const statics = asset.covers()  // js css 静态资源
       const _renderData = {
         title: '封面页',
@@ -346,6 +336,12 @@ function category(folderInfo, _docurl, renderView){
       const item = tree[ii]
       if (item.idf == 'root') {
         if (item.home) home = item.home
+        if (item.config) {
+          if (item.config.names) {
+            const names = item.config.names
+            item.title = names[item.title] ? names[item.title] : item.title
+          }
+        }
       } else {
         item.url = path.join(_docurl, item.url)
       }
@@ -358,7 +354,7 @@ function category(folderInfo, _docurl, renderView){
       title: '分类页',
       mycss: statics.css,
       myjs: statics.js,
-      menu: treeStr,
+      tree: treeStr,
       home: home
     }
 
