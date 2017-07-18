@@ -245,7 +245,7 @@ const asset = {
     const inject = Aotoo.inject
     .init()
     .css(['common', cssContent])
-    .js(['common', jsContent])
+    .js(['common', 't/prettfy', jsContent])
 
     const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
     const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
@@ -380,6 +380,17 @@ function detail(fileInfo, folderInfo, _docurl, renderView){
      * }
      */
     const tree = folderInfo.tree
+    for (let ii=0;ii<tree.length;ii++) {
+      const item = tree[ii]
+      if (item.idf == 'root') {
+        if (item.config) {
+          if (item.config.names) {
+            const names = item.config.names
+            item.title = names[item.title] ? names[item.title] : item.title
+          }
+        }
+      }
+    }
     const treeJsx = Aotoo.tree({ data: tree })
     const treeStr = Aotoo.render(treeJsx)
     // const statics = detailStatic()  // js css 静态资源
