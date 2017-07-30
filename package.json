@@ -9,6 +9,9 @@
     "build": "node index.js -p",
     "server": "node index.js -n"
   },
+  "engines": {
+    "node": ">=7.6"
+  },
   "dependencies": {
     "aotoo-common": "^1.0.2",
     "aotoo-koa-server": "^1.0.8",
