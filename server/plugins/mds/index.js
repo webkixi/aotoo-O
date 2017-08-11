@@ -122,7 +122,7 @@ class MarkdownDocs {
       return Cache.ifid(fid, function(){
         const raw = fs.readFileSync(filename, 'utf-8')
         const mdInfo = md(raw, opts)
-        Cache.set(fid, mdInfo, 1000*1*60*60)
+        Cache.set(fid, mdInfo, 144*60*60*1000)
         return mdInfo
       })
     }
@@ -279,7 +279,7 @@ function docs(ctx, next){
         myjs: statics.js,
         covers: homesStr
       }
-      Cache.set(did, _renderData, 1000*1*60*60)
+      Cache.set(did, _renderData, 1*60*60*1000)
       return _renderData
     })
     renderView('cover', renderData)
@@ -358,7 +358,7 @@ function category(folderInfo, _docurl, renderView){
       home: home
     }
 
-    Cache.set(did, _renderData, 1000*1*60*60)
+    Cache.set(did, _renderData, 1*60*60*1000)
     return _renderData
   })
   renderView('category', renderData)

@@ -179,11 +179,23 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-aotoo-common@^1.0.1, aotoo-common@^1.0.2:
+aotoo-common@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.2.tgz#9b1054dcb267c5c8e7848f4ade9b9ab004b5dd87"
   dependencies:
     aotoo "^1.2.12"
+    fkp-sax "^1.5.10"
+    jquery "^2.2.4"
+    lodash "^4.0.0"
+    react "^15.4.2"
+    react-dom "^15.4.2"
+
+aotoo-common@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.4.tgz#a6eeeb3b15f84eff08b0cacb1297d4981de8109d"
+  dependencies:
+    aotoo "^2.0.0"
+    aotoo-web-widgets "^1.0.1"
     fkp-sax "^1.5.10"
     jquery "^2.2.4"
     lodash "^4.0.0"
@@ -218,6 +230,12 @@ aotoo-react-treex@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
 
+aotoo-web-widgets@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.1.tgz#f24309711e7f0bce169a834c62aa1827ff51fc18"
+  dependencies:
+    path "^0.12.7"
+
 aotoo@^1.2.12:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-1.2.13.tgz#aa49c5efc8af008526828268d6110a7c2e94bb8c"
@@ -231,6 +249,21 @@ aotoo@^1.2.12:
     lodash.merge "^4.6.0"
     lodash.uniqueid "^4.0.1"
     react-combinex "^1.0.34"
+
+aotoo@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-2.0.0.tgz#170c39407464338f03e36ced9bbbc2c1a76ac0b1"
+  dependencies:
+    aotoo-inject "^1.0.7"
+    lodash.clonedeep "^4.5.0"
+    lodash.filter "^4.6.0"
+    lodash.find "^4.6.0"
+    lodash.findindex "^4.6.0"
+    lodash.isplainobject "^4.0.6"
+    lodash.merge "^4.6.0"
+    lodash.uniqueid "^4.0.1"
+    path "^0.12.7"
+    react-combinex "^1.2.0"
 
 app-module-path@^2.1.0:
   version "2.2.0"
@@ -6003,6 +6036,13 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+path@^0.12.7:
+  version "0.12.7"
+  resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
+  dependencies:
+    process "^0.11.1"
+    util "^0.10.3"
+
 pause-stream@0.0.11:
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/pause-stream/-/pause-stream-0.0.11.tgz#fe5a34b0cbce12b5aa6a2b403ee2e73b602f1445"
@@ -6343,7 +6383,7 @@ process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
-process@^0.11.0, process@~0.11.0:
+process@^0.11.0, process@^0.11.1, process@~0.11.0:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
@@ -6507,6 +6547,19 @@ rc@^1.0.1, rc@^1.1.7:
 react-combinex@^1.0.34:
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.1.9.tgz#f242771f20e6f067c243fd5e4a6b393d1f10f702"
+  dependencies:
+    babel-preset-stage-0 "^6.24.1"
+    fkp-sax "^1.5.10"
+    lodash.clonedeep "^4.5.0"
+    lodash.merge "^4.6.0"
+    lodash.uniqueid "^4.0.1"
+    react "^15.4.2"
+    react-dom "^15.4.2"
+    webpack "^2.2.1"
+
+react-combinex@^1.2.0:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/react-combinex/-/react-combinex-1.2.9.tgz#28d0a2db427cba610600976256003d428b3ad842"
   dependencies:
     babel-preset-stage-0 "^6.24.1"
     fkp-sax "^1.5.10"
