@@ -190,12 +190,12 @@ aotoo-common@^1.0.1:
     react "^15.4.2"
     react-dom "^15.4.2"
 
-aotoo-common@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.4.tgz#a6eeeb3b15f84eff08b0cacb1297d4981de8109d"
+aotoo-common@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.5.tgz#f784633a99e1bfb4b34bf9f2a3d2416cdb95435c"
   dependencies:
-    aotoo "^2.0.0"
-    aotoo-web-widgets "^1.0.1"
+    aotoo "^2.0.1"
+    aotoo-web-widgets "^1.0.5"
     fkp-sax "^1.5.10"
     jquery "^2.2.4"
     lodash "^4.0.0"
@@ -230,9 +230,9 @@ aotoo-react-treex@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.4.tgz#5d71524978abfc1e5717465c1ea5e11e8c1f5148"
 
-aotoo-web-widgets@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.1.tgz#f24309711e7f0bce169a834c62aa1827ff51fc18"
+aotoo-web-widgets@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.5.tgz#0a2cf4a2abd92c42b613d55f9dc25d6cdc42ff95"
   dependencies:
     path "^0.12.7"
 
@@ -250,9 +250,9 @@ aotoo@^1.2.12:
     lodash.uniqueid "^4.0.1"
     react-combinex "^1.0.34"
 
-aotoo@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-2.0.0.tgz#170c39407464338f03e36ced9bbbc2c1a76ac0b1"
+aotoo@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-2.0.1.tgz#fa71a4068957de3ae3f45ac0bf5b49d24ab82bc1"
   dependencies:
     aotoo-inject "^1.0.7"
     lodash.clonedeep "^4.5.0"
