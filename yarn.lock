@@ -209,9 +209,9 @@ aotoo-inject@^1.0.7:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
 
-aotoo-koa-server@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.8.tgz#c10ad0abf29ede2a982fe46533a27e5b062f5749"
+aotoo-koa-server@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.9.tgz#2e604ccd3728760b1a71707de36e9820604a76c3"
   dependencies:
     aotoo-common "^1.0.1"
     blueimp-md5 "^2.7.0"

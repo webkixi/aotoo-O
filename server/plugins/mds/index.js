@@ -44,7 +44,7 @@ class MarkdownDocs {
         const stat = fs.statSync(item) 
         const obj = path.parse(item)
         if (stat.isFile()) {
-          const raw = fs.readFileSync(item, 'utf-8')
+          // const raw = fs.readFileSync(item, 'utf-8')
           // const mdInfo = md(raw, {})
 
           // 目录描述图
