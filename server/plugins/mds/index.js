@@ -18,11 +18,17 @@ function getHomeStruct(){
   }
 }
 
+
+// markdown目录及文档分析
 class MarkdownDocs {
   constructor(opts={}){
     this.opts = opts
   }
 
+
+  // 分析目录并返回目录结构
+  // 递归遍历所有文件及目录
+  // 生成aotoo.transtree的数据树结构，参考aotoo.transtree
   folderInfo(_dir){
     const opts = this.opts
     const that = this
@@ -69,10 +75,6 @@ class MarkdownDocs {
               home.img = home.img ? home.img : mdInfo.img
               home.imgs = mdInfo.imgs
               home.exist = true
-
-              if (parent) {
-                parentObj.home = home
-              }
             } else {
               let feather = {
                 title: mdInfo.title,
@@ -86,6 +88,12 @@ class MarkdownDocs {
                 feather.parent = parent
               }
               tree.push(feather)
+            }
+
+
+            // 将home文件加入
+            if (parent) {
+              parentObj.home = home
             }
           }
         }
@@ -134,6 +142,8 @@ class MarkdownDocs {
     }
   }
 
+
+  // 查找文档目录下的分类目录，过滤文档目录下的文档
   covers(dir){
     let covers = []
     if (dir && fs.existsSync(dir)) {
@@ -166,8 +176,12 @@ function _renderView(ctx){
 function coversHome(covs){
   const routePrefix = this.opts.prefix
   const homes = covs.map( cov => {
-    const imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
     let title = cov.title
+    let imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
+    if (imgurl.indexOf('/')==0) {
+      const _tmp = path.parse(imgurl)
+      console.log(_tmp);
+    }
 
     // 根据配置文件输出 
     if (cov.config) {
@@ -194,6 +208,7 @@ function coversHome(covs){
   return homesStr
 }
 
+// 注入静态资源
 const asset = {
   covers: function(){
     const cssContent = fs.readFileSync( path.join(__dirname, './statics/covers/index.css'), 'utf-8' )
@@ -266,7 +281,7 @@ function docs(ctx, next){
   const fkp = ctx.fkp
   let routePrefix = this.opts.prefix
 
-  // 封面页 covers
+  // 封面页 covers 首页
   if (!params.cat) {
     const defaultDocsPath = path.join(__dirname, 'docs')
     const did = md5(defaultDocsPath)
@@ -416,6 +431,12 @@ function pluginDocs(ctx, opts={}){
 }
 
 export default function(fkp){
+  const mdDocs = path.join(__dirname, 'docs')
+  fkp.statics(mdDocs, {
+    dynamic: true,
+    prefix: '/mddocs'
+  })
+  
   fkp.routepreset('/docs', {
     get: [
       '/',
