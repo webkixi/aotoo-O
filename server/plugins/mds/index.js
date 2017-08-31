@@ -77,7 +77,6 @@ function category(folderInfo, _docurl, renderView){
           }
         }
       } else {
-        console.log(_docurl, item.url);
         item.url = path.join('/', _docurl, item.url)
       }
     }
