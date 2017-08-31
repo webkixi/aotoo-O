@@ -77,7 +77,8 @@ function category(folderInfo, _docurl, renderView){
           }
         }
       } else {
-        item.url = path.join(_docurl, item.url)
+        console.log(_docurl, item.url);
+        item.url = path.join('/', _docurl, item.url)
       }
     }
     if (!home) homeStr = '该分类没有信息'
