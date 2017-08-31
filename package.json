@@ -7,7 +7,7 @@
     "fed": "node index.js -f",
     "dev": "node index.js",
     "build": "node index.js -p",
-    "server": "node index.js -n"
+    "node": "node index.js -n"
   },
   "engines": {
     "node": ">=7.6"

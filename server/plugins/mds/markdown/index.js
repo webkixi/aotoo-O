@@ -134,11 +134,12 @@ function mkmd(raw, opts){   // out
     menu: '',
     params: ''
   }
-  mdcnt.title = props.title.replace(/ \{(.*)\}/g, '');
-  mdcnt.descript = props.desc
-  cvariable.desc = cvariable.desc || props.desc
-
+  
   try {
+    mdcnt.title = props.title.replace(/ \{(.*)\}/g, '');
+    mdcnt.descript = props.desc
+    cvariable.desc = cvariable.desc || props.desc
+
     let content = marked.parser(tokens)
 
     // 插入div
@@ -173,7 +174,6 @@ function mkmd(raw, opts){   // out
     mdcnt.params  = cvariable;
     mdcnt.content = content
     return mdcnt
-
   } catch (e) {
     throw e
   }

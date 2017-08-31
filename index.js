@@ -34,8 +34,12 @@ function activationServer(buildc){
   }
 
   if (process.env.NODE_ENV == 'development') {
+    const serverIndex = margv.port ? "node --harmony ./server/index.js --port "+margv.port : 'node --harmony ./server/index.js'
     nodemon({
-      "script": './server/index.js',
+      "execMap": {
+        "js": serverIndex
+      },
+      // "script": './server/index.js',
       "ext": 'js json jsx css html',
       "restartable": "rs",
       "verbose": true,
@@ -55,7 +59,9 @@ function activationServer(buildc){
     nodemon.on('start', function () {
       console.log('App has started');
       if (firstBuild && buildc) {
-        if (margv.n) {}
+        if (margv.n) {
+          /** only node support service */
+        }
         else {
           buildc(nodemon, {
             serviceType: margv

@@ -7,6 +7,9 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
 
+var argv = process.argv.slice(2)
+var margv = require('minimist')(argv);
+
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
 const configs = require('../configs')(/*配置名字符串, 全局变量 CONFIG*/);
 
@@ -84,7 +87,7 @@ async function startServer(){
 
   try {
     const server = await app.init()
-    server.listen(configs.port, function(){
+    server.listen((margv.port||configs.port), function(){
       if (NODEDEV) {
         request(refreshUrl, function (error, response, body) {
           if (error) console.log('server will be start');

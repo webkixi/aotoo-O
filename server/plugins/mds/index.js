@@ -1,211 +1,162 @@
 import fs from 'fs'
+import _ from 'lodash'
+import path from 'path'
 import md5 from 'blueimp-md5'
-const _ = require('lodash')
-const glob = require('glob')
-const md = require('./markdown')
-const path = require('path')
+import MarkdownDocs from './common/markdowndocs'
+import MyRender from './common/render'
 
+const MarkdownIns = new MarkdownDocs({})
+const DOCS_ABS_ROOT = path.join(__dirname, './docs')
+const DOCS_RLA_ROOT = './docs'
 
-function getHomeStruct(){
-  return {
-    title: '',
-    descript: '',
-    path: '',
-    url: '',
-    img: '',
-    config: '',
-    exist: false
-  }
-}
-
-
-// markdown目录及文档分析
-class MarkdownDocs {
-  constructor(opts={}){
-    this.opts = opts
-  }
-
-
-  // 分析目录并返回目录结构
-  // 递归遍历所有文件及目录
-  // 生成aotoo.transtree的数据树结构，参考aotoo.transtree
-  folderInfo(_dir){
-    const opts = this.opts
-    const that = this
-    let tree = []
-
-    const rootobj = path.parse(_dir)
-    let rootFeather = {
-      title: rootobj.name,
-      path: _dir,
-      url: rootobj.name,
-      idf: 'root'
-    }
-    tree.push(rootFeather)
-
-    function loopDir($dir, parent, parentObj){
-      $dir = $dir+'/*'
-      let home = getHomeStruct()
-      glob.sync($dir).forEach( item => {
-        const stat = fs.statSync(item) 
-        const obj = path.parse(item)
-        if (stat.isFile()) {
-          // const raw = fs.readFileSync(item, 'utf-8')
-          // const mdInfo = md(raw, {})
-
-          // 目录描述图
-          if (['.jpg', '.jpeg', '.png', '.gif'].indexOf(obj.ext)>-1) {
-            if (obj.name == 'index') home.img = item
-          }
-
-          // 目录配置文件
-          if (obj.name == 'config' && parent) {
-            parentObj.config = require(item)
-          }
-
-          if (obj.ext == '.md') {
-            const mdInfo = that.file(item)
-            
-            // 目录首页
-            if (obj.name == 'index') {
-              home.title = mdInfo.title
-              home.descript = mdInfo.descript
-              home.path = item
-              home.url = obj.name
-              home.img = home.img ? home.img : mdInfo.img
-              home.imgs = mdInfo.imgs
-              home.exist = true
-            } else {
-              let feather = {
-                title: mdInfo.title,
-                descript: mdInfo.descript,
-                path: item,
-                url: obj.name+obj.ext,
-                img: mdInfo.img,
-                imgs: mdInfo.imgs
-              }
-              if (parent) {
-                feather.parent = parent
-              }
-              tree.push(feather)
-            }
-
-
-            // 将home文件加入
-            if (parent) {
-              parentObj.home = home
-            }
-          }
-        }
-
-        if (stat.isDirectory()) {
-          const parentId = _.uniqueId(obj.name+'_')
-          let dirFeather = {
-            title: obj.name,
-            path: item,
-            url: obj.name,
-            idf: parentId
-          }
-          if (parent) {
-            dirFeather.parent = parent
-          }
-          tree.push(dirFeather)
-          loopDir(item, parentId, dirFeather)
-        }
-      })
-    }
-
-    loopDir(_dir, 'root', rootFeather)
-    return {tree}
-  }
-
-  parse(raw, opts){
-    return md(raw, opts)
-  }
-
-  file(filename){
-    const opts = this.opts
-    if (fs.existsSync(filename)) {
-      const fid = md5(filename)
-      return Cache.ifid(fid, function(){
-        const raw = fs.readFileSync(filename, 'utf-8')
-        const mdInfo = md(raw, opts)
-        Cache.set(fid, mdInfo, 144*60*60*1000)
-        return mdInfo
-      })
-    }
-  }
-
-  folder(dir){
-    if (dir && fs.existsSync(dir)) {
-      return this.folderInfo(dir)
-    }
-  }
-
-
-  // 查找文档目录下的分类目录，过滤文档目录下的文档
-  covers(dir){
-    let covers = []
-    if (dir && fs.existsSync(dir)) {
-      glob.sync(dir).forEach( item => {
-        const stat = fs.statSync(item) 
-        if (stat.isDirectory()) {
-          const covs = this.folder(item).tree
-          covs.forEach( $cov=>{
-            if ($cov.parent == 'root' && $cov.idf) covers.push($cov)
-          }) 
-        }
-      })
-    }
-    return covers
-  }
-}
-
-const mdIns = new MarkdownDocs({})
-
-function _renderView(ctx){
-  return function(url, data){
-    const fkp = ctx.fkp
-    const tempPath = path.join(__dirname, `./views/${url}.html`)
-    const temp = fs.readFileSync(tempPath, 'utf-8')
-    ctx.body = fkp.template(temp, data)
-  }
-}
-
-// 封面页结构
-function coversHome(covs){
+/**
+ * 封面页
+ * 1. 分析指定目录下的所有一级目录
+ * 2. 获取一级目录的描述信息
+ * @param {*} docsRoot 绝对路径
+ */
+function coversHome(docsRoot){
   const routePrefix = this.opts.prefix
-  const homes = covs.map( cov => {
-    let title = cov.title
-    let imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
-    if (imgurl.indexOf('/')==0) {
-      const _tmp = path.parse(imgurl)
-      console.log(_tmp);
+  const did = md5(docsRoot)
+  return Cache.ifid(did, ()=>{
+    const covs = MarkdownIns.covers(docsRoot)
+    const homeCoversConfig = covs.map( cov => {
+      var covTitle = cov.title
+      var imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
+      if (imgurl.indexOf('/')==0) imgurl = imgurl.replace(DOCS_ABS_ROOT, '/mddocs')
+      if (cov.config) {
+        // 将英文目录名映射为中文目录名
+        if (cov.config.names) {
+          const names = cov.config.names
+          covTitle = names[covTitle] ? names[covTitle] : covTitle
+        }
+      }
+      return {
+        title: <img src={imgurl}/>,
+        url: path.join(routePrefix, cov.url),
+        body: [
+          <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{covTitle}</a></div>,
+          <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
+        ]
+      }
+    })
+    const homesJsx = Aotoo.list({ data: homeCoversConfig, listClass: 'covers-list' })
+    const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
+    const statics = asset.covers()  // js css 静态资源
+    const _renderData = {
+      title: '封面页',
+      mycss: statics.css,
+      myjs: statics.js,
+      covers: homesStr
     }
+    Cache.set(did, _renderData, 1*60*60*1000)
+    return _renderData
+  })
+}
 
-    // 根据配置文件输出 
-    if (cov.config) {
-
-      // 输出title
-      // 由于不支持中文目录，我们需要在配置文件中映射英文目录的中文描述
-      if (cov.config.names) {
-        const names = cov.config.names
-        title = names[cov.title] ? names[cov.title] : title
+/**
+ * 分类页
+ * 展示封面页的子项
+ * @param {*} folderInfo 分类页数据
+ * @param {*} _docurl 分类页相对路径
+ * @param {*} renderView render方法
+ */
+function category(folderInfo, _docurl, renderView){
+  const did = md5(_docurl)
+  const renderData = Cache.ifid(did, ()=>{
+    let home, homeJsx, homeStr
+    const tree = folderInfo.tree
+    for (let ii=0;ii<tree.length;ii++) {
+      const item = tree[ii]
+      if (item.idf == 'root') {
+        if (item.home) home = item.home
+        if (item.config) {
+          if (item.config.names) {
+            const names = item.config.names
+            item.title = names[item.title] ? names[item.title] : item.title
+          }
+        }
+      } else {
+        item.url = path.join(_docurl, item.url)
       }
     }
-    return {
-      title: <img src={imgurl}/>,
-      url: path.join(routePrefix, cov.url),
-      body: [
-        <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{title}</a></div>,
-        <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
-      ]
+    if (!home) homeStr = '该分类没有信息'
+    else {
+      if (home.descript) {
+        home.body = [
+          {title: home.descript}
+        ]
+      }
+      if (home.img) {
+        home.img = home.img.replace(DOCS_ABS_ROOT, '/mddocs')
+      }
+      homeJsx = Aotoo.item({ data: home })
+      homeStr = Aotoo.render(homeJsx)
     }
-  })
-  const homesJsx = Aotoo.list({ data: homes, listClass: 'covers-list' })
-  const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
+    const treeJsx = Aotoo.tree({ data: tree })
+    const treeStr = Aotoo.render(treeJsx)
+    const statics = asset.category()  // js css 静态资源
+    const _renderData = {
+      title: '分类页',
+      mycss: statics.css,
+      myjs: statics.js,
+      tree: treeStr,
+      home: homeStr
+    }
 
-  return homesStr
+    Cache.set(did, _renderData, 1*60*60*1000)
+    return _renderData
+  })
+
+  renderView('category', renderData)
+}
+
+// 详情页
+function detail(fileInfo, folderInfo, _docurl, renderView){
+  const did = md5(_docurl)
+  const renderData = Cache.ifid(did, ()=>{
+    /**
+     * fileInfo
+     * {
+     *  title: '',
+     *  descript: '',
+     *  content: <>,
+     *  imgs: [],
+     *  img: '',
+     *  menu: <>,
+     *  params: {desc: ''}
+     * }
+     */
+    const tree = folderInfo.tree
+    for (let ii=0;ii<tree.length;ii++) {
+      const item = tree[ii]
+      if (item.idf == 'root') {
+        if (item.config) {
+          if (item.config.names) {
+            const names = item.config.names
+            item.title = names[item.title] ? names[item.title] : item.title
+          }
+        }
+      }
+    }
+    const treeJsx = Aotoo.tree({ data: tree })
+    const treeStr = Aotoo.render(treeJsx)
+    // const statics = detailStatic()  // js css 静态资源
+    const statics = asset.detail()  // js css 静态资源
+    const _renderData = {
+      title: fileInfo.title,
+      descript: fileInfo.descript||'',
+      mycss: statics.css,
+      myjs: statics.js,
+      tree: treeStr,
+      menu: fileInfo.menu,
+      content: fileInfo.content
+    }
+
+    Cache.set(did, _renderData, 1000*1*60*60)
+    return _renderData
+  })
+  renderView('detail', renderData)
 }
 
 // 注入静态资源
@@ -276,57 +227,44 @@ const asset = {
 }
 
 function docs(ctx, next){
-  const renderView = _renderView(ctx)
+  const renderView = MyRender(ctx)
   const params = ctx.params
   const fkp = ctx.fkp
   let routePrefix = this.opts.prefix
 
   // 封面页 covers 首页
   if (!params.cat) {
-    const defaultDocsPath = path.join(__dirname, 'docs')
-    const did = md5(defaultDocsPath)
-    const renderData = Cache.ifid(did, ()=>{
-      const homesStr = coversHome.call(this, mdIns.covers(defaultDocsPath))
-      const statics = asset.covers()  // js css 静态资源
-      const _renderData = {
-        title: '封面页',
-        mycss: statics.css,
-        myjs: statics.js,
-        covers: homesStr
-      }
-      Cache.set(did, _renderData, 1*60*60*1000)
-      return _renderData
-    })
+    const renderData = coversHome.call(this, DOCS_ABS_ROOT)
     renderView('cover', renderData)
   } 
   else {
     const {p3, p2, p1, id, title, cat} = params
-    let _docurl = '/docs'
-    let docurl
+    let _docurl = DOCS_RLA_ROOT
     if (cat) _docurl = path.join(_docurl, cat)
     if (title) _docurl = path.join(_docurl, title)
     if (id) _docurl = path.join(_docurl, id)
     if (p1) _docurl = path.join(_docurl, p1)
     if (p2) _docurl = path.join(_docurl, p2)
     if (p3) _docurl = path.join(_docurl, p3)
-    docurl = path.join(__dirname, _docurl)
+    
+    const docurl = path.join(__dirname, _docurl)
 
     if (fs.existsSync(docurl)) {
       const obj = path.parse(docurl)
       const stat = fs.statSync(docurl)
       let folderInfo, fileInfo
       if (stat.isFile()) {
-        folderInfo = mdIns.folder(obj.dir)
-        fileInfo = mdIns.file(docurl)
+        folderInfo = MarkdownIns.folder(obj.dir)
+        fileInfo = MarkdownIns.file(docurl)
       } 
       else if (stat.isDirectory()) {
-        folderInfo = mdIns.folder(docurl)
+        folderInfo = MarkdownIns.folder(docurl)
       } else {
         const _docurl = docurl+'.md'
         const _stat = fs.statSync(_docurl)
         if (_stat.isFile()) {
-          folderInfo = mdIns.folder(obj.dir)
-          fileInfo = mdIns.file(docurl)
+          folderInfo = MarkdownIns.folder(obj.dir)
+          fileInfo = MarkdownIns.file(docurl)
         }
       }
 
@@ -341,90 +279,7 @@ function docs(ctx, next){
   }
 }
 
-// 分类目录
-function category(folderInfo, _docurl, renderView){
-  const did = md5(_docurl)
-  const renderData = Cache.ifid(did, ()=>{
-    let home
-    const tree = folderInfo.tree
-    for (let ii=0;ii<tree.length;ii++) {
-      const item = tree[ii]
-      if (item.idf == 'root') {
-        if (item.home) home = item.home
-        if (item.config) {
-          if (item.config.names) {
-            const names = item.config.names
-            item.title = names[item.title] ? names[item.title] : item.title
-          }
-        }
-      } else {
-        item.url = path.join(_docurl, item.url)
-      }
-    }
-    if (!home) home = '该分类没有信息'
-    const treeJsx = Aotoo.tree({ data: tree })
-    const treeStr = Aotoo.render(treeJsx)
-    const statics = asset.category()  // js css 静态资源
-    const _renderData = {
-      title: '分类页',
-      mycss: statics.css,
-      myjs: statics.js,
-      tree: treeStr,
-      home: home
-    }
 
-    Cache.set(did, _renderData, 1*60*60*1000)
-    return _renderData
-  })
-  renderView('category', renderData)
-}
-
-function detail(fileInfo, folderInfo, _docurl, renderView){
-  const did = md5(_docurl)
-  const renderData = Cache.ifid(did, ()=>{
-    /**
-     * fileInfo
-     * {
-     *  title: '',
-     *  descript: '',
-     *  content: <>,
-     *  imgs: [],
-     *  img: '',
-     *  menu: <>,
-     *  params: {desc: ''}
-     * }
-     */
-    const tree = folderInfo.tree
-    for (let ii=0;ii<tree.length;ii++) {
-      const item = tree[ii]
-      if (item.idf == 'root') {
-        if (item.config) {
-          if (item.config.names) {
-            const names = item.config.names
-            item.title = names[item.title] ? names[item.title] : item.title
-          }
-        }
-      }
-    }
-    const treeJsx = Aotoo.tree({ data: tree })
-    const treeStr = Aotoo.render(treeJsx)
-    // const statics = detailStatic()  // js css 静态资源
-    const statics = asset.detail()  // js css 静态资源
-    const _renderData = {
-      title: fileInfo.title,
-      descript: fileInfo.descript||'',
-      mycss: statics.css,
-      myjs: statics.js,
-      tree: treeStr,
-      menu: fileInfo.menu,
-      content: fileInfo.content
-    }
-
-    Cache.set(did, _renderData, 1000*1*60*60)
-    return _renderData
-  })
-  renderView('detail', renderData)
-}
 
 function pluginDocs(ctx, opts={}){
   return new MarkdownDocs(opts)
