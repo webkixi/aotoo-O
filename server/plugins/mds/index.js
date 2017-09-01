@@ -14,6 +14,21 @@ const DOCS_RLA_ROOT = './docs'
  * 1. 分析指定目录下的所有一级目录
  * 2. 获取一级目录的描述信息
  * @param {*} docsRoot 绝对路径
+ * 
+ * [ { title: '10aotoo',
+    path: '/Users/yc/git/rezero/server/plugins/mds/docs/10aotoo',
+    url: '10aotoo',
+    idf: '10aotoo_1',
+    parent: 'root',
+    home: 
+     { title: '',
+       descript: '',
+       path: '',
+       url: '',
+       img: '/Users/yc/git/rezero/server/plugins/mds/docs/10aotoo/index.jpg',
+       config: '',
+       exist: false },
+    config: { names: [Object], descript: [Object] } } ......]
  */
 function coversHome(docsRoot){
   const routePrefix = this.opts.prefix
@@ -22,13 +37,21 @@ function coversHome(docsRoot){
     const covs = MarkdownIns.covers(docsRoot)
     const homeCoversConfig = covs.map( cov => {
       var covTitle = cov.title
+      var covDescripts = cov.home&&cov.home.descript||'还没有描述内容'
       var imgurl = cov.home&&cov.home.img||'http://www.agzgz.com/docs/component/_home.jpg'
       if (imgurl.indexOf('/')==0) imgurl = imgurl.replace(DOCS_ABS_ROOT, '/mddocs')
+      
+      // 从配置文件读取该封面的属性信息
       if (cov.config) {
         // 将英文目录名映射为中文目录名
         if (cov.config.names) {
           const names = cov.config.names
           covTitle = names[covTitle] ? names[covTitle] : covTitle
+        }
+
+        if (cov.config.descript) {
+          const covConfigDescripts = cov.config.descript
+          covDescripts = covConfigDescripts[cov.title] ? covConfigDescripts[cov.title] : covDescripts
         }
       }
       return {
@@ -36,7 +59,7 @@ function coversHome(docsRoot){
         url: path.join(routePrefix, cov.url),
         body: [
           <div className="cover-title"><a href={path.join(routePrefix, cov.url)}>{covTitle}</a></div>,
-          <div className="cover-descript">{cov.home&&cov.home.descript||'还没有描述内容'}</div>,
+          <div className="cover-descript">{covDescripts}</div>,
         ]
       }
     })
@@ -44,7 +67,7 @@ function coversHome(docsRoot){
     const homesStr = Aotoo.render(<div className="covers">{homesJsx}</div>)
     const statics = asset.covers()  // js css 静态资源
     const _renderData = {
-      title: '封面页',
+      title: '文档分类',
       mycss: statics.css,
       myjs: statics.js,
       covers: homesStr
@@ -82,17 +105,12 @@ function category(folderInfo, _docurl, renderView){
     }
     if (!home) homeStr = '该分类没有信息'
     else {
-      if (home.descript) {
-        home.body = [
-          {title: home.descript}
-        ]
-      }
-      if (home.img) {
-        home.img = home.img.replace(DOCS_ABS_ROOT, '/mddocs')
-      }
+      if (home.descript) home.body = [ {title: home.descript} ] 
+      if (home.img) home.img = home.img.replace(DOCS_ABS_ROOT, '/mddocs') 
       homeJsx = Aotoo.item({ data: home })
       homeStr = Aotoo.render(homeJsx)
     }
+    
     const treeJsx = Aotoo.tree({ data: tree })
     const treeStr = Aotoo.render(treeJsx)
     const statics = asset.category()  // js css 静态资源
@@ -160,13 +178,31 @@ function detail(fileInfo, folderInfo, _docurl, renderView){
 }
 
 // 注入静态资源
+const inject = Aotoo.inject.init()
+const MD_DOCS_STATICS = {
+  covers: {
+    js: fs.readFileSync(  path.join(__dirname, './statics/covers/index.js'), 'utf-8' ),
+    css: fs.readFileSync( path.join(__dirname, './statics/covers/index.css'), 'utf-8' )
+  },
+
+  category: {
+    js: fs.readFileSync(  path.join(__dirname, './statics/category/index.js'), 'utf-8' ),
+    css: fs.readFileSync( path.join(__dirname, './statics/category/index.css'), 'utf-8' )
+  },
+
+  detail: {
+    js: fs.readFileSync(  path.join(__dirname, './statics/detail/index.js'), 'utf-8' ),
+    css: fs.readFileSync( path.join(__dirname, './statics/detail/index.css'), 'utf-8' )
+  }
+}
 const asset = {
   covers: function(){
-    const cssContent = fs.readFileSync( path.join(__dirname, './statics/covers/index.css'), 'utf-8' )
-    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/covers/index.js'), 'utf-8' )
+    const cssContent = MD_DOCS_STATICS.covers.css
+    const jsContent = MD_DOCS_STATICS.covers.js
+    // const cssContent = fs.readFileSync( path.join(__dirname, './statics/covers/index.css'), 'utf-8' )
+    // const jsContent = fs.readFileSync(  path.join(__dirname, './statics/covers/index.js'), 'utf-8' )
 
-    const inject = Aotoo.inject
-    .init()
+    inject
     .css(['common', cssContent])
     .js(['common', jsContent])
 
@@ -183,18 +219,17 @@ const asset = {
   },
 
   category: function(){
-    const cssContent = fs.readFileSync( path.join(__dirname, './statics/category/index.css'), 'utf-8' )
-    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/category/index.js'), 'utf-8' )
+    const cssContent = MD_DOCS_STATICS.category.css
+    const jsContent = MD_DOCS_STATICS.category.js
 
-    const inject = Aotoo.inject
-    .init()
+    inject
     .css(['common', cssContent])
     .js(['common', jsContent])
 
 
     const cssAry = Object.keys(inject.staticList.css).map( item => inject.staticList.css[item] )
     const jsAry = Object.keys(inject.staticList.js).map( item => inject.staticList.js[item] )
-
+    
     const cssStr = cssAry.join('\n')
     const jsStr = jsAry.join('\n')
 
@@ -205,11 +240,10 @@ const asset = {
   },
 
   detail: function(){
-    const cssContent = fs.readFileSync( path.join(__dirname, './statics/detail/index.css'), 'utf-8' )
-    const jsContent = fs.readFileSync(  path.join(__dirname, './statics/detail/index.js'), 'utf-8' )
+    const cssContent = MD_DOCS_STATICS.detail.css
+    const jsContent = MD_DOCS_STATICS.detail.js
 
-    const inject = Aotoo.inject
-    .init()
+    inject
     .css(['common', cssContent])
     .js(['common', 't/prettfy', jsContent])
 

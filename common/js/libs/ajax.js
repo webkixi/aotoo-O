@@ -11,8 +11,8 @@ function req( api, param, cb, method ){
   }
 
   if( typeof param ==='function' ) cb = param
-  if( typeof param !=='object' ) param = {test: '123'}
-  if( !Object.keys(param).length ) param = {test: '123'}
+  if( typeof param !=='object' ) param = {}
+  if( !Object.keys(param).length ) param = {}
 
   // 有些环境不是根目录，需要添加前缀，前缀根据location来自动添加
   // 如 http://www.xxx.com/yyy/ccc/app.html
@@ -34,7 +34,7 @@ function req( api, param, cb, method ){
       }
     }
   }
-  if (method==='GET') param._stat_ = 'DATA'
+  if (method==='GET') param._stat_ = 'AJAXDATA'
   return $.ajax({
     url: url,
     type: method,

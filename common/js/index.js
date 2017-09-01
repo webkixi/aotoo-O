@@ -13,18 +13,16 @@ const libs = require('./libs')
 context.ajax = libs.ajax
 context.inject = libs.inject
 
-inject.mapper = ''
-
-Aotoo.CombineClass.prototype.inject = function(){
-  if (this.isClient) {
-    if (this.config.theme && this.config.autoinject) {
-      libs.inject.css(this.config.theme)  //注入样式
-    }
-    if (typeof src == 'function') {
-      src(libs.inject)
-    }
-  }
-  return this
-}
+// Aotoo.CombineClass.prototype.inject = function(){
+//   if (this.isClient) {
+//     if (this.config.theme && this.config.autoinject) {
+//       libs.inject.css(this.config.theme)  //注入样式
+//     }
+//     if (typeof src == 'function') {
+//       src(libs.inject)
+//     }
+//   }
+//   return this
+// }
 
 module.exports = aotoo_enveriment
