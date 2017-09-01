@@ -13,7 +13,7 @@ tree()
   .itemroot
     .itemCategory
       a.htitle
-        font-size: 1.2em
+        font-size: 1em
         font-weight: 400
       ul
         margin-top: 0.3em
@@ -28,14 +28,15 @@ tree()
               font-weight: 100
           a.htitle
             display: block
-            font-size: 0.9em
+            font-size: 0.7em
 
 .docs-container
-  width: 1012px;
+  width: 1170px;
   margin: 0 auto;
+  margin-top: 6em
   display: flex
   .docs-tree
-    width: 22%
+    width: 13%
     display: flex
     background-color: #ffffff
     border-right: 1px solid #fff5e9
@@ -49,14 +50,6 @@ tree()
       tree()
   .docs-content
     flex: 1
-    margin-right: 6em
-  .docs-menu
-    code
-      display: none
-    li
-      font-size: 14px;
-    position: absolute
-    right: 0
-    top: 0
+    margin-right: 1em
 
 @import "./media"
