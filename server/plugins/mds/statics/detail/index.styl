@@ -1,61 +1,16 @@
 @import "../common"
 
-.flex-row
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-flex-flow: row;
-  -moz-box-orient: horizontal;
-  -ms-flex-flow: row;
-  flex-flow: row;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -moz-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  vertical-align: baseline;
-
-.sticky-container
-  z-index: 9991;
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  outline: 0;
-  background-clip: padding-box;
-  background-color: #0593d3;
-  .navtop 
-    width: 1170px
-    height: 50px;
-    padding: 5px;
-    margin: 0 auto;
-    a
-      display: block;
-      margin-right: 5px;
-      height: 40px
-      width: 40px
-      
-
-
 .docs-container
   .docs-content
     flex: 3
-  .docs-menu
+  .docs-right
+    position: relative
     flex: 1
-    code
-      display: none
-    li
-      font-size: 14px;
+    .docs-menu
+      position: fixed
+      top: 5em
+      code
+        display: none
+      li
+        font-size: 14px;
     

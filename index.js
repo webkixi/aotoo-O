@@ -36,13 +36,17 @@ function activationServer(buildc){
   if (process.env.NODE_ENV == 'development') {
 
     // npm run node -- --port 8080
-    const serverIndex = margv.port ? "node --harmony ./server/index.js --port "+margv.port : 'node --harmony ./server/index.js --port 3000'
+    const serverIndex = margv.port 
+    ? "node --harmony ./server/index.js --port "+margv.port 
+    : margv.n 
+      ? 'node --harmony ./server/index.js --port 3000'
+      : 'node --harmony ./server/index.js'
     nodemon({
       "execMap": {
         "js": serverIndex
       },
       // "script": './server/index.js',
-      "ext": 'js json jsx css html',
+      "ext": 'js json jsx css html md',
       "restartable": "rs",
       "verbose": true,
       "ignore": [

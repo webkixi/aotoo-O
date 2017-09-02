@@ -1,4 +1,4 @@
-# Aotoo
+# select组件
 aotoo是一个轻量级的react库，使用aotoo可以更加快速的开发 `react` 的解耦组件，aotoo支持 `NODE/前端/REACT NATIVE` 三端开发，统一的接口及API规则。aotoo应用了部分 `react-redux` 的特性，但aotoo处理的是各个组件的微状态，当然我们也可以像redux那样处理工程级别代码的数据状态，但原则上aotoo不建议大家这么做
 
 aotoo是一个微内核的工具库，我们可以动态的扩展aotoo的助手方法，以提升开发效率。作者本人是 `JQUERY` 的重度用户，因此无论开发理念或者是在API的接口规划上都希望遵循 `JQUERY` 的一套方式，当然并没有严格意义上的标准，只是尽量靠近 `JQUERY`
