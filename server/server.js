@@ -18,8 +18,8 @@ function getMapJson(){
   const mapFilePath = NODEDEV ? CONFIG.mapDevJson : CONFIG.mapJson
   if (fs.existsSync(mapFilePath)) return require(mapFilePath)
   else {
+    // static js files mapper
     return {
-      // static js files mapper
       js: {
         /**
          * common: '/js/common.js',
