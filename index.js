@@ -14,12 +14,12 @@ var os = require('os')
 var fs = require('fs')
 var platform = os.platform()
 
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 if (argv.length) {
   if (margv.f) process.env.NODE_ENV = 'development'   // only FED precompilation with watch FED file, webpack-dev-server provides the service
   if (margv.d) process.env.NODE_ENV = 'development'   // FED precompilation and start node service with watch FED and node file
   if (margv.n) process.env.NODE_ENV = 'development'   // after the FED precompilation is complete, just start the node service with watch node file
-  
+
   if (margv.p) process.env.NODE_ENV = 'production'
 }
 
@@ -30,20 +30,37 @@ function activationServer(buildc){
     buildc(false, {
       serviceType: margv
     })
-    return 
+    return
+  }
+
+  if (margv.p) {
+    buildc(false, {
+      serviceType: margv
+    })
+    return
   }
 
   if (process.env.NODE_ENV == 'development') {
+
+    // npm run node -- --port 8080
+    const serverIndex = margv.port
+    ? "node --harmony ./server/index.js --port "+margv.port
+    : margv.n
+      ? 'node --harmony ./server/index.js --port 3000'
+      : 'node --harmony ./server/index.js'
     nodemon({
-      "script": './server/index.js',
-      "ext": 'js jsx css html',
+      "execMap": {
+        "js": serverIndex
+      },
+      // "script": './server/index.js',
+      "ext": 'js json jsx css html md',
       "restartable": "rs",
       "verbose": true,
       "ignore": [
         "public/*",
         "dist/*",
         ".git/*",
-        "node_modules/*",
+        // "node_modules/*",
         "*.db"
       ],
       "watch": [
@@ -55,7 +72,9 @@ function activationServer(buildc){
     nodemon.on('start', function () {
       console.log('App has started');
       if (firstBuild && buildc) {
-        if (margv.n) {}
+        if (margv.n) {
+          /** only node support service */
+        }
         else {
           buildc(nodemon, {
             serviceType: margv
@@ -63,15 +82,18 @@ function activationServer(buildc){
         }
       }
     })
-    
+
     .on('quit', function () {
       console.log('App has quit');
     })
-    
+
     .on('restart', function (files) {
       firstBuild = false
       console.log('App restarted due to: ', files);
     });
+  } 
+  else {
+    require('./server/index')
   }
 }
 

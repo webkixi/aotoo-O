@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "fed": "node index.js -f",
-    "dev": "node index.js",
+    "dev": "node index.js -d",
     "build": "node index.js -p",
     "server": "node index.js -n"
   },
