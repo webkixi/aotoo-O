@@ -7,15 +7,16 @@
     "fed": "node index.js -f",
     "dev": "node index.js -d",
     "build": "node index.js -p",
-    "server": "node index.js -n"
+    "node": "node index.js -n"
   },
   "engines": {
     "node": ">=7.6"
   },
   "dependencies": {
     "aotoo-common": "^1.0.5",
-    "aotoo-koa-server": "^1.0.8",
+    "aotoo-koa-server": "^1.0.10",
     "aotoo-react-treex": "^1.0.4",
+    "aotoo-web-widgets": "^1.0.7",
     "app-module-path": "^2.1.0",
     "assert": "^1.3.0",
     "async-busboy": "^0.3.3",

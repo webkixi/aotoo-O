@@ -86,11 +86,11 @@ function buildStart(nm, opts){
 
   // js build or start webpack dev server
   function start(nm, opts){
-    webpackConfig.plugins.push(
-      new webpack.DllReferencePlugin({
-        manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
-      })
-    )
+    // webpackConfig.plugins.push(
+    //   new webpack.DllReferencePlugin({
+    //     manifest: require(path.join(DLLDIST, 'precommon-manifest.json'))
+    //   })
+    // )
     
     var compiler = webpack(webpackConfig)
     if (env == 'production') {

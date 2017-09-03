@@ -11,8 +11,8 @@ function req( api, param, cb, method ){
   }
 
   if( typeof param ==='function' ) cb = param
-  if( typeof param !=='object' ) param = {test: '123'}
-  if( !Object.keys(param).length ) param = {test: '123'}
+  if( typeof param !=='object' ) param = {}
+  if( !Object.keys(param).length ) param = {}
 
   let dtd = $.Deferred();
 
@@ -26,7 +26,7 @@ function req( api, param, cb, method ){
       }
     }
   }
-  if (method==='GET') param._stat_ = 'DATA'
+  if (method==='GET') param._stat_ = 'AJAXDATA'
   return $.ajax({
     url: url,
     type: method,

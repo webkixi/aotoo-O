@@ -26,17 +26,10 @@ function dllConfig(env){
     output: {
       path: _dist,
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
-      // libraryTarget: 'var',
-      library: '[name]_library'
-    },
-    externals: {
-      // "react" : "React",
-      // "react-dom" : "ReactDom",
-      // "fkp-sax" : 'SAX',
-      // "lodash" : '_'
+      libraryTarget: 'var',
+      // library: '[name]_library'
     },
     module: {
-      // noParse: /node_modules\/(jquey|moment|chart\.js)/,
       rules: [
         {
           test: /\.js$/,
@@ -44,7 +37,6 @@ function dllConfig(env){
           use:[{
             loader: "babel-loader?cacheDirectory",
             options: {
-              // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
               presets:["react", "es2015", "stage-0"],
               plugins: [
                 "transform-runtime",
@@ -75,10 +67,10 @@ function dllConfig(env){
       ]
     },
     plugins: [
-      new webpack.DllPlugin({
-        path: path.join(_dist, '[name]-manifest.json'),
-        name: '[name]_library'
-      }),
+      // new webpack.DllPlugin({
+      //   path: path.join(_dist, '[name]-manifest.json'),
+      //   name: '[name]_library'
+      // }),
       new webpack.optimize.UglifyJsPlugin({
         exclude: /\.min\.js$/,
         mangle:true,
@@ -240,7 +232,7 @@ function configurationPlugins(cfg, env){
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",
       minChunks: 2, //Infinity
     }),
-    new webpack.ProvidePlugin({ Aotoo: 'aotoo' }),
+    // new webpack.ProvidePlugin({ Aotoo: 'aotoo' }),
     new Attachment2commonPlugin( path.join(env.dlldist, '/precommon.js') )
   ]
 
