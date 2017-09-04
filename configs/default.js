@@ -128,6 +128,10 @@ const config = {
     prefix: [
       '/deep3/level'
     ]
+  },
+
+  plugins: {
+    markdownDocsRoot: path.join(__dirname, '../_mydocs')   // 默认文档目录
   }
 }
 
