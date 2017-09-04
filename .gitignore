@@ -10,6 +10,7 @@ npm-debug.log
 /public/dist_mir/*
 .DS_Store
 /fdocs
+/_mydocs
 *.db
 baidu_verify_B7KJMQXfQu.html
 /.vscode
