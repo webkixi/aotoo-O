@@ -11,16 +11,8 @@ function req( api, param, cb, method ){
   }
 
   if( typeof param ==='function' ) cb = param
-  if( typeof param !=='object' ) param = {test: '123'}
-  if( !Object.keys(param).length ) param = {test: '123'}
-
-  // 有些环境不是根目录，需要添加前缀，前缀根据location来自动添加
-  // 如 http://www.xxx.com/yyy/ccc/app.html
-  // let uri = urlparse(location.href);
-  // if (!uri.port){
-  //   let _src = '/' + uri.segments.splice(0, (uri.segments.length-1)).join('/')
-  //   url = (_src+url).replace('//', '/')
-  // }
+  if( typeof param !=='object' ) param = {}
+  if( !Object.keys(param).length ) param = {}
 
   let dtd = $.Deferred();
 
@@ -34,7 +26,7 @@ function req( api, param, cb, method ){
       }
     }
   }
-  if (method==='GET') param._stat_ = 'DATA'
+  if (method==='GET') param._stat_ = 'AJAXDATA'
   return $.ajax({
     url: url,
     type: method,

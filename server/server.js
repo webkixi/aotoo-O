@@ -7,6 +7,9 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
 
+var argv = process.argv.slice(2)
+var margv = require('minimist')(argv);
+
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
 const configs = require('../configs')(/*配置名字符串, 全局变量 CONFIG*/);
 
@@ -18,8 +21,8 @@ function getMapJson(){
   const mapFilePath = NODEDEV ? CONFIG.mapDevJson : CONFIG.mapJson
   if (fs.existsSync(mapFilePath)) return require(mapFilePath)
   else {
+    // static js files mapper
     return {
-      // static js files mapper
       js: {
         /**
          * common: '/js/common.js',
@@ -39,15 +42,17 @@ function getMapJson(){
 }
 
 async function startServer(){
-  
+  const mapperJson = getMapJson()
   const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
     index: CONFIG.root,
     pages: Path.join(__dirname, './pages'),
-    mapper: getMapJson(),
+    mapper: mapperJson,
     pluginsFolder: Path.resolve(__dirname, './plugins')
   })
+
+  Aotoo.inject.mapper = mapperJson
 
   app.use(session({
     key: 'agzgz-',
@@ -82,7 +87,7 @@ async function startServer(){
 
   try {
     const server = await app.init()
-    server.listen(configs.port, function(){
+    server.listen((margv.port||configs.port), function(){
       if (NODEDEV) {
         request(refreshUrl, function (error, response, body) {
           if (error) console.log('server will be start');
