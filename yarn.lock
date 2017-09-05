@@ -186,7 +186,7 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
 
-aotoo-common@^1.0.1, aotoo-common@^1.0.5:
+aotoo-common@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-1.0.5.tgz#f784633a99e1bfb4b34bf9f2a3d2416cdb95435c"
   dependencies:
@@ -205,11 +205,11 @@ aotoo-inject@^1.0.7:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
 
-aotoo-koa-server@^1.0.11-beta1:
-  version "1.0.11-beta1"
-  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.11-beta1.tgz#e26fac2a2fc4bf9a62e98044fe10685b1781bef7"
+aotoo-koa-server@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.0.13.tgz#9d41b555c1b70f8530b705b44f8cefafdce1b2f2"
   dependencies:
-    aotoo-common "^1.0.1"
+    aotoo-common "^1.0.5"
     blueimp-md5 "^2.7.0"
     debug "^2.6.8"
     diskdb "^0.1.17"

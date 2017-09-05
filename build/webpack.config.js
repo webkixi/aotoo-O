@@ -22,7 +22,8 @@ function dllConfig(env){
     entry: {
       precommon: [path.join(__dirname, '../common/js/index.js')]
     },
-    devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
+    // devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
+    devtool: G.production ? undefined : 'cheap-source-map',
     output: {
       path: _dist,
       filename: G.production ? "[name]__[hash:10].js" : "[name].js",

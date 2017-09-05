@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "aotoo-common": "^1.0.5",
-    "aotoo-koa-server": "^1.0.11-beta1",
+    "aotoo-koa-server": "^1.0.13",
     "aotoo-react-treex": "^1.0.4",
     "aotoo-web-widgets": "^1.0.7",
     "app-module-path": "^2.1.0",
