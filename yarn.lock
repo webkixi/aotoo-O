@@ -229,6 +229,21 @@ aotoo-koa-server@^1.0.16:
     request "^2.81.0"
     socket.io "^2.0.3"
 
+aotoo-mixins-iscroll@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/aotoo-mixins-iscroll/-/aotoo-mixins-iscroll-1.0.4.tgz#c44a9d646f03334ac7b3d0be82f6a718c324dbf5"
+
+aotoo-react-router@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aotoo-react-router/-/aotoo-react-router-1.0.0.tgz#3b98775c4f308618bb822a8a1c492c1e8567a7e2"
+  dependencies:
+    aotoo-mixins-iscroll "^1.0.4"
+    aotoo-react-tabs "^1.0.0"
+
+aotoo-react-tabs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aotoo-react-tabs/-/aotoo-react-tabs-1.0.0.tgz#8fc88f69e1e347eb52b8becb46c5d9961c26af61"
+
 aotoo-react-treex@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.5.tgz#951e55fd77f353910d021fe8ed49b4efa11b8d7a"
