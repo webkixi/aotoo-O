@@ -102,11 +102,18 @@ function buildStart(nm, opts){
       })
     } 
     else {
-      mapFile(mapoptions)
       const Delay = {
-        dev: [6000, 8000],
+        dev: [8000, 8000],
         fed: [1000, 3000]
       }
+      
+      let delay = Delay.fed
+      if (nm && nm.emit) {
+        delay = Delay.dev
+      }
+
+      // 生成mapfile.json
+      mapFile(mapoptions, {delay: delay})
 
       // opts.serviceType 用于启动webpack-dev-server的服务模式或者代理模式
       // opts.statics 静态文件存放的绝对路径
@@ -114,10 +121,7 @@ function buildStart(nm, opts){
       const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig, opts))
       devServer.listen(8300, 'localhost', function (err, result) {
         if (err) console.log(err);
-        let delay = Delay.fed
-        if (nm && nm.emit) {
-          delay = Delay.dev
-        }
+        
         setTimeout(function() {
           if (nm && nm.emit) nm.emit('restart')
           // setTimeout(function() {

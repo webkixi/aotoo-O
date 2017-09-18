@@ -2,7 +2,10 @@ var fs = require('fs')
 var path = require('path')
 var glob = require('glob')
 
-module.exports = function(opts, cb){
+module.exports = function(opts, options, cb){
+  if (typeof options == 'function') {
+    cb = options
+  }
   const dir = opts.dist
   const jsEntry = opts.entry.js
   const configs = opts.configs
@@ -67,6 +70,8 @@ module.exports = function(opts, cb){
     }
   }
 
+  let delay = options && (options.delay[0]-1000) || 6000
+
   setTimeout(()=>{
     glob.sync(cssdir+'/**/*.css').forEach(function(item){
       const obj = path.parse(item)
@@ -87,6 +92,6 @@ module.exports = function(opts, cb){
 
     if (typeof cb == 'function') cb()
 
-  }, 4000)
+  }, delay)
 
 }

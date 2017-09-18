@@ -26,7 +26,7 @@ function dllConfig(env){
     devtool: G.production ? undefined : 'cheap-source-map',
     output: {
       path: _dist,
-      filename: G.production ? "[name]__[hash:10].js" : "[name].js",
+      filename: G.production ? "[name].js" : "[name].js",
       libraryTarget: 'var',
       // library: '[name]_library'
     },
@@ -74,7 +74,8 @@ function dllConfig(env){
       // }),
       new webpack.optimize.UglifyJsPlugin({
         exclude: /\.min\.js$/,
-        mangle:true,
+        mangle:false,
+        sourceMap: false,
         compress: {
           drop_console: true,
           drop_debugger: true,
