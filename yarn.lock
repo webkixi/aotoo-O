@@ -248,9 +248,15 @@ aotoo-react-treex@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.5.tgz#951e55fd77f353910d021fe8ed49b4efa11b8d7a"
 
-aotoo-web-widgets@^1.0.5, aotoo-web-widgets@^1.0.8:
+aotoo-web-widgets@^1.0.5:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.8.tgz#fa6c61ca90c8e4873430bdacdf98c2e089cc3368"
+  dependencies:
+    path "^0.12.7"
+
+aotoo-web-widgets@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.9.tgz#9cab2c5000c2b6d945f9332d45d2d19da472f08d"
   dependencies:
     path "^0.12.7"
 
