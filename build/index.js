@@ -103,7 +103,7 @@ function buildStart(nm, opts){
     } 
     else {
       const Delay = {
-        dev: [8000, 8000],
+        dev: [11000, 12000],
         fed: [1000, 3000]
       }
       

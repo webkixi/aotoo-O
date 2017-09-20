@@ -103,6 +103,8 @@ function _webpackConfig(_entry, env){
       libraryTarget:'var'
     },
 
+    watch: G.production ? false : true,
+
     devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
 
     externals: {
