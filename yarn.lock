@@ -240,9 +240,13 @@ aotoo-react-router@^1.0.1:
     aotoo-mixins-iscroll "^1.0.4"
     aotoo-react-tabs "^1.0.0"
 
-aotoo-react-tabs@^1.0.0, aotoo-react-tabs@^1.0.1:
+aotoo-react-tabs@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/aotoo-react-tabs/-/aotoo-react-tabs-1.0.1.tgz#53698c0bb0c1b287cbf5e0f01441ffd5f560052d"
+
+aotoo-react-tabs@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/aotoo-react-tabs/-/aotoo-react-tabs-1.0.5.tgz#ae50af8aae190651984d353d8570a2e71902db6c"
 
 aotoo-react-treex@^1.0.5:
   version "1.0.5"
