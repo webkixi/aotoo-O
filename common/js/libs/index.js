@@ -1,13 +1,11 @@
 require('./times')
 const ajax = require('./ajax')
-const inject = require('./inject')
+const mapper = ajax.sync.get('/mapper')
 
-ajax.get('/mapper')
-.then( data=>{
-  inject.mapper = data
-})
+Aotoo.inject.mapper = mapper.responseJSON
+const injectInstance = Aotoo.inject.init()
 
 module.exports = {
   ajax: ajax,
-  inject: inject
+  inject: injectInstance
 }
