@@ -6,7 +6,9 @@
   "scripts": {
     "fed": "node index.js -f",
     "dev": "node index.js -d",
+    "dev-clean": "node index.js -d --clean",
     "build": "node index.js -p",
+    "build-clean": "node index.js -p --clean",
     "node": "node index.js -n"
   },
   "engines": {

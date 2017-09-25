@@ -143,15 +143,17 @@ function buildStart(nm, opts){
   }
 
 
-  function prepareDll(nm, opts) {
+  function prepareDll(nm, opts={serviceType:{}}) {
     // webpack(dllConfig).run( (err, stats) => {
     //   if (err) throw new gutil.PluginError('[webpack]', err)
     //   start(nm, opts)
     // })
 
-    if (fs.existsSync(path.join(DLLDIST, 'precommon.js'))) {
+    if (fs.existsSync(path.join(DLLDIST, 'precommon.js')) && !opts.serviceType.clean) {
       start(nm, opts)
     } else {
+      del.sync([ DLLDIST ], { force: true })
+      
       // 先编译 precommon.js
       webpack(dllConfig).run( (err, stats) => {
         if (err) throw new gutil.PluginError('[webpack]', err)
