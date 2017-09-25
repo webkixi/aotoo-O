@@ -144,12 +144,17 @@ function _webpackConfig(_entry, env){
         },
         {
           test: /\.styl$/,
-          use: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({           // 适合协作开发
             fallback: "style-loader",
             publicPath: '/css/',
             use: ['css-loader', 'stylus-loader']
-            // use: ['css-loader?modules', 'stylus-loader']
           })
+          // use: ['css-loader?modules', 'stylus-loader']    // 模块化，适合组件开发
+          // use: ['style-loader', 'css-loader', 'stylus-loader']  // 插入页面内部，适合组件方式，不适合模块式协作开发
+        },
+        {
+          test: /\.stylus$/,
+          use: ['style-loader', 'css-loader', 'stylus-loader']  // 插入页面内部，适合组件方式，不适合模块式协作开发
         }
       ]
     },
