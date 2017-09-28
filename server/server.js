@@ -73,6 +73,12 @@ async function startServer(){
     prefix: '/docs'
   })
 
+  app.statics(configs.static.img, {
+    dynamic: true,
+    prefix: '/images'
+  })
+
+  // /css /js
   app.statics(STATICSROOT, {
     dynamic: true,
     buffer: false,
