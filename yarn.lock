@@ -228,9 +228,9 @@ aotoo-inject@^1.0.7:
     blueimp-md5 "^2.7.0"
     fkp-sax "^1.5.19"
 
-aotoo-koa-server@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.2.0.tgz#831a8461fb00a88fb4ebc99dd3fd6f81ece5b2c7"
+aotoo-koa-server@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/aotoo-koa-server/-/aotoo-koa-server-1.6.0.tgz#12dc8f2e2b5c31a1865e85dfeea186de5d1195de"
   dependencies:
     aotoo-common "^1.0.6"
     art-template "^4.12.1"
@@ -1157,7 +1157,7 @@ babel-preset-stage-0@^6.24.1, babel-preset-stage-0@^6.5.0:
     babel-plugin-transform-function-bind "^6.22.0"
     babel-preset-stage-1 "^6.24.1"
 
-babel-preset-stage-1@^6.16.0, babel-preset-stage-1@^6.24.1:
+babel-preset-stage-1@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-preset-stage-1/-/babel-preset-stage-1-6.24.1.tgz#7692cd7dcd6849907e6ae4a0a85589cfb9e2bfb0"
   dependencies:
@@ -1174,7 +1174,7 @@ babel-preset-stage-2@^6.24.1:
     babel-plugin-transform-decorators "^6.24.1"
     babel-preset-stage-3 "^6.24.1"
 
-babel-preset-stage-3@^6.24.1, babel-preset-stage-3@^6.5.0:
+babel-preset-stage-3@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-preset-stage-3/-/babel-preset-stage-3-6.24.1.tgz#836ada0a9e7a7fa37cb138fb9326f87934a48395"
   dependencies:
