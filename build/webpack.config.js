@@ -32,7 +32,6 @@ const UglifyJsPluginDllConfig = {
 const UglifyJsPluginConfig = {
   exclude: /\.min\.js$/,
   mangle:false,
-  sourceMap: false,
   compress: {
     drop_console: true,
     drop_debugger: true,
@@ -107,11 +106,16 @@ function dllConfig(env){
       ]
     },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        '__DEV__': false
+      }),
       // new webpack.DllPlugin({
       //   path: path.join(_dist, '[name]-manifest.json'),
       //   name: '[name]_library'
       // }),
-      new webpack.optimize.UglifyJsPlugin(UglifyJsPluginDllConfig)
+      // new webpack.optimize.UglifyJsPlugin(UglifyJsPluginDllConfig)
+      new webpack.optimize.UglifyJsPlugin()
     ]
   }
 }
@@ -296,7 +300,12 @@ function configurationPlugins(cfg, env){
 
   // production plugins
   const proPlugins = [
-    new webpack.optimize.UglifyJsPlugin(UglifyJsPluginConfig)
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      '__DEV__': false
+    }),
+    // new webpack.optimize.UglifyJsPlugin(UglifyJsPluginConfig)
+    new webpack.optimize.UglifyJsPlugin()
   ]
 
   const webpackPlugins = G.production ? [...commPlugins, ...proPlugins] : [...commPlugins, ...devPlugins]
