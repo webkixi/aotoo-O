@@ -6,9 +6,9 @@
  _: lodash
  $: jquery2
  */
-const isClient = typeof window !== 'undefined'
-const context  = (()=>isClient ? window : global)() || {}
 const aotoo_enveriment = require('aotoo-common')
+const isClient = Aotoo.isClient
+const context  = (()=>isClient ? window : global)() || {}
 const libs = require('./libs')
 context.ajax = libs.ajax
 context.inject = libs.inject
