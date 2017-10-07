@@ -15,6 +15,34 @@ let G = {
   production: false
 }
 
+const UglifyJsPluginDllConfig = {
+  exclude: /\.min\.js$/,
+  mangle:false,
+  sourceMap: false,
+  compress: {
+    drop_console: true,
+    drop_debugger: true,
+    unused: true,
+    dead_code: true,
+    warnings: false,
+    screw_ie8: true
+  }
+}
+
+const UglifyJsPluginConfig = {
+  exclude: /\.min\.js$/,
+  mangle:false,
+  sourceMap: false,
+  compress: {
+    drop_console: true,
+    drop_debugger: true,
+    unused: true,
+    dead_code: true,
+    warnings: false,
+    screw_ie8: true
+  }
+}
+
 // dll common.dll.js
 function dllConfig(env){
   const _dist = env.dist
@@ -40,11 +68,22 @@ function dllConfig(env){
             options: {
               presets:["react", "es2015", "stage-0"],
               plugins: [
-                "transform-runtime",
-                "add-module-exports",
-                "transform-decorators-legacy",
-                "transform-react-display-name",
-                "typecheck"
+                [
+                  "transform-runtime", {
+                    "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
+                    "polyfill": true, // defaults to true
+                    "regenerator": true, // defaults to true
+                    // v6.15.0 (2016-08-31) 新增
+                    // defaults to "babel-runtime"
+                    // 可以这样配置
+                    // moduleName: path.dirname(require.resolve('babel-runtime/package'))
+                    // "moduleName": "babel-runtime"
+                  }
+                ],
+                // "add-module-exports",
+                // "transform-decorators-legacy",
+                // "transform-react-display-name",
+                // "typecheck"
               ]
             }
           }]
@@ -72,19 +111,7 @@ function dllConfig(env){
       //   path: path.join(_dist, '[name]-manifest.json'),
       //   name: '[name]_library'
       // }),
-      new webpack.optimize.UglifyJsPlugin({
-        exclude: /\.min\.js$/,
-        mangle:false,
-        sourceMap: false,
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          unused: true,
-          dead_code: true,
-          warnings: false,
-          screw_ie8: true
-        }
-      })
+      new webpack.optimize.UglifyJsPlugin(UglifyJsPluginDllConfig)
     ]
   }
 }
@@ -126,11 +153,22 @@ function _webpackConfig(_entry, env){
               // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
               presets:["react", "es2015", "stage-0"],
               plugins: [
-                "transform-runtime",
-                "add-module-exports",
-                "transform-decorators-legacy",
-                "transform-react-display-name",
-                "typecheck"
+                [
+                  "transform-runtime", {
+                    "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
+                    "polyfill": true, // defaults to true
+                    "regenerator": true, // defaults to true
+                    // v6.15.0 (2016-08-31) 新增
+                    // defaults to "babel-runtime"
+                    // 可以这样配置
+                    // moduleName: path.dirname(require.resolve('babel-runtime/package'))
+                    // "moduleName": "babel-runtime"
+                  }
+                ],
+                // "add-module-exports",
+                // "transform-decorators-legacy",
+                // "transform-react-display-name",
+                // "typecheck"
               ]
             }
           }]
@@ -258,18 +296,7 @@ function configurationPlugins(cfg, env){
 
   // production plugins
   const proPlugins = [
-    new webpack.optimize.UglifyJsPlugin({
-      exclude: /\.min\.js$/,
-      mangle:true,
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        unused: true,
-        dead_code: true,
-        warnings: false,
-        screw_ie8: true
-      }
-    }),
+    new webpack.optimize.UglifyJsPlugin(UglifyJsPluginConfig)
   ]
 
   const webpackPlugins = G.production ? [...commPlugins, ...proPlugins] : [...commPlugins, ...devPlugins]
