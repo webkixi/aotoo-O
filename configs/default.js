@@ -50,7 +50,7 @@ const config = {
     html: path.join(DISTOUT, version+'/html'),
     js:   path.join(DISTOUT, version+'/js'),
     css:  path.join(DISTOUT, version+'/css'),
-    img:  path.join(DISTOUT, 'images'),
+    img:  path.join(DISTOUT, '../images'),
     doc:  path.join(SRC,'../fdocs'),
     uploads:  path.join(SRC,'../uploads'),
       dev: {
@@ -58,7 +58,7 @@ const config = {
         html: path.join(DISTOUT, version+'/dev/html'),
         js:   path.join(DISTOUT, version+'/dev/js'),
         css:  path.join(DISTOUT, version+'/dev/css'),
-        img:  path.join(DISTOUT, 'images'),
+        img:  path.join(DISTOUT, '../images'),
         doc:  path.join(SRC,'../fdocs'),
         uploads:  path.join(SRC,'../uploads'),
       }
