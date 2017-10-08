@@ -73,7 +73,8 @@ async function startServer(){
     prefix: '/docs'
   })
 
-  app.statics(configs.static.img, {
+  // app.statics(configs.static.img, {
+  app.statics(Path.join(__dirname, '../public/images'), {
     dynamic: true,
     prefix: '/images'
   })
