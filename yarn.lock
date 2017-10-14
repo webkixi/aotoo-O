@@ -192,12 +192,20 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
 
-aotoo-common@^2.0.0, aotoo-common@^2.0.5:
+aotoo-common@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.5.tgz#0f02b4f7a40855ace94aa1d7d2ca4c954336d36e"
   dependencies:
     aotoo "^3.0.2"
     aotoo-web-widgets "^1.0.11"
+    jquery "^2.2.4"
+
+aotoo-common@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.6.tgz#147f6b39fd8aede11338167b381dd3572ea6fd94"
+  dependencies:
+    aotoo "^3.0.2"
+    aotoo-web-widgets "^1.0.13"
     jquery "^2.2.4"
 
 aotoo-inject@^1.0.7:
@@ -257,9 +265,9 @@ aotoo-react-treex@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/aotoo-react-treex/-/aotoo-react-treex-1.0.5.tgz#951e55fd77f353910d021fe8ed49b4efa11b8d7a"
 
-aotoo-web-widgets@^1.0.11:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.12.tgz#96cba9ad44fa0b1feeb3e9fa31c96db577bab31b"
+aotoo-web-widgets@^1.0.11, aotoo-web-widgets@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/aotoo-web-widgets/-/aotoo-web-widgets-1.0.13.tgz#894e9cc013d8b99a55afdcdb469759b8479eaf93"
   dependencies:
     path "^0.12.7"
 
