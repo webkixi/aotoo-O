@@ -5,6 +5,7 @@ var glob = require('glob')
 module.exports = function(opts, options, cb){
   if (typeof options == 'function') {
     cb = options
+    options = undefined
   }
   const dir = opts.dist
   const jsEntry = opts.entry.js
