@@ -15,7 +15,7 @@
     "node": ">=7.6"
   },
   "dependencies": {
-    "aotoo-common": "^2.0.9",
+    "aotoo-common": "^2.0.10",
     "aotoo-koa-server": "^2.0.0",
     "aotoo-react-router": "^1.0.1",
     "aotoo-react-tabs": "^1.0.5",

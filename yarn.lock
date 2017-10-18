@@ -200,13 +200,20 @@ aotoo-common@^2.0.0:
     aotoo-web-widgets "^1.0.16"
     jquery "^2.2.4"
 
-aotoo-common@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.9.tgz#a9036abeac1f1803c4670ef09561d36b360e869e"
+aotoo-common@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.10.tgz#131a22d29dbc8b06365f4289587d052b2f21b7fc"
   dependencies:
-    aotoo "^3.0.2"
+    aotoo "^3.0.4"
     aotoo-web-widgets "^1.0.17"
     jquery "^2.2.4"
+
+aotoo-inject@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/aotoo-inject/-/aotoo-inject-1.0.18.tgz#ea322e78cae57fb0167c6bf43708b268c5f621b0"
+  dependencies:
+    blueimp-md5 "^2.7.0"
+    fkp-sax "^1.5.19"
 
 aotoo-inject@^1.0.7:
   version "1.0.17"
@@ -282,6 +289,17 @@ aotoo@^3.0.2:
   resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-3.0.3.tgz#9f56e3640d2baa4abd20654e17a9f5c704ee6b2a"
   dependencies:
     aotoo-inject "^1.0.7"
+    fkp-sax "^1.5.19"
+    lodash "^4.17.4"
+    path "^0.12.7"
+    react "^16.0.0"
+    react-dom "^16.0.0"
+
+aotoo@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/aotoo/-/aotoo-3.0.4.tgz#245d394a83e7e2257961f1a8e6a09fb7f491c097"
+  dependencies:
+    aotoo-inject "^1.0.18"
     fkp-sax "^1.5.19"
     lodash "^4.17.4"
     path "^0.12.7"
