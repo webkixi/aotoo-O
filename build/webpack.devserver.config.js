@@ -69,6 +69,15 @@ function wpServer(configs, opts){
         }
       })
 
+      app.get(/\/images\/(.*)\.(ico|jpg|jpeg|png|gif)$/, function(req, res){
+        const staticPath = path.join(staticsPath.root, req._parsedUrl._raw)
+        if (fs.existsSync(staticPath)) {
+          res.sendFile(staticPath);
+        } else {
+          res.status(404).send('Sorry! file is not exist.');
+        }
+      })
+
       app.get('/mapper', function(req, res){
         const staticPath = path.join(configs.output.path, 'mapfile.json')
         if (fs.existsSync(staticPath)) {
@@ -86,6 +95,9 @@ function wpServer(configs, opts){
         }
         if (url.title){
           if (valideExt(url.title)) router += '/'+url.title
+        }
+        if (url.id){
+          if (valideExt(url.id)) router += '/'+url.id
         }
 
         const staticfile = router.replace(/\//g, '-')
