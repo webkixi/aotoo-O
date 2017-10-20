@@ -12,5 +12,9 @@ const context  = (()=>isClient ? window : global)() || {}
 const libs = require('./libs')
 context.ajax = libs.ajax
 context.inject = libs.inject
+$.fn.once = function(type, tgt, fn){
+  this.off(type, fn)
+  this.on(type, tgt, fn)
+}
 
 module.exports = aotoo_enveriment
