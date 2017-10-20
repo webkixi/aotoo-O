@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<script type="text/javascript">
+(function (doc, win) {
+    var radio = win.devicePixelRatio || 1,
+    // scale = 1 / radio,
+    docEl = doc.documentElement,
+    // meta = document.createElement("meta"),
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        console.log(clientWidth);
+        docEl.style.fontSize = clientWidth * 2 / 10 + 'px';   //iphone6 作为基准 fontSize=75px
+    };
+    // docEl.setAttribute("data-dpr", radio);
+    // meta.setAttribute("name", "viewport")
+    // meta.setAttribute("content", "width=device-width,initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no")
+    // if(docEl.firstElementChild) docEl.firstElementChild.appendChild(meta);
+
+    if  (!doc.addEventListener) return;
+
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+</script>
+<%-commoncss%>
