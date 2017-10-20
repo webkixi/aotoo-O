@@ -1,0 +1,124 @@
+// /**
+//  * ( $flex-flow = row, $flex-justify = flex-start, $align-items = center, $align-content = center, $padding = 0px, $fontSize = 14px, $width = 0px, $hbodymargin = 0px)
+//  * $flex-flow 控制flex中的flex-direction属和flex-wrap
+//  * $flex-justify 控制flex中的flex-justify的方向
+//  * $align-items 控制flex中的align-items的方向
+//  * $align-content 控制flex中的align-contenty的方向
+//  * $margin 控制整个层的margin-bottom
+//  * $fontSize 控制这一层的 font-size
+//  * $width 控制media-head的width
+//  * $hbodymargin 控制 media-body的margin-left
+//  */
+//
+// // boderBottom = false(无边线)  true(有边线)
+// media-item( $flex-flow = row,$flex-justify = flex-start, $align-items = center, $align-content = center, $padding = 0px, $fontSize = 14px, $width = 0px,$hbodymargin = 0px, $flex-num = 1)
+//   position: relative;
+//   display-flex($flex-flow, $flex-justify, $align-items, $align-content)
+//   padding: $padding
+//   font-size: $fontSize
+//   .hheader
+//     width: $width
+//     i
+//       iconfont()
+//   .hbody
+//     margin: $hbodymargin
+//     position: relative;
+//     flex: $flex-num
+//     .caption
+//       font-size: ($fontSize+2)
+//       display: block;
+//     em
+//       font-style: normal;
+//       margin-bottom: 6px
+//     p
+//       line-height: 22px
+//       i
+//         color: $colorff4242
+//         font-style: normal;
+//     .hbody-foot   //body中有明显隔离的上下结构
+//       margin-top: 8px
+//   .hfooter
+//     padding: $padding
+//     .hlink
+//       text-align: right;
+//   .dot
+//     position: absolute;
+
+//flex-row方向
+.row-flex
+  display-flex(row nowrap, flex-start, flex-start, flex-start)
+.row-flex-wrap
+  display-flex(row wrap, flex-start, flex-start, flex-start)
+.row-flex-justify-between
+  display-flex(row nowrap, space-between, flex-start, flex-start)
+.row-flex-justify-between-wrap
+  display-flex(row wrap, space-between, flex-start, flex-start)
+.rf-al-center
+  align-items: center;
+  align-content: @align-items;
+.rf-ju-center
+  justify-content: center;
+.rf-ju-sb
+  justify-content: space-between
+//flex-column方向
+.column-flex
+  display-flex(column, flex-start, flex-start, flex-start)
+.column-flex-wrap
+  display-flex(column, flex-start, flex-start, flex-start)
+.cf-al-center
+  align-items: center;
+  align-content: @align-items;
+.cf-ju-center
+  justify-content: center;
+.cf-ju-sb
+  justify-content: space-between
+
+//定位
+.absoulte
+  position: absolute;
+.absoulte-top-right
+  @extends .absoulte
+  top: 0
+  right: 0
+.absoulte-top-left
+  @extends .absoulte
+  top: 0
+  left: 0
+.absoulte-bottom-right
+  @extends .absoulte
+  bottom: 0
+  right: 0
+.absoulte-bottom-left
+  @extends .absoulte
+  bottom: 0
+  left: 0
+
+
+//的单个item
+lists-item($header-border-color = none,  $header-width = 100px, $header-height = 100px, $hbody-margin = 0 0 0 20px, $hbody-width = 80%, $hfoot-width = 100px, $hfoot-margin = 0, $title-color = #333, $title-fs = 16px, $title-mb = 10px, $content-color = #666, $content-fs = 14px, $content-mb = 10px)
+  .hheader
+    border: 1px solid transparent
+    border-color: $header-border-color
+    width: $header-width
+    height: $header-height
+  .hbody
+    position: relative;
+    margin: $hbody-margin
+    width: $hbody-width
+  .title
+    color: $title-color
+    font-size: $title-fs
+    margin-bottom: $title-mb
+  .content
+    color: $content-color
+    font-size: $content-fs
+    margin-bottom: $content-mb
+  .hfoot
+    position: relative;
+    width: $hfoot-width
+    margin: $hfoot-margin
+
+row-lists-flex($flex-flow = row nowrap, $justify-content = flex-start, $align-items = initial, $align-content = initial, $header-border-color = none,  $header-width = 100px, $header-height = 100px, $hbody-margin = 0 0 0 20px, $hbody-width = 80%, $hfoot-width = 100px, $title-color = #333, $title-fs = 16px, $title-mb = 10px, $content-color = #666, $content-fs = 14px, $content-mb = 10px)
+  display-flex($flex-flow, $justify-content, $align-items, $align-content)
+  >li
+    lists-item($header-border-color,  $header-width, $header-height, $hbody-margin, $hbody-width, $hfoot-width, $title-color, $title-fs, $title-mb, $content-color, $content-fs, $content-mb)

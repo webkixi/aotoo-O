@@ -1,0 +1,141 @@
+after($right = 10px, $top = initial, $bottom = initial, $left = initial)
+  position: absolute;
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+
+before($left = 0, $top = 0)
+  position: absolute;
+  top: $top
+  left: $left
+
+//第一级的左边是否需要icon
+routerMenusThemeIcon($icon-left = 4px)
+  .itemCategory
+    width: 100%
+  .hlist>li
+    display-flex(row, flex-start, flex-start)
+    &:before
+      content: '*'
+      // before($icon-left)
+      margin-right: 6px
+
+//router theme配置
+routerMenusTheme($background = #fff, $color= $color333, $color2 = $color666, $li-line-height = 34px, $li-icon = '>', $li-icon-select = '<', $li-icon-right = 4px, $li-select-color = #108ee9, $li-select-background = #ecf6fd, $li-select-border-right = none)
+  background: $background
+  li
+    line-height: $li-line-height
+    color: $color
+    .caption
+      &:after
+        content: $li-icon
+        after($li-icon-right)
+    li
+      color: $color2
+    .itemrootCkb
+      &:checked
+        +.caption
+          &:after
+            content: $li-icon-select
+          +ul
+            display: block;
+    &:not(.itemroot)
+      &.select,&:hover
+        color: $li-select-color
+        background-color: $li-select-background
+        &:after
+          content: ''
+          // border-left: $li-select-border-left
+          border-right: $li-select-border-right
+          height: @line-height
+          after(0)
+
+routerMenusLeft($width =  200px, $line-height = 34px, $padding-left = 4px, $font-size = 16px)
+  position-fixed()
+  width: $width
+  height: 100%
+  border-right: 1px solid #e3e3e3
+  li
+    position: relative;
+    .itemCategory
+      position: relative;
+    .caption
+      display: block;
+  .hlist>li
+    line-height: $line-height
+    font-size: $font-size
+    padding-left: $padding-left
+    li
+      cursor: pointer;
+      // line-height: @line-height - 4
+      font-size: @font-size - 2
+      margin-left: -3.8em
+      padding-left: -(@margin-left) + 1
+
+
+routerMenusPcAndMob($width =  200px, $line-height = 34px, $padding-left = 4px, $font-size = 16, $rowway = false)
+  position-fixed()
+  if $rowway == true
+    // position-fixed()
+    width: $width
+    .list-wrap
+      display-flex(row, space-between, center)
+      border-bottom: 1px solid #e3e3e3
+      >ul>li ul
+        display: none
+    ul
+      row-list(10px, flex-start)
+  else
+    height: 100%
+    li
+      position: relative;
+      cursor: pointer
+      .itemCategory
+        position: relative;
+      .caption
+        display: block;
+    .list-wrap
+
+      margin: 0.5rem 0
+      .router-header,>ul
+        width: $width
+        margin: 0 auto
+      >ul
+        overflow: hidden;
+        >li
+          line-height: $line-height
+          font-size: $font-size
+          // padding-left: $padding-left
+          color: #595757
+          &:not(.level0)
+            border-bottom: 1px solid #e3e3e3
+          for i in 1..6
+            .level{i}
+              .caption
+                margin-left: - (0.1rem + (0.2rem * i))
+                padding-left:  0.1rem + (0.2rem * i)
+
+          .caption
+            border-bottom: 1px solid #e3e3e3
+          li
+            line-height: @line-height - 4
+            font-size: @font-size - 0.1
+            color: $color666
+            margin-left: -0.7rem
+            padding-left: 0.9rem
+            &:not(.itemroot)
+              border-bottom: 1px solid #e3e3e3
+
+routerHeader()
+  i
+    font-style: normal;
+  .router-header
+    display-flex(row, space-between, center, center)
+
+
+
+
+routerBoxes()
+  overflow-y: auto;
+  min-height: 600px

@@ -1,0 +1,8 @@
+//指定几行出现省略号
+textellipsis($max-height = 60px, $line-clamp = 3)
+  max-height: $max-height
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line-clamp;

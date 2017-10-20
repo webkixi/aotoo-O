@@ -1,0 +1,25 @@
+/**
+ * pbtn()可选参数四个 如果不写参数 默认是一个白色背景 边框为#e3e3e3 字体为#666 text-decoration为 none的按钮
+ * $background-color
+ * $border-color
+ * $color
+ * $text-decoration
+ * @type {[type]}
+ */
+.ptbn
+  border: 1px solid transparent
+  display: block
+  vertical-align: middle
+  white-space: nowrap
+  text-align: center
+pbtn($background-color = #fff, $border-color = #e3e3e3, $color = #666, $text-decoration = none, $min-width = auto,$border-radius = 4px)
+  @extends .ptbn
+  border-radius: $border-radius
+  background-color: $background-color
+  border-color: $border-color
+  color: $color
+  text-decoration: $text-decoration
+  &:hover
+    opacity: 0.85
+  &:active
+    opacity: 0.85

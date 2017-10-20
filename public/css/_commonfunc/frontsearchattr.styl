@@ -1,0 +1,199 @@
+/*****checkbox 自定义*/
+checkbox-theme()
+  input[type='checkbox']
+    position: absolute;
+    top: 0;
+    left: @top
+    width: 100%;
+    height: @width
+    opacity: @top
+    border: @top
+    margin: @top
+    z-index: 9;
+    &:checked
+      +.fkp-checkbox-box
+        &:before
+          text-shadow: 0 0 3px #299dd8
+        &:after
+          content: '\e641';
+          color: $colorfab427
+          position: absolute;
+          top: -3px;
+          left: 5px;
+          transition: all .2s linear;
+  .fkp-checkbox-box
+    font-size: $size14
+    margin-right: 4px
+    &:before
+      content: '\e643';
+      color: #777;
+      transition: all .2s linear;
+
+list-search-attr($attr-min-width = 56px, $color = #333)
+  .list-search-attr
+    color: $color
+    font-size: $size14 - 2
+    position: relative;
+    >.inner
+      display-flex(row wrap, flex-start, flex-start, flex-start)
+      border-bottom: 1px solid $borderColor
+      padding: 2px 0
+      >.hheader
+        font-weight: 600
+        margin-right: 16px
+        line-height: 36px
+        min-width: $attr-min-width
+        text-align: right;
+      >.hbody
+        display-flex(row wrap, flex-start, flex-start, flex-start)
+        width: 80%;
+        .hb-item
+          margin-right: 8px
+          margin-top: 9px
+          lable,a
+            padding: 0 4px
+          lable
+            position: relative;
+            line-height: 17px
+          a
+            &:hover
+              background: $color2585cf
+              color: #fff
+      >.hfoot
+        width: 100%
+  a
+    text-decoration: none
+    color: $color
+    display: block;
+  /*******您已选择*/
+  .item-checked-li
+    background: #57b0f4
+    color: #fff
+    display: flex;
+    line-height: 22px;
+    padding: 0
+    i
+      font-style: normal;
+    div
+      background: $color2585cf
+      padding-right: 4px
+      padding-left: @padding-right
+      margin-right: @padding-right
+    &:after
+      content: '\e7e4'
+      padding: 0 4px 0 8px
+    span
+      &:last-child
+        &:after
+          content: ''
+      &:after
+        content: '、'
+        -webkit-font-smoothing: auto;
+  /*******您已选择里的清除条件*/
+  .clear-all
+    color: #0068c1
+    height: 28px
+    line-height: @height
+    margin-left: 10px
+    margin-top: 6px;
+  .pa-r
+    position: absolute;
+    top: 8px;
+    right: 10%;
+    color: $color
+    font-size:  $size14
+  /******点击多选，出现的两个按钮*/
+  .search-more-btn
+    margin: 10px auto;
+    @extends .flex-row
+    justify-content: center;
+    button
+      margin-right: 8px
+      padding: 3px 12px
+      &:hover
+        border: 1px solid $color2585cf
+  .btn-multi-select
+    position: absolute;
+    top: 9px
+    right: 0;
+    font-size: 12px
+  .item-dt-btn,.item-special-field
+    @extends .flex-row
+    >div
+      margin-left: 8px
+    >li
+      margin-left: 4px
+  .itemList_selected,.itemList_departureDate
+    .inner
+      .hbody
+        width: auto
+  .wid50
+    margin: 0 8px
+  /******类似搜索目的地属性 有两级选择*/
+  #destination
+    .hb-item
+      margin-top: 0
+      line-height: 32px;
+      .hb-item
+        line-height: 21px
+  .lsb-more-list
+    &.lsb-check
+      .hbody
+        li
+          padding: 0
+          &:hover
+            background: none
+            color: #666
+    .hheader
+      background: #fff
+      cursor: pointer;
+      padding: 0px 6px;
+      position: relative;
+      // line-height: 22px
+      border-top: 3px solid transparent
+      margin-top: -1px
+      &:after
+        content: '\e616'
+        margin-left: 4px
+        color: #9e9e9e
+      &.icons
+        &:before
+          content: '\ec0c'
+          color: $color2585cf
+          position: absolute;
+          top: -7px;
+          right: 11px
+          font-size: 18px;
+      &.active
+        background: #fff
+        box-shadow: 0 -3px 4px rgba(0,0,0,.2)
+        border-top-color: $color2585cf
+        position: relative
+        z-index: 10
+        ~.hbody
+          display: block;
+          box-shadow: 0 0 4px rgba(0,0,0,.2)
+    .hbody
+      display: none
+      position: absolute;
+      left: 72px
+      background: #fff;
+      top: 33px
+      z-index: 9;
+      width: 93%;
+      .hb-item
+        padding: 10px 6px
+      ul
+        display-flex(row wrap, flex-start, center, center)
+      li
+        margin-right: 10px
+        padding: 0 4px
+        cursor: pointer;
+        &:hover
+          background: #57b0f4
+          color: #fff
+
+  checkbox-theme()
+
+  input[type='text']
+    form_control(35px, 1px solid $borderColor, 2px)
