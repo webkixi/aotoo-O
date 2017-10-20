@@ -1,0 +1,25 @@
+@import "../../../css/_commonfunc/index"
+.tree-basic-more
+  font-size: 18px
+  .tree-head
+    line-height: 30px
+    a
+      position: relative;
+      padding-right: 20px;
+  .property-ul      //固定生成的ul class
+    row-list(1%, flex-start, flex-start, 2%)
+    font-size: 14px
+    li
+      background: #e3e3e3
+      border-radius: 4px
+      border-width: 1px
+      border-style: solid
+      border-color: transparent
+      width: 32%
+      color: #666
+      text-align: center;
+      line-height: 38px
+      &:hover,&.active
+        background: #fff
+        border-color: #2585cf
+        color: #2585cf

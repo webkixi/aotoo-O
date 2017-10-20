@@ -1,0 +1,54 @@
+@import "../../../css/_commonfunc/index"
+.tabs-lr
+  display-flex(row, flex-start)
+  font-size: 14px
+  .itemrootCkb
+    display: none
+  .tabsMenus
+    width: 18%;
+    text-align: center;
+    background: #edebeb
+    a
+      color: $color333
+      padding-left: 0.2rem
+    ul
+      color: $color333
+      line-height: 34px
+      li
+        border-top: 1px solid #e3e3e3
+        border-right: @border-top
+        &:first-child
+          border-top: none
+        &:hover,&.select
+          background: #fff
+  .tabsBoxes
+    background: #fff
+    padding: 0.1rem
+    color: $color333
+    flex: 1
+
+.tree-basic-tabs
+  .tree-head
+    line-height: 14px
+    padding: 6px 0
+    em
+      border-left: 2px solid #2585cf
+      padding-left: 4px
+    a
+      position: relative;
+      padding-right: 12px;
+  .property-ul
+    >li
+      row-list(1%, flex-start, flex-start, 2%)
+  .property-ul
+    row-list(1%, flex-start, flex-start, 2%)
+    font-size: 12px
+  .caption
+    pbtn(#fff, #e3e3e3, #666, none, 1rem, 4px)
+    padding: 0 10px;
+    line-height: 34px
+    min-width: 0.8rem;
+    &:hover,&.active
+      background: #fff
+      border-color: #2585cf
+      color: #2585cf

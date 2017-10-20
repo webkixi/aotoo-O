@@ -1,0 +1,62 @@
+@import "../../../css/_commonfunc/index"
+.router-basic-phone
+  .routerMenus
+    routerHeader()
+    routerMenusPcAndMob(86%, 46px, 8px, 0.5rem, false)
+    z-index: 2
+    .itemrootCkb
+      after()
+      height: 34px
+      cursor: pointer;
+      opacity: 0;
+      width: 100%;
+
+.router-basic
+  padding-left: 200px
+  .routerMenus
+    // routerHeader()
+    // routerMenusPcAndMob(86%, 46px, 8px, 0.5rem, false)
+    routerMenusThemeIcon(4px)
+    // routerMenusTheme(#2c3144, #8aa4af, #8aa4af, 44px, '>', '<', 8px, #fff, #212735, 3px solid #3c8dbc)
+    routerMenusTheme(#fff, $color333, $color666, 34px, '>', '<', 4px,  #108ee9, #ecf6fd, 3px solid #108ee9)
+    routerMenusLeft(@padding-left, 34px, 8px, 16px)
+    // routerMenus(100%, 44px, 8px, 16px, true)
+    z-index: 2
+    .itemrootCkb
+      after()
+      height: 34px
+      cursor: pointer;
+      opacity: 0;
+      width: 100%;
+
+  .routerBoxes
+    routerBoxes()
+    margin: 10px
+    position: relative;
+    z-index: 1   //这个要比routerMenus 低
+  .contentHide
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -2;
+
+
+
+.router-close
+  position: fixed;
+  top: 5%;
+  right: 6%
+  z-index: 999  //router-close的z-index要最高的，要不然无法点击
+  ~.routerGroup .routerMenus>.list-wrap>ul
+    display: none
+  &:before
+    content: '='
+  &:checked
+    &:before
+      content: 'x'
+    ~.routerGroup .routerMenus>.list-wrap>ul
+      display: block;
+
+.router-mob-basic
+  @extends .router-basic
+  font-size: 20px
