@@ -7,11 +7,15 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
 
+// node index.js --port 8080 --config xxx
+// pm2 start index.js -- --port 8080 --config xxx
 var argv = process.argv.slice(2)
 var margv = require('minimist')(argv);
 
 const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
-const configs = require('../configs')(/*配置名字符串, 全局变量 CONFIG*/);
+const envConfig = ( ()=>margv.config ? margv.config : undefined )()
+const configs = require('../configs')(envConfig);
+global.Configs = configs
 
 const NODEDEV = process.env.NODE_ENV == 'development'
 const HTMLDIST = NODEDEV ? configs.static.dev.html : configs.static.html;
@@ -66,6 +70,11 @@ async function startServer(){
   app.statics(configs.static.uploads, {
     dynamic: true,
     prefix: '/uploader'
+  })
+
+  app.statics(Path.join(Configs.plugins.markdownDocsRoot, '../'), {
+    dynamic: true,
+    prefix: '/myimgs'
   })
 
   app.statics(configs.static.doc, {
