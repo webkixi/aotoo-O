@@ -4,7 +4,7 @@ import time from './common/time'
 const isClent = typeof window != 'undefined'
 
 function libs(){
-  if (isClent) {
+  if (!isClent) {
     return {
       ...base,
       ...time
