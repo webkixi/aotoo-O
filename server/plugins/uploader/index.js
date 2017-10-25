@@ -13,6 +13,9 @@ function checkFiles(fields){
   }
 }
 
+const up_root = CONFIG.plugins.upload.root
+const up_prefix = CONFIG.plugins.upload.urlPrefix
+
 // async function javaUploader(ctx, next){
 //   if (!ctx.request.is('multipart/*')) return next()
 //   const bodys = await getNewSignBody('uploader', {method: ' /fastdfs/upload.do'})
@@ -35,7 +38,8 @@ async function uploader(ctx, next){
 
   let filename
   , o_filename
-  , path2save = CONFIG.upload.root
+  , path2save = up_root
+  // , path2save = CONFIG.plugins.upload.root
 
   if (checkFiles(fields)) {
     filename = o_filename = fields.name
@@ -44,15 +48,27 @@ async function uploader(ctx, next){
     files[0].pipe(stream)
     ctx.body = {
       "state": "success",
-      "url": '/upload/'+o_filename,
+      "url": path.join(up_prefix, o_filename),
       "original": o_filename,
       "message": o_filename
     }
   }
 }
 
+let defineMyupConfig = false
 export default function(fkp){
-  fkp.routepreset('/upup', {
-    customControl: uploader
-  })
+  if (!defineMyupConfig) {
+
+    fkp.statics(up_root, {
+      dynamic: true,
+      prefix: up_prefix
+    })
+    
+    fkp.routepreset('/upup', {
+      customControl: uploader
+    })
+    
+    defineMyupConfig = true
+  }
+
 }
