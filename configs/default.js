@@ -131,7 +131,11 @@ const config = {
   },
 
   plugins: {
-    markdownDocsRoot: path.join(__dirname, '../_mydocs')   // 默认文档目录
+    markdownDocsRoot: path.join(__dirname, '../_mydocs'),   // 默认文档目录
+    upload: {
+      root: path.join(SRC,'../uploads'),
+      urlPrefix: '/upload'
+    }
   }
 }
 
