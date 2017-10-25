@@ -193,8 +193,8 @@ anymatch@^1.3.0:
     normalize-path "^2.0.0"
 
 aotoo-common@^2.0.0, aotoo-common@^2.0.12:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.14.tgz#b5ce18af8858b095d5d5649d0a9d8541dd6ba36b"
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/aotoo-common/-/aotoo-common-2.0.15.tgz#f6017ccb137863d2ee018503081aebecaab25b37"
   dependencies:
     aotoo "^3.0.8"
     aotoo-web-widgets "^1.0.17"
@@ -242,14 +242,14 @@ aotoo-mixins-iscroll@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/aotoo-mixins-iscroll/-/aotoo-mixins-iscroll-1.0.4.tgz#c44a9d646f03334ac7b3d0be82f6a718c324dbf5"
 
-aotoo-react-router@^1.0.2:
+aotoo-react-router@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/aotoo-react-router/-/aotoo-react-router-1.0.2.tgz#75a52077ed7ba639a7d7ba908f13b275a6b6f7fb"
   dependencies:
     aotoo-mixins-iscroll "^1.0.4"
     aotoo-react-tabs "^1.0.6"
 
-aotoo-react-tabs@^1.0.6:
+aotoo-react-tabs@^1.0.5, aotoo-react-tabs@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/aotoo-react-tabs/-/aotoo-react-tabs-1.0.6.tgz#dddcb1c24b277bd5b69acc5876a0bb8849b70510"
 
