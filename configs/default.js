@@ -64,6 +64,11 @@ const config = {
       }
   },
 
+  public: {
+    js: '/js',
+    css: '/css'
+  },
+
   /*
     * 第三方登陆
     * 配置自己的第三方登陆

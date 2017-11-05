@@ -20,9 +20,11 @@ global.Configs = configs
 const NODEDEV = process.env.NODE_ENV == 'development'
 const HTMLDIST = NODEDEV ? configs.static.dev.html : configs.static.html;
 const STATICSROOT = NODEDEV ? configs.static.dev.dft : configs.static.dft;
+const PUBLICPATH = configs.public
+
 
 function getMapJson(){
-  const mapFilePath = NODEDEV ? CONFIG.mapDevJson : CONFIG.mapJson
+  const mapFilePath = NODEDEV ? configs.mapDevJson : configs.mapJson
   if (fs.existsSync(mapFilePath)) return require(mapFilePath)
   else {
     // static js files mapper
@@ -46,7 +48,8 @@ function getMapJson(){
 }
 
 async function startServer(){
-  const mapperJson = getMapJson()
+  let mapperJson = getMapJson()
+  mapperJson.public = PUBLICPATH
   const app = require('aotoo-koa-server')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
@@ -55,8 +58,6 @@ async function startServer(){
     mapper: mapperJson,
     pluginsFolder: Path.resolve(__dirname, './plugins')
   })
-
-  Aotoo.inject.mapper = mapperJson
 
   app.use(session({
     key: 'agzgz-',
@@ -88,12 +89,32 @@ async function startServer(){
     prefix: '/images'
   })
 
-  // /css /js
-  app.statics(STATICSROOT, {
-    dynamic: true,
-    buffer: false,
-    gzip: true
-  })
+  // /js
+  const pblc = PUBLICPATH
+  if (pblc.js) {
+    const _js = pblc.js
+    if (_js.indexOf('http') == -1) {
+      app.statics(STATICSROOT + '/js', {
+        prefix: pblc.js,
+        dynamic: true,
+        buffer: false,
+        gzip: true
+      })
+    }
+  }
+
+  // /css
+  if (pblc.css) {
+    const _css = pblc.css
+    if (_css.indexOf('http') == -1) {
+      app.statics(STATICSROOT + '/css', {
+        prefix: pblc.css,
+        dynamic: true,
+        buffer: false,
+        gzip: true
+      })
+    }
+  }
 
   //get
   app.use(conditional())

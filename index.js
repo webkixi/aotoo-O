@@ -25,7 +25,7 @@ if (argv.length) {
 
 var buildConfig = require('./build')
 var firstBuild = true
-function activationServer(buildc){
+function activationServer(buildc) {
   if (margv.f) {
     buildc(false, {
       serviceType: margv
@@ -44,14 +44,16 @@ function activationServer(buildc){
 
     // npm run node -- --port 8080
     const envConfigFile = margv.config
+    const configs = require('./configs')(envConfigFile)
+
     const serverIndex = margv.port
-    ? "node --harmony ./server/index.js --port "+margv.port
-    : margv.n
-      ? 'node --harmony ./server/index.js --port 3000'
-      : 'node --harmony ./server/index.js'
-    
+      ? "node --harmony ./server/index.js --port " + margv.port
+      : margv.n
+        ? 'node --harmony ./server/index.js --port ' + configs.port
+        : 'node --harmony ./server/index.js'
+
     if (envConfigFile) {
-      serverIndex += serverIndex+ '--config '+envConfigFile
+      serverIndex += serverIndex + '--config ' + envConfigFile
     }
     nodemon({
       "execMap": {
@@ -88,15 +90,15 @@ function activationServer(buildc){
       }
     })
 
-    .on('quit', function () {
-      console.log('App has quit');
-    })
+      .on('quit', function () {
+        console.log('App has quit');
+      })
 
-    .on('restart', function (files) {
-      firstBuild = false
-      console.log('App restarted due to: ', files);
-    });
-  } 
+      .on('restart', function (files) {
+        firstBuild = false
+        console.log('App restarted due to: ', files);
+      });
+  }
   else {
     require('./server/index')
   }
