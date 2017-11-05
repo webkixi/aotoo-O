@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "aotoo-common": "^2.0.12",
-    "aotoo-koa-server": "^2.0.0",
+    "aotoo-koa-server": "^2.0.2",
     "aotoo-react-router": "^1.0.1",
     "aotoo-react-tabs": "^1.0.5",
     "aotoo-react-treex": "^1.0.5",
