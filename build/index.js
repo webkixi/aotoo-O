@@ -113,7 +113,11 @@ function buildStart(nm, opts){
       }
 
       // 生成mapfile.json
-      mapFile(mapoptions, {delay: delay})
+      compiler.plugin('done', function (stats) {
+        mapFile(mapoptions, { delay: delay }, function (params) {
+          if (nm && nm.emit) nm.emit('restart')
+        })
+      })
 
       // opts.serviceType 用于启动webpack-dev-server的服务模式或者代理模式
       // opts.statics 静态文件存放的绝对路径
@@ -121,22 +125,6 @@ function buildStart(nm, opts){
       const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig, opts))
       devServer.listen(8300, 'localhost', function (err, result) {
         if (err) console.log(err);
-        
-        setTimeout(function() {
-          if (nm && nm.emit) nm.emit('restart')
-          // setTimeout(function() {
-          //   browserSync.init({
-          //     proxy: {
-          //       target: 'http://localhost:8300/',
-          //       ws: true
-          //     },
-          //     files: [DIST+ '/**'],
-          //     logFileChanges: false,
-          //     notify: true,
-          //     injectChanges: true
-          //   })
-          // }, delay[1]);
-        }, delay[0]);
         console.log('Listening at http://localhost:8300/');
       })
     }
