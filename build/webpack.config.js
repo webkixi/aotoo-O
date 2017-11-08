@@ -234,9 +234,9 @@ function BrowserSync(env){
   }
 
   return new BrowserSyncPlugin({
-    reloadDelay: 3000,
+    reloadDelay: 1000,
     proxy: {
-      target: 'http://localhost:'+myPort,
+      target: 'http://localhost:8300',
       ws: true
     },
     files: [dist.dest+ '/**'],
@@ -245,7 +245,13 @@ function BrowserSync(env){
     injectChanges: true,
     host: 'localhost',
     port: 3000
-  })
+  }, 
+  // plugin options 
+    {
+      // prevent BrowserSync from reloading the page 
+      // and let Webpack Dev Server take care of this 
+      reload: false
+    })
 }
 
 // 配置webpack-dev-server的hotreload配置
@@ -255,7 +261,7 @@ function configurationDevEntry(cfg){
     var hotSverConfig = [
       // 'babel-polyfill',
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:'+myPort,
+      'webpack-dev-server/client?http://localhost:8300',
       'webpack/hot/only-dev-server',
     ]
     for (var item in entry) {

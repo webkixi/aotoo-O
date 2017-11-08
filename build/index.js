@@ -103,7 +103,7 @@ function buildStart(nm, opts){
     } 
     else {
       const Delay = {
-        dev: [11000, 12000],
+        dev: [1200, 1300],
         fed: [1000, 3000]
       }
       
@@ -113,9 +113,13 @@ function buildStart(nm, opts){
       }
 
       // 生成mapfile.json
+      let initRestartNodeServer = true
       compiler.plugin('done', function (stats) {
         mapFile(mapoptions, { delay: delay }, function (params) {
-          if (nm && nm.emit) nm.emit('restart')
+          if (initRestartNodeServer) {
+            initRestartNodeServer = false
+            if (nm && nm.emit) nm.emit('restart')
+          }
         })
       })
 
@@ -132,16 +136,10 @@ function buildStart(nm, opts){
 
 
   function prepareDll(nm, opts={serviceType:{}}) {
-    // webpack(dllConfig).run( (err, stats) => {
-    //   if (err) throw new gutil.PluginError('[webpack]', err)
-    //   start(nm, opts)
-    // })
-
     if (fs.existsSync(path.join(DLLDIST, 'precommon.js')) && !opts.serviceType.clean) {
       start(nm, opts)
     } else {
       del.sync([ DLLDIST ], { force: true })
-      
       // 先编译 precommon.js
       webpack(dllConfig).run( (err, stats) => {
         if (err) throw new gutil.PluginError('[webpack]', err)
