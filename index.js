@@ -59,7 +59,7 @@ function activationServer(buildc) {
       "execMap": {
         "js": serverIndex
       },
-      // "script": './server/index.js',
+      "script": './server/index.js',
       "ext": 'js json jsx css html md',
       "restartable": "rs",
       "verbose": true,
@@ -77,8 +77,8 @@ function activationServer(buildc) {
     });
 
     nodemon.on('start', function () {
-      console.log('App has started');
       if (firstBuild && buildc) {
+        console.log('App has started');
         if (margv.n) {
           /** only node support service */
         }
@@ -96,6 +96,9 @@ function activationServer(buildc) {
 
       .on('restart', function (files) {
         firstBuild = false
+        if (!files) {
+          return false
+        }
         console.log('App restarted due to: ', files);
       });
   }

@@ -139,7 +139,7 @@ function wpProxy(configs) {
       poll: 1000
     },
     host: '0.0.0.0',
-    port: myPort,
+    // port: 8300,
     proxy: {
       '*': {
         target: myTarget,

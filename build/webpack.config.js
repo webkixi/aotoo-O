@@ -7,7 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
     , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
     , WriteMemoryFilePlugin = require('./plugins/writememoryfile-webpack-plugin')
     , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
-
+    , appConfigs = require('../configs/index')()
+    , myPort = appConfigs.port
 
 let G = {
   entry: '',
@@ -67,6 +68,7 @@ function dllConfig(env){
             options: {
               presets:["react", "es2015", "stage-0"],
               plugins: [
+                // 'react-hot-loader/babel',
                 [
                   "transform-runtime", {
                     "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
@@ -232,9 +234,9 @@ function BrowserSync(env){
   }
 
   return new BrowserSyncPlugin({
-    reloadDelay: 1000,
+    reloadDelay: 3000,
     proxy: {
-      target: 'http://localhost:8300/',
+      target: 'http://localhost:'+myPort,
       ws: true
     },
     files: [dist.dest+ '/**'],
@@ -251,9 +253,10 @@ function configurationDevEntry(cfg){
   if (!G.production) {
     var entry = cfg.entry
     var hotSverConfig = [
+      // 'babel-polyfill',
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000/',
-      // 'webpack/hot/only-dev-server',
+      'webpack-dev-server/client?http://localhost:'+myPort,
+      'webpack/hot/only-dev-server',
     ]
     for (var item in entry) {
       var _tmp = hotSverConfig.concat(entry[item])
@@ -294,6 +297,8 @@ function configurationPlugins(cfg, env){
       '__DEV__': true
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new WriteMemoryFilePlugin(),
     BrowserSync(env)
   ]
