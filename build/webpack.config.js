@@ -304,7 +304,7 @@ function configurationPlugins(cfg, env){
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
     new WriteMemoryFilePlugin(),
     BrowserSync(env)
   ]
