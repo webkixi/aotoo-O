@@ -48,7 +48,10 @@ function dllConfig(env){
   const _dist = env.dist
   return {
     entry: {
-      precommon: [path.join(__dirname, '../common/js/index.js')]
+      precommon: [
+        'babel-polyfill',
+        path.join(__dirname, '../common/js/index.js')
+      ]
     },
     // devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
     devtool: G.production ? undefined : 'cheap-source-map',
