@@ -128,11 +128,11 @@ function syncPost(api, param, cb){
 
 function __ajax(params) {
   var hook = SAX(uniqueId('__AJAX_'))
-  this.on = hook.on
-  this.one = hook.one
-  this.hasOn = hook.hasOn
-  this.off = hook.off
-  this.emit = hook.emit
+  this.on = hook.on.bind(hook)
+  this.one = hook.one.bind(hook)
+  this.hasOn = hook.hasOn.bind(hook)
+  this.off = hook.off.bind(hook)
+  this.emit = hook.emit.bind(hook)
 }
 
 __ajax.prototype = {
