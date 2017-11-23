@@ -9,6 +9,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
     , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
     , appConfigs = require('../configs/index')()
     , myPort = appConfigs.port
+    , margv = JSON.parse(process.env.margv)
+    
+
 
 let G = {
   entry: '',
@@ -53,8 +56,7 @@ function dllConfig(env){
         path.join(__dirname, '../common/js/index.js')
       ]
     },
-    // devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
-    devtool: G.production ? undefined : 'cheap-source-map',
+    devtool: G.production ? 'cheap-module-source-map' : 'cheap-module-source-map',
     output: {
       path: _dist,
       filename: G.production ? "[name].js" : "[name].js",
@@ -138,18 +140,8 @@ function _webpackConfig(_entry, env){
       chunkFilename: G.production ? '[id]_[name]_[hash:10].js' : '[name]_[id].js',
       libraryTarget:'var'
     },
-
     watch: G.production ? false : true,
-
-    devtool: G.production ? 'cheap-source-map' : 'cheap-module-eval-source-map',
-
-    externals: {
-      // "react" : "React",
-      // "react-dom" : "ReactDom",
-      // "lodash" : "_",
-      // "jquery" : "$"
-    },
-
+    devtool: G.production ? 'cheap-module-source-map' : margv.eval ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
     module: {
       // noParse: /node_modules\/(jquey|moment|chart\.js)/,
       rules: [

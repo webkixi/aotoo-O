@@ -7,6 +7,17 @@ var nodemon = require('nodemon');
 // webpack -p 生产模式
 // webpack -n 只启动开发node端
 
+/**
+ * yarn run dev
+ * yarn run dev-clean
+ * yarn run build
+ * yarn run build-clean
+ * yarn run fed
+ * yarn run node
+ * 
+ * yarn run dev -- --port 8080
+ * yarn run dev -- --eval    ==> 产出 cheap-eval-module-source-map
+ */
 var argv = process.argv.slice(2)
 var margv = require('minimist')(argv);
 var path = require('path')
@@ -15,6 +26,7 @@ var fs = require('fs')
 var platform = os.platform()
 
 process.env.NODE_ENV = 'production'
+process.env.margv = JSON.stringify(margv)
 if (argv.length) {
   if (margv.f) process.env.NODE_ENV = 'development'   // only FED precompilation with watch FED file, webpack-dev-server provides the service
   if (margv.d) process.env.NODE_ENV = 'development'   // FED precompilation and start node service with watch FED and node file

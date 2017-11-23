@@ -3,6 +3,7 @@ import * as gulpcss from './gulpcss'
 import * as gulphtml from './gulphtml'
 import * as gulp3ds from './gulp3ds'
 const env = (process.env.NODE_ENV).toLowerCase();  // 'development' production
+const margv = JSON.parse(process.env.margv)
 const browserSync = require('browser-sync').create()
 const reload  = browserSync.reload
 
