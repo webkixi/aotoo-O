@@ -23,4 +23,4 @@ function libs(){
   }
 }
 
-export default libs()
+module.exports = libs()

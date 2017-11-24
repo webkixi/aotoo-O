@@ -239,6 +239,5 @@ function convTimestamp(time){
 module.exports = {
   timeDiff: timeDiff,
   timeAgo: timeAgo,
-  countDown: countDown,
   convTimestamp: convTimestamp
 }

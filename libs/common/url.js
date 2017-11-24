@@ -73,7 +73,7 @@ var json2url = function(obj){
 
 // 更换location.href，仅仅只是更换
 function replaceState(tag){
-  var url = urlparse(location.href);
+  var url = urlParse(location.href);
   var params = url.params;
   if (params[tag]){
     var _src = url.relative.replace(tag+'='+url.params[tag], '').replace('?&', '?').replace('?#','#').replace('&&', '&').replace('&#', '#')
@@ -87,7 +87,7 @@ function replaceState(tag){
 function queryString(url){
   var _search = '';
   if (url){
-    _search = urlparse(url).query;
+    _search = urlParse(url).query;
   } else _search = location.search
   var arr = _search.substring(1).split('&');
   var query = {};
