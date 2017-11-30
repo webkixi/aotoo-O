@@ -44,7 +44,7 @@ function dealParam(url, param, cb) {
   }
 }
 
-function ajaxMethod(url, param, cb, method, sync) {
+function ajaxMethod(url, param, cb, method, async) {
   var dtd = $.Deferred();
   function ccb(data, status, xhr) {
     if (status === 'success') {
@@ -66,7 +66,7 @@ function ajaxMethod(url, param, cb, method, sync) {
 
   return $.ajax({
     url: url,
-    async: sync,
+    async: async,
     type: method,
     data: param,
     timeout: 0,
@@ -112,18 +112,18 @@ function req( api, param, cb, method, sync ){
 }
 
 function get( api, param, cb ){
-  return req( api, param, cb, 'GET', false)
+  return req( api, param, cb, 'GET', true)
 }
 function post( api, param, cb ){
-  return req( api, param, cb, 'POST', false)
+  return req( api, param, cb, 'POST', true)
 }
 
 function syncGet(api, param, cb){
-  return req( api, param, cb, 'GET', true)
+  return req( api, param, cb, 'GET', false)
 }
 
 function syncPost(api, param, cb){
-  return req( api, param, cb, 'POST', true)
+  return req( api, param, cb, 'POST', false)
 }
 
 function __ajax(params) {
@@ -139,23 +139,23 @@ __ajax.prototype = {
   get: function(api, param, cb) {
     var result = dealParam(api, param, cb)
     var _param = this.emit('preget', result.param) || param
-    return ajaxMethod(result.url, _param, result.cb, 'GET', false)
+    return ajaxMethod(result.url, _param, result.cb, 'GET', true)
   },
   post: function(api, param, cb) {
     var result = dealParam(api, param, cb)
     var _param = this.emit('prepost', result.param) || param
-    return ajaxMethod(result.url, _param, result.cb, 'POST', false)
+    return ajaxMethod(result.url, _param, result.cb, 'POST', true)
   },
   sync: {
     get: function(api, param, cb) {
       var result = dealParam(api, param, cb)
       var _param = this.emit('sycnpreget', result.param) || param
-      return ajaxMethod(result.url, _param, result.cb, 'GET', true)
+      return ajaxMethod(result.url, _param, result.cb, 'GET', false)
     },
     post: function(api, param, cb) {
       var result = dealParam(api, param, cb)
       var _param = this.emit('syncprepost', result.param) || param
-      return ajaxMethod(result.url, _param, result.cb, 'POST', true)
+      return ajaxMethod(result.url, _param, result.cb, 'POST', false)
     }
   }
 }
