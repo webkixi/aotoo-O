@@ -251,19 +251,19 @@ function BrowserSync(env){
 
 // 配置webpack-dev-server的hotreload配置
 function configurationDevEntry(cfg){
-  if (!G.production) {
-    var entry = cfg.entry
-    var hotSverConfig = [
-      // 'babel-polyfill',
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8300',
-      'webpack/hot/only-dev-server',
-    ]
-    for (var item in entry) {
-      var _tmp = hotSverConfig.concat(entry[item])
-      cfg.entry[item] = _tmp
-    }
-  }
+  // if (!G.production) {
+  //   var entry = cfg.entry
+  //   var hotSverConfig = [
+  //     // 'babel-polyfill',
+  //     'react-hot-loader/patch',
+  //     'webpack-dev-server/client?http://localhost:8300',
+  //     'webpack/hot/only-dev-server',
+  //   ]
+  //   for (var item in entry) {
+  //     var _tmp = hotSverConfig.concat(entry[item])
+  //     cfg.entry[item] = _tmp
+  //   }
+  // }
   return cfg
 }
 
@@ -297,7 +297,7 @@ function configurationPlugins(cfg, env){
       'process.env.NODE_ENV': JSON.stringify('development'),
       '__DEV__': true
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     // new webpack.NoEmitOnErrorsPlugin(),
     new WriteMemoryFilePlugin(),
