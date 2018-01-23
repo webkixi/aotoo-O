@@ -1,7 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
-const appConfigs = require('../configs/index')()
+const margv = JSON.parse(process.env.margv)
+const envConfig = (() => margv.config ? margv.config : undefined)()
+const appConfigs = require('../configs/index')(envConfig)
 
 function queryParams(uri) {
   let [cat, title, id, ...other] = uri.substring(1).split('/')
@@ -139,7 +141,7 @@ function wpProxy(configs) {
       poll: 1000
     },
     host: '0.0.0.0',
-    port: 8300,
+    port: appConfigs.proxyPort,
     proxy: {
       '*': {
         target: myTarget,

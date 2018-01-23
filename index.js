@@ -58,11 +58,11 @@ function activationServer(buildc) {
     const envConfigFile = margv.config
     const configs = require('./configs')(envConfigFile)
 
-    const serverIndex = margv.port
+    let serverIndex = margv.port
       ? "node --harmony ./server/index.js --port " + margv.port
       : margv.n
         ? 'node --harmony ./server/index.js --port ' + configs.port
-        : 'node --harmony ./server/index.js'
+        : 'node --harmony ./server/index.js '
 
     if (envConfigFile) {
       serverIndex += serverIndex + '--config ' + envConfigFile

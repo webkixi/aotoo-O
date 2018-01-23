@@ -7,10 +7,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
     , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
     , WriteMemoryFilePlugin = require('./plugins/writememoryfile-webpack-plugin')
     , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
-    , appConfigs = require('../configs/index')()
-    , myPort = appConfigs.port
+    , replacePlugin = require('./plugins/replace-webpack-plugin')
     , margv = JSON.parse(process.env.margv)
-    
+
+const envConfig = (() => margv.config ? margv.config : undefined)()
+  , appConfigs = require('../configs/index')(envConfig)
+  , myPort = appConfigs.port
 
 
 let G = {
@@ -231,12 +233,12 @@ function BrowserSync(env){
   return new BrowserSyncPlugin({
     reloadDelay: 1000,
     proxy: {
-      target: 'http://localhost:8300',
+      target: 'http://localhost:'+appConfigs.proxyPort,
       ws: true
     },
     files: [dist.dest+ '/**'],
     logFileChanges: false,
-    notify: true,
+    notify: false,
     injectChanges: true,
     host: 'localhost',
     port: 3000
@@ -256,7 +258,7 @@ function configurationDevEntry(cfg){
   //   var hotSverConfig = [
   //     // 'babel-polyfill',
   //     'react-hot-loader/patch',
-  //     'webpack-dev-server/client?http://localhost:8300',
+  //     'webpack-dev-server/client?http://localhost:'+appConfigs.proxyPort,
   //     'webpack/hot/only-dev-server',
   //   ]
   //   for (var item in entry) {
@@ -306,6 +308,9 @@ function configurationPlugins(cfg, env){
 
   // production plugins
   const proPlugins = [
+    new replacePlugin([
+      [/\/images\//ig, '//img.7atour.com/images']
+    ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       '__DEV__': false

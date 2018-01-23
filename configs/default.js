@@ -18,8 +18,10 @@ const config = {
 
   /*
     * nodejs 服务端端口
+    * proxyPort: webpack-dev-server 代理端口
     */
   port: 8070,
+  proxyPort: 8300,
 
   /*
     * 允许editor编辑器上传图片

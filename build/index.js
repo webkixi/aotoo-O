@@ -6,6 +6,7 @@ const env = (process.env.NODE_ENV).toLowerCase();  // 'development' production
 const margv = JSON.parse(process.env.margv)
 const browserSync = require('browser-sync').create()
 const reload  = browserSync.reload
+const envConfig = (() => margv.config ? margv.config : undefined)()
 
   const fs   = require('fs')
       , path = require('path')
@@ -19,7 +20,7 @@ const reload  = browserSync.reload
 
 function buildStart(nm, opts){
 
-  const configs  = require('../configs')()
+  const configs  = require('../configs')(envConfig)
       , version  = configs.version
       , getEntry = require('./entry')
       , mapFile  = require('./mapfile')
@@ -30,8 +31,6 @@ function buildStart(nm, opts){
       , JSSRC   = path.join( __dirname, '../public/js')
       , HTMLSRC = path.join( __dirname, '../public/html')
       , SRC3DS  = path.join( __dirname, '../public/3ds')
-
-
 
   del.sync([ DIST ], { force: true })
 
@@ -128,9 +127,9 @@ function buildStart(nm, opts){
       // opts.statics 静态文件存放的绝对路径
       opts.env = env
       const devServer = new WebpackDevServer( compiler, require('./webpack.devserver.config')(webpackConfig, opts))
-      devServer.listen(8300, 'localhost', function (err, result) {
+      devServer.listen(configs.proxyPort, 'localhost', function (err, result) {
         if (err) console.log(err);
-        console.log('Listening at http://localhost:8300/');
+        console.log('Listening at http://localhost:'+configs.proxyPort);
       })
     }
   }
