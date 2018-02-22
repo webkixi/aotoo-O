@@ -27,7 +27,8 @@ const accessVar = [
 function _createDiv(raw){
   let prope = {}
   // const regDiv = /^ *(<>|&lt;&gt;)?([\.\#]*(\S+)?) *(?:\n+|$)/ig
-  const regDiv = /^ *(<>)?([\.\#]*(\S+)?) *(?:\n+|$)/ig
+  // const regDiv = /^ *(<>)?([\.\#]*(\S+)?) *(?:\n+|$)/ig
+  const regDiv = / *(<>)?([\.\#]*(\S+)?) *(?:\n+|$)/ig
   const regAttr = /[\.\#](\w+)?/ig
   const _text = regDiv.exec(raw)
   if (_text) {
