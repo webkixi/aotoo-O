@@ -21,6 +21,15 @@ const NODEDEV = process.env.NODE_ENV == 'development'
 const HTMLDIST = NODEDEV ? configs.static.dev.html : configs.static.html;
 const STATICSROOT = NODEDEV ? configs.static.dev.dft : configs.static.dft;
 const PUBLICPATH = configs.public
+Configs.runtime = {
+  statics: {
+    root: STATICSROOT,
+    js: Path.join(STATICSROOT, '/js'),
+    css: Path.join(STATICSROOT, '/css'),
+    html: Path.join(STATICSROOT, '/html'),
+    img: Path.join(__dirname, '../public/images')
+  }
+}
 
 
 function getMapJson(){
