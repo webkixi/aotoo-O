@@ -30,6 +30,7 @@ function buildStart(nm, opts){
       , CSSSRC  = path.join( __dirname, '../public/css')
       , JSSRC   = path.join( __dirname, '../public/js')
       , HTMLSRC = path.join( __dirname, '../public/html')
+      , IMAGESSRC = path.join( __dirname, '../public/images')
       , SRC3DS  = path.join( __dirname, '../public/3ds')
 
   del.sync([ DIST ], { force: true })
@@ -77,6 +78,7 @@ function buildStart(nm, opts){
 
   const mapoptions = {
     dist: DIST,
+    imagessrc: IMAGESSRC,
     configs: configs,
     entry: {
       js: _jsEntry

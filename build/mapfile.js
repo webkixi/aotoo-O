@@ -14,19 +14,21 @@ module.exports = function(opts, options, cb){
   const env = (process.env.NODE_ENV).toLowerCase();  // 'development' production
   const envdir = env =='development' ? 'dev' : ''
   const production = env =='development' ? false : true
-
-
+  
+  
   const cssdir = path.join(dir, 'css')
   const jsdir = path.join(dir, 'js')
   const htmldir = path.join(dir, 'html')
   const mapdir = path.join(dir, 'mapfile.json')
+  const imagesdir = opts.imagessrc
 
 
   let colletion = {
     version: version,
     js: {},
     css: {},
-    html: {}
+    html: {},
+    images: {}
   }
 
   function configCSSCollection(obj){
@@ -71,6 +73,21 @@ module.exports = function(opts, options, cb){
     }
   }
 
+  function configImageCollection(obj){
+    let _name = obj.name
+    let relpath = obj.dir.substring(obj.dir.indexOf('/images')+1)
+    relpath = relpath.replace('images/', '')
+    relpath = relpath.replace('images', '')
+
+    if (_name.indexOf('.')!=0) {
+      if (relpath) {
+        colletion.images[relpath + path.sep + _name] = path.join(relpath, obj.base)
+      } else {
+        colletion.images[_name] = obj.base
+      }
+    }
+  }
+
   let delay = options && (options.delay[0]-1000) || 6000
 
   setTimeout(()=>{
@@ -87,6 +104,11 @@ module.exports = function(opts, options, cb){
     glob.sync(htmldir+'/**/*.html').forEach(function(item){
       const obj = path.parse(item)
       configHTMLCollection(obj)
+    })
+
+    glob.sync(imagesdir+'/**/*').forEach(function(item){
+      const obj = path.parse(item)
+      configImageCollection(obj)
     })
 
     fs.writeFileSync(mapdir, JSON.stringify(colletion))
