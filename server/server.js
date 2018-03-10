@@ -125,6 +125,18 @@ async function startServer(){
     }
   }
 
+  app.statics(STATICSROOT+'/html', {
+    prefix: pblc.root ? pblc.root : '/',
+    buffer: false,
+    gzip: true,
+    filter: function(file) {
+      const obj = Path.parse(file)
+      if (obj.ext == '.js' || obj.ext == '.css') {
+        return file
+      }
+    }
+  })
+
   //get
   app.use(conditional())
   app.use(etag())
