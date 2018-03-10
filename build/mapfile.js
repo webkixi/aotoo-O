@@ -1,6 +1,11 @@
 var fs = require('fs')
 var path = require('path')
 var glob = require('glob')
+var pwa = require('./pwa')
+
+const gulp = require('gulp')
+  , $ = require('gulp-load-plugins')()
+  , workbox = require('workbox-build');
 
 module.exports = function(opts, options, cb){
   if (typeof options == 'function') {
@@ -79,7 +84,7 @@ module.exports = function(opts, options, cb){
     relpath = relpath.replace('images/', '')
     relpath = relpath.replace('images', '')
 
-    if (_name.indexOf('.')!=0) {
+    if (_name.indexOf('.')!=0 && obj.ext) {
       if (relpath) {
         colletion.images[relpath + path.sep + _name] = path.join(relpath, obj.base)
       } else {
@@ -112,9 +117,15 @@ module.exports = function(opts, options, cb){
     })
 
     fs.writeFileSync(mapdir, JSON.stringify(colletion))
+    // pwa.customServiceWorkJs(jsdir, colletion, configs)
+    pwa.gulpServiceWorkJs({
+      dist: opts.dist,
+      dest: htmldir,
+      colletion,
+      configs
+    })
 
     if (typeof cb == 'function') cb()
 
   }, delay)
-
 }
