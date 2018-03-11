@@ -97,7 +97,7 @@ function gulpServiceWorkJs(params) {
               // { cacheDidUpdate: () => /* custom plugin code */}`
             ],
           },
-        },
+        }
         // {
         //   // Match any request ends with .png, .jpg, .jpeg or .svg.
         //   urlPattern: function(params) {
@@ -114,6 +114,28 @@ function gulpServiceWorkJs(params) {
       ],
 
       manifestTransforms: [
+        (manifestEntries) => {
+          var appendEntres = []
+          var newEntres = manifestEntries.map(entry => {
+            const obj = path.parse(entry.url)
+            if (obj.ext && obj.ext == '.html') {
+              entry.url = entry.url.replace('html/', '/')
+              appendEntres.push({
+                url: entry.url.replace('.html', ''),
+                revision: entry.revision
+              })
+              if (obj.name == params.configs.root) {
+                appendEntres.push({
+                  url: '/',
+                  revision: entry.revision
+                })
+              }
+            }
+            return entry
+          });
+          newEntres = newEntres.concat(appendEntres)
+          return newEntres
+        },
         (manifestEntries) => manifestEntries.map((entry) => {
           const obj = path.parse(entry.url)
           if(obj.ext && (obj.ext == '.js' || obj.ext == '.css')) {
