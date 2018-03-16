@@ -65,8 +65,9 @@ function activationServer(buildc) {
         : 'node --harmony ./server/index.js '
 
     if (envConfigFile) {
-      serverIndex += serverIndex + '--config ' + envConfigFile
+      serverIndex += ' --config ' + envConfigFile
     }
+
     nodemon({
       "execMap": {
         "js": serverIndex
