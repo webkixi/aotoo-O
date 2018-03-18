@@ -18,8 +18,25 @@ const configs = require('../configs')(envConfig);
 global.Configs = configs
 
 const NODEDEV = process.env.NODE_ENV == 'development'
-const HTMLDIST = NODEDEV ? configs.static.dev.html : configs.static.html;
-const STATICSROOT = NODEDEV ? configs.static.dev.dft : configs.static.dft;
+// const _STATICSROOT = NODEDEV ? configs.static.dev.dft : configs.static.dft;
+const _VERSIONPATH = Path.join(configs.static.root, margv.version||configs.version)
+const _STATICSROOT = NODEDEV ? Path.join(_VERSIONPATH, 'dev') : _VERSIONPATH
+const _STATICLINKROOT = Path.join(configs.static.root, 'target')
+
+const STATICSROOT = fs.existsSync(_STATICLINKROOT) 
+? margv.version 
+  ? _STATICSROOT : ( ()=>{
+    const rootStat = fs.statSync(_STATICLINKROOT)
+    return rootStat.isDirectory() ? _STATICLINKROOT : _STATICSROOT
+  })() 
+: _STATICSROOT
+console.log('======== 1111');
+console.log('======== 1111');
+console.log('======== 1111');
+console.log(margv);
+console.log(STATICSROOT);
+
+const HTMLDIST = Path.join(STATICSROOT, 'html')
 const PUBLICPATH = configs.public
 Configs.runtime = {
   statics: {
@@ -60,6 +77,7 @@ async function startServer(){
   let mapperJson = getMapJson()
   mapperJson.public = PUBLICPATH
   const app = require('aotoo-koa-server')({
+  // const app = require('./koaserver')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
     index: CONFIG.root,

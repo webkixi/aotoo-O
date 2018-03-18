@@ -68,6 +68,10 @@ function activationServer(buildc) {
       serverIndex += ' --config ' + envConfigFile
     }
 
+    if (margv.version) {
+      serverIndex += ' --version ' + margv.version
+    }
+
     nodemon({
       "execMap": {
         "js": serverIndex

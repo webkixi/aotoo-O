@@ -1,11 +1,14 @@
 var fs = require('fs')
+var os = require('os')
 var path = require('path')
 var glob = require('glob')
 var pwa = require('./pwa')
 
 const gulp = require('gulp')
   , $ = require('gulp-load-plugins')()
-  , workbox = require('workbox-build');
+  , workbox = require('workbox-build')
+  , del = require('del')
+  
 
 module.exports = function(opts, options, cb){
   if (typeof options == 'function') {
@@ -27,6 +30,9 @@ module.exports = function(opts, options, cb){
   const mapdir = path.join(dir, 'mapfile.json')
   const imagesdir = opts.imagessrc
 
+  const VERSIONPATH = dir
+  const OUTROOTPATH = configs.static.root
+  
 
   let colletion = {
     version: version,
@@ -124,6 +130,19 @@ module.exports = function(opts, options, cb){
       colletion,
       configs
     })
+
+
+    // 创建软链接，指向正确版本的目标文件夹
+    function creatStaticSoftLink(params) {
+      const targetPath = path.join(OUTROOTPATH, 'target')
+      if (fs.existsSync(targetPath)) {
+        del.sync([targetPath], { force: true })
+      }
+      os.platform() == 'win32' 
+        ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
+        : fs.symlinkSync(VERSIONPATH, targetPath)
+    }
+    creatStaticSoftLink()
 
     if (typeof cb == 'function') cb()
 
