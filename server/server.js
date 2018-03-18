@@ -30,11 +30,6 @@ const STATICSROOT = fs.existsSync(_STATICLINKROOT)
     return rootStat.isDirectory() ? _STATICLINKROOT : _STATICSROOT
   })() 
 : _STATICSROOT
-console.log('======== 1111');
-console.log('======== 1111');
-console.log('======== 1111');
-console.log(margv);
-console.log(STATICSROOT);
 
 const HTMLDIST = Path.join(STATICSROOT, 'html')
 const PUBLICPATH = configs.public

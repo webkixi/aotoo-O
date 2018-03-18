@@ -138,6 +138,7 @@ module.exports = function(opts, options, cb){
       if (fs.existsSync(targetPath)) {
         del.sync([targetPath], { force: true })
       }
+
       os.platform() == 'win32' 
         ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
         : fs.symlinkSync(VERSIONPATH, targetPath)
