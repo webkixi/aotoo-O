@@ -7,6 +7,7 @@ const margv = JSON.parse(process.env.margv)
 const browserSync = require('browser-sync').create()
 const reload  = browserSync.reload
 const envConfig = (() => margv.config ? margv.config : undefined)()
+const reDemo = /(.*\/demo)/
 
   const fs   = require('fs')
       , path = require('path')
@@ -35,11 +36,31 @@ function buildStart(nm, opts){
 
   del.sync([ DIST ], { force: true })
 
+  // 第三方库
+  const treedsEnv = { dist: DIST }
+  gulp3ds.js(SRC3DS, treedsEnv)
+  gulp3ds.css(SRC3DS, treedsEnv)
+
   // css
   let _cssEntry = getEntry(CSSSRC, {type: 'css'})
+  _cssEntry = _.merge(_cssEntry, { 'css/common': path.join(__dirname, '../common/css/index.styl') })  // 加入 common.css
+  const _htmlEntry = getEntry(HTMLSRC, {type: 'html'})
+  const _jsEntry = getEntry(JSSRC, {type: 'js'})
+  
+  // 生产环境剔除demo
+  if (env == 'production') {
+    Object.keys(_cssEntry).forEach(key => {
+      if (reDemo.test(key)) delete _cssEntry[key]
+    })
 
-  // 加入 common.css
-  _cssEntry = _.merge(_cssEntry, {'css/common': path.join(__dirname, '../common/css/index.styl')})
+    Object.keys(_htmlEntry).forEach(key => {
+      if (reDemo.test(key)) delete _htmlEntry[key]
+    })
+
+    Object.keys(_jsEntry).forEach( key => {
+      if (reDemo.test(key)) delete _jsEntry[key]
+    })
+  }
 
   // 生成 css
   gulpcss.makeCss(_cssEntry, {
@@ -47,26 +68,13 @@ function buildStart(nm, opts){
     dist: DIST
   })
 
-
-
-  // 第三方库
-  const treedsEnv = {dist: DIST}
-  gulp3ds.js(SRC3DS, treedsEnv)
-  gulp3ds.css(SRC3DS, treedsEnv)
-
-
-
-  // html
-  const _htmlEntry = getEntry(HTMLSRC, {type: 'html'})
+  // 生成 html
   gulphtml.makeHtml(_htmlEntry, {
     src: HTMLSRC,
     dist: DIST+'/html'
   })
 
-
-
-  // js config
-  const _jsEntry = getEntry(JSSRC, {type: 'js'})
+  // 生成 js config
   let webpackConfig = require('./webpack.config').webpackConfig(_jsEntry, {
     dist: DIST,
     dlldist: DLLDIST
