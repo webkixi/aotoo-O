@@ -122,6 +122,7 @@ function activationServer(buildc) {
 
       .on('quit', function () {
         console.log('App has quit');
+        process.exit();
       })
 
       .on('restart', function (files) {
