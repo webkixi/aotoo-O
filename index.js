@@ -2,7 +2,6 @@ require('babel-core/register')
 require("babel-polyfill")
 var nodemon = require('nodemon');
 
-
 // webpack -d 开发模式
 // webpack -p 生产模式
 // webpack -n 只启动开发node端
@@ -24,6 +23,7 @@ var path = require('path')
 var os = require('os')
 var fs = require('fs')
 var platform = os.platform()
+var del = require('del')
 
 process.env.NODE_ENV = 'production'
 process.env.margv = JSON.stringify(margv)
@@ -51,13 +51,26 @@ function activationServer(buildc) {
     })
     return
   }
+  
+  // npm run node -- --port 8080
+  const envConfigFile = margv.config
+  const configs = require('./configs')(envConfigFile)
+
+  // 创建软链接，指向正确版本的目标文件夹
+  function creatStaticSoftLink() {
+    const version = configs.version
+    const VERSIONPATH = path.join(__dirname, './dist/out', version, (process.env.NODE_ENV == 'development' ? 'dev' : ''))
+    const OUTROOTPATH = configs.static.root
+
+    const targetPath = path.join(OUTROOTPATH, 'target')
+    del.sync([targetPath], { force: true })
+    os.platform() == 'win32'
+      ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
+      : fs.symlinkSync(VERSIONPATH, targetPath)
+  }
+  creatStaticSoftLink()
 
   if (process.env.NODE_ENV == 'development') {
-
-    // npm run node -- --port 8080
-    const envConfigFile = margv.config
-    const configs = require('./configs')(envConfigFile)
-
     let serverIndex = margv.port
       ? "node --harmony ./server/index.js --port " + margv.port
       : margv.n

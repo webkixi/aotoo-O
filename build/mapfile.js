@@ -132,18 +132,15 @@ module.exports = function(opts, options, cb){
     })
 
 
-    // 创建软链接，指向正确版本的目标文件夹
-    function creatStaticSoftLink(params) {
-      const targetPath = path.join(OUTROOTPATH, 'target')
-      if (fs.existsSync(targetPath)) {
-        del.sync([targetPath], { force: true })
-      }
-
-      os.platform() == 'win32' 
-        ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
-        : fs.symlinkSync(VERSIONPATH, targetPath)
-    }
-    creatStaticSoftLink()
+    // // 创建软链接，指向正确版本的目标文件夹
+    // function creatStaticSoftLink(params) {
+    //   const targetPath = path.join(OUTROOTPATH, 'target')
+    //   del.sync([targetPath], { force: true })
+    //   os.platform() == 'win32' 
+    //     ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
+    //     : fs.symlinkSync(VERSIONPATH, targetPath)
+    // }
+    // creatStaticSoftLink()
 
     if (typeof cb == 'function') cb()
 
