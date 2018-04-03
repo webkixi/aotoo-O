@@ -63,6 +63,9 @@ function activationServer(buildc) {
     const OUTROOTPATH = configs.static.root
 
     const targetPath = path.join(OUTROOTPATH, 'target')
+    if (!fs.existsSync(VERSIONPATH)){
+      return false
+    }
     del.sync([targetPath], { force: true })
     os.platform() == 'win32'
       ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
