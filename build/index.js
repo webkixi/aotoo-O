@@ -7,7 +7,7 @@ const margv = JSON.parse(process.env.margv)
 const browserSync = require('browser-sync').create()
 const reload  = browserSync.reload
 const envConfig = (() => margv.config ? margv.config : undefined)()
-const reDemo = /(.*\/demo)/
+const reDemo = /(.*\/test)/
 
   const fs   = require('fs')
       , path = require('path')
