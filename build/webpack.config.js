@@ -9,6 +9,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
     , Attachment2commonPlugin = require('./plugins/attachment2common-webpack-plugin')
     , replacePlugin = require('./plugins/replace-webpack-plugin')
     , margv = JSON.parse(process.env.margv)
+    , HappyPack = require('happypack')
+    , os = require('os')
+    // 构造一个线程池
+    , happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+
 
 const envConfig = (() => margv.config ? margv.config : undefined)()
   , appConfigs = require('../configs/index')(envConfig)
@@ -149,32 +154,37 @@ function _webpackConfig(_entry, env){
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
-          use:[{
-            loader: "babel-loader?cacheDirectory",
-            options: {
-              // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
-              presets:["react", "es2015", "stage-0"],
-              plugins: [
-                [
-                  "transform-runtime", {
-                    "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
-                    "polyfill": true, // defaults to true
-                    "regenerator": true, // defaults to true
-                    // v6.15.0 (2016-08-31) 新增
-                    // defaults to "babel-runtime"
-                    // 可以这样配置
-                    // moduleName: path.dirname(require.resolve('babel-runtime/package'))
-                    // "moduleName": "babel-runtime"
-                  }
-                ],
-                // "add-module-exports",
-                // "transform-decorators-legacy",
-                // "transform-react-display-name",
-                // "typecheck"
-              ]
-            }
-          }]
+          loader: 'happypack/loader?id=babel',
+          exclude: [
+            path.resolve(__dirname, "../node_modules")
+          ],
+          // test: /\.js$/,
+          // exclude: /node_modules/,
+          // use:[{
+          //   loader: "babel-loader?cacheDirectory",
+          //   options: {
+          //     // presets:["react", "es2015", "stage-0", "stage-1", "stage-3"],
+          //     presets:["react", "es2015", "stage-0"],
+          //     plugins: [
+          //       [
+          //         "transform-runtime", {
+          //           "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
+          //           "polyfill": true, // defaults to true
+          //           "regenerator": true, // defaults to true
+          //           // v6.15.0 (2016-08-31) 新增
+          //           // defaults to "babel-runtime"
+          //           // 可以这样配置
+          //           // moduleName: path.dirname(require.resolve('babel-runtime/package'))
+          //           // "moduleName": "babel-runtime"
+          //         }
+          //       ],
+          //       // "add-module-exports",
+          //       // "transform-decorators-legacy",
+          //       // "transform-react-display-name",
+          //       // "typecheck"
+          //     ]
+          //   }
+          // }]
         },
         {
           test: /(\.ejs|\.html|\.hbs)$/,
@@ -281,6 +291,27 @@ function configurationPlugins(cfg, env){
         : getPath('css/[name]_dy.css').replace('css/js', 'css');
       },
       allChunks: true
+    }),
+    new HappyPack({
+      id: "babel",
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            "react", "es2015", "stage-0"
+          ],
+          plugins: [
+            [
+              "transform-runtime", {
+                "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
+                "polyfill": true, // defaults to true
+                "regenerator": true, // defaults to true
+              }
+            ],
+          ]
+        }
+      }],
+      threadPool: happyThreadPool
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
