@@ -66,6 +66,10 @@ const config = {
       }
   },
 
+  build: {
+    ignoreKeys: /(.*\/test)/
+  },
+
   public: {
     js: '/js',
     css: '/css'
