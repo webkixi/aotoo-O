@@ -45,18 +45,19 @@ function watchCss(){
 
 
 // 第三方JS
-export function js(src, env){
+export function js(src, env) {
   G.js.env = env
-  G.js.src = src+'/js/**/*'
-  G.js.dist = env.dist+'/js/t'
+  G.js.src = src + '/js/**/*'
+  G.js.dist = env.dist + '/js/t'
+  G.js.cssdist = env.dist + '/css/t'
   G.production = process.env.NODE_ENV == 'production'
   _js()
   watchJs()
 }
 
-function _js(){
+function _js() {
   gulp.src(G.js.src)
-  .pipe(gulp.dest(G.js.dist))
+  .pipe($.if('*.css', gulp.dest(G.js.cssdist), gulp.dest(G.js.dist)))
 }
 
 gulp.task('3ds.js', function(){
