@@ -141,7 +141,7 @@ function wpProxy(configs) {
       poll: 1000
     },
     host: '0.0.0.0',
-    port: appConfigs.proxyPort,
+    port: appConfigs.proxyPort||8300,
     proxy: {
       '*': {
         target: myTarget,

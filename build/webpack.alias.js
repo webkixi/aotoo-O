@@ -5,7 +5,7 @@ module.exports = {
   libs: path.join(__dirname, '../libs'),
   component: path.join(__dirname, '../component'),
   common: path.join(__dirname, '../common'),
-  aotoo: path.join(__dirname, '../common/js/index.js'),
+  public: path.resolve(path.join(__dirname, '../public'))
 }
 
 // module.exports =
