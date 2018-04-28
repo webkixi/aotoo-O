@@ -8,10 +8,11 @@
  */
 const aotoo_enveriment = require('aotoo-common')
 const isClient = Aotoo.isClient
-const context  = (()=>isClient ? window : global)() || {}
+const context = Aotoo.context
 const libs = require('./libs')
 context.ajax = libs.ajax
-context.inject = libs.inject
+const pagelife = SAX('PAGELIFE')
+require('public/js/_init')
 
 $.fn.once = function (type, tgt, fn) {
   this.off(type, fn)
@@ -19,16 +20,6 @@ $.fn.once = function (type, tgt, fn) {
   return this
 }
 
-// Aotoo.CombineClass.prototype.inject = function(){
-//   if (this.isClient) {
-//     if (this.config.theme && this.config.autoinject) {
-//       libs.inject.css(this.config.theme)  //注入样式
-//     }
-//     if (typeof src == 'function') {
-//       src(libs.inject)
-//     }
-//   }
-//   return this
-// }
+pagelife.emit('pageStart')
 
 module.exports = aotoo_enveriment
