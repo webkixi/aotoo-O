@@ -25,6 +25,9 @@ function generateHtml(src, env){
     basepath: '@file'
   }))
   // .pipe($.ejs())
+  .pipe($.rename({
+    extname: '.html'
+  }))
   .pipe(gulp.dest(env.dist))
 }
 
