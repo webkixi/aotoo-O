@@ -3,9 +3,11 @@ import Path from 'path'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import session from 'koa-session-minimal'
+// import redisStore from 'koa-redis'
 import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
+import aks from 'aotoo-koa-server'
 
 // node index.js --port 8080 --config xxx
 // pm2 start index.js -- --port 8080 --config xxx
@@ -18,10 +20,10 @@ const configs = require('../configs')(envConfig);
 global.Configs = configs
 
 const NODEDEV = process.env.NODE_ENV == 'development'
-// const _STATICSROOT = NODEDEV ? configs.static.dev.dft : configs.static.dft;
-const _VERSIONPATH = Path.join(configs.static.root, margv.version||configs.version)
+// const _VERSIONPATH = Path.join(configs.static.out, margv.version||configs.version)
+const _VERSIONPATH = configs.static.dft
 const _STATICSROOT = NODEDEV ? Path.join(_VERSIONPATH, 'dev') : _VERSIONPATH
-const _STATICLINKROOT = Path.join(configs.static.root, 'target')
+const _STATICLINKROOT = Path.join(configs.static.out, 'target')
 
 const STATICSROOT = fs.existsSync(_STATICLINKROOT) 
 ? margv.version 
@@ -71,7 +73,7 @@ function getMapJson(){
 async function startServer(){
   let mapperJson = getMapJson()
   mapperJson.public = PUBLICPATH
-  const app = require('aotoo-koa-server')({
+  const app = aks({
   // const app = require('./koaserver')({
     keys: ['agzgz gogogo'],
     apis: { list: {} },
