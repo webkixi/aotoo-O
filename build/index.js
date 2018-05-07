@@ -34,8 +34,6 @@ const DIST    = path.join( __dirname, '../dist/out', version, (env=='development
     , IMAGESSRC = path.join( __dirname, '../public/images')
     , SRC3DS  = path.join( __dirname, '../public/3ds')
 
-del.sync([ DIST ], { force: true })
-
 // css
 let _cssEntry = getEntry(CSSSRC, {type: 'css'})
 _cssEntry = _.merge(_cssEntry, { 'css/common': path.join(__dirname, '../common/css/index.styl') })  // 加入 common.css
@@ -73,5 +71,6 @@ const compilationParameters = {
 }
 
 module.exports = function(nm, cmd_args) {
+  del.sync([ DIST ], { force: true })
   webbuild(nm, cmd_args, compilationParameters)
 }
