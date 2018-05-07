@@ -3,51 +3,13 @@ import Path from 'path'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import session from 'koa-session-minimal'
-// import redisStore from 'koa-redis'
 import logger from 'koa-logger'
 import cors from 'kcors'
 import request from 'request'
 import aks from 'aotoo-koa-server'
 
-// node index.js --port 8080 --config xxx
-// pm2 start index.js -- --port 8080 --config xxx
-var argv = process.argv.slice(2)
-var margv = require('minimist')(argv);
-
-const refreshUrl = 'http://localhost:3000/__browser_sync__?method=reload'
-const envConfig = ( ()=>margv.config ? margv.config : undefined )()
-const configs = require('../configs')(envConfig);
-global.Configs = configs
-
-const NODEDEV = process.env.NODE_ENV == 'development'
-// const _VERSIONPATH = Path.join(configs.static.out, margv.version||configs.version)
-const _VERSIONPATH = configs.static.dft
-const _STATICSROOT = NODEDEV ? Path.join(_VERSIONPATH, 'dev') : _VERSIONPATH
-const _STATICLINKROOT = Path.join(configs.static.out, 'target')
-
-const STATICSROOT = fs.existsSync(_STATICLINKROOT) 
-? margv.version 
-  ? _STATICSROOT : ( ()=>{
-    const rootStat = fs.statSync(_STATICLINKROOT)
-    return rootStat.isDirectory() ? _STATICLINKROOT : _STATICSROOT
-  })() 
-: _STATICSROOT
-
-const HTMLDIST = Path.join(STATICSROOT, 'html')
-const PUBLICPATH = configs.public
-Configs.runtime = {
-  statics: {
-    root: STATICSROOT,
-    js: Path.join(STATICSROOT, '/js'),
-    css: Path.join(STATICSROOT, '/css'),
-    html: Path.join(STATICSROOT, '/html'),
-    img: Path.join(__dirname, '../public/images')
-  }
-}
-
-
 function getMapJson(){
-  const mapFilePath = NODEDEV ? configs.mapDevJson : configs.mapJson
+  const mapFilePath = Configs.runtime.mode ? Configs.mapDevJson : Configs.mapJson
   if (fs.existsSync(mapFilePath)) return require(mapFilePath)
   else {
     // static js files mapper
@@ -72,7 +34,7 @@ function getMapJson(){
 
 async function startServer(){
   let mapperJson = getMapJson()
-  mapperJson.public = PUBLICPATH
+  mapperJson.public = Configs.runtime.public
   const app = aks({
   // const app = require('./koaserver')({
     keys: ['agzgz gogogo'],
@@ -86,13 +48,13 @@ async function startServer(){
   app.use(session({
     key: 'agzgz-',
     cookie: {
-      maxage: 24*3600*1000
+      maxAge: 24*3600*1000
     }
   }))
 
-  app.views(HTMLDIST)
+  app.views(Configs.runtime.statics.html)
 
-  app.statics(configs.static.uploads, {
+  app.statics(Configs.static.uploads, {
     dynamic: true,
     prefix: '/uploader'
   })
@@ -102,23 +64,23 @@ async function startServer(){
     prefix: '/myimgs'
   })
 
-  app.statics(configs.static.doc, {
+  app.statics(Configs.static.doc, {
     dynamic: true,
     prefix: '/docs'
   })
 
-  // app.statics(configs.static.img, {
-  app.statics(Path.join(__dirname, '../public/images'), {
+  // app.statics(Configs.static.img, {
+  app.statics(Configs.runtime.statics.img, {
     dynamic: true,
     prefix: '/images'
   })
 
   // /js
-  const pblc = PUBLICPATH
+  const pblc = Configs.runtime.public
   if (pblc.js) {
     const _js = pblc.js
     if (_js.indexOf('http') == -1) {
-      app.statics(STATICSROOT + '/js', {
+      app.statics(Configs.runtime.statics.js, {
         prefix: pblc.js,
         dynamic: true,
         buffer: false,
@@ -131,7 +93,7 @@ async function startServer(){
   if (pblc.css) {
     const _css = pblc.css
     if (_css.indexOf('http') == -1) {
-      app.statics(STATICSROOT + '/css', {
+      app.statics(Configs.runtime.statics.css, {
         prefix: pblc.css,
         dynamic: true,
         buffer: false,
@@ -140,7 +102,7 @@ async function startServer(){
     }
   }
 
-  app.statics(STATICSROOT+'/html', {
+  app.statics(Configs.runtime.statics.html, {
     prefix: pblc.root ? pblc.root : '/',
     buffer: false,
     gzip: true,
@@ -160,9 +122,9 @@ async function startServer(){
 
   try {
     const server = await app.init()
-    server.listen((margv.port||configs.port), function(){
-      if (NODEDEV) {
-        request(refreshUrl, function (error, response, body) {
+    server.listen((Configs.runtime.port), function(){
+      if (Configs.runtime.mode) {
+        request(Configs.runtime.refreshUrl, function (error, response, body) {
           if (error) console.log('server will be start');
           console.log('server restart');
         })
