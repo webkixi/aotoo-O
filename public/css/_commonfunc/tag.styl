@@ -1,137 +1,141 @@
 
-tag($backgroud = #fff, $border-color = #ccc,$color = #333, $border-radius = 0, $padding-top = 2px, $padding-left = 8px, $height = 18px, $font-size = 12px)
-  border: 1px solid transparent
+
+ss-tag($backgroud = #fff, $border-color = #ccc, $color = #333, $border-radius = 0, $padding = 8px, $height = 18px, $font-size = 12px, $display = false)
   background: $backgroud
+  border: 1px solid transparent
   border-color: $border-color
   border-radius: $border-radius
   color: $color
-  display: inline-block;
   font-size: $font-size
   font-style: normal;
-  padding-top: $padding-top
-  padding-bottom: @padding-top
-  padding-left: $padding-left
-  padding-right: @padding-left
+  padding: $padding
   height: $height
+  if ($display == true)
+    display: inline-block;
+    line-height: $height
+  else if ($display == flex)
+    ss-display-flex(row nowrap, center, center, center)
+//  if ($borderopa == true)
+//   border-color: $border-color * 0.5
 
 
-//不规则图形标签, 两边
-irregular-tag($backgroud = #fff, $padding-top = 2px, $padding-left = 8px, $font-size = 12px,$border-color = none)
-  background: $backgroud
-  border: 1px solid transparent
-  border-color: $border-color
-  display: inline-block;
-  font-size: $font-size
-  font-style: normal;
-  padding-top: $padding-top
-  padding-bottom: @padding-top
-  padding-left: $padding-left
-  padding-right: @padding-left
-  position: relative;
-  color: #fff
-  &:before,&:after
-    content: ''
-    width: 0
-    height: 0
-    // border-bottom: 10px solid #055a9b
-    border-bottom: ($font-size + $padding-top * 2 + 3) solid $backgroud
-    position: absolute;
-    top: -1px
-    // left: -7px
-    left: - ($font-size)
-    border-left: -(@left) solid transparent
-  &:after
-    left: initial;
-    border-left: initial
-    right: - ($font-size + 1)
-    border-right: -(@right) solid transparent
+// //不规则图形标签, 两边
+// ss-irregular-tag($backgroud = #fff, $padding-top = 2px, $padding-left = 8px, $font-size = 12px,$border-color = none)
+//   background: $backgroud
+//   border: 1px solid transparent
+//   border-color: $border-color
+//   display: inline-block;
+//   font-size: $font-size
+//   font-style: normal;
+//   padding-top: $padding-top
+//   padding-bottom: @padding-top
+//   padding-left: $padding-left
+//   padding-right: @padding-left
+//   position: relative;
+//   color: #fff
+//   &:before,&:after
+//     content: ''
+//     width: 0
+//     height: 0
+//     // border-bottom: 10px solid #055a9b
+//     border-bottom: ($font-size + $padding-top * 2 + 3) solid $backgroud
+//     position: absolute;
+//     top: -1px
+//     // left: -7px
+//     left: - ($font-size)
+//     border-left: -(@left) solid transparent
+//   &:after
+//     left: initial;
+//     border-left: initial
+//     right: - ($font-size + 1)
+//     border-right: -(@right) solid transparent
 
-//不规则图形标签 一边
-/**
- * $backgroud 背景色
- * $color  文字颜色
- * $height  图形的高度
- * $padding-left  左填充
- * $padding-right   右填充
- * $font-size 字体大小
- * $trianglewidth  突出的地方的宽度
- * $triangleleftposition 左上突出 还是左下突出
- * $trianglerightposition 右上突出 还是右下突出
- * @type {[type]}
- */
-irregular-tag2($backgroud = #666, $color = #fff, $height = 20px, $padding-left = 8px, $padding-right = 8px, $font-size = 12px, $trianglewidth = 10px, $triangleleftposition = top, $trianglerightposition = none, $triangleposit = none, $triangleSize = 0)
-  background: $backgroud
-  color: $color
-  display: block;
-  font-size: $font-size
-  font-style: normal;
-  height: $height
-  line-height: @height
-  padding-left: $padding-left
-  padding-right: $padding-right
-  position: relative;
-  // position: relative;
-  &:before,&:after
-    content: ''
-    width: 0
-    height: 0
-    position: absolute;
-  &:before
-    left: - $trianglewidth
-    border-left: -(@left) solid transparent
-    if $triangleleftposition == top
-      border-top: ($height - $triangleSize) solid $backgroud
-    else if $triangleleftposition == bottom
-      border-bottom: ($height - $triangleSize) solid $backgroud
-  &:after
-    if $triangleposit == right
-      right: - $trianglewidth
-      border-right: -(@right) solid transparent
-    else if $triangleposit == left
-      left: - $trianglewidth
-      border-left: -(@left) solid transparent
-    if $trianglerightposition == top
-      border-top: ($height - $triangleSize) solid $backgroud
-    else if $trianglerightposition == bottom
-      bottom: 0
-      border-bottom: ($height - $triangleSize) solid $backgroud
-
-
-
-//标签类型
-.tag-f9b427
-  tag(#f9b427,#f9b427, #fff, 2px, 0, 5px, 18px)
-
-.tag-fff4c5
-  // tag(#fff4c5,#ffe5b8, #ff6600, 0, 1px, 8px)
-  tag(#fff4c5,#ffe5b8, #ea6a0c, 2px, 0, 5px, 18px)
-
-.tag-fbe3b3
-  // tag(#fff, #fbe3b3, #f9b427, 2px, 0, 4px, 12px)
-  tag(#fff, #fbe3b3, #f9b427, 2px, 0, 5px, 18px)
-
-.tag-fff
-  // tag(#fff, #ccc, #999, 2px, 1px, 8px, 12px)
-  tag(#fff, #ccc, #999, 2px, 0, 5px, 18px)
+// //不规则图形标签 一边
+// /**
+//  * $backgroud 背景色
+//  * $color  文字颜色
+//  * $height  图形的高度
+//  * $padding-left  左填充
+//  * $padding-right   右填充
+//  * $font-size 字体大小
+//  * $trianglewidth  突出的地方的宽度
+//  * $triangleleftposition 左上突出 还是左下突出
+//  * $trianglerightposition 右上突出 还是右下突出
+//  * @type {[type]}
+//  */
+// ss-irregular-tag2($backgroud = #666, $color = #fff, $height = 20px, $padding-left = 8px, $padding-right = 8px, $font-size = 12px, $trianglewidth = 10px, $triangleleftposition = top, $trianglerightposition = none, $triangleposit = none, $triangleSize = 0)
+//   background: $backgroud
+//   color: $color
+//   display: block;
+//   font-size: $font-size
+//   font-style: normal;
+//   height: $height
+//   line-height: @height
+//   padding-left: $padding-left
+//   padding-right: $padding-right
+//   position: relative;
+//   // position: relative;
+//   &:before,&:after
+//     content: ''
+//     width: 0
+//     height: 0
+//     position: absolute;
+//   &:before
+//     left: - $trianglewidth
+//     border-left: -(@left) solid transparent
+//     if $triangleleftposition == top
+//       border-top: ($height - $triangleSize) solid $backgroud
+//     else if $triangleleftposition == bottom
+//       border-bottom: ($height - $triangleSize) solid $backgroud
+//   &:after
+//     if $triangleposit == right
+//       right: - $trianglewidth
+//       border-right: -(@right) solid transparent
+//     else if $triangleposit == left
+//       left: - $trianglewidth
+//       border-left: -(@left) solid transparent
+//     if $trianglerightposition == top
+//       border-top: ($height - $triangleSize) solid $backgroud
+//     else if $trianglerightposition == bottom
+//       bottom: 0
+//       border-bottom: ($height - $triangleSize) solid $backgroud
 
 
-tag-icon-close($backgroud = #edf5fa, $color = #333333, $font-size = 14px, $padding = 0 4px, $line-height = 23px, $margin-ul-left = 20px, $margin-right = 10px)
-  display-flex(row wrap, flex-start, center, center)
-  font-size: $font-size
-  margin-left: $margin-ul-left
-  li,>lable,>span
-    background: $backgroud
-    color: $color
-    padding: $padding
-    line-height: $line-height
-    margin-right: $margin-right
-    cursor: pointer;
-    &:after
-      content: '\e7e4'
-      margin-left: 6px
-    &.tag-icon-close-clean
-      background: none
-      color: inherit;
-      margin-right: $margin-right + 10
-      &:after
-        content: ''
+
+// //标签类型
+// .tag-f9b427
+//   ss-tag(#f9b427,#f9b427, #fff, 2px, 0, 5px, 18px)
+
+// .tag-fff4c5
+//   // tag(#fff4c5,#ffe5b8, #ff6600, 0, 1px, 8px)
+//   tag(#fff4c5,#ffe5b8, #ea6a0c, 2px, 0, 5px, 18px)
+
+// .tag-fbe3b3
+//   // tag(#fff, #fbe3b3, #f9b427, 2px, 0, 4px, 12px)
+//   tag(#fff, #fbe3b3, #f9b427, 2px, 0, 5px, 18px)
+
+// .tag-fff
+//   // tag(#fff, #ccc, #999, 2px, 1px, 8px, 12px)
+//   tag(#fff, #ccc, #999, 2px, 0, 5px, 18px)
+
+
+// tag-icon-close($backgroud = #edf5fa, $color = #333333, $font-size = 14px, $padding = 0 4px, $line-height = 23px, $margin-ul-left = 20px, $margin-right = 10px)
+//   display-flex(row wrap, flex-start, center, center)
+//   font-size: $font-size
+//   margin-left: $margin-ul-left
+//   li,>lable,>span
+//     background: $backgroud
+//     color: $color
+//     padding: $padding
+//     line-height: $line-height
+//     margin-right: $margin-right
+//     cursor: pointer;
+//     &:after
+//       content: '\e7e4'
+//       margin-left: 6px
+//     &.tag-icon-close-clean
+//       background: none
+//       color: inherit;
+//       margin-right: $margin-right + 10
+//       &:after
+//         content: ''

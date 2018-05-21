@@ -321,6 +321,7 @@ function index(router){
       })
       //一级全选
       $(dom).on('click', '.item-checkboxAll', function(){
+        console.log('==========')
         if($(this).is(':checked')){
           $(this).attr('checked', true)
           $(this).parent('.c-check').next('.property-ul').find('input').prop('checked', true)
