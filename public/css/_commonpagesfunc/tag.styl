@@ -1,0 +1,103 @@
+
+//不规则图形标签, 两边
+ss-irregular-tag($backgroud = #fff, $padding-top = 2px, $padding-left = 8px, $font-size = 12px, $border = none, $height = 20px, $before-left = -17px, $before-border-left = 17px,  $after-right= -17px, $after-border-right = 17px)
+  background: $backgroud
+  border: $border
+  display: inline-block;
+  font-size: $font-size
+  font-style: normal;
+  padding-top: $padding-top
+  padding-bottom: @padding-top
+  padding-left: $padding-left
+  padding-right: @padding-left
+  position: relative;
+  color: #fff
+  height: $height
+  line-height: @height
+  &:before,&:after
+    content: ''
+    width: 0
+    height: 0
+    border-bottom: $height solid $backgroud
+    position: absolute;
+    top: 0
+    left: $before-left
+    border-left: $before-border-left solid transparent
+  &:after
+    left: initial;
+    border-left: initial
+    right: $after-right
+    border-right: $after-border-right solid transparent
+
+//不规则图形标签 一边
+/**
+ * $backgroud 背景色
+ * $color  文字颜色
+ * $height  图形的高度
+ * $padding-left  左填充
+ * $padding-right   右填充
+ * $font-size 字体大小
+ * $trianglewidth  突出的地方的宽度
+ * $triangleleftposition 左上突出 还是左下突出
+ * $trianglerightposition 右上突出 还是右下突出
+ * @type {[type]}
+ */
+ss-irregular-tag2($backgroud = #666, $color = #fff, $height = 20px, $padding-left = 8px, $padding-right = 8px, $font-size = 12px, $trianglewidth = 10px, $triangleleftposition = top, $trianglerightposition = none, $triangleposit = none, $triangleSize = 0)
+  background: $backgroud
+  color: $color
+  display: block;
+  font-size: $font-size
+  font-style: normal;
+  height: $height
+  line-height: @height
+  padding-left: $padding-left
+  padding-right: $padding-right
+  position: relative;
+  // position: relative;
+  &:before,&:after
+    content: ''
+    width: 0
+    height: 0
+    position: absolute;
+  &:before
+    left: - $trianglewidth
+    border-left: -(@left) solid transparent
+    if $triangleleftposition == top
+      border-top: ($height - $triangleSize) solid $backgroud
+    else if $triangleleftposition == bottom
+      border-bottom: ($height - $triangleSize) solid $backgroud
+  &:after
+    if $triangleposit == right
+      right: - $trianglewidth
+      border-right: -(@right) solid transparent
+    else if $triangleposit == left
+      left: - $trianglewidth
+      border-left: -(@left) solid transparent
+    if $trianglerightposition == top
+      border-top: ($height - $triangleSize) solid $backgroud
+    else if $trianglerightposition == bottom
+      bottom: 0
+      border-bottom: ($height - $triangleSize) solid $backgroud
+
+
+
+ss-tag-icon-close($backgroud = #edf5fa, $color = #333333, $font-size = 14px, $padding = 0 4px, $line-height = 23px, $margin-ul-left = 20px, $margin-right = 10px)
+  ss-display-flex(row wrap, flex-start, center, center)
+  font-size: $font-size
+  margin-left: $margin-ul-left
+  li,>lable,>span
+    background: $backgroud
+    color: $color
+    padding: $padding
+    line-height: $line-height
+    margin-right: $margin-right
+    cursor: pointer;
+    &:after
+      content: '\e7e4'
+      margin-left: 6px
+    &.tag-icon-close-clean
+      background: none
+      color: inherit;
+      margin-right: $margin-right + 10
+      &:after
+        content: ''

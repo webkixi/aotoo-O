@@ -1,0 +1,34 @@
+ss-position-fixed($top =0, $left = 0, $right= initial, $bottom = initial)
+  position: fixed;
+  top: $top
+  left: $left
+  right: $right
+  bottom: $bottom
+  width: 100%;
+  z-index: 20
+
+
+ss-fixed-bg($width = 100%, $height = auto, $background = #fff, $fixspacing = 0,  $fix = top)
+  background: $background
+  width: $width
+  height: $height
+  position: fixed;
+  if ($fix == top)
+    top: $fixspacing
+  else if ($fix == bottom)
+    bottom: $fixspacing
+  z-index: 20
+
+//背景透明度
+ss-bg-opacity($background = #333, $height = 54px, $opacity = 0.6, $abs = bottom)
+  background: $background
+  width: 100%;
+  height: $height
+  opacity: $opacity
+  position: absolute;
+  left: 0;
+  if ($abs == bottom)
+    bottom: 0
+  else if($abs == top)
+    top: 0
+  z-index: 15

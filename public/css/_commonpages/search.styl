@@ -1,0 +1,114 @@
+//搜索  头部搜索条及业务头部搜索
+.search-com
+  ss-display-flex(row nowrap, space-between, center, center)
+  background: #fff
+  border-radius: .026667rem
+  color: #333;
+  width: 100%;
+  font-size: 15px
+  // overflow: hidden
+  height: 100%;
+  &:before
+    content: '\e697'
+    color: #999;
+    text-align: center;
+    font-size: 14px;
+    width: .186667rem
+    margin-left: .12rem
+  input[type='text'],input[type='search']
+    border: none
+    // height: 33px
+    // line-height: @height
+    // padding: .106667rem .093333rem
+    padding: 6px .093333rem
+    width: 100%
+    flex: 1
+    background: transparent
+  .icon-clean
+    width: 28px
+    
+.list-head-search
+  width: 100%;
+  // height: 40px;
+  z-index: 20;
+  font-size: 18px;
+  position: relative
+  padding: .08rem .2rem
+  line-height: normal;
+  ss-display-flex(row nowrap, center, center)
+
+.search-wrap
+  // line-height 30px;
+  width: 100%;
+  .search-border
+    border: none;
+  .search-list
+    position absolute
+    left: 0
+    top: 100%
+    color: #333
+    width: 100%
+    line-height: .186667rem
+    z-index: 20
+  .input-dropdown-ul
+    ss-dropdown-ul-mob()
+    padding: 0 .2rem
+    li
+      padding: .146667rem 0
+    em
+      color: #2485cf
+// .search-box
+//   font-size: 14px
+//   position: relative;
+//   padding 0.1rem 0;
+//   .search-com
+//     height: 33px
+//     width: 90%
+//     margin: 0 auto;
+//     border: 1px solid #ccc
+//     input 
+//       height: 31px 
+//       line-height: 31px
+.search-left
+  width: 20%
+  background: #fff;
+  height: .453333rem
+  color: #333
+  border-radius: 4px 0 0 4px;
+  text-align center
+  font-size: 17px;
+  position: initial
+  // position: relative
+  ss-textellipsis(33px, 1)
+  ss-display-flex(row, center, center, center)
+  height 33px
+
+.search-right
+  background: #fff;
+  border-radius: 0px 4px 4px 0px;
+  width: 80%;
+  // overflow: hidden      //加这个不能根本解决溢出的问题
+  height: 33px;
+  // position: relative
+  ss-display-flex(row nowrap, flex-start, center, center)
+  &:before
+    content: ''
+    width: 1px
+    height: 100%
+    // position: absolute;
+    // top: 9px;
+    // left: 0;
+    border-left: 1px solid #e3e3e3
+    -webkit-transform: scale(0.5, 0.5) translateY(50%)
+    -webkit-transform-origin: 0 0 
+
+.search-date
+  font-size: 12px
+  color: #333
+  ss-display-flex(column, space-between, center, center)
+  padding: 3px 0;
+  p 
+    line-height: @font-size
+  i 
+    color: #ff6600
+    font-style: normal

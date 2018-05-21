@@ -1,0 +1,126 @@
+.modal-default
+  // border-radius: 10px
+  // background: #f0f2f4
+.pb-r11
+  padding-bottom: 1.136rem        ///入离店时间
+.modal-title
+  font-size: 13px
+  color: #8f8f8f
+  height: 43px
+  line-height: @height
+  // border-bottom: 1px solid #e3e3e3
+  ss-border($absolute: true, $absoluteBottom: true)
+.modal-close
+  position: absolute
+  left: 0.134rem;       //10px
+  font-style: normal
+
+.modal-content
+  // overflow: scroll;     //为了滚动    20171210酒店团房供应商
+  .modal-center
+    text-align: center;
+  .modal-body
+    width: 100%
+    h4
+      font-size: 16px
+    h5
+      font-size: 17px
+      font-weight: bold
+    p
+      font-size: 13px
+  .modal-padding
+    // padding: .213333rem .213333rem .306667rem .213333rem
+    padding: .253333rem .493333rem
+
+  .modal-div        //中间
+    ss-display-flex(column, space-between, flex-start, center)
+    background: #fff
+    border-radius: .066667rem
+    height: 100%
+    width: 100%
+    .modal-body
+      @extends .modal-content .modal-padding
+    .modal-btn-list
+      ss-display-flex(row nowrap, flex-start, center, center)
+      // border-top: 1px solid #d1d3d4
+      ss-border($direction: top, $absolute: true)
+      width: 100%
+      height: 44px;
+      // line-height: @height
+    .modal-btn
+      flex: 1
+      // border-left: 1px solid #d1d3d4
+      ss-border($direction: left, $absolute: true)
+      background: none;
+      border-radius: 0;
+      height: 100%
+      font-size: 17px
+      &:first-child
+        &:after
+          border-left: none
+
+  .modal-div-bottom       //底部
+    background: none
+    width: 96%
+    margin: 0 auto
+    font-size: 20px
+    .list-dropdown-modal
+      font-size: 20px
+    .modal-delete
+      height: 57px
+      line-height: @height
+    .modal-title-betweem-center
+      @extend .modal-title
+      line-height: 16px
+      ss-display-flex(row, center, center, center)
+    .modal-body
+      background: #fff
+      border-radius: .133333rem
+    .modal-btn-list
+      background: #fff
+      color: #007aff
+      line-height: 0.74rem
+      margin-top: 0.1rem
+      margin-bottom: 0.12rem
+      border-radius: .133333rem
+      button
+        border-radius: .133333rem
+        ss-pbtn-noevent(#fff, #fff, #007aff, none, auto, .133333rem)
+        padding: .16rem 0
+        &:after
+          border: none
+    .modal-share-title
+      margin-bottom: 0.18rem
+      p
+        margin-top: 0.1rem
+
+
+
+
+
+
+
+.list-dropdown-modal
+  color: #007aff
+  line-height: 0.76rem
+  a
+    color: @color
+    &.icon-tels 
+      color: #ff6600
+    &.icon-qqs
+      color: #2485cf
+    &.icon-disabled
+      color: #ccc
+  >li
+    ss-border-item(#e3e3e3, top)
+  p
+    ss-display-flex(row nowrap, center)
+
+.list-share-modal
+  // ss-display-flex(row wrap, flex-start, flex-start, flex-start)
+  ss-row-list(0.2rem, flex-start, flex-start, 0.2rem)
+  color: #666
+  font-size: 12px
+  margin-bottom: -0.2rem
+  i
+    font-size: 65px

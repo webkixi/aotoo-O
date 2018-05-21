@@ -1,0 +1,32 @@
+//table形式的list ->list5     邮轮
+.ss-table-hb      //基础
+  ss-table(30%, 20%, $padding: 10px )
+.ss-table-border  //带有边框
+  ss-table-border()   
+.ss-table-border-bottom     //带有下边线
+  ss-table-border($bottomBorder: true)
+.ss-table-odd-event     //带有奇偶变色
+  ss-odd-event( #fff, #fdfbfb)
+.ss-table-hover     //鼠标经过
+  ss-table-hover()
+.ss-table-fixed
+  ss-table-fixd()  
+
+.table-list-xc      //邮轮
+  ul
+    ss-table(16px, 15%, 23%, 31%, 31%)
+    font-size: 13px
+    color: #333
+    li
+      padding: .106667rem 0
+      &:first-child
+        padding-left: .08rem
+      &:first-child,&:nth-child(2)
+        text-align: left 
+  >li
+    &:first-child
+      font-size: 12px
+      li
+        color: #999
+    &:not(:first-child)
+      ss-odd-event(#f9f9f9, #fff)

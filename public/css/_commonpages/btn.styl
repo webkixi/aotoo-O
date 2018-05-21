@@ -1,0 +1,66 @@
+
+/**
+ * 直接写类名就可以执行对应的样式 如: .btn-default
+ * @type {[type]}
+ */
++ prefix-classes('btn-')
+
+  .f92c2e7
+    @extends .btn
+    color: #fff
+    background-color: #92c2e7
+    &:after
+      border-color: @background-color
+  .ffed7d
+    @extends .btn
+    color: #f43443
+    background-color: #ffed7d
+    &:after
+      border-color: @background-color
+  .f43443
+    @extends .btn
+    color: #ffed7d
+    background-color: #f43443
+    &:after
+      border-color: @background-color
+  .f9b427-fff
+    @extends .btn
+    color: #fff
+    background-color: #f9b427
+    &:after
+      border-color: @background-color
+
+  .link-2585cf
+    @extends .btn
+    color: #2585cf
+    background-color: initial
+    &:after
+      border-color: @color
+
+  .link-ff6600
+    @extends .btn
+    color: #ff6600
+    background-color: initial
+    &:after
+      border-color: @color
+
+  .link-f43443
+    @extends .btn
+    color: #f43443
+    background-color: initial
+    &:after
+      border-color: @color
+
+  .link-999
+    @extends .btn
+    color: #999
+    background-color: initial
+    &:after
+      border-color: @color
+
+  .default-readonly
+    @extends.btn
+    color: #fff
+    background: #fcda93
+    &:after
+      border-color: @color

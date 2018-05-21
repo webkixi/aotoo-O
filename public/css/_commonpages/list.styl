@@ -1,0 +1,751 @@
+// //flex row  带上下结构
+// .row-flex-column
+//   ss-display-flex(row nowrap, flex-start)
+//   li
+//     ss-display-flex(column, center, center, center)
+//     ss-border-item(#e3e3e3)
+//     flex: 1
+
+// //list组件，用于列表页的导航条
+// .list-nav
+//   ss-tabs-menu($padding: 11px 12px, $margin-left: 12px)
+//   padding: 0 0.2rem
+
+// //tree组件，做成列表  我的邀请  结构请参考invite()
+// .list-state
+//   >li
+//     margin-top: 0.2rem
+//     >div
+//       background: #fff
+//       padding: 0 0.2rem;
+//       &.list-no-data
+//         background: #edebeb
+//         padding: 0
+//   .tree-head
+//     border-bottom: 1px solid #e3e3e3
+//     line-height: 33px
+//   .tree-body
+//     padding: 0.1rem 0 0.12rem 0
+//     position: relative;
+//   lable 
+//     color: #666
+//   i
+//     font-style: normal;
+//   em
+//     display: block;
+//     margin-bottom: 0.06rem
+//   p
+//     line-height: 24px
+//   .absolute-top-right
+//     top: 0.1rem
+//   .absolute-bottom-right
+//     bottom: 0.1rem
+
+// //没有数据的列表
+// .list-no-data
+//   background: #edebeb
+//   padding: 0
+//   width: 62%
+//   margin: 20% auto 0
+//   text-align: center;
+//   .lnd-bg
+//     background: url(http://www.agzgz.com/images/github.png) no-repeat
+//     background-size: contain;
+//     background-position: center;
+//   .lnd-head
+//     height: 80px
+//   .lnd-body
+//     margin: 12% auto 18%
+//     em
+//       color: #666
+//       display: block;
+//       font-size: 20px
+//       margin-bottom: 0.08rem
+//     p
+//       font-size: 12px
+//       color: #999
+
+// //适合于Aotoo.item历史搜索，热门搜索等
+// .item-list
+//   ss-item-list()
+//   margin-bottom: .12rem
+// //适合于Aotoo.treex历史搜索，热门搜索等
+// .treex-list
+//   >li  
+//     ss-item-list()
+//     margin-bottom: .12rem
+
+// .list-normal
+//   >li
+//     @extends .item-bg
+//     @extends .item-between
+//     margin-top: 0.2rem
+
+
+// //Aotoo.list 没有图片
+// .item-treex
+//   background: #fff
+//   // min-height: 200px;        //20180328这个需要么？
+//   font-size: .173333rem
+//   // line-height: .186667rem         //to 搜索框 下拉列表 需要加么
+//   .icon-mingdian
+//     right: -20px
+//   a
+//     display: block;
+//   >li
+//     ss-border()
+//     padding: .186667rem 0 0 0 
+//     margin: 0 0.2rem
+//     -webkit-transform: translate3d(0,0,0)
+//     &:after
+//       margin-top: .186667rem
+//   .thead
+//     margin-bottom: 0.1rem
+//     color: #333
+//     // ss-display-flex(row wrap, flex-start, center, center)          //这个地方直接用class控制去参考flex.styl
+//     font-size: .2rem
+//     em
+//       color: #2585cf
+//   .tbody
+//     margin-bottom: 0.08rem
+//   // .icon-phone
+//   //   ss-border-item(#e3e3e3, left)
+//   .dot
+//     position: absolute;
+//     bottom: 0.16rem
+//     right: 0
+//     color: #999
+//   // span      //需要display: block么?
+//   //   width: 86%
+//   .it-title         //替换之前的em
+//     display: block
+//     font-size: .2rem
+//     font-weight: bold;    //20171215 需要加粗么    如果需要，需要在最近联系咨询局部调整
+//   .it-title-normal
+//     @extends .item-treex .it-title
+//     font-weight: normal
+//   .lh-18
+//     line-height: .24rem
+//   .t-p  //替换之前的p标签
+//     ss-display-flex(row wrap, flex-start, center, flex-start)
+//     color: #666
+//   .dot-right
+//     ss-absolute(43%, inherit, 0)
+//     z-index: auto;
+
+
+// //抽取
+// .list-extracting
+//   color: #333
+//   font-size: 13px
+//   em
+//     color: #333
+//     // display: block;        //这个会影响textellipsis-1
+//     font-size: 15px
+//     // margin-bottom: 0.05rem
+//     font-weight: bold;
+//     font-style: normal;
+//     width: 88%      //团餐列表
+//   lable
+//     color: #999
+//   .item-title-ellipsis-1
+//     ss-textellipsis(16px, 1)
+//   .item-p     //替换之前的p标签
+//     ss-textellipsis(16px, 1)
+//     line-height: 16px           //团餐餐厅，如果没有这个  会切了一小半
+//     margin-top: 0.02rem
+//   >li
+//     background: #fff
+//     position: relative;
+//   .item-wrap
+//     ss-display-flex(column, space-between, flex-start, flex-start)
+//     width: 100%
+//   .item-wrap-row,.inner
+//     ss-display-flex(row nowrap, space-between, flex-start, flex-start)
+//     width: 100%
+//   .item-wrap-row-center
+//     ss-display-flex(row, flex-start, center, center)
+//     width: 100%
+//   .item-header,.hheader
+//     position: relative;
+//     overflow: hidden;
+//     ss-display-flex(row nowrap, center, center, center)
+//   .item-body,.hbody
+//     padding: 0.06rem 0.1rem 0.08rem 0.1rem
+//     position: relative;
+//     flex: 1
+//     overflow: hidden;
+//     // p
+//       // height: 16px    //20171210 酒店团房供应商列表
+//       // height: 22px
+//   .absolute-bottom-left
+//     ss-display-flex(row, flex-start, center, center)
+//   .item-bg-opacity
+//     ss-bg-opacity(#000, 100%, 0.5, bottom)
+//     z-index: 0
+//     ~p
+//       position: relative;
+//       z-index: 1;
+//       padding: 0 0.1rem;
+//       color: #fff;
+//       line-height: 18px;
+//   .icon-zhu
+//     position: absolute;
+//     top: -8px;
+//     right: -12px;
+//     font-size: 20px;
+//   // .icon-phone
+//   //   ss-border-item(#e3e3e3, left)
+//   .dot-right
+//     ss-absolute(43%, inherit, 0)
+//     z-index: -1
+
+// //上下结构    图片   默认是item是两个的  如果row是一个或多个通过类去控制 如: item-p100
+// .list-pic-column
+//   @extends .list-extracting
+//   padding: 0.1rem
+//   ss-display-flex(row wrap, flex-start, flex-start)
+//   margin-left: -0.1rem
+//   .icon-mingdian
+//     right: -20px
+//   .item-bg-opacity
+//     ~p
+//       ss-textellipsis(35px, 2)
+//   >li
+//     ss-border($direction: all)
+//     // border: 1px solid #e3e3e3
+//     width: 47.9%
+//     margin-bottom: 0.1rem
+//     margin-left: 0.1rem
+//   .item-header
+//     ss-border()
+//     // border-bottom: 1px solid #e3e3e3
+//     width: 100%
+//     height: 172px
+//   .item-body
+//     height: 40%
+//     width: 100%
+
+// //上下结构    图片   默认是item是两个的  如果row是一个
+// .list-pic-column-single
+//   @extends .list-extracting
+//   >li
+//     ss-border-item(#e3e3e3,  bottom)
+//     padding-bottom: 0.2rem
+//     margin-bottom: @padding-bottom
+//     // &:first-child //ss-border-item，重置
+//     //   border-bottom: 1px solid #e3e3e3
+//     &:last-child
+//       padding-bottom: 0
+//       margin-bottom: 0
+//   .item-header
+//     // border: 1px solid #e3e3e3      //节庆活动不需要边框
+//     height: 172px       //这个地方用百分比有问题，暂时没有找到具体的问题 有可能是a标签，有可能是flex，目前的解决办法是有固定的宽度。节庆活动
+//     width: 100%
+//   .item-body
+//     height: 40%
+//     width: 100%
+//     padding: 0.06rem 0
+//   .item-tag-recommend
+//     position: absolute;
+//     top: 5px;
+//     left: -5px;
+//     z-index: 1
+//     transform: rotate(-45deg) translateZ(0);
+//     -ms-transform: rotate(-45deg) translateZ(0);	/* IE 9 */
+//     -moz-transform: rotate(-45deg) translateZ(0);	/* Firefox */
+//     -webkit-transform: rotate(-45deg) translateZ(0);/* Safari 和 Chrome */
+//     -o-transform: rotate(-45deg) translateZ(0);	/* Opera */
+//     &:before, &:after
+//       content: '';
+//       width: 0;
+//       height: 0;
+//       border-top: 6px solid #f60;
+//       position: absolute;
+//       top: 20px;
+//     &:before
+//       left: -17px;
+//       border-right: 6px solid transparent;
+//     &:after
+//       right: -17px;
+//       border-left: 6px solid transparent;
+//     .tag
+//       @extends .tag-recommend
+
+// //左右结构    ->list1
+// .list-pic-row-item    //单个
+//   @extends .list-extracting
+//   .inner
+//     align-items: center;
+//     align-content: @align-items
+//   .item-header,.hheader
+//     // border: 1px solid #e3e3e3
+//     ss-border( $direction: all, $absolute: true, $absoluteBottom: false)
+//     width: 60px
+//     height: @width
+//   .item-body,.hbody
+//     padding: 0 0 0 .133333rem
+//     min-height: 60px
+//     img
+//       padding: .013333rem
+//   .tag-f9b427
+//     margin-right: 0.08rem
+//   .h-dot
+//     width: .266667rem
+//     text-align: right 
+// .list-pic-row
+//   @extends .list-pic-row-item
+//   >li
+//     ss-border-item(#e3e3e3, top)
+//     padding: 0.2rem 0
+//     margin: 0 0.134rem      //20171210根据酒店团房供应商列表重新定义
+//     // margin: 0 0.2rem
+//     z-index: 2
+//   .item-merchanting
+//     ss-display-flex(column, center, center, center)
+//     color: #666
+//     font-size: 15px
+//     .btn-small
+//       margin-top: 0.2rem
+//       height: 30px
+//   .item-modal-normal
+//     >li
+//       border-bottom: 1px dashed #e3e3e3
+//       padding-bottom: 0.09rem
+//       margin-bottom: 0.134rem
+//       &:last-child 
+//         border-bottom: none
+//         padding-bottom: 0
+//         margin-bottom: 0
+//   .icon-phone
+//     position: absolute
+//     top: 0.2rem   //>li padding 一至
+//     right: 0
+
+// //详情- 头部
+// .detail-head
+//   @extends .item-bg
+//   font-size: 13px
+//   color: #333
+//   margin-bottom: 0.1em
+//   .detail-head-div-row
+//     @extends .row-flex
+//     margin-top: 0.08rem
+//   em
+//     color: #000
+//     display: block;
+//     font-size: 16px
+//     font-style: normal;
+//     margin-bottom: 0.08rem
+//     line-height: 18px
+//   p
+//     margin-top: 0.04rem
+//   .item-icon-toggle
+//     position: relative;
+//     display: flex
+//     span
+//       ss-textellipsis(18px, 1)
+//       flex: 1
+//     .iit-icon
+//       font-size: 12px
+//       color: #2485cf
+//       &:after
+//         content: '\e618'      //向右的箭头
+//         // position: absolute;
+//         // top: 0
+//         // right: 0
+//   lable
+//     color: #999
+
+// //详情中 头部中位置的显示
+// .detail-local
+//   @extends .row-flex-justify-between-center
+//   // border-top: 1px solid #e3e3e3
+//   ss-border($direction: top, $absolute: true)
+//   line-height: 16px
+//   padding: .2rem 0 0 0
+//   margin-top: .173333rem
+//   .dl-icon
+//     color: #333
+//     position: relative;
+//     margin-left: 0.2rem
+//     margin-right: .293333rem
+//     &:before
+//       content: '\e668'
+//       color: #666
+//       position: absolute;
+//       top: 0px
+//       left: -0.2rem
+
+
+// //选择个人或企业的卡片式
+// //单个
+// .list-card-easy-item
+//   ss-display-flex(column, center, center, center)
+//   border: 1px solid #e3e3e3
+//   border-radius: 2px
+//   background: #fff
+//   height: 2rem
+//   &.active,&:active
+//     background: #e3e3e3
+// .list-card-easy
+//   >li
+//     @extends .list-card-easy-item
+//     margin-top: 0.08rem
+
+// //选择个人或企业的卡片式第二版
+// .list-card
+//   font-size: 15px
+//   >li
+//     border-top: 1px solid #e3e3e3
+//     border-bottom: @border-top
+//     margin-top: 0.26rem
+//     ss-display-flex(row nowrap, flex-start, flex-start, center)
+//     &:first-child
+//       margin-top: 0
+//   .hheader
+//     background: #edf5fa
+//     width: 90px
+//     height: @width
+//     font-size: 17px
+//     ss-display-flex(row, center, center, center)
+//   .hbody
+//     ss-dropdown-ul-icon-right($line-height: 44px, $padding-left-li: 0.08rem)
+//     padding-left: 0.14rem
+//     flex: 1
+//     li
+//       &:last-child
+//         border-bottom: none
+// //选择个人或企业的卡片式第二版
+// .list-card-2
+//   font-size: .186667rem
+//   >li
+//     ss-display-flex(column, center, center, center)
+//     border-radius: .026667rem
+//     margin-bottom: .2rem
+//     min-height: 2.6rem
+//     &:first-child
+//       .lc-title
+//         &:before
+//           content: '\e641'
+//           background: #d6ce90
+//   .lc-title
+//     color: #333
+//     &:before
+//       content: '\e641'
+//       background: #d6ce90
+//       border-radius: .666667rem
+//       ss-display-flex(row nowrap, center, center)
+//       color: #fff
+//       font-size: .453333rem
+//       width: @border-radius
+//       height: @width
+//       margin: 0 auto .186667rem
+      
+//   p 
+//     margin: .133333rem .266667rem
+//     color: #999
+//   .btn-narrow
+//     min-width: 90px
+//   .row-flex
+//     >li
+      
+//       &:last-child
+//         margin-left: .213333rem
+
+// //头部 return部分
+// .list-head
+//   ss-display-flex(row nowrap, space-between, flex-start, center)
+//   ss-fixed-bg($height: 0.6rem, $fix: top)
+//   color: #2485cf
+//   font-size: 18px
+//   line-height: 0.6rem
+//   >li
+//     // width: 125px
+//     &:first-child
+//       width: 100px
+//       margin-left: -0.04rem;
+//       a 
+//         ss-display-flex(row, flex-start, center, center)
+//     &:nth-child(2)
+//       text-align: center;
+//       flex: 1
+//       ss-textellipsis(0.6rem, 1)
+//     &:nth-child(3)
+//       width: 90px
+//       text-align: right
+
+//   .icon-return
+//     margin-right: 4px
+//   a
+//     color: @color
+//     font-size: 16px
+//   &.head-small       //左侧边栏 小head
+//     height: 24px;
+//     line-height: @height
+//     margin-bottom: 0.2rem
+//     >li
+//       &:first-child
+//         padding-left: 0
+//       &:nth-child(2)
+//         color: #333
+//   &.bg-2485cf
+//     color: #fff
+//     a
+//       color: @color
+
+
+// //星星
+// .list-star-icon
+//   ss-list-icon( 5px, '\e64e', #f9b427)
+
+// //钻石
+// .list-zhanshi-icon
+//   ss-list-icon( 5px, '\e650', #2485cf, true, '\e651')
+
+
+// //更多里的弹出层列表
+// .list-layer
+//   background: rgba(0, 0, 0, 0.8)
+//   position: absolute;
+//   top: 42px;
+//   right: 10px;
+//   border-radius: 4px
+//   z-index: 15
+//   line-height: 0.64rem;
+//   &:before
+//     content: ''
+//     ss-triangle(6px solid transparent, 6px solid transparent,  initial, 8px solid rgba(0, 0, 0, 0.8))
+//     position: absolute;
+//     top: -8px;
+//     right: 8px;
+//   >li
+//     ss-border($color: rgba(255, 255, 255, .4), $direction: top, $absolute: true)
+//     padding: 0 0.27rem
+//     &:first-child
+//       &:after
+//         border-top: none
+//   a
+//     color: #fff
+//     display: block;
+//     height: 0.64rem
+//     min-width: 104px
+//     text-align: left;
+//     &:before
+//       ss-iconfont()
+//       margin-right: 0.16rem
+
+
+// .list-bg-radius-item
+//   background: #edf5fa
+//   border-radius: 4px
+//   height: 44px
+//   line-height: @height
+//   padding: 0 0.08rem
+//   ss-display-flex(row nowrap, space-between, center, center)
+
+// .list-bg-radius
+//   >li
+//     margin-bottom: 0.06rem
+//     a
+//       @extends .list-bg-radius-item
+//   lable
+//     width: 76%
+//     ss-textellipsis(44px, 1)
+//   span
+//     color: #2485cf
+//     &:after
+//       color: @color
+
+
+// //名店nav部分, 我的邀请头部
+// .iscroll-row 
+//   background: #fff
+//   border-bottom: 1px solid #e3e3e3
+//   height: 44px
+//   ul 
+//     background: none 
+//     border-bottom: none 
+//     height: auto
+//     padding: 0
+//     margin-left: 0
+//     height: 44px
+// .list-nav-scroll
+//   ss-display-flex(row nowrap, space-between, center, center)
+//   background: #fff
+//   border-bottom: 1px solid #e3e3e3
+//   height: 44px
+//   .list-nav-scroll-wrap
+//     flex: 1
+//     overflow: scroll;     //如果用自带的scroll需要用js指定hlist的宽度
+//   .list-nav
+//     width: 800px
+//     border-bottom: none
+//   .l-icon
+//     background: url(/images/list/nav-line.png) no-repeat
+//     // border-left: 1px solid #e3e3e3
+//     width: @height
+//     height: @width
+//     line-height: @height
+//     text-align: center;
+//     margin-left: 0.02rem;
+//     background-size: contain;
+//     background-position-x: -4px;
+
+
+
+// //名店nav部分,带边框
+// .display-border     //单个边框
+//   border: 1px solid #e3e3e3
+//   border-radius: 2px
+//   color: #333
+//   line-height: 15px
+//   padding: 0.02rem 0.1rem
+//   min-width: 1.08rem
+//   width: auto       //宽度是自适应
+//   height: 37px
+//   text-align: center;
+//   overflow: hidden;
+//   ss-textellipsis(37px, 2)
+//   &.active, &:active
+//     border: 1px solid #3b9ce7
+//     background: #fff
+//     color: #2458cf
+
+// .list-display-border      //列表        宽度固定 固定的高度中最多会有两行文字
+//   ss-row-list2(0.06rem, flex-start, flex-start, 0.12rem, flex-start)
+//   font-size: 13px;
+//   margin-left: -0.06rem;
+//   margin-right: -0.6rem;
+//   max-height: 1.84rem;
+//   overflow: hidden;
+//   >li
+//     ss-display-flex(row wrap, center, center, center)
+//     @extends .display-border
+//   &.active
+//     max-height: inherit;
+// .list-display-border-bg        //背景色是灰色
+//   @extends .list-display-border
+//   >li
+//     background: #f4f4f4
+//     border-color: @background
+//     width: 1.2134rem
+// .nav-dropdown     //加定位
+//   background: #fff
+//   position: absolute;
+//   left: 0
+//   top: 43px
+//   width: 100%
+//   padding: 0.2rem 0 0.1rem 0 //向下的是根据ss-row-list的margin-bottom来决定的
+//   z-index: 15
+
+
+// //tag列表固定的间距
+// .list-tag
+//   ss-row-list(4px)
+//   >li
+//     @extends .tag-f9b427
+
+// .list-pic-card
+//   ss-row-list(0.06rem, flex-start, flex-start, 0.1rem)
+//   >li
+//     border: 1px solid #e3e3e3
+//     box-shadow: 0 1px 2px 1px #f7f7f7
+//     border-radius: 4px
+//     padding: 0.17rem 0.2rem 0.22rem 0.2rem
+//     width: 48%
+//   a
+//     display: block;
+//     ss-display-flex(column, space-between, center, center)
+//   .img
+//     height: 45px
+//     overflow: hidden;
+//   p
+//     font-size: 14px
+//     font-weight: bold;
+//     color: #000
+//     margin-top: 0.26rem
+
+
+// //实力秀列表
+// .list-icon
+//   ss-row-list2(0.07rem, flex-start, flex-start, 0.05rem)
+//   font-size: 12px
+//   i
+//     margin-right: 0.05rem
+
+
+// //适用于一行放两张图片, 背景图片
+// .list-pic-2
+//   ss-row-list2(0.04rem, space-between, flex-start, .106667rem)
+//   >li
+//     // border: 1px solid #e3e3e3
+//     width: 47.8%
+//     height: 94px
+//     overflow: hidden;
+//     ss-border($direction: all, $absolute: true)
+//     &.item-bgpic
+//       background-position: center;
+//       background-repeat: no-repeat;
+//       background-size: contain;
+
+
+
+// ///树状图  邀请好友
+// .list-trees
+//   background: url('/images/my/invitation/i-pic5.png') no-repeat
+//   background-position: center
+//   background-size: contain
+//   width: 242px
+//   >li 
+//     ss-display-flex(column, flex-end, flex-end)
+//     color: #f43443
+//     font-size: 13px
+//     text-align: right
+//     &:before
+//       content: ''
+//       display: block
+//       margin-bottom: 4px
+//       width: 61px
+//       height: 61px
+//       margin-right: 8px;
+//     &:first-child 
+//       &:before
+//         background: url('/images/my/invitation/i-pic1.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//     &:nth-child(2) 
+//       text-align: left
+//       align-items: flex-start
+//       margin-top: -0.3rem
+//       &:before
+//         background: url('/images/my/invitation/i-pic2.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//         margin-left: 8px;
+//     &:nth-child(3) 
+//       margin-top: -0.3rem
+//       &:before
+//         background: url('/images/my/invitation/i-pic3.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//     &:nth-child(4) 
+//       text-align: left
+//       align-items: flex-start
+//       margin-top: -0.3rem
+//       &:before
+//         background: url('/images/my/invitation/i-pic4.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//         margin-left: 8px;
+
+// // .row-flex-justify-between-center
+// //   line-height: .2rem
+
+
+// //选择目的地 当前 热门 历史 
+// .item-list-display
+//   &.item-li-grids-3
+//     ss-row-list2(.2rem, flex-start, flex-start, 0.12rem, flex-start)
+//   .item-li
+//     @extends .item-list-li

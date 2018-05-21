@@ -1,0 +1,14 @@
+grid-columns = 12
+
+for columns in 1 .. grid-columns
+  .g-col-{columns} 
+    width: (columns / grid-columns) * 100%;
+
+
+//grids-row是父级， item-li是子级，需要手动加
+.grids-row
+  ss-row-list-grids(12px)
+.grids-row-m-24
+  ss-row-list-grids(24px, $spacingM: 0, $isp: false)
+  // @extends .row-flex
+  

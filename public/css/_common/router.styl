@@ -1,0 +1,75 @@
+.itemrootCkb
+  display: none
+.fadeOut,.outHeight
+  display: none
+// .routerBoxes
+//   // overflow: scroll;
+//   width: 100%
+//   height: 100%
+//   position: absolute;
+//   z-index: 3
+// .outHeight
+//   z-index: 0
+
+// .router-basic
+  // font-size: 14px
+  // color: #314659
+  // a 
+  //   color: @color
+  //   &:hover
+  //     color: #1890ff
+
+$basic-font-size = 14px
+$basic-color = #314659
+$basic-color-hover = #1890ff
+$basic-border-color = #ebedf0
+$basic-padding = 0 40px
+.router-basic
+  ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+  .routerMenus
+    width:25%
+    border-right: 1px solid $basic-border-color
+  .routerBoxes
+    flex: 1
+    border-left: 1px solid $basic-border-color
+    margin-left: -1px
+    min-height: 500px
+
+.routerMenus
+  
+  color: $basic-color
+  a 
+    color: @color
+    &:hover
+      color: $basic-color-hover
+  .select
+    background-color: #e6f7ff;
+    color: $basic-color-hover
+    position: relative
+    &:after
+      content: ''
+      background: $basic-color-hover
+      width: 2px 
+      height: 100% 
+      position: absolute
+      top: 0
+      right: 0
+  .caption
+    @extends .routerMenus a
+    cursor: pointer
+    padding: $basic-padding
+    height: 40px
+    line-height: @height
+  .level0
+    font-size: $basic-font-size + 2
+    >.itemCategory
+      >ul 
+        font-size: $basic-font-size
+  .level1
+    >.itemCategory
+      >.caption
+        padding: 0 40px 0 56px
+        color: #999
+  .level2
+    .caption
+      padding: 0 40px 0 72px

@@ -1,0 +1,490 @@
+.item-more
+  color: #333
+  cursor: pointer
+  font-style: normal
+  line-height: 36px
+  margin: 0 20px
+  &:before
+    content: '展开'
+  &:after
+    content: '\e616'
+  &.active
+    &:before
+      content: '收起'
+    &:after
+      content: '\e617'
+.list-search-attr
+  font-size: 12px
+  .item-title
+    font-weight: bold
+    margin-right: 16px
+    line-height: 36px
+    min-width: 60px
+    text-align: right
+    display: block;
+  .item-li
+    padding: 4px 6px
+    &:hover
+      background: #2485cf
+      color: #fff
+  .c-check
+    padding: 0 6px
+    >.item-li
+      padding: 0
+  .item-checked
+    background: #57b0f4
+    color: #fff 
+    cursor: pointer
+    line-height: 22px
+    ss-display-flex(row wrap, flex-start, center)
+    padding-right: 4px
+    label 
+      background: #2485cf
+      display: block
+      padding: 0 4px 
+      margin-right: 4px
+    &:after
+      content:'\e7e4'
+      margin-right: 6px
+
+  .clean-all
+    line-height: 36px
+  >li 
+    border-bottom: 1px solid #e3e3e3
+    padding: 2px 0
+    >.inner
+      ss-display-flex(row wrap, flex-start, flex-start)
+      // >.hheader
+      //   @extends .list-search-attr .item-title
+      >.hbody
+        flex: 1
+        min-width: 70%;     //为了hfoot的按钮如果设置宽度可以跑下来
+        height: 36px
+        overflow: hidden
+        padding: 0 2px
+        &.item-removeHeight
+          height: auto
+  .item-icons
+    &:before
+      content: ''
+      background: #2485cf
+      position: absolute;
+      top: 8px;
+      right: 17px
+      width: 8px
+      height: @width 
+      border-radius: @width
+
+.list-search-attr-single
+  >li 
+    margin-right: 6px
+    line-height: 36px
+    cursor: pointer
+    &:hover
+      >.itemCategory
+        >.item-li-wrap
+          &:before,&:after
+            border-left-color: #e3e3e3
+          >.item-li
+            background: #fff
+            color: #333
+            // padding: 0 6px
+            &:before
+              border-top-color: #2485cf
+          &.c-check
+            background: #fff
+            &:before
+              left: -6px
+            &:after
+              left: 7px
+        >.property-ul
+          display: flex
+    >.itemCategory
+      >.item-li-wrap
+        ss-display-flex(row nowrap, flex-start, center, center)
+        height: 36px
+        position: relative;
+        z-index: 3;
+        margin-left: -2px
+        &:before,&:after
+          content: ''
+          border-left: 1px solid transparent
+          width: 1px 
+          height: 100%
+          display: block
+          position: relative
+        &:after
+          left: 1px;
+          z-index: 1
+        >.item-li
+          // padding: 0 6px
+          &:before
+            content: ''
+            border-top: 3px solid transparent
+            position: absolute
+            top: 0
+            left: 0
+            height: 3px 
+            width: 100%
+            z-index: 2
+          &:after
+            content: '\e616'
+            color: #9e9e9e
+            margin-left: 4px
+        // &.c-check
+        //   >.item-li
+        //     padding: 0
+
+      >.property-ul
+        ss-box-shadow(0 0 4px rgba(0,0,0,.2))
+        position: absolute
+        display: none
+        margin-left: -1px
+        z-index: 1
+        padding-top: 2px
+        >li
+          margin-right: 6px
+    .property-ul
+      ss-display-flex(row wrap, flex-start, center, center)
+
+.item-level-more      //如果有二级以上的
+  >.itemCategory
+    >.property-ul 
+      >li 
+        width: 100%
+        >.caption
+          color: #333
+          margin-right: 10px
+          font-weight: bold
+          .c-check
+            justify-content: flex-end
+        >.itemCategory
+          ss-display-flex(row nowrap, flex-start)
+          >.caption
+            @extends .item-level-more >.itemCategory >.property-ul >li >.caption
+        &:not(.itemroot)
+          width: auto
+          // >.c-check
+          //   min-width: 58px;
+          //   justify-content: flex-end;
+          //   margin-right: 10px;
+          //   font-weight: bold;
+// /*
+//  * 公用搜索tree及其容器样式
+//  */
+// list-search-attr($attr-min-width = 60px, $color = #333)
+//   .list-search-attr
+//     color: $color
+//     font-size: 14px - 2
+//     position: relative;
+//     >.inner
+//       display-flex(row wrap, flex-start, flex-start, flex-start)
+//       border-bottom: 1px solid $borderColor
+//       padding: 2px 0
+//       >.hheader
+//         font-weight: bold
+//         margin-right: 16px
+//         line-height: 36px
+//         min-width: $attr-min-width
+//         text-align: right;
+//       >.hbody
+//         display-flex(row wrap, flex-start, flex-start, flex-start)
+//         width: 80%;
+//         height: 33px;
+//         // min-height: 33px;
+//         overflow: hidden;
+//       .hb-item
+//         margin-right: 6px
+//         margin-top: 8px
+//         line-height: 14px;
+//         >.c-check
+//           height: 23px
+//           >span
+//             margin-top: -4px
+//         .color-999
+//           line-height: 22px
+//           a 
+//             padding: 4px 0
+//         span 
+//           vertical-align: top;
+//         a
+//           padding: 4px 6px
+//           &:hover
+//             background: $color2585cf
+//             color: #fff
+//       >.hfoot
+//         width: 100%
+//     a
+//       text-decoration: none
+//       color: $color
+//       display: block;
+//       &:hover
+//         text-decoration: none
+//   /*******您已选择*/
+//   .item-checked-li
+//     background: #57b0f4
+//     color: #fff
+//     display: flex;
+//     line-height: 22px;
+//     padding: 0
+//     i
+//       font-style: normal;
+//     div
+//       background: $color2585cf
+//       padding-right: 4px
+//       padding-left: @padding-right
+//       margin-right: @padding-right
+//     // &:after
+//     //   content: '\e7e4'
+//     //   padding: 0 4px 0 8px
+//     .item-checked-close
+//       display:inline-block
+//       margin-left:4px
+//       min-width:22px
+//       text-align:center
+//       cursor:pointer
+//       &:hover
+//         font-size:120%
+//       &:after
+//         content:'\e7e4'
+//     // span
+//     //   &:after
+//     //     content: '、'
+//     //     -webkit-font-smoothing: auto;
+//     //   &:last-child
+//     //     &:after
+//     //       content: '' !important
+//   /*******您已选择里的清除条件*/
+//   .clear-all
+//     color: #0068c1
+//     height: 28px
+//     line-height: @height
+//     margin-left: 10px
+//     margin-top: 5px;
+//     &:hover
+//       text-decoration: underline
+//   .pa-r
+//     position: absolute;
+//     top: 12px;
+//     right: 8%;
+//     color: #2485cf;
+//     font-size: 12px;
+//     display-flex(row nowrap, center, center, center)
+//     cursor:pointer
+//     &:after 
+//       content: '\ec0a'
+//       font-size: 16px
+//       position: absolute;
+//       transition: all 200ms linear
+//       transform: rotateZ(0deg)
+//     &.active 
+//       &:after 
+//         transform: rotateZ(180deg)
+//   /******点击多选，出现的两个按钮*/
+//   .search-more-btn
+//     margin: 10px auto;
+//     @extends .row-flex
+//     justify-content: center;
+//     button
+//       margin-right: 8px;
+//       padding: 4px 10px;
+//       min-width: 50px;
+//       font-size: 12px
+//   .btn-multi-select
+//     position: absolute;
+//     top: 8px
+//     right: 0;
+//     font-size: 12px
+//     padding: 4px 8px;
+//   .item-dt-btn,.item-special-field
+//     @extends .row-flex
+//     >div
+//       margin-left: 8px
+//     >li
+//       margin-left: 4px
+//   .itemList_selected,.itemList_departureDate
+//     .inner
+//       .hbody
+//         width: auto
+//         .hb-item
+//           margin-top: 7px;
+//           line-height: initial;
+//   .wid50
+//     margin: 0 8px
+//   /******类似搜索目的地属性 有两级选择*/
+//   .lsb-more-list
+//     // position:relative
+//     margin-top: -10px
+//     &.lsb-check
+//       .hbody
+//         li
+//           padding: 0
+//           &:hover
+//             background: none
+//             color: #666
+//     .hheader
+//       background: #fff
+//       cursor: pointer;
+//       padding: 0px 6px;
+//       position: relative;
+//       line-height: 30px
+//       top:2px
+//       border-top: 3px solid transparent
+//       // margin-top: -1px
+//       border-left: 1px solid transparent;
+//       border-right: @border-left
+//       display-flex(row nowrap, flex-start, center, center)
+//       &:after
+//         content: '\e616'
+//         margin-left: 4px
+//         color: #9e9e9e
+//       &.icons
+//         &:before
+//           content: '\ec0c'
+//           color: $color2585cf
+//           position: absolute;
+//           top: -7px;
+//           right: 11px
+//           font-size: 18px;
+//       &.active
+//         background: #fff
+//         border-top-color: $color2585cf
+//         border-left: 1px solid #e3e3e3
+//         border-right: @border-left
+//         position: relative
+//         z-index: 12
+//         ~.hbody
+//           display: block;
+//           box-shadow: 0 0 4px rgba(0,0,0,.2)
+//     .hbody
+//       display: none
+//       position: absolute;
+//       left: 72px
+//       background: #fff;
+//       top: 31px
+//       z-index: 11;
+//       // width: 1024px;
+//       width: 87.4%
+//       .hb-item
+//         padding: 2px 6px 12px 6px
+//       ul
+//         display-flex(row wrap, flex-start, center, center)
+//       li
+//         margin-right: 10px
+//         padding: 0 4px
+//         cursor: pointer;
+//         &:hover
+//           background: #57b0f4
+//           color: #fff
+
+// list-search-attr()
+
+// .height-free
+//   height:auto !important
+//   overflow:inherit !important
+// .height-hidden
+//   height: 33px !important
+//   overflow:hidden !important
+
+// .list-search-box
+//   box-backgroud(  #fff, 4px 20px 4px 20px, 1px solid $borderColor,10px)
+//   .lsb-head
+//     border-bottom: 1px solid $borderColor
+//     padding: 0 0 9px 0;
+//     .item-checked-li
+//       padding: 0 5px
+//   .lsb-t-list
+//     >li
+//       position: relative;
+//   .itemCategory
+//     position: relative;
+//   //目的地选择样式
+//   .lsb-destination-search
+//     display-flex(row nowrap, flex-start, center, center)
+//     .fkp-title
+//       font-size: 12px
+//       font-weight: bold;
+//       line-height: 32px;
+//       min-width: auto;
+//       margin-right: 8px
+//       text-align: left;
+//     .fkp-content,.fkp-dd
+//       position:relative
+//     .fkp-dd
+//       width:120px
+//     >.inputItem      
+//       margin-right: 22px
+//     .inputItem
+//       margin-bottom: 0
+//     .input-dropdown 
+//       input[type='text']
+//         width: 120px
+//       .fkp-content:before
+//         left: inherit
+//         right: 0;
+//     .for-c-destination .fkp-desc,.for-c-itemname .fkp-desc
+//       position:absolute
+//       margin:0
+//       left:0
+//       top: 31px
+//       z-index:9
+//     .city_searchBox
+//       min-width:500px
+//       padding: 14px 20px;
+//       border:1px solid $borderColor
+//       background:#fff
+//       li.item
+//         cursor:pointer
+//     .ds-btn
+//       margin-right: 0
+//       .btn 
+//         min-width: 80px
+//     //价格范围
+//     .input-price-scope
+//       margin-right: 16px;   
+//       flex-flow: row nowrap
+//       .fkp-desc
+//         margin-left: 4px
+//         margin-right: @margin-left
+//       input[type='text']
+//         width: 60px
+//   //边框容器
+//   .lsb-head-search
+//     padding:8px
+//     border:1px solid #e3e3e3
+//   .range-search-box
+//     display-flex(row wrap, flex-start, flex-start, flex-start)
+//     border-bottom: 1px solid $borderColor
+//     padding: 2px 0
+//     .hheader
+//       font-size:12px
+//       font-weight: bold
+//       margin-right: 16px
+//       line-height: 36px
+//       min-width: 56px
+//       text-align: right
+//   //下拉找不到怎么办？提示语
+//   .input-search
+//     .empty-box
+//       background: #fff;
+//       border: 1px solid $borderColor
+//       font-size: 12px 
+//       padding-left: 10px
+//       box-shadow: 0px 4px 7px 0 rgba(5,17,26,0.3);
+//       height: 30px
+//       line-height: @height
+//       color: #ff4242;
+//       .empty-text
+//         textellipsis(30px,1)
+//         line-height:30px
+//   >ul>li
+//     &:last-child
+//       .list-search-attr >.inner
+//         border-bottom: none
+// .c-check
+//   display-flex(row nowrap, flex-start, center, center)
+//   .fkp-checkbox-box
+//     position: relative
+
+// .list-search-form
+//   padding: 20px

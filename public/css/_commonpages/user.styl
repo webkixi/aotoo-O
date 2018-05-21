@@ -1,0 +1,48 @@
+//类似我的账号资料
+.list-router-list
+  line-height: normal
+  li
+    position: relative;
+  .property-ul
+    background: #fff
+    font-size: 16px
+    color: #666
+    >li
+      ss-border-item(#e3e3e3, top)
+      margin: 0 0.2rem
+    .item-form
+      padding: .253333rem 0
+    lable
+      color: #333
+      margin-right: 0.2rem
+      font-weight: bold
+    .item-lable-tips
+      font-weight: normal
+      font-style: normal
+      color: #999;
+  .caption      //账号中心-个人信息
+    color: #666
+    display: block;
+    font-size: 16px
+    padding: .12rem 0.2rem
+    text-align: left;
+    ss-border($absolute: true, $absoluteBottom: true)
+  .lrl-content
+    ss-textellipsis(.28rem, 1)
+    max-width: 60%
+    text-align: right;
+    margin-right: 18px;
+    &:after
+      color: #999
+  .item-input
+    color: #333333
+    flex: 1
+    padding-right: 15px
+    text-align: right 
+  .icon-toggle
+    margin-right: 0;
+    &:after
+      font-size: 15px
+  &.list-mt
+    >li
+      margin-top: 0.2rem

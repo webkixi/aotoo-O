@@ -1,0 +1,28 @@
+/**
+ * triangle()
+ * 直接调用是向上的箭头，通过参数可以有不同方向的箭头
+ * triangle(2px, 2px,4px, 0, transparent, transparent,#fff,initial) 向下
+ * triangle(0, 4px,2px, 2px, initial, #fff, transparent,transparent) 向左
+ * triangle(4px, 0,2px, 2px, #fff, initial, transparent,transparent) 向右
+ * triangle(0, 4px, 4px, 0, initial, transparent, #fff, initial) 上左
+ * triangle(4px, initial, 4px, initial, #fff, initial, transparent, initial) 上右
+ * @type {[type]}
+ */
+// triangle( $border-left-width = 4px, $border-right-width = 4px, $border-top-width = initial, $border-bottom-width = 8px, $border-left-color = transparent, $border-right-color = transparent, $border-top-color = transparent, $border-bottom-color = #fff )
+ss-triangle( $border-left = 4px solid transparent, $border-right = 4px solid transparent, $border-top = initial, $border-bottom = 8px solid #fff)
+  width: 0;
+  height: 0;
+  border-left: $border-left
+  border-right: $border-right
+  border-top: $border-top
+  border-bottom: $border-bottom
+
+//有边线
+ss-triangle-hollow($border-left = 1px solid transparent,$border-right = 1px solid #6b6b6b,$border-top = 1px solid #6b6b6b,$border-bottom = 1px solid transparent, $width = 5px, $height = 5px, $transform = rotate(-45deg))
+  border-left: $border-left
+  border-right: $border-right
+  border-top: $border-top
+  border-bottom: $border-bottom
+  height: $width
+  width: $height
+  transform: $transform

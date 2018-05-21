@@ -1,0 +1,26 @@
+.ss-permission
+  .caption
+    ss-display-flex(row nowrap, flex-start, center)
+    &:before
+      content: ''
+      height: 1px 
+      width: 20px
+      background: #eee
+      display: block
+  .item-title-level0
+    ss-display-flex(row nowrap, space-between, center, center)
+    background: #fdfbfb
+    padding: 3px 6px
+  .level1
+    position: relative
+    &:before
+      content: ''
+      height: 100%
+      width: 1px 
+      background: #eee
+      position: absolute
+      left: 0
+  for i in 1..4
+    .level{i}
+      margin-left: 10px * i
+    

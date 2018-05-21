@@ -1,0 +1,75 @@
+
+// button
+//   width: 100%;
+  // width: 96%;
+  // margin: 10% 2%;
+
+.form-control
+  background-color: #fff;
+  display: block;
+  width: 100%;
+  height: 34px;
+  // padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+
+
+
+//form 表单
+.form-list
+  &.form-list-border
+    >li
+      padding: 0.1267rem 0.2rem        //统一49
+      input
+        height: 30px
+      &:first-child
+        border-top: 1px solid #e3e3e3
+        ss-border( $absolute: true, $absoluteBottom: true)
+  &.form-list-no-title
+    >li
+      lable
+        display: none
+  >li
+    background-color: #fff
+    // border-bottom: 1px solid #e3e3e3
+    ss-border($absolute: true, $absoluteBottom: true)
+    padding: 0.1rem .066667rem
+    lable
+      min-width: 90px
+    input
+      height: 34px
+      flex: 1
+      line-height: normal;
+      order: 1
+    textarea
+      flex: 1;
+      padding: 0.1rem 0;
+      min-height: 265px;
+    img
+      width: 100px
+      height: 34px
+      order: 2
+    div,p,.form-order-2
+      order: 2
+    .form-num
+      order: 0;
+      // width: 40px;
+      border-right: 1px solid #e3e3e3;
+      margin-right: 0.1rem;
+      padding-right: @margin-right
+
+.form-list-more-uploader
+  @extends .form-list
+  >li
+    padding: 0.1267rem 0.2rem        //统一49
+    margin-top: -1px
+.form-list-flexstart
+  @extends .form-list
+  >li
+    ss-display-flex(row nowrap, flex-start, center, center)
+
+.form-list-specebetween
+  @extends .form-list
+  >li
+    ss-display-flex(row nowrap, space-between, center, center)
+

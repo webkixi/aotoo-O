@@ -1,0 +1,21 @@
+ss-fieldset($font-weight = bold, $margin =30px 0 10px, $borderheight = 1px, $borderbg = #eee, $bordertop = 10px, $spadding = 0 5px 0 18px, $smargin-left= 30px, $sfont-size = 14px, $center = false)
+  font-weight: $font-weight
+  margin: $margin
+  position: relative;
+  if ($center == true)
+    text-align: center
+  &:before
+    content: "";
+    display: block;
+    width: 100%;
+    height: $borderheight
+    background:  $borderbg
+    position: absolute;
+    top: $bordertop
+    left: 0;
+  span
+    background: #fff;
+    padding: $spadding
+    position: relative
+    margin-left: $smargin-left
+    font-size: $sfont-size

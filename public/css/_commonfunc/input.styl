@@ -1,0 +1,98 @@
+
+placeholder($color = #999, $font-size = 15px)
+  &::-webkit-input-placeholder{
+    color: $color
+    font-size: $font-size
+  }
+  &:-moz-placeholder: {
+    color: $color
+    font-size: $font-size
+  }
+  &::-moz-placeholder: {
+    color: $color
+    font-size: $font-size
+  }
+  &:-ms-input-placeholder: {
+    color: $color
+    font-size: $font-size
+  }
+
+
+/*****radio 自定义*/
+radio-theme()
+  input[type='radio']
+    cursor: pointer
+    position: absolute;
+    top: 0;
+    left: @top
+    width: 100%;
+    height: @width
+    opacity: @top
+    border: @top
+    margin: @top
+    z-index: 9;
+    &:checked
+      &+.fkp-radio-box
+        &:after
+          content: '\e76b';
+          position: absolute;
+          left: -1px
+          top: 0;
+          color: #048cf9;
+          font-size: 16px
+  .fkp-radio-box
+    font-size: 14px
+    display-flex(row, center, center, center)
+    order: 1
+    &:before
+      content: '';
+      border: 1px solid #cccccc
+      color: #ccc;
+      display: block
+      width: 12px
+      height: @width
+      min-width: @width
+      border-radius: 12px
+      margin-right: 4px
+  .fkp-title 
+    order: 2
+    min-width: 0.6em;
+
+/*****checkbox 自定义*/
+checkbox-theme()
+  input[type='checkbox']
+    cursor: pointer
+    position: absolute;
+    top: 0;
+    left: @top
+    width: 100%;
+    height: @width
+    opacity: @top
+    border: @top
+    margin: @top
+    z-index: 9;
+    &:checked
+      +.fkp-checkbox-box
+        &:after
+          content: '\e766';
+          color: #2485cf
+          position: absolute;
+          top: 0
+          left: -1px
+          font-size: 16px
+          // transition: all .2s linear;
+  .fkp-checkbox-box
+    font-size: 14px
+    // display-flex(row, center, center, center)
+    line-height: 14px
+    position: relative
+    &:before
+      content: '';
+      border: 1px solid #cccccc
+      color: #ccc;
+      display: block
+      width: 12px
+      height: @width
+      min-width: @width
+      // transition: all .2s linear;
+      margin-right: 4px

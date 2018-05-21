@@ -1,0 +1,67 @@
+ss-border-item($bordercolor = #e3e3e3, $directions = left)
+  if ($directions == left)
+    // border-left: 1px solid $bordercolor
+    ss-border($color: $bordercolor, $direction: left, $absolute: true)
+    &:first-child
+      &:after
+        border-left: none
+  else if ($directions == top)
+    // border-top: 1px solid $bordercolor
+    ss-border($color: $bordercolor, $direction: top, $absolute: true)
+    &:first-child
+      &:after
+        border-top: none
+  else if ($directions == right)
+    // border-right: 1px solid $bordercolor
+    ss-border($color: $bordercolor, $direction: right, $absolute: true)
+    &:first-child
+      &:after
+        border-right: none
+  else if ($directions == bottom)
+    // border-bottom: 1px solid $bordercolor
+    ss-border($color: $bordercolor, $direction: bottom, $absolute: true, $absouluteBottom: true)
+    &:first-child
+      border-bottom: none
+
+
+//解决1px问题  ss-b1是公用的地方 抽取出来，ss-border可通过参数去控制
+
+ss-b1()
+  border: none
+  +cache()
+    &:after
+      content: ''
+      display: block
+      width: 200%
+      height: @width
+      -webkit-transform: scale(.5, .5)
+      transform: scale(.5, .5)
+      -webkit-transform-origin: 0 0 
+      transform-origin: 0 0 
+      box-sizing: border-box;
+      z-index: 0;
+ss-border($line = solid, $color = #e3e3e3, $direction = bottom, $absolute = false, $absoluteBottom= false)
+  ss-b1()
+  if ($absolute == true)
+    position: relative
+  &:after
+    if ($absolute == true)
+      position: absolute
+      left: 0
+      if ($absoluteBottom == true)
+        bottom: 0
+        height: 1px 
+      else 
+        top: 0
+
+    if ($direction == left)
+      border-left: 1px $line $color
+    else if ($direction == right)
+      border-right: 1px $line $color
+    else if ($direction == top)
+      border-top: 1px $line $color
+      height: 1px 
+    else if ($direction == bottom)
+      border-bottom: 1px $line $color
+    else if ($direction == all)
+      border: 1px $line $color
