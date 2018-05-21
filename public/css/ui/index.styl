@@ -1,0 +1,35 @@
+@import '../index'
+
+
+
+//头部
+.s-header
+  height: 64px 
+  ss-box-shadow()
+  .logo
+    display: block
+    padding: 0 40px 
+    height: 50px
+    img 
+      width: auto
+      height: 100%
+
+//中部内容
+.s-body
+  margin: 40px 0 0
+.sb-content
+  padding: 0 40px
+
+
+//块层  卡片式
+.item-card
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  position: relative;
+  transition: all .2s ease-in-out;
+  min-height: 180px
+  .item-card-li
+    border-right: 1px dashed #eee;
+    &:last-child
+      border-right: none
