@@ -1,0 +1,218 @@
+//左右结构，标题旁边带有icon或其它或没有，可指定em字体大小占用宽度，及icon颜色/大小/content等
+// ss-item-title-icon($font-size = 16px, $width = 82%, $icon-font-size = 20px, $icon-color = #999, $icon-content = '')
+.title-icon
+  ss-item-title-icon()
+
+// //适用于白色背景带padding
+// .item-bg
+//   background: #fff
+//   padding: 0.18rem 0.2rem;
+//   em,i
+//     font-style: normal;
+// //左边lable 右边内容
+// .item-between
+//   ss-display-flex(row wrap, flex-start, flex-start)
+//   width: 100%
+//   color: #999
+//   lable
+//     color: #999
+//   span
+//     color: #333
+//     flex: 1
+
+
+
+// .item-normal      //基于关于我们
+//   padding: .44rem 0.2rem 0 0.2rem
+//   text-align: center;
+//   font-size: 14px
+//   color: #333
+//   .hheader
+//     font-size: 20px
+//     img
+//       width: 83px
+//       height: @width
+//       margin-bottom: 0.04rem
+//       padding: 0.01rem;
+//     .item-title
+//       font-style: normal;
+//       display: block;
+//   .hbody
+//     margin-bottom: .226667rem
+//     color: #666
+//   .dot
+//     text-indent: 2em
+//     line-height: 20px
+//     text-align: left
+
+// .item-copyright   //底部版权
+//   height: 105px
+//   ss-display-flex(column, center, center, center)
+//   width: 100%
+//   text-align: center
+//   font-size: 12px
+//   color: #666
+//   .hheader
+//     margin-bottom: .026667rem
+//   em
+//     font-style: normal;
+//   b
+//     color: #333
+
+
+// //右上角分享提示语
+// .right-top-share
+//   ss-fixed-bg($height: 100%, $fix: top)
+//   background: rgba(0, 0, 0, 0.7);
+//   width: 100%;
+//   left: 0
+//   padding: 0 0.267rem
+//   &:before 
+//     content: ''
+//     background: url('/images/share-topright.png') no-repeat
+//     background-position: top right 
+//     background-size: contain
+//     display: block
+//     width: 92%
+//     height: 130px
+//     margin-top: .666667rem
+//     margin-bottom: 0.2rem
+//   .rt-s-content
+//     color: #fff
+//     font-size: 22px
+//     text-align: left
+//     ss-display-flex(row, flex-start, center, center)
+//   i 
+//     border-radius: 6px
+//     background: #fff
+//     width: 43px 
+//     height: @width 
+//     display: block
+//     margin: 0 0.06rem
+//     ss-display-flex(row, center, center, center)
+//   .ic-send
+//     margin: 0 0.06rem 0 0.2rem
+//     &:before 
+//       content: '\e6ac'
+//       color: #2ba245
+//   .ic-pyq
+//     &:before 
+//       content: ''
+//       background: url('/images/pyq.png') no-repeat
+//       background-position: center
+//       background-size: contain
+//       width: 21px
+//       height: @width
+
+
+// //列表没有数据时的展示
+// .item-nodata
+//   .nodata-wrap
+//     ss-display-flex(column, center, center)
+//     background: none
+//     font-size: 13px
+//     color: #666
+//     width: 80%
+//     padding: 2rem 0 0 0
+//     margin: 0 auto
+//   .nd-title
+//     color: #333
+//     font-size: 18px
+//     font-style: normal
+//     ss-display-flex(column, center, center)
+//     &:before 
+//       content: ''
+//       background: url('/images/icon-nd.png') no-repeat
+//       width: 1.4rem
+//       height: @width
+//       margin-bottom: .066667rem
+//       background-position: center
+//       background-size: contain
+//     &.no-newpages
+//       &:before 
+//         background: url('/images/icon-news.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//     &.no-invitation
+//       &:before 
+//         background: url('/images/icon-invitation.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//     &.no-hotel
+//       &:before 
+//         background: url('/images/icon-hotel.png') no-repeat
+//         background-position: center
+//         background-size: contain
+//   .nd-com
+//     color: #999
+//     font-size: 14px
+//     margin-top: .066667rem
+//     text-align: center
+//   .in-btn 
+//     margin-top: .986667rem
+//     // border-radius: 20px
+
+// //消息列表  Aotoo.item
+// .list-item
+//   // border: 1px solid #e3e3e3
+//   border-radius: 2px
+//   background: #fff
+//   display: block
+//   padding: .186667rem .133333rem .2rem .133333rem
+//   margin-top: 0.2rem
+//   color: #666
+//   font-size: 14px
+//   width: 100%
+//   em
+//     display: block;
+//     margin-bottom: .093333rem
+//     font-style: normal;
+//     font-size: 16px
+//     color: #333
+//   img
+//     margin-bottom: 0.1rem
+//   .list-item-foot
+//     ss-border-item(#e3e3e3, top)
+//     padding-top: .186667rem
+//     margin-top: @padding-top
+// .item-time
+//   background: #d1d1d1;
+//   font-size: 12px;
+//   color: #fff;
+//   padding: 0.02rem 0.1rem;
+//   border-radius: 2px;
+// .item-del
+//   width: 58px;
+//   height: 33px;
+//   background: rgba(0, 0, 0, 0.7);
+//   text-align: center;
+//   color: #fff;
+//   border-radius: 4px;
+//   line-height: 33px;
+//   position: absolute;
+//   top: 6px;
+//   font-size 14px
+//   &:before 
+//     content: ''
+//     ss-triangle(8px solid transparent, 8px solid transparent, 8px solid rgba(0, 0, 0, 0.7), initial)
+//     position: absolute;
+//     bottom: -8px;
+//     left: 20px;
+    
+// .item-list-li
+//   ss-item-border()
+//   ss-display-flex(row wrap, center, center, center)
+//   height: .48rem
+//   padding: .026667rem .093333rem
+//   width: 1.213333rem
+//   .destinationId
+//     ss-textellipsis(32px, 2)
+//     line-height: 1.2
+
+
+
+//类似fieldset
+.fieldset
+  ss-fieldset()
+.fieldset-center
+  ss-fieldset($center: true)

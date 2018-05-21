@@ -1,0 +1,129 @@
+$customHeight = 48px
+//手机 完全版
+// .router-mob-basic
+//   .routerMenus
+//     display: none
+//     font-size: 18px
+//     position: fixed;
+//     width: 100%;
+//     height: 100%;
+//     z-index: 20
+//     .hlist
+//       padding-top: 68px;
+//       width: 80%;
+//       margin: auto;
+//       >li
+//         border-bottom: 1px solid #fff
+//         line-height: 42px
+//       for i in 1..6
+//         .level{i}
+//           line-height: 36px
+//           padding-left: 0.2rem
+//   .routerBoxes
+//     font-size: 14px
+//     padding-top: $customHeight
+//     position: absolute;
+//     background: #fff
+//     z-index: 3
+
+//   .outHeight
+//     z-index: 0
+//     height: 0
+    
+.router-head-pos
+  background: rgba(0,0,0,0.8);
+  position: absolute;
+  z-index: 21;    //要比routerMenus高
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $customHeight
+  overflow: hidden;
+  display: none
+  
+.router-close
+  position: absolute;
+  z-index: 3;
+  top: 10px
+  right: 10px
+  width: $customHeight
+  height: @width
+  cursor: pointer;
+  transition: background 0.5s;
+  display: none
+  li
+    position: absolute;
+    left: calc(26%);
+    top: 45%;
+    width: 22px;
+    height: 2px;
+    background-color: #858585;
+    &:first-child
+      transform: translateY(3px) rotate(0deg);
+      animation: outfirst 0.5s both;
+    &:nth-child(2)
+      transform: translateY(-3px) rotate(0deg);
+      animation: outsecond 0.5s both;
+//icon->
+.router-close-input
+  position: absolute;
+  z-index: 22       //要比router-head-pos高
+  top: 10px
+  right: 10px
+  width: 100%
+  width: $customHeight
+  height: @width
+  opacity: 0
+
+  &.checked
+    ~.router-close
+      li
+        &:first-child
+          animation: clickfirst 0.5s both;
+        &:nth-child(2)
+          animation: clicksecond 0.5s both;
+
+
+@keyframes clickfirst
+  0%
+    transform: translateY(6px) rotate(0deg);
+  100%
+    transform: translateY(0) rotate(45deg);
+
+@keyframes clicksecond
+  0%
+    transform: translateY(-3px) rotate(0deg);
+  100%
+    transform: translateY(0) rotate(-45deg);
+
+
+@keyframes outfirst
+  0%
+    transform: translateY(0) rotate(-45deg);
+
+  100%
+    transform: translateY(-9px) rotate(0deg);
+
+@keyframes outsecond
+  0%
+    transform: translateY(0) rotate(45deg);
+  100%
+    transform: translateY(3px) rotate(0deg);
+
+
+
+.router-animate
+  transition: all 1s;
+  &.router-fadeIn
+    opacity: 1
+  &.router-fadeOut
+    opacity: 0
+  &.router-fadeInLeft, &.router-fadeInRight
+    opacity: 1;
+    transform: none;
+  &.router-fadeOutLeft
+    opacity: 0
+    transform: translate3d(-100%,0,0)
+  &.router-fadeOutRight
+    opacity: 0
+    transform: translate3d(100%,0,0)

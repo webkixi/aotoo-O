@@ -1,0 +1,95 @@
+//带fixed的顶部导航条
+.fixed-top-nav
+  display-flex(row nowrap, flex-start, center, center)
+  fixed-bg($height: 40px, $fix: top)
+  border-top: 1px solid #ccc;
+  >li
+    flex: 1
+
+
+//底部导航条
+.fixed-bottom-nav
+  ss-display-flex(row nowrap, flex-start, center, center)
+  ss-border($color: #dfdfdf, $direction: top, $absolute: true)
+  ss-fixed-bg($height: initial, $fix: bottom, $background: #fff)
+  text-align: center;
+  font-size: 12px
+  line-height: normal;
+  padding: .053333rem 0 .04rem 0 
+  a
+    color: #333
+  >li
+    flex: 1
+    padding-top: 0.05rem
+    &:active,&.active
+      a
+        color: #2485cf
+      &:before
+        color: #2485cf
+    &:before
+      display: block;
+      font-size: 22px
+      color: #666
+    &:first-child
+      &:before
+        content: '\e642'
+    &:nth-child(2)
+      &:before
+        content: '\e640'
+    &:nth-child(3)
+      &:before
+        content: '\e641'
+    .inner
+      position: relative;
+    .dot
+      top: -22px;
+      right: 45px;
+
+.fixed-top
+  ss-fixed-bg($height: auto, $fix: top)
+
+.fixed-bottom-btn
+  border-radius: 0
+  position: fixed;
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 0.62rem;
+  z-index: 20
+
+
+.fixed-top-btn
+  ss-display-flex(row nowrap, space-between, flex-start, center)
+  position: fixed;
+  top: 0.3rem
+  left: 0
+  width: 100%
+  z-index: 20
+
+.fixed-top-tabs
+  ss-display-flex(row nowrap, space-between, flex-start, center)
+  position: fixed;
+  top: 0.6rem
+  left: 0
+  width: 100%
+  z-index: 20
+
+
+//圆圈加文字 浮动效果
+.fixed-tips-left
+  ss-fixed-bg(0.5rem, 0.5rem, #fff, 0.7rem, bottom)
+  // border: 1px solid #e3e3e3
+  ss-border($direction: all)
+  border-radius: 0.5rem
+  color: #999
+  font-size: 10px
+  left: 0.267rem
+  line-height: 0.5rem
+  text-align: center
+  opacity: 0.9
+  &:after
+    position: sticky;
+    bottom: 0.7rem;
+    z-index: 20;
+    border-radius: 100%;
+    

@@ -1,0 +1,54 @@
+@media (min-width: 300px) and (max-width: 768px)
+  .router-close
+    display: block
+  .routerGroup
+    .routerMenus
+      // display: none
+      font-size: 18px
+      position: fixed;
+      width: 100%;
+      z-index: 20
+      margin-top: -32px
+      overflow: hidden;
+      height: 100%
+      // height: 0
+      right: -100%
+      opacity: 0
+      background: rgba(255,255,255,0.4)
+      -webkit-transition: all .35s linear;
+      transition: all .35s linear;
+      &.switchplatform
+        opacity: 1;
+        right: 0
+        // height: 100%
+        background: #fff
+      .select
+        background: none 
+        &:after
+          content: initial
+      .hlist
+        padding-top: 38px;
+        // >li
+        //   border-bottom: 1px solid #fff
+        //   line-height: 42px
+        // for i in 1..6
+        //   .level{i}
+        //     line-height: 36px
+        //     padding-left: 0.2rem
+    // .routerBoxes
+    //   font-size: 14px
+    //   padding-top: $customHeight
+    //   position: absolute;
+    //   background: #fff
+    //   z-index: 3
+
+    .outHeight
+      z-index: 0
+      height: 0
+    .router-head-pos
+      display: block
+    // .xx
+    //   .routerMenus
+    //     background: #000;
+    //     color: #FFF
+    //     display: block;

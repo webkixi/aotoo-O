@@ -1,0 +1,95 @@
+/**
+ * steps()
+ * $flow 主要有两个效果 ，一是 row, 二是 column
+ * $color 默认的字体颜色
+ * $activecolor 选中后字体颜色
+ * $iconwidth icon的宽度
+ * $spancolor 默认的 span的颜色
+ * $iconcolor 默认的 icon 颜色
+ * $spancoloracitve 选中后icon 颜色
+ * $iconcoloracitve 选中后icon 颜色
+ * $flex2，$align-items2 是按钮.steps-step这一层是  icon跟文字的排列
+ *$liheight 是 steps 下的 li高度，flow= column需要
+ */
+
+
+steps($flow = row, $color = #666, $activecolor = #666, $iconwidth = .266667rem, $spancolor = #fff, $iconcolor = #58b7ff, $spancoloracitve = #2485cf, $iconcoloracitve = #eef5fb, $flow2 = column, $align-items2 = center, $liheight= auto, $border-color = .013333rem solid #c4dfea, $steps-steps-fs = .146667rem, $steps-icon-fs = .186667rem, $iconcenter = true)
+  steps-status-finish()
+    &:before
+      transition: all .6s
+      display: block
+      width: 200%
+      height: @width
+      -webkit-transform: scale(.5, .5)
+      transform: scale(.5, .5)
+      -webkit-transform-origin: 0 0 
+      transform-origin: 0 0 
+      box-sizing: border-box;
+      z-index: 0;
+      if($flow == row)
+        border-top : 4px solid $iconcoloracitve
+      if($flow == column)
+        border-left: 1px solid $iconcoloracitve
+    .steps-icon
+      color: $spancoloracitve
+      background: #2485cf
+      &:before
+        color: $iconcoloracitve
+    .steps-main
+      p
+        color: $activecolor
+  width: 100%
+  ss-display-flex($flow nowrap, flex-start)
+  .steps-item
+    position: relative
+    flex: 1
+    height: $liheight
+    overflow: hidden;
+    font-size: $steps-steps-fs
+    z-index: 3
+    ss-display-flex($flow2, flex-start, $align-items2)
+    &.steps-status-finish
+      steps-status-finish() 
+    .steps-icon
+      color: $spancolor
+      position: relative
+      font-size: $steps-icon-fs
+      width: 100%
+      ss-display-flex(row nowrap, flex-start, center, center)
+      &:before, &:after
+        content: ''
+        display: block
+        -webkit-transform: scale(1, .5)
+        -webkit-transform-origin: 0 0 
+        box-sizing: border-box;
+        z-index: 0;
+        flex: 1
+        height: .013333rem
+        border-top: $border-color
+      i 
+        background: $iconcolor;
+        border-radius: 100%;
+        width: $iconwidth
+        height: @width
+        line-height: @width
+        text-align: center;
+        font-style: normal
+        margin: 0 .053333rem
+        
+    .steps-main
+      flex: 1
+      if($flow == column)
+        margin-bottom: .4rem
+        margin-left: .24rem
+      if($flow2 == row)
+        p
+          display: inline-block
+          padding-right: 1%;
+      else if($flow2 == column)
+        p
+          margin-top: .08rem
+      p
+        color: $color
+        &:first-child
+          font-size: @font-size
+          position: relative;

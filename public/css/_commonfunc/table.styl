@@ -1,0 +1,67 @@
+//用li展示table形式  最多是10个列
+ss-table($width_nth_1 = auto, $width_nth_2 = auto, $width_nth_3 = auto, $width_nth_4 = auto, $width_nth_5 = auto, $width_nth_6 = auto, $width_nth_7 = auto, $width_nth_8 = auto, $width_nth_9 = auto,  $width_nth_10= auto, $line-height = 17px, $padding = 4px, $firstBg = #f8f8f9, $firstHeight= 40px, $firstColor = #333, $color = #606266, $istd-items-center = false )
+  color: $color
+  .ss-table-tr
+    ss-display-flex(row nowrap, flex-start, center, center)
+  .ss-table-tthead
+    background: $firstBg
+    color: $firstColor
+    height: $firstHeight
+  .ss-table-td
+    &:last-child
+      flex: 1
+    // min-width: 52px
+    // max-width: 260px
+    line-height: $line-height
+    padding: $padding 
+    ss-display-flex(row, flex-start, center, center)
+    for i in 1..10
+      &:nth-child({i})
+        width: $width_nth_+i
+    if ($istd-center == true)
+      justify-content: center
+
+//控制奇偶变色
+ss-odd-event($odd-background = #fff, $even-background = #fff)
+  .ss-table-body
+    .ss-table-tr
+      &:nth-of-type(odd)
+        background: $odd-background
+      &:nth-of-type(even)
+        background: $even-background
+
+//鼠标 hover事件
+ss-table-hover($bg = #e6f7ff)
+  .ss-table-body
+    .ss-table-tr
+      &:hover
+        background-color: $bg
+
+
+//控制border
+ss-table-border($border-color = #eee, $bottomBorder = false)
+  if ($bottomBorder == true)
+    .ss-table-tthead
+      border-bottom: 1px solid $border-color
+    .ss-table-body
+      .ss-table-tr
+        border-bottom: 1px solid $border-color
+  else
+    .ss-table-tthead
+      border: 1px solid $border-color
+      border-bottom: none
+    .ss-table-body
+      border-bottom: 1px solid $border-color
+      border-right: @border-bottom
+      .ss-table-tr  
+        border-top: @border-bottom
+        // ul 
+        .ss-table-td
+          border-left: @border-bottom
+          align-items: initial;
+          align-content: initial;
+
+ss-table-fixd($height = 200px)
+  .ss-table-body
+    overflow-y: auto
+    height: $height

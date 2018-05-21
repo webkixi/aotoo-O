@@ -1,0 +1,145 @@
+.text-decoration
+  text-decoration: underline
+
+ss-listfunc($font-size = 14px, $dicetion = row, $d-padding = 12px, $d-hmargin = 5px, $hwidth = 60px, $hheight = 60px, $title-color = #333, $title-fs = 16px, $hover-color = #1890ff, $hover-underline = underline, $desc-color = #999, $inner-pb = 0, $d-hpaddidng = 10px, $hheader-bb = none, $hbody-text-align = left, $imgDicetion = center, $img-full = false)
+  font-size: 14px
+  >li 
+    if ($dicetion == row)
+      border-bottom: 1px solid #e8e8e8
+      padding-top: $d-padding
+      padding-bottom: @padding-top
+      &:last-child 
+        border-bottom: none 
+    else if ($dicetion == row-a)
+      padding: $d-padding
+      cursor: pointer
+      &:hover,&:active
+        background: #e6f7ff
+      &:last-child
+        .inner  
+          border-bottom: none
+  .inner
+    if ($dicetion == row)
+      ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+    else if ($dicetion == row-a)
+      ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+      border-bottom: 1px solid #e8e8e8
+      padding-bottom: $inner-pb
+    else if ($dicetion == column)
+      border: 1px solid #e8e8e8
+      border-radius: 4px
+  .hheader
+    width: $hwidth
+    height: $hheight
+    overflow: hidden
+    border-bottom: $hheader-bb
+    if ($dicetion == row)
+      margin-right: $d-hmargin
+      padding-right: @margin-right
+    else if ($dicetion == row-a)
+      margin-right: $d-hmargin
+      padding-right: @margin-right
+    else if ($dicetion == column)
+      padding: $inner-pb
+  .hbody 
+    flex: 1 
+    if ($dicetion == column)
+      padding: $d-hpaddidng
+    if ($hbody-text-align == center)
+      text-align: center
+  .item-title
+    color: $title-color
+    font-size: $title-fs
+    // display: block
+  a 
+    text-decoration: none
+    &:hover
+      color: $hover-color
+      text-decoration: $hover-underline
+  .item-pic 
+    width: 100% 
+    height: 100% 
+    display: block;
+    overflow: hidden
+    text-align: $imgDicetion
+    if ($img-full == false)
+      img 
+        width: auto 
+        height: 100%
+  .item-desc
+    color: $desc-color
+    line-height: 18px;
+  .hhbody-space-around
+    .hbody 
+      height: $hheight
+    .hb-item 
+      ss-display-flex(column, space-around)
+      height: 100%
+
+
+
+//移进去的动画
+.ss-list-active
+  .inner
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    &:hover
+      -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      -webkit-transform: translate3d(0, -2px, 0);
+      transform: translate3d(0, -2px, 0);
+  
+
+
+.ss-item-pop
+  .inner
+    position: relative
+  .si-pop
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    color: #fff
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    _zoom: 1;
+    font-size: 12px;
+    background: #ff6700;
+    opacity: 0;
+    // filter: alpha(opacity=0)\9;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  &:hover
+    .si-pop
+      height: 76px;
+      opacity: 1;
+      // filter: alpha(opacity=100)\9;
+
+
+
+    
+
+//列表类型 row 1
+.ss-list 
+  ss-listfunc()
+
+//列表类型 row 2
+.ss-list-img-right
+  ss-listfunc($hwidth:204px, $hheight: 126px, $imgDicetion: right)
+  .hheader
+    order: 2
+  .hbody 
+    order: 1
+//列表类型 row 3
+.ss-list-a 
+ ss-listfunc($dicetion: row-a, $d-padding: 12px 12px 0 12px, $inner-pb: 12px)
+
+//列表类型 column 4
+.ss-list-column
+ ss-listfunc($dicetion: column, $hwidth: auto, $hheight: 122px,  $inner-pb: 0, $hheader-bb: 1px solid #eee, $img-full: true)
+
+//列表类型 column 5
+.ss-list-column-xm
+ ss-listfunc($dicetion: column,  $hwidth: auto, $hheight: 122px, $title-fs: 14px, $inner-pb: 10px, $hbody-text-align: center)
+  

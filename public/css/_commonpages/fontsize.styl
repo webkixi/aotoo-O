@@ -1,0 +1,37 @@
+
+font-size-1 = 26px
+font-size-2 = 24px
+font-size-3 = 20px
+font-size-4 = 18px
+font-size-5 = 16px
+font-size-6 = 14px
+
+// font-size-1 = 26 / $baseFontSize * 1rem
+// font-size-2 = 24 / $baseFontSize * 1rem
+// font-size-3 = 20 / $baseFontSize * 1rem
+// font-size-4 = 18 / $baseFontSize * 1rem
+// font-size-5 = 16 / $baseFontSize * 1rem
+// font-size-6 = 14 / $baseFontSize * 1rem
+
+com($font-weight = normal, $margin = 0)
+  +cache()
+    font-weight: $font-weight
+    margin: $margin
+for i in 1..6
+  h{i}
+    font-size: lookup('font-size-' + i) 
+    com()
+
+.font-size-12
+  font-size: 12px
+.font-size-13
+  font-size: 13px
+.font-size-14
+  font-size: 14px
+.font-size-15
+  font-size: 15px 
+.font-size-16
+  font-size: 16px 
+
+.font-size-18
+  font-size: 18px

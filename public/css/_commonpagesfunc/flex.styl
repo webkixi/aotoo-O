@@ -1,0 +1,52 @@
+ss-row-list($marginLeft= 6px, $justify-content = flex-start, $align-items = initial, $marginBottom = 0, $align-content = center)
+  ss-display-flex(row wrap,$justify-content,$align-items, $align-content)
+  margin-left: - $marginLeft
+  >li,>div,>a,.item-li
+    margin-left: $marginLeft
+    margin-bottom: $marginBottom
+
+ss-row-list2($marginLeft= 6px, $justify-content = flex-start, $align-items = initial, $marginBottom = 0, $align-content = initial)
+  ss-display-flex(row wrap, $justify-content, $align-items, $align-content)
+  margin-left: - $marginLeft
+  margin-right: - $marginLeft
+  >li,>div,>a
+    margin-left: $marginLeft
+    margin-right: @margin-left
+    margin-bottom: $marginBottom
+
+ss-flex-row( $justify-content = flex-start, $align-items = initial, $align-content = initial)
+  ss-display-flex(row nowrap, $justify-content, $align-items, $align-content)
+
+ss-flex-column( $justify-content = flex-start, $align-items = initial, $align-content = initial)
+  ss-display-flex(column nowrap, $justify-content, $align-items, $align-content)
+
+
+ss-row-list-grids($spacingLR= 6px, $justify-content = flex-start, $align-items = initial, $spacingM = 0 0 12px 0, $isp = true)
+  ss-display-flex(row wrap, $justify-content, $align-items, center)
+  margin-left: - $spacingLR
+  margin-right: @margin-left
+  .item-li,>li
+    if ($isp == true)
+      padding-left: $spacingLR
+      padding-right: @padding-left
+      margin: $spacingM
+      box-sizing: border-box;
+    else 
+      margin-left: $spacingLR
+      margin-right: @margin-left
+      padding: $spacingM
+      box-sizing: border-box;
+  
+
+//列表块的公用部分 选择目的地，综合筛选modal层 start
+ss-list-display-com($liml= 4%, $limb= 4%, $libackground = #f4f4f4, $libc= #f4f4f4, $lipding= .026667rem .093333rem, $lihei = .466667rem, $lidlh =  1.24, $liwid = 29%)
+  ss-row-list($liml, flex-start, flex-start, $limb, flex-start)
+  >li
+    width: $liwid 
+    ss-item-border($background: $libackground , $border-color: $libc)
+    padding: $lipding
+    height:  $lihei 
+    ss-display-flex(row wrap, center, center, center)
+  .destinationId
+    ss-textellipsis(32px, 2)
+    line-height: $lidlh

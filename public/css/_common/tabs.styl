@@ -1,0 +1,63 @@
+$tabsMenusFontSize = 14px
+$tabsBoxesFontSize = 12px
+.ss-tabsGroup
+  .tabsMenus
+    color: #495060
+    border-bottom: 1px solid #eee
+    font-size: $tabsMenusFontSize
+    >ul
+      ss-row-list-grids(8px, flex-start, center, 8px 16px, false)
+    .item
+      cursor: pointer
+      &:hover
+        color: #57a3f3;
+    .select
+      color: #2d8cf0;
+      position: relative
+      &:after
+        content: ''
+        height: 2px;
+        background-color: #2d8cf0;
+        width: 100%
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+    
+  .tabsBoxes
+    padding: 15px 0
+    font-size: $tabsBoxesFontSize
+
+.ss-tabsGroup-card
+  .tabsMenus
+    color: #495060
+    border-bottom: 1px solid #eee
+    font-size: $tabsMenusFontSize
+    >ul
+      ss-row-list-grids(2px, flex-start, center, 5px 16px 4px, false)
+    .item
+      cursor: pointer
+      border: 1px solid #dddee1;
+      border-bottom: 0;
+      border-radius: 4px 4px 0 0;
+      background: #f8f8f9;
+      &:hover
+        color: #57a3f3;
+    .select
+      position: relative
+      background: #fff;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      border-color: #dddee1;
+      color: #2d8cf0;
+      &:after
+        content: ''
+        height: 2px;
+        background-color: #fff;
+        width: 100%
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+    
+  .tabsBoxes
+    padding: 15px 0
+    font-size: $tabsBoxesFontSize

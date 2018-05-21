@@ -1,0 +1,173 @@
+.tag-fff  
+  ss-tag(#fff, #ccc, #999, 2px, 0 8px, 22px, 12px, true)
+.tag-fff-f9b427
+  @extends .tag-fff
+  color: #f9b427
+  border-color: @color
+.tag-fff-2485cf
+  @extends .tag-fff
+  color: #2485cf
+  border-color: @color
+
+.tag-f9b427 
+  ss-tag(#f9b427,#f9b427, #fff, 2px, 0 8px, 22px, 12px, true)
+.tag-f20d0d
+  @extends .tag-f9b427
+  background: #f20d0d
+  border-color: #f20d0d
+.tag-2485cf
+  @extends .tag-f9b427
+  background: #2485cf
+  border-color: #2485cf
+
+.tag-close
+  &:after
+    content: '\e7e4'
+    position: relative
+    right: -2px
+
+// // ss-tag($backgroud = #fff, $border-color = #ccc,$color = #333, $border-radius = 0, $padding-top = 2px, $padding-left = 8px, $height = 18px, $font-size = 12px)
+// //标签类型
+// .tag-f9b427 
+//   ss-tag(#f9b427,#f9b427, #fff, 0, .026667rem, .2rem, 12px, .013333rem)
+//   border: none
+//   line-height: normal
+//   &:after
+//     border: none
+// .tag-fff4c5
+//   @extends .tag-f9b427
+//   background: #fff4c5
+//   // border-color: #ffe5b8
+//   color: #ea6a0c
+// .tag-2485cf
+//   @extends .tag-f9b427
+//   background: #2485cf
+//   // border-color: #2485cf
+//   color: #fff
+// .tag-f7f7f7
+//   @extends .tag-f9b427
+//   background: #f7f7f7
+//   // border-color: #ccc
+//   color: #999
+// .tag-f20d0d
+//   @extends .tag-f9b427;
+//   background: #f20d0d;
+//   // border-color: #f20d0d;
+//   color: #fff;
+
+// //无padding标签
+// .tag-ff6600-s 
+//   ss-tag(#ff6600, #ff6600, #fff, 0px, .013333rem, .16rem, .12rem, 0)
+//   border: none
+//   &:after
+//     border: none
+// .tag-ff6666-s 
+//   ss-tag(#ff6666, #ff6666, #fff, 0px, .013333rem, .16rem, .12rem, 0)
+//   border: none
+//   &:after
+//     border: none
+// .tag-00cccc-s
+//   @extends .tag-ff6600-s
+//   background: #00cccc
+//   // border-color: @background
+// .tag-f9b427-s
+//   @extends .tag-ff6600-s
+//   background: #f9b427
+//   // border-color: @background
+// .tag-3399ff-s
+//   @extends .tag-ff6600-s
+//   background: #3399ff
+//   // border-color: @background
+
+
+// .tag-fff  
+//   ss-tag(#fff, #ccc, #999, 0, .026667rem, .2rem, 12px, .013333rem)
+//   line-height: normal
+// .tag-fff-f9b427
+//   @extends .tag-fff
+//   color: #f9b427
+//   &:after
+//     border-color: @color
+// .tag-fff-2485cf
+//   @extends .tag-fff
+//   color: #2485cf
+//   &:after
+//     border-color: @color
+// .tag-fff-ff6600
+//   @extends .tag-fff
+//   color: #ff6600
+//   &:after
+//     border-color: @color
+// .tag-fff-01c6c3
+//   @extends .tag-fff
+//   color: #01c6c3
+//   &:after
+//     border-color: @color
+// .tag-fff-51b1af
+//   @extends .tag-fff
+//   color: #51b1af
+//   &:after
+//     border-color: #c3eae7
+
+
+
+// .tag-ff6600-round
+//   border-radius: 14px
+//   ss-tag(#ff6600, #ff6600, #fff, 14px, 0, 14px, 12px)
+//   justify-content: center;
+// .tag-f45030-round
+//   border-radius: 18px
+//   ss-tag(#f45030, #fff, #fff, 18px, 0, 18px, 12px)
+//   width: 18px
+//   justify-content: center;
+// .tag-f45030-round-small
+//   border-radius: 10px
+//   ss-tag(#f45030, #fff, #fff, 10px,  0, 10px, 12px)
+//   width: 10px
+//   justify-content: center;
+// .tag-2485cf-round
+//   border-radius: 16px
+//   ss-tag(#2485cf, #fff, #fff, 16px,  0, 16px, 12px)
+//   width: 16px
+//   justify-content: center;
+  
+// .tag-rebate     //没有图片时的返佣
+//   ss-tag(#ea6a0c, #ea6a0c, #fff, 0, 0, 16px)
+//   padding-right: 4px
+//   position: relative;
+//   &:before
+//     content: '返'
+//     background: #fff
+//     width: 20px;
+//     color: #f9b427;
+//     height: 100%;
+//     text-align: center;
+//     margin-right: 4px;
+//   &:after
+//     content: ''
+//     background: #fff;
+//     position: absolute;
+//     top: 0
+//     left: 18px;
+//     display: block;
+//     width: 0;
+//     height: 0;
+//     border-left: 7px solid transparent;
+//     border-bottom: 15px solid #ea6a0c;
+//   b
+//     font-size: 16px
+
+// //需要限制宽度跟行数的tag
+// .tag-textellipsis-f7f7f7     //
+//   ss-tag(#f7f7f7, #ccc, #999, 2px, 5px, 16px)
+//   ss-textellipsis(16px, 1)
+//   max-width: 96px
+
+// //列表带有图片中返佣
+// .tag-commission
+//   ss-irregular-tag2( #ff6600, #fff, 21px, 0.02rem, 0.08rem, 12px, 10px,top, bottom, left, 8px)
+
+
+// .tag-recommend
+//   // ss-irregular-tag2( #ff6600, #fff, 26px, 9px, 7px, 16px, 10px, top)
+//   ss-irregular-tag(#ff6600, 0,  5px, 14px, none, 20px)

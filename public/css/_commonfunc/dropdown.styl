@@ -1,0 +1,32 @@
+/**
+ * 下拉层(dropdown,dd)，公用方法
+ * dropdown-ul($top=2.8em, $border= 1px solid transparent, $hover-background-color= #2585cf, $hover-color= #fff, $max-height = 160px, $border-radius = 0 0 2px 2px, $box-shadow = 0px 1px 2px #e6e5e5)
+ * $top 代表这个ul距离上面的文字的高度(因为用了定位，所以top值会根据外层的height不同而不同 ，如果不值，top值默认是2.8)
+ * $border 设置边框
+ * $hover-background-color 代表 hover时li的背景色
+ * $hover-color 代表 hover时字体的颜色
+ * $max-height 设置 max-height 为了滚动条
+ * $border-radius 设置 border-radius
+ * $box-shadow  设置 box-shadow
+ */
+ss-dropdown-ul($top=2.8em, $border= 1px solid transparent, $hover-background-color= #2585cf, $hover-color= #fff, $max-height = 160px, $border-radius = 0 0 2px 2px, $box-shadow = 0px 1px 2px #e6e5e5, $background-color = #fff)
+  border: $border
+  border-radius: $border-radius
+  box-shadow: $box-shadow
+  background-color: $background-color;
+  height: initial;          //.grids .hlist有 height:100%  所以添加 initial 覆盖
+  position: absolute;
+  top: $top
+  left: 0;
+  width: 100%;
+  z-index: 15
+  //固定个高度，数据过多时会出现滚动条
+  max-height: $max-height
+  overflow-y: auto;
+  li, .fkp-dd-option
+    padding: 0 0.5em;
+    line-height: 2em;
+    cursor: pointer;
+    &:hover
+      background-color: $hover-background-color;
+      color: $hover-color

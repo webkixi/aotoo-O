@@ -1,0 +1,137 @@
+$nav-height = 60px 
+$nav-height2 = 40px 
+$nav-color = #495060
+$nav-color-hover = #2d8cf0
+
+.ss-nav
+  color: $nav-color
+  .item-level0
+    border-bottom: 2px solid transparent
+    cursor: pointer
+    display: block
+    height: 100%
+    line-height: $nav-height
+    padding: 0 20px
+    &:hover
+      color: $nav-color-hover
+  .select
+    .item-level0
+      border-bottom: 2px solid $nav-color-hover;
+      color: $nav-color-hover
+  .level0
+    height: 100%
+    >.itemCategory
+      height: 100%
+      >.caption
+        @extends .ss-nav .item-level0
+    &.select
+      >.itemCategory
+        >.caption
+          @extends .ss-nav .select .item-level0
+        >.property-ul 
+          display: block
+  .item-hidden //level0
+    >.itemCategory
+      >.property-ul
+        display: none
+  .item-padding //level0
+    >.itemCategory
+      >.property-ul 
+        min-width: 110px;
+        font-size: 14px;
+        color: #999
+        position: absolute
+        background: #ffffff
+        ss-box-shadow()
+        margin: 6px 0 
+        padding: 6px 0
+        z-index: 1
+        >li
+          >.itemCategory
+            >.caption
+              padding: 6px 8px
+        li
+          &[data-path]
+            font-size: 16px;
+            color: $nav-color
+            padding: 6px 8px 6px 16px
+            &:hover
+              color: $nav-color-hover
+
+.icon-nav-tb-arrow
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out,-webkit-transform .2s ease-in-out;
+  &:after
+    content: '\e616'
+.ss-navColmun
+  color: $nav-color
+  .caption
+    border-right: 2px solid transparent
+    display: block
+    height: $nav-height2
+    line-height: @height
+    padding: 0 20px
+  .item-icon
+    ss-display-flex(row nowrap, space-between, center, center)
+    i 
+      &:hover
+        color: $nav-color-hover
+  .select
+    >.caption
+      border-right: 2px solid $nav-color-hover;
+      background-color: #e6f7ff;
+      color: $nav-color-hover
+    .icon-nav-tb-arrow
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+  .level0
+    &.select
+      >.itemCategory
+        >.caption
+          // @extends .ss-navColmun .select >.caption
+          cursor: pointer
+          &:hover
+            color: $nav-color-hover
+        >.property-ul 
+          height: 100%
+  .item-hidden //level0
+    >.itemCategory
+      >.property-ul
+        overflow: hidden;
+        height: 0
+        -webkit-transition: height .2s linear
+        transition: height .2s linear
+  .item-padding //level0
+    >.itemCategory
+      >.property-ul 
+        font-size: 14px;
+        color: #999
+        background: #ffffff
+        >li
+          >.itemCategory
+            >.caption
+              padding: 6px 20px
+        li
+          &[data-path]
+            color: $nav-color
+            cursor: pointer
+            font-size: 16px;
+            padding: 6px 20px 6px 30px
+            &:hover
+              color: $nav-color-hover
+            &.select
+              @extends .ss-navColmun .select >.caption
+
+
+.ss-nav-row
+  @extends .ss-nav
+  border-bottom: 1px solid #eee
+  height: $nav-height
+  ss-display-flex(row nowrap, flex-start, center, center)
+
+.ss-nav-column
+  @extends .ss-navColmun
+  border-right: 1px solid #eee
+  width: 240px
+  ss-display-flex(column, flex-start)

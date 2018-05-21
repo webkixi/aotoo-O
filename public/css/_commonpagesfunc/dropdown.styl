@@ -1,0 +1,79 @@
+//普通的列表
+ss-dropdown-ul-mob($border-bottom = 1px solid #e3e3e3,  $width = 100%, $max-height = 160px, $text-align= left, $padding-li = .146667rem .2rem, $hover-background-color = #2585cf, $hover-color = #fff)
+  background-color: #fff 
+  height: initial;          //.grids .hlist有 height:100%  所以添加 initial 覆盖
+  width: $width
+  z-index: 15
+  // //固定个高度，数据过多时会出现滚动条
+  // max-height: $max-height      不用自带的滚动 如需要滚动加iscroll
+  overflow-y: auto;
+  text-align: $text-align
+  line-height: normal;
+  li
+    // border-bottom: $border-bottom
+    ss-border($absolute: true)
+    padding: $padding-li
+    cursor: pointer;
+    &.active
+      background-color: $hover-background-color;
+      color: $hover-color
+      em 
+        color: $hover-color
+  .inner
+    position: relative;
+    width: 100%
+  .hheader
+    color: #333
+  .dot      //.dot不会自己生成需要手动加
+    color: #999
+    top: 0
+    right: 10px //由$padding-li的值为准
+
+
+//点击后右边带有icon，icon 可指定
+ss-dropdown-ul-icon-right($icon = '\e65b', $width = 100%, $max-height = 7rem, $text-align = left,  $border-bottom = 1px solid #e3e3e3, $padding-left-li = 0.1rem, $margin-li = 0 0.05rem, $line-height = 30px, $color = #666, $hover-color = #2585cf, $font-size = 14px, $liborder = false, $background= #fff, $content = true)
+  height: initial;          //.grids .hlist有 height:100%  所以添加 initial 覆盖
+  width: $width
+  //固定个高度，数据过多时会出现滚动条,注意一如果这个方法用到绝对定位的话 百分比会有问题 不能正常显示，需要用px或rem
+  max-height: $max-height
+  overflow-y: auto;
+  text-align: $text-align
+  font-size: $font-size
+  background: $background
+  z-index: 15  //需要有背景色才有效
+  li
+    background-color: #fff
+    cursor: pointer;
+    color: $color
+    position: relative; 
+    padding-left: $padding-left-li
+    padding-right: @padding-left
+    margin: $margin-li
+    line-height: $line-height
+    if ($liborder == true)
+      // border-bottom: $border-bottom
+      ss-border($absolute: true, $absoluteBottom: true)
+      padding-top: $padding-left-li
+      padding-bottom: @padding-top
+      width: auto
+      &:last-child
+        border-bottom: none
+    a
+      color: @color
+      if ($liborder == false)
+        // border-bottom: $border-bottom
+        ss-border($absolute: true, $absoluteBottom: true)
+    &.active
+      color: $hover-color
+      a
+        color: $hover-color
+      if ($content == true)
+        &:before
+          content: $icon
+          color: $hover-color
+          font-size: 12px
+          position: absolute;
+          top: 0
+          right: $padding-left-li
+  a
+    display: block;

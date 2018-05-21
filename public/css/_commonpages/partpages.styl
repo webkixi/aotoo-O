@@ -1,0 +1,447 @@
+/**
+  to/ts 公用部分
+*/
+
+//有推荐有置顶的列表 门票团票、邮轮
+.list-results
+  margin-top: 0.134rem
+  padding-top: 0.001rem;
+  padding-bottom: 0.134rem;
+  .list-pic-row
+    // border: 1px solid #e3e3e3
+    ss-border($direction: all, $absolute: true)
+    margin: 0.134rem 0.134rem 0 0.134rem
+    padding: 1px 0 
+    em
+      margin-bottom: 0
+      line-height: 18px
+    p
+      margin-top: 0
+    &:before
+      ss-absolute( -3px, -4px)
+      font-size: 42px;
+      z-index: 1;
+  .list-tag-recommend
+    border: 2px solid #ff6905
+    &:before
+      content: '\e67c'
+      color: #ff6600
+
+  .list-tag-topstatus
+    &:before
+      content: '\e67d'
+      color: #faa725
+
+//无数据时显示
+.noService
+  padding-top: 1rem;
+  text-align center;
+  color: #666
+  .noService-h2
+    font-size: 15px;
+    padding: .2rem 0;
+  .noService-button
+    width: 30%
+    height: .4rem;
+    // margin-top: .2rem;
+    background: #3581ce
+    color: #fff;
+  i
+    margin-bottom: 0.1rem;
+    ss-display-flex(row nowrap, center, center,center)
+
+
+//透明遮罩
+.transparentMask 
+  position absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  opacity: 0
+  z-index: 14
+  display none
+.right-top-share
+  display none
+
+.btn-default-readonly
+  opacity: .85
+
+
+//目的地搜索样式调整
+.item-head-Two
+  em
+    font-style: normal;
+    color: #999;
+
+
+//实力秀
+.item-modal-normal
+  border-top: 1px solid #e3e3e3
+  padding-top: .06rem
+  margin-top: .133333rem
+  position: relative
+  &:before
+    content: ''
+    ss-triangle-hollow( 1px solid transparent, 1px solid #e3e3e3,  1px solid #e3e3e3, 1px solid transparent,4px, 4px, $transform = rotate(-45deg))
+    position: absolute
+    top: -.053333rem
+    left: .226667rem
+    background: #fff;
+.show-icon
+  width: .4rem
+  height .213333rem
+  ss-display-flex(row nowrap, center, center, center)
+
+.show-detail
+  width: 100%;
+  >li
+    // float: left
+    max-height: 0.28rem;
+    >span
+      margin-right: .066667rem
+      float: left
+      margin-bottom: .066667rem
+  .show-modal
+    >li
+      margin-right: .066667rem
+      float: left
+      margin-bottom: .066667rem
+.item-body-head
+  min-height: 40px
+
+
+.ofHidden 
+  overflow: hidden;
+  height: 100%;
+
+
+//多图片上传
+.report-uplader
+  >li
+    padding: 0.1267rem 0.2rem        //统一49
+    margin-top: -1px
+    textarea 
+      min-height: 150px;
+  .item-upload
+    >span 
+      ss-display-flex(row nowrap, flex-start, flex-start)
+      margin-left: -0.1345rem
+    .upload-mob-display
+      border: 1px solid #cccccc
+      background: #fff
+      margin-left: 0.1345rem
+      width: 68px
+      height: @width
+      overflow: hidden
+      margin-top 0
+      min-height: auto
+    .icon-add
+      &:before
+        margin-bottom: 0
+    .uploader-list
+      ss-display-flex(row wrap, flex-start, center, center)
+      ul
+        ss-display-flex(row wrap, flex-start, center, center)
+        li
+          border: 1px solid #cccccc
+          background: #fff
+          margin-left: 0.1345rem
+          width: 68px
+          height: @width
+          overflow: hidden
+          img
+            width: 100%;
+            height: 100%;
+    .uploader-button
+      ss-display-flex(row wrap, flex-start, center, center)
+    .uploader-wrap
+      ss-display-flex(row nowrap, flex-start, flex-start)
+//举报
+.webuploader-element-invisible
+    position: absolute !important;
+    clip: rect(1px,1px,1px,1px);
+
+//实力秀
+.powerList
+  padding-bottom: 0.2rem;
+
+.list-bg-radius
+  lable
+    line-height: normal;
+
+//店铺详情
+.list-router-mean
+  >li
+    background: #fff
+    margin-bottom: 0.2rem
+  .ru-item
+    padding: 0.2rem
+  em
+    &:before
+      width: 10px
+      margin-right: 0.2rem
+  .property-ul
+    li
+      ss-border-item(#e3e3e3, top)
+      padding: .2rem 0
+      margin: 0 0.2rem
+      .ru-item
+        padding: 0
+  li
+    position: relative;
+  .ru-user
+    padding: 0.3rem 0.2rem
+    h3
+      font-weight: normal;
+      i
+        color: #999
+        display: block;
+        font-style: normal;
+        font-size: 12px
+        margin-top: 0.1rem
+  .row-flex-column
+    padding: 0.2rem 0 0 0
+
+//店铺前台企业秀
+.enterprise-tabs
+  .tabsMenus
+    display none
+.shopContact
+  // line-height: 35px;
+  padding-top: 0.2rem;
+  .property-ul
+    .level1
+      padding: .173333rem 0 
+  > li
+    margin-bottom 0
+    // .item-lable-bold
+    //   width: 1.066667rem
+    .ru-item
+      width: .4rem
+.shop
+  padding-bottom: 0.2rem;
+
+
+
+//table形式的list ->list5     邮轮
+.table-list-hb
+  ul
+    ss-listtable(28px, 60%, 40%)
+  >li
+    &:first-child
+      li
+        line-height: 32px;
+    &:not(:first-child)
+      ss-odd-event(#fdfbfb, #fff)
+
+.table-list-xc      //邮轮
+  ul
+    ss-listtable(16px, 15%, 23%, 31%, 31%)
+    font-size: 13px
+    color: #333
+    li
+      padding: .106667rem 0
+      &:first-child
+        padding-left: .08rem
+      &:first-child,&:nth-child(2)
+        text-align: left 
+  >li
+    &:first-child
+      font-size: 12px
+      li
+        color: #999
+    &:not(:first-child)
+      ss-odd-event(#f9f9f9, #fff)
+
+
+//tabs切换      选择目的地页面
+.tabs-lr
+  ss-display-flex(row, flex-start)
+  font-size: 14px
+  height: 100%;
+  overflow: hidden
+  .itemrootCkb
+    display: none
+  .tabsMenus
+    background: #f4f4f4
+    width: 1.146667rem
+    text-align: left;
+    a
+      color: #333
+      display: block;
+      padding: .16rem 0 .16rem 0.2rem;
+      font-weight: 500
+    ul
+      color: #333
+    .item
+      ss-border($direction: bottom)
+      &:before
+        border-right: 1px solid #e3e3e3
+        content: ''
+        display: block
+        width: .013333rem
+        height: 200%
+        -webkit-transform: scale(.5, .5)
+        transform: scale(.5, .5)
+        -webkit-transform-origin: 0 0 
+        transform-origin: 0 0 
+        box-sizing: border-box;
+        z-index: 0;
+        position: absolute
+        top: 0
+        right: 0
+      &:hover,&.select
+        background: #fff
+        &:before
+          content: ''
+          border-right: 1px solid #fff
+  .tabsBoxes
+    background: #fff
+    padding: 0.1rem
+    color: #333
+    flex: 1
+    overflow: scroll
+.tree-basic-tabs
+  .tree-head
+    padding: 0.134rem 0
+    em
+      font-weight: bold
+      height: 16px
+      overflow: hidden
+      &:before
+        content: ''
+        border-left: .053333rem solid #2585cf
+        padding-right: .053333rem
+    a
+      position: relative;
+      padding-right: 12px;
+  .property-ul
+    ss-list-display-com( 4%, 4%, none, #ccc, .018667rem.093333rem, .426667rem, 1.2)
+    font-size: 12px
+
+.product-list-scroll
+  margin-top: 0.2rem
+  overflow: scroll;   //如果用自带的滚动 需要指定hlist的宽度
+  .hlist
+    width: 2000px 
+    >li
+      width: 175px
+      margin-left: 0
+      font-size: 13px
+
+
+.tabs-menus
+  ul
+    width: 100%
+    ss-tabs-menu( $hover-color: #333)
+    border-bottom: none
+    margin-left: 0
+.tabs-detail
+  margin-top: 0.12rem
+  .tabsMenus
+    @extends .tabs-menus
+  .tabsBoxes
+    color: #333
+    font-size: 14px
+    >.hlist>li
+      background: #fff
+      margin-top: 0.12rem
+      padding: 0.2rem
+
+.item-tag-commission 
+  top: 0
+  right: 0
+  position: absolute;
+.absoulte-bottom-left 
+  width: 100%
+
+.sidelayer-two
+  z-index: -1;
+
+//分享
+#wcConfig
+  display none
+
+//排序
+.screen-box
+  ss-display-flex(row nowrap, flex-start, center, center)
+  border-bottom: 1px solid #ccc
+  background: #fff
+  position relative
+.screen-item
+  border-left: 1px solid #ccc
+  cursor: pointer;
+  flex: 1
+  max-width: 50%
+  margin: 0.154rem 0
+  text-align: center;
+  &:first-child
+    border-left: none
+  &:focus
+    color: #2585cf
+  i
+    ss-iconfont()
+
+
+.tree-basic-more
+  font-size: .173333rem
+  .tree-head
+    line-height: normal
+    padding-bottom: .146667rem
+    color: #999
+    position: relative
+    em
+      width: 30%;
+      ss-textellipsis(20px, 1)
+    p
+      color: #2485cf
+      width: 65%;
+      text-align: right;
+      ss-textellipsis(20px, 1)
+      position: relative
+      padding-right: 14px
+      line-height: 20px
+    .tree-icon-toggle
+      position: relative;
+      padding-right: 20px;
+  >li
+    @extends .border-t-distance
+    &:first-child
+      padding-top: 0
+      margin-top: 0
+    li.active,li:active
+      background: #fff
+      &:after
+        border-color: #3b9ceb
+      .destinationId
+        color: #2485cf
+  .property-ul      //固定生成的ul class
+    padding-top: .013333rem 
+    ss-list-display-com()
+
+//综合筛选modal
+.sidelayer
+  height: 100%
+  background: #fff
+  .sidelayer-body
+    width: 100%
+    padding: 0.4rem 0.2rem 1rem 0.2rem
+    height: 100%
+
+  .sidelayer-foot
+    ss-display-flex(row nowrap, flex-start, flex-start)
+    width: 100%
+    a
+      border-radius: 0
+      &:first-child
+        width: 30%
+      &:last-child
+        flex: 1
+  .property-ul
+    max-height: 1.75rem;
+    overflow hidden;
+  .property-ul.active
+    max-height: initial;
+.tree-icon-toggle
+  padding-right 10px;
