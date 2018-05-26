@@ -29,6 +29,24 @@
         transform: rotate(1turn)
     }
 }
+//loading动画
 .s-spli
   -webkit-animation: loadingCircle 1s infinite linear;
   animation: loadingCircle 1s infinite linear
+
+//边线从中间滑出，
+.ss-nav-bottom-line-animate
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    left:50%
+    right: @left
+    background: #a9334c;
+    height: 4px;
+    transition: left .3s  ease-out, right .3s  ease-out
+  
+.ss-nav-bottom-line-animate-select
+  &:before
+    left: 0
+    right: @left

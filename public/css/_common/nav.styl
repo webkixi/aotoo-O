@@ -2,22 +2,25 @@ $nav-height = 60px
 $nav-height2 = 40px 
 $nav-color = #495060
 $nav-color-hover = #2d8cf0
+//animation.styl .ss-nav-bottom-line-animate  .ss-nav-bottom-line-animate-select
 
 .ss-nav
   color: $nav-color
   .item-level0
-    border-bottom: 2px solid transparent
+    // border-bottom: 2px solid transparent
     cursor: pointer
     display: block
     height: 100%
     line-height: $nav-height
     padding: 0 20px
+    @extends .ss-nav-bottom-line-animate   
     &:hover
       color: $nav-color-hover
   .select
     .item-level0
-      border-bottom: 2px solid $nav-color-hover;
+      @extends .ss-nav-bottom-line-animate-select
       color: $nav-color-hover
+      // border-bottom: 2px solid $nav-color-hover;
   .level0
     height: 100%
     >.itemCategory
@@ -108,10 +111,10 @@ $nav-color-hover = #2d8cf0
         font-size: 14px;
         color: #999
         background: #ffffff
-        >li
-          >.itemCategory
-            >.caption
-              padding: 6px 20px
+        // >li
+        //   >.itemCategory
+        //     >.caption
+        //       padding: 6px 20px
         li
           &[data-path]
             color: $nav-color

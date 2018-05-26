@@ -81,6 +81,19 @@ ss-checkbox-theme()
           left: -1px
           font-size: 16px
           // transition: all .2s linear;
+    &.checked-vals
+      +.fkp-checkbox-box
+        &:after
+          content: '-';
+          background: #2484cf
+          position: absolute;
+          top: 0
+          left: -1px
+          width: 15px
+          height: @width
+          line-height: @height
+          color: #fff;
+          text-align: center;
   .fkp-checkbox-box
     font-size: 14px
     // display-flex(row, center, center, center)
