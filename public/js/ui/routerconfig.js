@@ -8,6 +8,8 @@ import list from './_common/list'
 import table from './_common/table'
 import searchbox from './_common/searchbox'
 import permission from './_common/permission'
+import infoflow from './_common/infoflow'
+import echarts from './_common/echarts'
 //Navigation
 import navmenu from './_common/navmenu'
 
@@ -56,6 +58,12 @@ const routerData = [
     },
     {
         title: <div className='caption'><span>Tree</span><span className='ml4 font-size-12'>权限控件</span></div>, parent: 'view',attr: { path: 'permission' }, path: 'permission', content: permission
+    },
+    {
+        title: <div className='caption'><span>Infoflow</span><span className='ml4 font-size-12'>信息流</span></div>, parent: 'view',attr: { path: 'infoflow' }, path: 'infoflow', content: infoflow
+    },
+    {
+        title: <div className='caption'><span>Echarts</span><span className='ml4 font-size-12'>图表插件</span></div>, parent: 'view',attr: { path: 'echarts' }, path: 'echarts', content: echarts
     },
     {
         title: 'Navigation', parent: 'components', idf: 'navigation'

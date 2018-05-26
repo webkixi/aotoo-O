@@ -88,6 +88,199 @@ const tableData = [
     date: '2016-10-04'
   }
 ]
+//infoflow
+const infoFlowData2 = [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+]
+const infoFlowData3 = [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+]
+const infoFlowData4= [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+]
+const infoFlowData5 = [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+]
+const infoFlowData6= [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+]
+const infoFlowData7= [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+]
+const infoFlowData8= [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+]
+const infoFlowData9= [
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+  {
+    title: '阿狗',
+    des: '只是一只狗'
+  },
+  {
+    title: '阿猫',
+    des: '只是一只猫'
+  },
+]
 //navmenu
 const tagListData = [
   { title: <span className='item-level0 icon-xx'>内容管理</span>, idf: 'n1'},
@@ -284,4 +477,12 @@ module.exports = {
   tagListData2: tagListData2,
   treexData: treexData,
   tableData: tableData,
+  infoFlowData2: infoFlowData2,
+  infoFlowData3: infoFlowData3,
+  infoFlowData4: infoFlowData4,
+  infoFlowData5: infoFlowData5,
+  infoFlowData6: infoFlowData6,
+  infoFlowData7: infoFlowData7,
+  infoFlowData8: infoFlowData8,
+  infoFlowData9: infoFlowData9,
 }
