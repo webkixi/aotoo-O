@@ -1,20 +1,23 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-  , HtmlWebpackPlugin = require('html-webpack-plugin')
-  , alias = require('../webpack.alias')
-  , gutil = require('gulp-util')
-  , webpack = require('webpack')
-  , path = require('path')
-  , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-  , WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin')
-  , Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin')
-  , replacePlugin = require('../plugins/replace-webpack-plugin')
-  , margv = JSON.parse(process.env.margv)
-  , HappyPack = require('happypack')
-  , os = require('os')
+const ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  alias = require('../webpack.alias'),
+  gutil = require('gulp-util'),
+  webpack = require('webpack'),
+  path = require('path'),
+  BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+  WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin'),
+  Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin'),
+  replacePlugin = require('../plugins/replace-webpack-plugin'),
+  margv = JSON.parse(process.env.margv),
+  HappyPack = require('happypack'),
+  os = require('os')
   // 构造一个线程池
-  , happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+  ,
+  happyThreadPool = HappyPack.ThreadPool({
+    size: os.cpus().length
+  })
 
-const wp_extensions = [".js", ".jsx", ".json", '.html', '.ejs', '.pug', ".css", '.styl', '.less', '.hbs' ]
+const wp_extensions = [".js", ".jsx", ".json", '.html', '.ejs', '.pug', ".css", '.styl', '.less', '.hbs']
 
 const UglifyJsPluginConfig = {
   exclude: /\.min\.js$/,
@@ -43,18 +46,18 @@ function BrowserSync(env, appConfigs) {
   }
 
   return new BrowserSyncPlugin({
-    reloadDelay: 1000,
-    proxy: {
-      target: 'http://localhost:' + appConfigs.proxyPort,
-      ws: true
+      reloadDelay: 1000,
+      proxy: {
+        target: 'http://localhost:' + appConfigs.proxyPort,
+        ws: true
+      },
+      files: [dist.dest + '/**/*'],
+      logFileChanges: false,
+      notify: false,
+      injectChanges: true,
+      host: 'localhost',
+      port: 3000
     },
-    files: [dist.dest + '/**'],
-    logFileChanges: false,
-    notify: false,
-    injectChanges: true,
-    host: 'localhost',
-    port: 3000
-  },
     // plugin options 
     {
       // prevent BrowserSync from reloading the page 
@@ -67,8 +70,8 @@ function configurationPlugins(env, G, appConfigs) {
   const commPlugins = [
     new ExtractTextPlugin({
       filename: (getPath) => {
-        return G.production
-          ? getPath('css/[name]_dy_[hash:10].css').replace('css/js', 'css')
+        return G.production 
+          ? getPath('css/[name]_dy_[hash:10].css').replace('css/js', 'css') 
           : getPath('css/[name]_dy.css').replace('css/js', 'css');
       },
       allChunks: true
@@ -85,6 +88,7 @@ function configurationPlugins(env, G, appConfigs) {
           ],
           plugins: [
             [
+              "add-module-exports",
               "transform-runtime", {
                 "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
                 "polyfill": true, // defaults to true
@@ -136,7 +140,7 @@ function configurationPlugins(env, G, appConfigs) {
   // return cfg
 }
 
-module.exports = function(entryFiles, env, G, appConfigs) {
+module.exports = function (entryFiles, env, G, appConfigs) {
   const _dist = env.dist
   return {
     // cache: true,
@@ -152,10 +156,12 @@ module.exports = function(entryFiles, env, G, appConfigs) {
     devtool: G.production ? 'cheap-module-source-map' : margv.eval ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
     module: {
       // noParse: /node_modules\/(jquey|moment|chart\.js)/,
-      rules: [
-        {
+      rules: [{
           test: /\.js$/,
-          loader: 'happypack/loader?id=babel',
+          use: [{
+            loader: 'happypack/loader',
+            options: { id: 'babel' }
+          }],
           exclude: [
             path.resolve(__dirname, "../../node_modules")
           ],

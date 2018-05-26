@@ -1,16 +1,16 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-  , HtmlWebpackPlugin = require('html-webpack-plugin')
-  , alias = require('../webpack.alias')
-  , gutil = require('gulp-util')
-  , webpack = require('webpack')
-  , path = require('path')
-  , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-  , WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin')
-  , Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin')
-  , replacePlugin = require('../plugins/replace-webpack-plugin')
-  , margv = JSON.parse(process.env.margv)
-  , HappyPack = require('happypack')
-  , os = require('os')
+const ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  alias = require('../webpack.alias'),
+  gutil = require('gulp-util'),
+  webpack = require('webpack'),
+  path = require('path'),
+  BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+  WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin'),
+  Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin'),
+  replacePlugin = require('../plugins/replace-webpack-plugin'),
+  margv = JSON.parse(process.env.margv),
+  HappyPack = require('happypack'),
+  os = require('os')
   // 构造一个线程池
   , happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
@@ -29,7 +29,7 @@ const UglifyJsPluginDllConfig = {
   }
 }
 
-module.exports = function(env, G, appConfigs) {
+module.exports = function (env, G, appConfigs) {
   const _dist = env.dist
   return {
     entry: {
@@ -45,10 +45,12 @@ module.exports = function(env, G, appConfigs) {
       libraryTarget: 'var',
     },
     module: {
-      rules: [
-        {
+      rules: [{
           test: /\.js$/,
-          loader: 'happypack/loader?id=babel',
+          use: [{
+            loader: 'happypack/loader',
+            options: { id: 'babel' }
+          }],
           exclude: [
             path.resolve(__dirname, "../../node_modules")
           ],
@@ -89,6 +91,7 @@ module.exports = function(env, G, appConfigs) {
             ],
             plugins: [
               [
+                "add-module-exports",
                 "transform-runtime", {
                   "helpers": false, // defaults to true; v6.12.0 (2016-07-27) 新增;
                   "polyfill": true, // defaults to true
