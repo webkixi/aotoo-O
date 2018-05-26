@@ -1,0 +1,50 @@
+.flex-1 
+  flex: 1
+
+//flex-row方向
+.row-flex
+  ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+.row-flex-center
+  ss-display-flex(row nowrap, flex-start, center, center)
+.row-flex-wrap
+  ss-display-flex(row wrap, flex-start, flex-start, flex-start)
+.row-flex-justify-between
+  ss-display-flex(row nowrap, space-between, flex-start, flex-start)
+.row-flex-justify-between-center
+  ss-display-flex(row nowrap, space-between, center, center)
+.row-flex-justify-center-center
+  ss-display-flex(row nowrap, center, center, center)
+.row-flex-justify-between-wrap
+  ss-display-flex(row wrap, space-between, flex-start, flex-start)
+.row-flex-justify-end
+  ss-display-flex(row nowrap, flex-end, center, center)
+.row-flex-center-wrap
+  ss-display-flex(row wrap, flex-start, center, center)
+.row-flex-in
+  ss-display-flex(row nowrap, flex-start)
+  
+//flex-column方向
+.column-flex
+  ss-display-flex(column, flex-start, flex-start, flex-start)
+.column-flex-justify-between
+  ss-display-flex(column, space-between, flex-start, flex-start)
+.column-flex-justify-between-center
+  ss-display-flex(column, space-between, center, center)
+.column-flex-center-center
+  ss-display-flex(column, center, center, center)
+.column-flex-justify-around
+  ss-display-flex(column, space-around, flex-start, flex-start)
+
+
+
+.f-al-center
+  align-items: center;
+  align-content: @align-items;
+.f-al-end
+  align-items: flex-end;
+  align-content: @align-items;
+
+.f-ju-center
+  justify-content: center;
+.f-ju-sb
+  justify-content: space-between

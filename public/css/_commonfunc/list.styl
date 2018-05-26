@@ -44,54 +44,6 @@
 //   .dot
 //     position: absolute;
 
-//flex-row方向
-.row-flex
-  display-flex(row nowrap, flex-start, flex-start, flex-start)
-.row-flex-wrap
-  display-flex(row wrap, flex-start, flex-start, flex-start)
-.row-flex-justify-between
-  display-flex(row nowrap, space-between, flex-start, flex-start)
-.row-flex-justify-between-wrap
-  display-flex(row wrap, space-between, flex-start, flex-start)
-.rf-al-center
-  align-items: center;
-  align-content: @align-items;
-.rf-ju-center
-  justify-content: center;
-.rf-ju-sb
-  justify-content: space-between
-//flex-column方向
-.column-flex
-  display-flex(column, flex-start, flex-start, flex-start)
-.column-flex-wrap
-  display-flex(column, flex-start, flex-start, flex-start)
-.cf-al-center
-  align-items: center;
-  align-content: @align-items;
-.cf-ju-center
-  justify-content: center;
-.cf-ju-sb
-  justify-content: space-between
-
-//定位
-.absoulte
-  position: absolute;
-.absoulte-top-right
-  @extends .absoulte
-  top: 0
-  right: 0
-.absoulte-top-left
-  @extends .absoulte
-  top: 0
-  left: 0
-.absoulte-bottom-right
-  @extends .absoulte
-  bottom: 0
-  right: 0
-.absoulte-bottom-left
-  @extends .absoulte
-  bottom: 0
-  left: 0
 
 
 //的单个item
@@ -122,3 +74,80 @@ row-lists-flex($flex-flow = row nowrap, $justify-content = flex-start, $align-it
   display-flex($flex-flow, $justify-content, $align-items, $align-content)
   >li
     lists-item($header-border-color,  $header-width, $header-height, $hbody-margin, $hbody-width, $hfoot-width, $title-color, $title-fs, $title-mb, $content-color, $content-fs, $content-mb)
+
+
+//适用于demo/ui/list
+ss-listfunc($font-size = 14px, $dicetion = row, $d-padding = 12px, $d-hmargin = 5px, $hwidth = 60px, $hheight = 60px, $title-color = #333, $title-fs = 16px, $hover-color = #1890ff, $hover-underline = underline, $desc-color = #999, $inner-pb = 0, $d-hpaddidng = 10px, $hheader-bb = none, $hbody-text-align = left, $imgDicetion = center, $img-full = false)
+  font-size: 14px
+  >li 
+    if ($dicetion == row)
+      border-bottom: 1px solid #e8e8e8
+      padding-top: $d-padding
+      padding-bottom: @padding-top
+      &:last-child 
+        border-bottom: none 
+    else if ($dicetion == row-a)
+      padding: $d-padding
+      cursor: pointer
+      &:hover,&:active
+        background: #e6f7ff
+      &:last-child
+        .inner  
+          border-bottom: none
+  .inner
+    if ($dicetion == row)
+      ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+    else if ($dicetion == row-a)
+      ss-display-flex(row nowrap, flex-start, flex-start, flex-start)
+      border-bottom: 1px solid #e8e8e8
+      padding-bottom: $inner-pb
+    else if ($dicetion == column)
+      border: 1px solid #e8e8e8
+      border-radius: 4px
+  .hheader
+    width: $hwidth
+    height: $hheight
+    overflow: hidden
+    border-bottom: $hheader-bb
+    if ($dicetion == row)
+      margin-right: $d-hmargin
+      padding-right: @margin-right
+    else if ($dicetion == row-a)
+      margin-right: $d-hmargin
+      padding-right: @margin-right
+    else if ($dicetion == column)
+      padding: $inner-pb
+  .hbody 
+    flex: 1 
+    if ($dicetion == column)
+      padding: $d-hpaddidng
+    if ($hbody-text-align == center)
+      text-align: center
+  .item-title
+    color: $title-color
+    font-size: $title-fs
+    // display: block
+  a 
+    text-decoration: none
+    &:hover
+      color: $hover-color
+      text-decoration: $hover-underline
+  .item-pic 
+    width: 100% 
+    height: 100% 
+    display: block;
+    overflow: hidden
+    text-align: $imgDicetion
+    if ($img-full == false)
+      img 
+        width: auto 
+        height: 100%
+  .item-desc
+    color: $desc-color
+    line-height: 18px;
+  .hhbody-space-around
+    .hbody 
+      height: $hheight
+    .hb-item 
+      ss-display-flex(column, space-around)
+      height: 100%

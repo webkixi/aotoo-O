@@ -50,3 +50,38 @@
   &:before
     left: 0
     right: @left
+
+//鼠标经过, dom向上移的动画
+.ss-list-active
+  .inner
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    &:hover
+      -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      -webkit-transform: translate3d(0, -2px, 0);
+      transform: translate3d(0, -2px, 0);
+      
+//鼠标经过，再隐藏的层 显示出来
+.ss-item-pop
+  .inner
+    position: relative
+  .si-pop
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    color: #fff
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    _zoom: 1;
+    font-size: 12px;
+    background: #ff6700;
+    opacity: 0;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+  &:hover
+    .si-pop
+      height: 76px;
+      opacity: 1;
