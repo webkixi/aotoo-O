@@ -324,11 +324,11 @@ function index(router){
         console.log('==========')
         if($(this).is(':checked')){
           $(this).attr('checked', true)
-          $(this).parent('.c-check').next('.property-ul').find('input').prop('checked', true)
+          $(this).parents('.caption').next('.property-ul').find('input').prop('checked', true)
           $(this).prev('.item-icons').removeClass('hidden')
         }else{
           $(this).attr('checked', false)
-          $(this).parent('.c-check').next('.property-ul').find('input').prop('checked', false)
+          $(this).parents('.caption').next('.property-ul').find('input').prop('checked', false)
           $(this).prev('.item-icons').addClass('hidden')
         }
       })

@@ -9,7 +9,7 @@ const router = Aotoo.router({
     routerClass: 'router-basic router-click',
     showMenu: true,
     itemMethod: function (dom) {
-      $(dom).find('.caption').off('click').click(function (e) {
+      $(dom).on('click', '.caption', function (e) {
         e.stopPropagation()
         const _path = $(this).attr('data-path') ? $(this).attr('data-path') :  $(this).parent('li').attr('data-path')
         if (_path) {
