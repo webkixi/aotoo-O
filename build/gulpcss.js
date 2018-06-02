@@ -1,4 +1,5 @@
 const gulp = require('gulp')
+      , _ = require('lodash')
       , $ = require('gulp-load-plugins')()
 
 let G = {
@@ -51,6 +52,22 @@ function watchCss(){
   for (let file in G.entry) {
     entries = entries.concat(G.entry[file])
   }
-  gulp.watch(entries, ['css:dev'])
+  gulp.watch(entries, function(event) {
+    console.log('============ watch css');
+    console.log('File ' + event.path + ' was ' + event.type)
+    _.each(G.entry, function (val, key) {
+      var targetSrc
+      var targetName
+      val = [].concat(val)
+      if (val.indexOf(event.path)>-1) {
+        targetName = key+'.css'
+        targetSrc = val
+      }
+      if (targetName) {
+        generateCss(targetSrc, targetName, G.env)
+      }
+    })
+  })
+  // gulp.watch(entries, ['css:dev'])
 }
 
