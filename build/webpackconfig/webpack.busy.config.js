@@ -51,7 +51,7 @@ function BrowserSync(env, appConfigs) {
         target: 'http://localhost:' + appConfigs.proxyPort,
         ws: true
       },
-      files: [dist.dest + '/**/*'],
+      files: [dist.dest + '/**/*', !dist.dest + '/js/**/*'],
       logFileChanges: false,
       notify: false,
       injectChanges: true,
@@ -62,7 +62,7 @@ function BrowserSync(env, appConfigs) {
     {
       // prevent BrowserSync from reloading the page 
       // and let Webpack Dev Server take care of this 
-      reload: false
+      reload: true
     })
 }
 

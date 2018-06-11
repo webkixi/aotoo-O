@@ -123,7 +123,7 @@ async function startServer(){
   try {
     const server = await app.init()
     server.listen((Configs.runtime.port), function(){
-      if (Configs.runtime.mode) {
+      if (Configs.runtime.mode && !Configs.runtime.margv.n) {
         request(Configs.runtime.refreshUrl, function (error, response, body) {
           if (error) console.log('server will be start');
           console.log('server restart');

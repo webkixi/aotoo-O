@@ -23,6 +23,7 @@ var STATICSROOT = fs.existsSync(_STATICLINKROOT)
 
 Configs.runtime = {
   mode: NODEDEV,
+  margv: margv,
   port: margv.port||Configs.port,
   public: Configs.public,
   statics: {
