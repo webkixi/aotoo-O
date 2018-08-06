@@ -71,14 +71,21 @@ function activationServer(buildc) {
       ? fs.symlinkSync(VERSIONPATH, targetPath, 'junction')
       : fs.symlinkSync(VERSIONPATH, targetPath)
   }
-  creatStaticSoftLink()
+  // creatStaticSoftLink()
 
   if (process.env.NODE_ENV == 'development') {
-    let serverIndex = margv.port
-      ? "node --harmony ./server/index.js --port " + margv.port
-      : margv.n
-        ? 'node --harmony ./server/index.js --port ' + configs.port
-        : 'node --harmony ./server/index.js '
+    let serverIndex = 'node --harmony ./server/index.js';
+    if (margv.n) {
+      serverIndex += ' -n'
+    }
+    if (margv.port) {
+      serverIndex += ' --port ' + margv.port
+    }
+    // let serverIndex = margv.port
+    //   ? "node --harmony ./server/index.js --port " + margv.port
+    //   : margv.n
+    //     ? 'node --harmony ./server/index.js --port ' + configs.port
+    //     : 'node --harmony ./server/index.js '
 
     if (envConfigFile) {
       serverIndex += ' --config ' + envConfigFile

@@ -1,16 +1,16 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  alias = require('../webpack.alias'),
-  gutil = require('gulp-util'),
-  webpack = require('webpack'),
-  path = require('path'),
-  BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-  WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin'),
-  Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin'),
-  replacePlugin = require('../plugins/replace-webpack-plugin'),
-  margv = JSON.parse(process.env.margv),
-  HappyPack = require('happypack'),
-  os = require('os')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+  , HtmlWebpackPlugin = require('html-webpack-plugin')
+  , alias = require('../webpack.alias')
+  , gutil = require('gulp-util')
+  , webpack = require('webpack')
+  , path = require('path')
+  , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+  , WriteMemoryFilePlugin = require('../plugins/writememoryfile-webpack-plugin')
+  , Attachment2commonPlugin = require('../plugins/attachment2common-webpack-plugin')
+  , replacePlugin = require('../plugins/replace-webpack-plugin')
+  , margv = JSON.parse(process.env.margv)
+  , HappyPack = require('happypack')
+  , os = require('os')
   // 构造一个线程池
   , happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
@@ -29,7 +29,11 @@ const UglifyJsPluginDllConfig = {
   }
 }
 
-module.exports = function (env, G, appConfigs) {
+function envPlugins(G, params) {
+  return G.production ? params.concat(new webpack.optimize.UglifyJsPlugin()) : params
+}
+
+module.exports = function(env, G, appConfigs) {
   const _dist = env.dist
   return {
     entry: {
@@ -45,7 +49,8 @@ module.exports = function (env, G, appConfigs) {
       libraryTarget: 'var',
     },
     module: {
-      rules: [{
+      rules: [
+        {
           test: /\.js$/,
           use: [{
             loader: 'happypack/loader',
@@ -74,9 +79,9 @@ module.exports = function (env, G, appConfigs) {
         '.styl',
       ]
     },
-    plugins: [
+    plugins: envPlugins(G, [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': G.production ? JSON.stringify('production') : JSON.stringify('development'),
         '__DEV__': false
       }),
       new HappyPack({
@@ -108,7 +113,7 @@ module.exports = function (env, G, appConfigs) {
       //   name: '[name]_library'
       // }),
       // new webpack.optimize.UglifyJsPlugin(UglifyJsPluginDllConfig)
-      new webpack.optimize.UglifyJsPlugin()
-    ]
+      // new webpack.optimize.UglifyJsPlugin()
+    ])
   }
 }
