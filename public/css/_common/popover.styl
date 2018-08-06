@@ -1,0 +1,71 @@
+.ss-popover
+  // position: relative
+  position: absolute
+  &.ss-popover-topleft
+    >.ss-popover-content
+      &:before
+        left: 16px
+        bottom: -5px
+        border-width: 5px 5px 0
+        border-top-color: rgba(255, 255, 255,.75)
+  &.ss-popover-top
+    @extends .ss-popover.ss-popover-topleft
+    >.ss-popover-content
+      &:before
+        left: 50%
+        margin-left: -5px
+  &.ss-popover-topright
+    @extends .ss-popover.ss-popover-topleft
+    >.ss-popover-content
+      &:before
+        left: auto
+        right: 16px
+  &.ss-popover-bottomleft
+    >.ss-popover-content
+      &:before
+        left: 16px
+        top: -5px
+        border-width: 0 5px 5px
+        border-bottom-color: rgba(255, 255, 255,.75);
+  &.ss-popover-bottom
+    @extends .ss-popover.ss-popover-bottomleft
+    >.ss-popover-content
+      &:before
+        left: 50%
+        margin-left: -5px
+  &.ss-popover-bottomright
+    @extends .ss-popover.ss-popover-bottomleft
+    >.ss-popover-content
+      &:before
+        left: auto
+        right: 16px
+
+
+.ss-popover-content
+  // display: none
+  background: #fff
+  border-radius: 4px
+  box-shadow: 0 2px 8px rgba(0,0,0,.15)
+  color: #333
+  padding: 6px 8px
+  min-height: 32px
+  text-align: left
+  max-width: 400px
+  z-index: 1
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    width: 0
+    height: 0
+    border-color: transparent
+    border-style: solid
+    
+.ss-cover-bg
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  background: #ffffff08;
+  z-index: 30

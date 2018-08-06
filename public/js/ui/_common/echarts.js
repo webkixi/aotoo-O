@@ -1,39 +1,36 @@
 import $ from 'jquery'
-
+import echarts from  '../../../3ds/js/echarts'
 import data from './data'
 
 function index(router){
-
-  const buttomList = Aotoo.list({data: data.buttomListData, listClass: 'row-flex-center-wrap', itemClass: 'mb8 mr8'})
-  const buttomList2 = Aotoo.list({data: data.buttomListData2, listClass: 'row-flex-center-wrap', itemClass: 'mb8 mr8'})
-  const buttomList3 = Aotoo.list({
-    data: data.buttomListData3,
-    listClass: 'row-flex-center-wrap',
-    itemClass: 'mb8 mr8',
-    itemMethod: function(dom){
-      $(dom).find('.btn-click').off('click').click(function(e){
-        e.stopPropagation()
-        $(this).addClass('btn-loading').html(`<i class="icon-loading s-spli"></i><span type="btn-span">Loading</span>`)
-      })
-    }
-  })
-  // const buttomList3 = Aotoo.list({data: buttomListData, listClass: 'grids-row mt20', itemClass: 'g-col-3 row-flex-center f-ju-center'})
+  
   const Pages = Aotoo.wrap(
     <div className='sb-content'>
         <h1>Button 按钮</h1>
-        <ul className='item-card row-flex-in mt20'>
-          <li className='g-col-6 item-card-li padding-15'>{buttomList}</li>
-          <li className='g-col-6 item-card-li padding-15'>代码展示</li>
-        </ul>
-        <ul className='item-card row-flex-in mt20'>
-          <li className='g-col-6 item-card-li padding-15'>{buttomList2}</li>
-          <li className='g-col-6 item-card-li padding-15'>代码展示</li>
-        </ul>
-        <ul className='item-card row-flex-in mt20'>
-          <li className='g-col-6 item-card-li padding-15'>{buttomList3}</li>
-          <li className='g-col-6 item-card-li padding-15'>代码展示</li>
+        <ul className='item-card mt20'>
+          <li className='g-col-12 item-card-li padding-15'><div id='main' style={{width: '500px', height: '500px'}}></div></li>
+          <li className='g-col-12 item-card-li padding-15'>代码展示</li>
         </ul>
     </div>
+    ,function(dom){
+      var myChart = echarts.init(document.getElementById('main'));
+      // 绘制图表
+      myChart.setOption({
+          title: {
+              text: 'ECharts 入门示例'
+          },
+          tooltip: {},
+          xAxis: {
+              data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: {},
+          series: [{
+              name: '销量',
+              type: 'bar',
+              data: [5, 20, 36, 10, 10, 20]
+          }]
+      });
+    }
   )
   return <Pages/>
 }

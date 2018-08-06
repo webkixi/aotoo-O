@@ -30,10 +30,15 @@ function index(router){
     </div>
     ,function(dom){
       $(dom).on('click', '.ss-nav-row>li', function(e){
-        $(this).addClass('select').removeClass('item-hidden').siblings('li').removeClass('select').addClass('item-hidden')
+        e.stopPropagation()
+        $(this).addClass('select').removeClass('item-hidden').siblings('li').addClass('item-hidden').removeClass('select')
       })
       $(dom).on('click', '.ss-nav-column>li', function(e){
+        e.stopPropagation()
         $(this).addClass('select').removeClass('item-hidden')
+      })
+      $('body').off('.ss-nav-row>li, .ss-nav-column>li').on('click', function(){
+        $('.ss-nav-row>li, .ss-nav-column>li').addClass('item-hidden').removeClass('select')
       })
     }
   )

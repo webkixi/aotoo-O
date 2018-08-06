@@ -1,0 +1,64 @@
+.ss-tooltip
+  // position: relative
+  position: absolute
+  &.ss-tooltip-topleft
+    >.ss-tooltip-content
+      &:before
+        left: 16px
+        bottom: -5px
+        border-width: 5px 5px 0
+        border-top-color: rgba(0,0,0,.75)
+  &.ss-tooltip-top
+    @extends .ss-tooltip.ss-tooltip-topleft
+    >.ss-tooltip-content
+      &:before
+        left: 50%
+        margin-left: -5px
+  &.ss-tooltip-topright
+    @extends .ss-tooltip.ss-tooltip-topleft
+    >.ss-tooltip-content
+      &:before
+        left: auto
+        right: 16px
+  &.ss-tooltip-bottomleft
+    >.ss-tooltip-content
+      &:before
+        left: 16px
+        top: -5px
+        border-width: 0 5px 5px
+        border-bottom-color: rgba(0,0,0,.75);
+  &.ss-tooltip-bottom
+    @extends .ss-tooltip.ss-tooltip-bottomleft
+    >.ss-tooltip-content
+      &:before
+        left: 50%
+        margin-left: -5px
+  &.ss-tooltip-bottomright
+    @extends .ss-tooltip.ss-tooltip-bottomleft
+    >.ss-tooltip-content
+      &:before
+        left: auto
+        right: 16px
+
+
+.ss-tooltip-content
+  // display: none
+  background: rgba(0,0,0,.75)
+  border-radius: 4px
+  box-shadow: 0 2px 8px rgba(0,0,0,.15)
+  color: #fff
+  padding: 6px 8px
+  min-height: 32px
+  text-align: left
+  max-width: 400px
+  z-index: 1
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    width: 0
+    height: 0
+    border-color: transparent
+    border-style: solid
+    
+    

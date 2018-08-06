@@ -13,7 +13,6 @@ const buttomListData2 = [
   { title: <button className='btn-primary icon-search'><span type='btn-span'>Search</span></button> },
   { title: <button className='btn-primary btn-circle icon-search'><span type='btn-span'>Search</span></button> },
   { title: <button className='btn-primary btn-circle '><span type='btn-span'>Search</span></button> },
-  { title: <button className='btn btn-circle-only  icon-search'></button> },
   { title: <button className='btn icon-search'><span type='btn-span'>Search</span></button> },
   { title: <button className='btn btn-circle icon-search'><span type='btn-span'>Search</span></button> },
   { title: <button className='btn btn-circle '><span type='btn-span'>Search</span></button> },
@@ -298,7 +297,7 @@ const tagListData = [
 const tagListData2 = [
   { title: <span className='item-level0 icon-xx'>内容管理</span>, idf: 'n1'},
   { title: <span className='icon-xx item-icon'>用户管理<i className='icon-nav-tb-arrow'></i></span>, idf: 'n2', itemClass: 'item-hidden item-padding'},
-  { title: '新增用户', parent: 'n2', attr: {path: 'x'} },
+  { title: '新增用户', parent: 'n2', attr: {path: 'x'}, itemClass: 'select'},
   { title: '活跃用户', parent: 'n2', attr: {path: 'x'}},
   { title: <span className='icon-xx item-icon'>统计分析<i className='icon-nav-tb-arrow'></i></span>, idf: 'n3', itemClass: 'item-hidden item-padding'},
   { title: '分组一 ', idf: 'n3a', parent: 'n3' },

@@ -10,6 +10,8 @@ import searchbox from './_common/searchbox'
 import permission from './_common/permission'
 import infoflow from './_common/infoflow'
 import echarts from './_common/echarts'
+import tips from './_common/tips'
+import su from './_common/su'
 //Navigation
 import navmenu from './_common/navmenu'
 
@@ -64,6 +66,12 @@ const routerData = [
     },
     {
         title: <div className='caption'><span>Echarts</span><span className='ml4 font-size-12'>图表插件</span></div>, parent: 'view',attr: { path: 'echarts' }, path: 'echarts', content: echarts
+    },
+    {
+        title: <div className='caption'><span>Tips</span><span className='ml4 font-size-12'>提示框</span></div>, parent: 'view',attr: { path: 'tips' }, path: 'tips', content: tips
+    },
+    {
+        title: <div className='caption'><span>Sub Sup</span><span className='ml4 font-size-12'>右上角或右下角</span></div>, parent: 'view',attr: { path: 'su' }, path: 'su', content: su
     },
     {
         title: 'Navigation', parent: 'components', idf: 'navigation'

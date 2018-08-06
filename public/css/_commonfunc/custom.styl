@@ -1,0 +1,33 @@
+ss-dot($width = 6px, $background = #f5222d, $shadow =false, $position = false, $absolute = false)
+  width: $width
+  height: @width
+  border-radius: 100%;
+  background: $background
+  z-index: 10;
+  if ($position == 1)
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transform-origin: 0 center;
+    -ms-transform-origin: 0 center;
+    transform-origin: 0 center;
+  if ($absolute == true)
+    top: -3px;
+    position: absolute;
+  else 
+    display: inline-block
+ if ($shadow == true)
+    -webkit-box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px #fff;
+
+ss-avatar($width = 60px, $background = #ccc, $border-radius = 100%, $color = #fff, $font-size = 14px )
+  background: $background
+  box-sizing: border-box;
+  color: $color
+  display: inline-block
+  font-size: $font-size
+  width: $width
+  height: @width 
+  border-radius: $border-radius
+  &.ss-avator-square
+    border-radius: 0

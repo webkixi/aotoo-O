@@ -24,7 +24,7 @@ const Pages = Aotoo.wrap(
   <div className='s-wrapper'>
     <div className='s-header'>
       <ul className='row-flex-justify-between-center hei-p100'>
-        <li className='g-col-3'><a href='#' className='logo'><img src='https://file.iviewui.com/dist/03635a3c88122ad605117128f3fda0ca.png'/></a></li>
+        <li className='g-col-3'><a href='#' className='logo'><img src='/images/logo.png'/></a></li>
       </ul>
       <input type='checkbox' className='router-close-input' />
       <ul className='router-close'>
