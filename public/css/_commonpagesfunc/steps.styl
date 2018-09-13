@@ -13,7 +13,7 @@
  */
 
 
-steps($flow = row, $color = #666, $activecolor = #666, $iconwidth = .266667rem, $spancolor = #fff, $iconcolor = #58b7ff, $spancoloracitve = #2485cf, $iconcoloracitve = #eef5fb, $flow2 = column, $align-items2 = center, $liheight= auto, $border-color = .013333rem solid #c4dfea, $steps-steps-fs = .146667rem, $steps-icon-fs = .186667rem, $iconcenter = true)
+ss-func-steps($flow = row, $color = #666, $activecolor = #666, $iconwidth = .266667rem, $spancolor = #fff, $iconcolor = #58b7ff, $spancoloracitve = #2485cf, $iconcoloracitve = #eef5fb, $flow2 = column, $align-items2 = center, $liheight= auto, $border-color = .013333rem solid #c4dfea, $steps-steps-fs = .146667rem, $steps-icon-fs = .186667rem, $iconcenter = true)
   steps-status-finish()
     &:before
       transition: all .6s
@@ -93,3 +93,123 @@ steps($flow = row, $color = #666, $activecolor = #666, $iconwidth = .266667rem, 
         &:first-child
           font-size: @font-size
           position: relative;
+
+
+//20180829lgh ---新的版本
+ss-func-stepsLine($row = 'horizontal', $iconWidth = 32px, $mg = 6px, $lineColor = #e8e8e8)
+  position: relative
+  &:after
+    content: ''
+    background: $lineColor
+    display: block
+    position: absolute
+    z-index: 1
+    if ($row == 'horizontal')
+      width: 500px
+      height: 1px
+      left: 100%
+      top: ($iconWidth / 2)
+    else 
+      width: 1px
+      height: 500px
+      left: ($iconWidth / 2)
+      top: ($iconWidth + $mg)
+
+
+ss-func-steps-dot($iconWid = 8px, $iconBackground = #ccc, $width = 160px,  $direction = 'horizontal', $iconDirection = true)
+  margin-left: ($width / 2) - 6
+  .ss-steps-icon-dot
+    position: relative
+  .item-dot
+    position: relative
+    z-index: 1
+    width: $iconWid
+    height: @width
+    border-radius: 100%
+    background: $iconBackground
+    display: block
+    ss-func-stepsLine($row: $direction, $iconWidth: $iconWid )
+    // position: absolute;
+    &:after
+      if ($direction == 'horizontal')
+        height: 3px
+        top: (($iconWid - @height) / 2)
+        left: calc(100% + 8px)
+      else
+        width: 3px
+        left: (($iconWid - 3px) / 2)
+  .hbody
+    if ($iconDirection == true)
+      flex-flow: column
+    if ($direction == 'vertical')
+      &:after
+        display: none
+  .ss-steps-title
+    if ($direction == 'horizontal')
+      display: inline-block
+      &:after
+          display: none
+    else 
+      display: block
+  
+  .inner
+    overflow: hidden
+  >li
+    overflow: inherit
+    position: relative
+    &:last-child
+      flex: auto
+      .item-dot
+        &:after
+          display: none
+      
+  .ss-steps-item-content
+    width: $width 
+    text-align: center
+    if ($direction == 'horizontal')
+      position: absolute
+      top: 10px
+      left: -@margin-left
+
+
+ss-func-steps-vertical($iWidth = 32px, $in-mb = 6px, $icon-mr = 8px, $icDirection = 'column' )
+  ss-display-flex(column)
+  height: 100%
+  &.ss-steps-dot
+    ss-func-steps-dot( $direction: 'vertical', $iconDirection: $icDirection)
+  >li
+    &:last-child
+      .hbody
+        &:after
+          display: none
+  .inner
+    overflow: hidden
+    height: 100%
+  .hbody
+    ss-func-stepsLine('vertical')
+    ss-display-flex(row nowrap, flex-start, flex-start)
+    margin-top:  $in-mb
+  .ss-steps-icon
+    margin-right: $icon-mr
+  .ss-steps-title
+    line-height: $iWidth
+
+ss-func-steps-horizontal($iWidth = 32px, $li-mr = 10px, $icon-mr = 8px)
+  ss-display-flex(row nowrap, flex-start, center, center)
+  &.ss-steps-dot
+    ss-func-steps-dot()
+  >li
+    margin-right: $li-mr
+    &:last-child
+      .ss-steps-title
+        &:after
+          display: none
+  .hbody
+    ss-display-flex(row nowrap, flex-start)
+  .ss-steps-icon
+    margin-right: $icon-mr
+  .ss-steps-title
+    ss-func-stepsLine($iconWidth: $iWidth)
+    padding-right: $li-mr
+    line-height: $iWidth
+    display: inline-block

@@ -14,6 +14,7 @@ import tips from './_common/tips'
 import su from './_common/su'
 //Navigation
 import navmenu from './_common/navmenu'
+import steps from './_common/steps'
 
 const routerData = [
     {
@@ -78,6 +79,9 @@ const routerData = [
     },
     {
         title: <div className='caption'><span>NavMenu</span><span className='ml4 font-size-12'>导航菜单</span></div>, parent: 'navigation',attr: { path: 'navmenu' }, path: 'navmenu', content: navmenu
+    },
+    {
+        title: <div className='caption'><span>Steps</span><span className='ml4 font-size-12'>步骤条</span></div>, parent: 'navigation',attr: { path: 'steps' }, path: 'steps', content: steps
     },
 ]
 module.exports = routerData

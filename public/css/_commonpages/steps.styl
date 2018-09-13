@@ -1,0 +1,71 @@
+$iconWidth = 32px
+$color = #999
+$finishColor = #666
+$processColor = #333
+$iconBackground = #1890ff
+$iconErrorBackground = #f5222d
+
+
+.ss-steps
+  >li
+    color: $color
+    overflow: hidden
+    flex: 1
+    &.ss-finish
+      color: $finishColor
+      .item-dot
+        background: $iconBackground 
+        border-color: @background
+      .ss-steps-icon
+        border-color: $iconBackground 
+        color: @border-color
+        &:before
+          content: '\e645'
+      .ss-steps-title
+        &:after
+          background: $iconBackground 
+    &.ss-next-error
+      .ss-steps-title
+        &:after
+          background: $iconErrorBackground
+    &.ss-error
+      color: $iconErrorBackground
+      .ss-steps-icon,.item-dot
+        border-color: $iconErrorBackground
+        color: @border-color
+        &:before
+          content: '\e7e4'
+    &.ss-process
+      color: $processColor
+      .ss-steps-icon,.item-dot
+        background: $iconBackground 
+        border-color: @background
+        color: #fff
+  .ss-steps-icon
+    width: $iconWidth
+    height: @width
+    border-radius: 100%
+    border: 1px solid #ccc
+    background: #fff;
+    color: #ccc
+    ss-display-flex(row nowrap, center, center, center)
+    position: relative;
+    z-index: 2;
+  em,i
+    font-style: normal
+  // .ss-steps-title
+  //   display: inline-block
+
+.ss-steps-vertical
+  ss-func-steps-vertical($iWidth: $iconWidth, $in-mb: 6px, $icon-mr: 8px)
+
+.ss-steps-horizontal
+  ss-func-steps-horizontal($iWidth: $iconWidth, $li-mr: 10px, $icon-mr: 8px) 
+
+.ss-steps-horizontal-dot
+  ss-func-steps-horizontal( 8px,  10px,  8px) 
+
+.ss-steps-vertical-dot
+  ss-func-steps-vertical( 8px,  10px,  8px, false) 
+
+ 
